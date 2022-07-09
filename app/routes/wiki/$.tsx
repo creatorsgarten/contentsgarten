@@ -1,4 +1,4 @@
-import type { LoaderFunction } from '@remix-run/node'
+import type { LoaderFunction, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { getCredentialFromRequest } from '~/auth'
@@ -19,6 +19,13 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
   const page = await actor.getPage(slug)
   return json(page)
+}
+
+export const meta: MetaFunction = ({ data, params }) => {
+  const { path } = data as WikiPage
+  return {
+    title: `${path} | Contentsgarten`,
+  }
 }
 
 export default function WikiPage() {
