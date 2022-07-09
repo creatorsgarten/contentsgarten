@@ -4,9 +4,9 @@ A modern, cloud-native wiki engine [WIP, not used in production yet].
 
 ## Goals
 
-- Contents stored on GitHub repo.
-- Write Markdown.
-- Include templates using Liquid tags.
+- Contents stored on GitHub repo, accessed and manipulated using Octokit (using GitHub App or Personal Access Token).
+- Write Markdown. Rendered using `markdown-it` with similar configuration as VitePress with Tailwind Typography.
+- Pages can include templates using Liquid tags.
 - Users authenticate via GitHub, through Firebase.
 - Headless (API-only) mode available.
 
