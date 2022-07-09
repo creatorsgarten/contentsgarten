@@ -1,4 +1,6 @@
-# Welcome to Remix!
+# Contentsgarten
+
+A modern, cloud-native wiki engine [WIP, not used in production yet].
 
 - [Remix Docs](https://remix.run/docs)
 
