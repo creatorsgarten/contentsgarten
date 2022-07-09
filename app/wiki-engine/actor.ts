@@ -10,7 +10,7 @@ export class WikiActor {
   }
 
   async getPage(path: string): Promise<WikiPage> {
-    const filePath = path + '.md.liquid'
+    const filePath = 'wiki/' + path + '.md.liquid'
     const file = await this.getFile(filePath)
     return {
       path,
