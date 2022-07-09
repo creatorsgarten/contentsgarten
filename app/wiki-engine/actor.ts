@@ -18,7 +18,9 @@ export class WikiActor {
         path: filePath,
         sha: file.found ? file.sha : undefined,
       },
-      content: file.found ? Buffer.from(file.content, 'base64').toString() : '',
+      content: file.found
+        ? Buffer.from(file.content, 'base64').toString()
+        : '(This page currently does not exist)',
     }
   }
 }

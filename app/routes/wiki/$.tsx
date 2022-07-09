@@ -8,7 +8,16 @@ import { WikiActor } from '~/wiki-engine/actor'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const actor = new WikiActor(getCredentialFromRequest(request))
-  const page = await actor.getPage(params['*'] as string)
+  const slug = params['*'] as string
+  if (!slug) {
+    return new Response('', {
+      status: 302,
+      headers: {
+        Location: '/wiki/MainPage',
+      },
+    })
+  }
+  const page = await actor.getPage(slug)
   return json(page)
 }
 
