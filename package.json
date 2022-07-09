@@ -12,13 +12,18 @@
     "@remix-run/node": "^1.6.4",
     "@remix-run/react": "^1.6.4",
     "@remix-run/serve": "^1.6.4",
+    "axios": "^0.27.2",
+    "jose": "^4.8.3",
+    "lodash-es": "^4.17.21",
     "octokit": "^2.0.3",
+    "p-memoize": "^7.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.6.4",
     "@remix-run/eslint-config": "^1.6.4",
+    "@types/lodash-es": "^4.17.6",
     "@types/react": "^17.0.45",
     "@types/react-dom": "^17.0.17",
     "autoprefixer": "^10.4.7",
