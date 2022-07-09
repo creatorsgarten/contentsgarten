@@ -1,6 +1,8 @@
 # Contentsgarten
 
-A modern, cloud-native wiki engine [WIP, not used in production yet].
+A modern, cloud-native wiki engine.
+
+**Project status:** Currently just an idea... Not usable yet.
 
 ## Goals
 
