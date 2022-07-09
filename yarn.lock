@@ -1541,6 +1541,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@netlify/functions@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@netlify/functions@npm:1.0.0"
+  dependencies:
+    is-promise: ^4.0.0
+  checksum: 1e3c234f14fd2fe8f46cae9336679054bf067b60217ee1c424adec1b1d1e4208eeaacb3401c48b625fe057df56f5dc553b961d4758f53bb0eae6f5b78d6385ad
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -2050,6 +2059,17 @@ __metadata:
   peerDependencies:
     express: ^4.17.1
   checksum: 262f5297c99aac140cb93c6be565b9f4a95aff5106fad9a4ea691741e281b2a2b2adb50dc7ccd01a632800893720ca663d3191547af71423e16fbeec040d5a36
+  languageName: node
+  linkType: hard
+
+"@remix-run/netlify@npm:^1.6.4":
+  version: 1.6.4
+  resolution: "@remix-run/netlify@npm:1.6.4"
+  dependencies:
+    "@remix-run/node": 1.6.4
+  peerDependencies:
+    "@netlify/functions": ^0.10.0 || ^0.11.0 || ^1.0.0
+  checksum: e20ab4960762aa2f3826263ec831057a03f20dde8f9680cc5bf5cf35ec96f7d3f1ecdb64a04718586ec07f89f4695a5b2795d79e29ee076f4d3be2b2677fcba9
   languageName: node
   linkType: hard
 
@@ -6420,6 +6440,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-promise@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "is-promise@npm:4.0.0"
+  checksum: 0b46517ad47b00b6358fd6553c83ec1f6ba9acd7ffb3d30a0bf519c5c69e7147c132430452351b8a9fc198f8dd6c4f76f8e6f5a7f100f8c77d57d9e0f4261a8a
+  languageName: node
+  linkType: hard
+
 "is-reference@npm:^3.0.0":
   version: 3.0.0
   resolution: "is-reference@npm:3.0.0"
@@ -9176,8 +9203,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
+    "@netlify/functions": ^1.0.0
     "@remix-run/dev": ^1.6.4
     "@remix-run/eslint-config": ^1.6.4
+    "@remix-run/netlify": ^1.6.4
     "@remix-run/node": ^1.6.4
     "@remix-run/react": ^1.6.4
     "@remix-run/serve": ^1.6.4
