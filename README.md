@@ -2,9 +2,17 @@
 
 A modern, cloud-native wiki engine [WIP, not used in production yet].
 
-- [Remix Docs](https://remix.run/docs)
+## Goals
+
+- Contents stored on GitHub repo.
+- Write Markdown.
+- Include templates using Liquid tags.
+- Users authenticate via GitHub, through Firebase.
+- Headless (API-only) mode available.
 
 ## Development
+
+- [Remix Docs](https://remix.run/docs)
 
 From your terminal:
 
