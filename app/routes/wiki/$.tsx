@@ -1,6 +1,6 @@
 export default function WikiPage() {
     return (
-        <div>I am a wiki page</div>
+        <div className="p-8">I am a wiki page</div>
     );
   }
   
