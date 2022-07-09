@@ -4,13 +4,15 @@
  * If it is backed by a file, it can be edited.
  */
 export interface WikiPage {
-  file?: WikiFileRef;
+  path: string
+  content: string
+  file?: WikiFileRef
 }
 
 /**
  * A wiki file represents a file that is part of a wiki.
  */
 export interface WikiFileRef {
-  path: string;
-  sha?: string;
+  path: string
+  sha?: string
 }
