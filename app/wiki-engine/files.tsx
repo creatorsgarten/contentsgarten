@@ -1,7 +1,6 @@
-import { get, has, once } from 'lodash-es'
-import pMemoize from 'p-memoize'
+import { once } from 'lodash-es'
 import { App, Octokit } from 'octokit'
-import { WikiCredential } from '~/auth'
+import pMemoize from 'p-memoize'
 
 const getRepoConfig = once(() => {
   const [owner, repo] = (process.env.GH_REPO as string).split('/')
