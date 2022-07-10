@@ -99,7 +99,7 @@ export default function WikiPage() {
   const data: LoaderData = useLoaderData()
   return (
     <div className="p-8">
-      <article className="prose max-w-[48rem]">
+      <article className="prose md:prose-lg max-w-[48rem]">
         <h1>
           {data.pageTitle}
           {!!data.view?.editPath && (
