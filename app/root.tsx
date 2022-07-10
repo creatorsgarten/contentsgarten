@@ -1,5 +1,4 @@
-import type { LoaderFunction, MetaFunction } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import type { MetaFunction } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -9,31 +8,21 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from '@remix-run/react'
-import type { WikiAuthState } from './auth'
 import { AuthBar, AuthProvider } from './auth/client'
+import type { LoaderData } from './routes/api/user'
 
+import { loader } from '~/routes/api/user'
 import styles from './styles/app.css'
-import { WikiActor } from './wiki-engine/actor'
 
 export function links() {
   return [{ rel: 'stylesheet', href: styles }]
 }
 
-interface LoaderData {
-  authState: WikiAuthState
-}
-
-export const loader: LoaderFunction = async ({ request }) => {
-  const actor = await WikiActor.fromRequest(request)
-  const data: LoaderData = {
-    authState: await actor.getAuthState(),
-  }
-  return json(data)
-}
+export { loader }
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
-  title: 'New Remix App',
+  title: 'Contentsgarten',
   viewport: 'width=device-width,initial-scale=1',
 })
 
