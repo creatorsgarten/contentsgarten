@@ -1,6 +1,7 @@
 import type { LoaderFunction, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { Link, useLoaderData } from '@remix-run/react'
+import { Form, Link, useLoaderData } from '@remix-run/react'
+import type { FC } from 'react'
 import { getCredentialFromRequest } from '~/auth'
 import { Markdown } from '~/markdown'
 import type { WikiPage } from '~/wiki-engine'
@@ -17,6 +18,8 @@ interface LoaderData {
 
 interface WikiPageEdit {
   gitHubEditPath?: string
+  content: string
+  sha?: string
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -32,12 +35,26 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
   const searchParams = new URL(request.url).searchParams
   const page = await actor.getPage(slug)
+  const error = (message: string): LoaderData => ({
+    pageTitle: slug,
+    view: {
+      page: {
+        content: '**An error has occurred.** ' + message,
+        path: slug,
+      },
+    },
+  })
   const result = await (async (): Promise<LoaderData> => {
     if (searchParams.get('action') === 'edit' && page.file) {
+      const file = await actor.getFile(page.file.path)
       return {
-        pageTitle: `Editing ${slug}`,
+        pageTitle: `${file.found ? 'Editing' : 'Creating'} ${slug}`,
         edit: {
           gitHubEditPath: `https://github.dev/creatorsgarten/contentsgarten-wiki/blob/main/${page.file.path}`,
+          content: file.found
+            ? Buffer.from(file.content, 'base64').toString()
+            : '',
+          sha: file.found ? file.sha : undefined,
         },
       }
     } else {
@@ -64,7 +81,7 @@ export default function WikiPage() {
   const data: LoaderData = useLoaderData()
   return (
     <div className="p-8">
-      <article className="prose">
+      <article className="prose max-w-[48rem]">
         <h1>
           {data.pageTitle}
           {!!data.view?.editPath && (
@@ -103,9 +120,30 @@ export default function WikiPage() {
                 </a>
               </li>
             </ul>
+            <WikiPageEditor edit={data.edit} />
           </>
         )}
       </article>
     </div>
+  )
+}
+
+const WikiPageEditor: FC<{ edit: WikiPageEdit }> = ({ edit }) => {
+  return (
+    <Form method="post">
+      <p>
+        <textarea
+          name="content"
+          className="w-full h-[24rem] rounded border border-gray-500 p-2 font-mono text-sm"
+          defaultValue={edit.content}
+        ></textarea>
+      </p>
+      <p>
+        <button className="rounded border-2 border-gray-500 px-3 py-1">
+          Save Changes
+        </button>
+      </p>
+      <input type="hidden" name="sha" value={edit.sha} />
+    </Form>
   )
 }
