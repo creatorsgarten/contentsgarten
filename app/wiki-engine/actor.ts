@@ -2,7 +2,8 @@ import type { WikiAuthState, WikiCredential } from '~/auth'
 import { verifyIdToken } from '~/auth'
 import { getCredentialFromRequest } from '~/auth'
 import type { WikiPage } from './types'
-import { GetFileResult, putFile } from './files'
+import type { GetFileResult } from './files'
+import { putFile } from './files'
 import { getFile } from './files'
 import pMemoize from 'p-memoize'
 import { get } from 'lodash-es'
@@ -91,16 +92,20 @@ export class WikiActor {
     const authState = await this.getAuthState()
     if (!authState.authenticated) {
       return {
-        success: false,
-        code: 400,
-        message: 'Not authenticated',
+        ok: false,
+        reason: {
+          code: 400,
+          message: 'Not authenticated',
+        },
       }
     }
     if (authState.user.id !== 193136) {
       return {
-        success: false,
-        code: 403,
-        message: 'Not authorized',
+        ok: false,
+        reason: {
+          code: 403,
+          message: 'Not authorized',
+        },
       }
     }
     const result = await putFile(filePath, {
@@ -110,7 +115,7 @@ export class WikiActor {
       userId: authState.user.id,
     })
     return {
-      success: true,
+      ok: true,
       sha: result.sha,
     }
   }
@@ -128,12 +133,16 @@ export interface UpdatePageOptions {
 export type UpdatePageResult = UpdatePageSuccessResult | UpdatePageFailureResult
 
 interface UpdatePageSuccessResult {
-  success: true
+  ok: true
   sha: string
 }
 
 interface UpdatePageFailureResult {
-  success: false
+  ok: false
+  reason: Reason
+}
+
+interface Reason {
   code: number
   message: string
 }

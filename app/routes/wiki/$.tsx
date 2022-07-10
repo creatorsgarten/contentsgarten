@@ -81,6 +81,7 @@ const WikiPageEditor: FC<{ edit: WikiPageEdit }> = ({ edit }) => {
         </button>
       </p>
       <input type="hidden" name="sha" value={edit.sha} />
+      <input type="hidden" name="redirect" value="view" />
     </Form>
   )
 }

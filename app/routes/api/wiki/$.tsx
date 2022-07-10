@@ -1,4 +1,5 @@
 import type { ActionFunction, LoaderFunction } from '@remix-run/node'
+import { redirect } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import type { WikiPage } from '~/wiki-engine'
 import { WikiActor } from '~/wiki-engine/actor'
@@ -14,6 +15,7 @@ export interface LoaderData {
 
 export interface WikiPageEdit {
   formTarget: string
+  apiTarget: string
   gitHubEditPath?: string
   content: string
   sha?: string
@@ -27,6 +29,9 @@ export const action: ActionFunction = async ({ request, params }) => {
     content: formData.get('content') as string,
     sha: formData.get('sha') as string | undefined,
   })
+  if (result.ok && formData.get('redirect') === 'view') {
+    return redirect(`/wiki/${slug}`)
+  }
   return json({
     result,
   })
@@ -60,7 +65,8 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       return {
         pageTitle: `${file.found ? 'Editing' : 'Creating'} ${slug}`,
         edit: {
-          formTarget: `/wiki/${page.path}`,
+          formTarget: `/wiki/${page.path}?action=edit`,
+          apiTarget: `/api/wiki/${page.path}`,
           gitHubEditPath: `https://github.dev/creatorsgarten/contentsgarten-wiki/blob/main/${page.file.path}`,
           content: file.found
             ? Buffer.from(file.content, 'base64').toString()
