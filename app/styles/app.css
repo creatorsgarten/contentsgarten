@@ -1120,6 +1120,18 @@ video {
   margin-bottom: 0;
 }
 
+.ml-4 {
+  margin-left: 1rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
 .p-8 {
   padding: 2rem;
 }
