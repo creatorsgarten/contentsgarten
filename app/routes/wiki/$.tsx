@@ -6,7 +6,6 @@ import type {
 import { json } from '@remix-run/node'
 import { Form, Link, useLoaderData } from '@remix-run/react'
 import type { FC } from 'react'
-import { getCredentialFromRequest } from '~/auth'
 import { Markdown } from '~/markdown'
 import type { WikiPage } from '~/wiki-engine'
 import { WikiActor } from '~/wiki-engine/actor'
@@ -27,7 +26,7 @@ interface WikiPageEdit {
 }
 
 export const action: ActionFunction = async ({ request, params }) => {
-  const actor = new WikiActor(getCredentialFromRequest(request))
+  const actor = WikiActor.fromRequest(request)
   const slug = params['*'] as string
   const formData = await request.formData()
   const result = await actor.updatePage(slug, {
@@ -37,7 +36,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const actor = new WikiActor(getCredentialFromRequest(request))
+  const actor = WikiActor.fromRequest(request)
   const slug = params['*'] as string
   if (!slug) {
     return new Response('', {

@@ -1120,6 +1120,22 @@ video {
   margin-bottom: 0;
 }
 
+.static {
+  position: static;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.top-4 {
+  top: 1rem;
+}
+
+.right-4 {
+  right: 1rem;
+}
+
 .ml-4 {
   margin-left: 1rem;
 }
@@ -1200,4 +1216,8 @@ video {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.opacity-40 {
+  opacity: 0.4;
 }
