@@ -1,14 +1,60 @@
-import type { WikiCredential } from '~/auth'
+import type { WikiAuthState, WikiCredential } from '~/auth'
+import { verifyIdToken } from '~/auth'
+import { getCredentialFromRequest } from '~/auth'
 import type { WikiPage } from './types'
 import type { GetFileResult } from './files'
 import { getFile } from './files'
 import pMemoize from 'p-memoize'
+import { get } from 'lodash-es'
 
 export class WikiActor {
   private memoizedGetFile: (path: string) => Promise<GetFileResult>
 
   constructor(private credential?: WikiCredential) {
     this.memoizedGetFile = pMemoize((path) => getFile(path))
+  }
+
+  static fromRequest(request: Request) {
+    const credential = getCredentialFromRequest(request)
+    return new WikiActor(credential)
+  }
+
+  async getAuthState(): Promise<WikiAuthState> {
+    try {
+      if (!this.credential) {
+        return {
+          authenticated: false,
+          reason: 'No credential provided',
+        }
+      }
+      const projectId = 'creatorsgarten-wiki'
+      const result = await verifyIdToken(projectId, this.credential.idToken)
+      const id = +get(result.payload, [
+        'firebase',
+        'identities',
+        'github.com',
+        0,
+      ])
+      if (!id) {
+        return {
+          authenticated: false,
+          reason: 'The current user did not log in with GitHub',
+        }
+      }
+      const name =
+        (get(result.payload, ['name']) as string) ||
+        (get(result.payload, ['email']) as string) ||
+        'UID: ' + get(result.payload, ['sub'])
+      return {
+        authenticated: true,
+        user: { id, name },
+      }
+    } catch (error) {
+      return {
+        authenticated: false,
+        reason: `Error while verifying credential: ${error}`,
+      }
+    }
   }
 
   getFile(path: string) {

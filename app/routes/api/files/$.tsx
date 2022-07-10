@@ -4,6 +4,6 @@ import { getCredentialFromRequest } from '~/auth'
 import { WikiActor } from '~/wiki-engine/actor'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const actor = new WikiActor(getCredentialFromRequest(request))
+  const actor = WikiActor.fromRequest(request)
   return json(await actor.getFile(params['*'] as string))
 }
