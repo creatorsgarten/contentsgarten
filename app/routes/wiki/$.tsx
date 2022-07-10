@@ -1,4 +1,8 @@
-import type { LoaderFunction, MetaFunction } from '@remix-run/node'
+import type {
+  ActionFunction,
+  LoaderFunction,
+  MetaFunction,
+} from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Form, Link, useLoaderData } from '@remix-run/react'
 import type { FC } from 'react'
@@ -20,6 +24,16 @@ interface WikiPageEdit {
   gitHubEditPath?: string
   content: string
   sha?: string
+}
+
+export const action: ActionFunction = async ({ request, params }) => {
+  const actor = new WikiActor(getCredentialFromRequest(request))
+  const slug = params['*'] as string
+  const formData = await request.formData()
+  const result = await actor.updatePage(slug, {
+    content: formData.get('content') as string,
+    sha: formData.get('sha') as string | undefined,
+  })
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
