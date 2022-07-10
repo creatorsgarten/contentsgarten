@@ -26,7 +26,7 @@ interface WikiPageEdit {
 }
 
 export const action: ActionFunction = async ({ request, params }) => {
-  const actor = WikiActor.fromRequest(request)
+  const actor = await WikiActor.fromRequest(request)
   const slug = params['*'] as string
   const formData = await request.formData()
   const result = await actor.updatePage(slug, {
@@ -36,7 +36,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const actor = WikiActor.fromRequest(request)
+  const actor = await WikiActor.fromRequest(request)
   const slug = params['*'] as string
   if (!slug) {
     return new Response('', {
