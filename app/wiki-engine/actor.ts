@@ -1,16 +1,22 @@
 import type { WikiCredential } from '~/auth'
+import type { WikiPage } from './types'
+import type { GetFileResult } from './files'
 import { getFile } from './files'
-import { WikiPage } from './types'
+import pMemoize from 'p-memoize'
 
 export class WikiActor {
-  constructor(private credential?: WikiCredential) {}
+  private memoizedGetFile: (path: string) => Promise<GetFileResult>
+
+  constructor(private credential?: WikiCredential) {
+    this.memoizedGetFile = pMemoize((path) => getFile(path))
+  }
 
   getFile(path: string) {
-    return getFile(path)
+    return this.memoizedGetFile(path)
   }
 
   async getPage(path: string): Promise<WikiPage> {
-    const filePath = 'wiki/' + path + '.md.liquid'
+    const filePath = this.getFilePath(path)
     const file = await this.getFile(filePath)
     return {
       path,
@@ -23,4 +29,25 @@ export class WikiActor {
         : '(This page currently does not exist)',
     }
   }
+
+  async updatePage(
+    path: string,
+    options: UpdatePageOptions,
+  ): Promise<UpdatePageResult> {
+    const filePath = this.getFilePath(path)
+    return { sha: 'dymmy' }
+  }
+
+  private getFilePath(path: string) {
+    return 'wiki/' + path + '.md.liquid'
+  }
+}
+
+export interface UpdatePageOptions {
+  content: string
+  sha?: string
+}
+
+export interface UpdatePageResult {
+  sha: string
 }
