@@ -62,6 +62,37 @@ export async function getFile(path: string): Promise<GetFileResult> {
   }
 }
 
+export async function putFile(
+  path: string,
+  options: {
+    content: string
+    message: string
+    userId?: number
+    sha?: string
+  },
+): Promise<PutFileResult> {
+  const octokit = await getOctokit()
+  const { owner, repo } = getRepoConfig()
+  const { data } = await octokit.rest.repos.createOrUpdateFileContents({
+    owner,
+    repo,
+    path,
+    sha: options.sha,
+    content: options.content,
+    message:
+      options.message +
+      (options.userId
+        ? `\n\n\nCo-authored-by: User <${options.userId}+username@users.noreply.github.com>`
+        : ''),
+  })
+  if (!('content' in data)) {
+    throw new Error('No content found')
+  }
+  return {
+    sha: data.content!.sha!,
+  }
+}
+
 export type GetFileResult = GetFileResultFound | GetFileResultNotFound
 
 export interface GetFileResultFound {
@@ -72,6 +103,10 @@ export interface GetFileResultFound {
 
 export interface GetFileResultNotFound {
   found: false
+}
+
+export interface PutFileResult {
+  sha: string
 }
 
 function isApiError(e: unknown): e is ApiError {

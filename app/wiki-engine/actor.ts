@@ -2,16 +2,18 @@ import type { WikiAuthState, WikiCredential } from '~/auth'
 import { verifyIdToken } from '~/auth'
 import { getCredentialFromRequest } from '~/auth'
 import type { WikiPage } from './types'
-import type { GetFileResult } from './files'
+import { GetFileResult, putFile } from './files'
 import { getFile } from './files'
 import pMemoize from 'p-memoize'
 import { get } from 'lodash-es'
 
 export class WikiActor {
   private memoizedGetFile: (path: string) => Promise<GetFileResult>
+  private memoizedGetAuthState: () => Promise<WikiAuthState>
 
   constructor(private credential?: WikiCredential) {
     this.memoizedGetFile = pMemoize((path) => getFile(path))
+    this.memoizedGetAuthState = pMemoize(() => this.doGetAuthState())
   }
 
   static async fromRequest(request: Request) {
@@ -19,7 +21,7 @@ export class WikiActor {
     return new WikiActor(credential)
   }
 
-  async getAuthState(): Promise<WikiAuthState> {
+  async doGetAuthState(): Promise<WikiAuthState> {
     try {
       if (!this.credential) {
         return {
@@ -62,6 +64,10 @@ export class WikiActor {
     return this.memoizedGetFile(path)
   }
 
+  getAuthState() {
+    return this.memoizedGetAuthState()
+  }
+
   async getPage(path: string): Promise<WikiPage> {
     const filePath = this.getFilePath(path)
     const file = await this.getFile(filePath)
@@ -82,7 +88,31 @@ export class WikiActor {
     options: UpdatePageOptions,
   ): Promise<UpdatePageResult> {
     const filePath = this.getFilePath(path)
-    return { sha: 'dymmy' }
+    const authState = await this.getAuthState()
+    if (!authState.authenticated) {
+      return {
+        success: false,
+        code: 400,
+        message: 'Not authenticated',
+      }
+    }
+    if (authState.user.id !== 193136) {
+      return {
+        success: false,
+        code: 403,
+        message: 'Not authorized',
+      }
+    }
+    const result = await putFile(filePath, {
+      content: Buffer.from(options.content).toString('base64'),
+      sha: options.sha,
+      message: `Update page ${path}`,
+      userId: authState.user.id,
+    })
+    return {
+      success: true,
+      sha: result.sha,
+    }
   }
 
   private getFilePath(path: string) {
@@ -95,6 +125,15 @@ export interface UpdatePageOptions {
   sha?: string
 }
 
-export interface UpdatePageResult {
+export type UpdatePageResult = UpdatePageSuccessResult | UpdatePageFailureResult
+
+interface UpdatePageSuccessResult {
+  success: true
   sha: string
+}
+
+interface UpdatePageFailureResult {
+  success: false
+  code: number
+  message: string
 }

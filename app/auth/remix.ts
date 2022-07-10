@@ -18,7 +18,6 @@ export async function getCredentialFromRequest(
 
   function getCredentialFromCookie(): WikiCredential | undefined {
     const cookies = cookie.parse(request.headers.get('Cookie') || '')
-    console.log('====>', cookies)
     const idToken = cookies['contentsgarten_id_token']
     if (!idToken) return
     return { idToken }

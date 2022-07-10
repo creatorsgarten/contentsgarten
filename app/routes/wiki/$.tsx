@@ -20,6 +20,7 @@ interface LoaderData {
 }
 
 interface WikiPageEdit {
+  formTarget: string
   gitHubEditPath?: string
   content: string
   sha?: string
@@ -32,6 +33,9 @@ export const action: ActionFunction = async ({ request, params }) => {
   const result = await actor.updatePage(slug, {
     content: formData.get('content') as string,
     sha: formData.get('sha') as string | undefined,
+  })
+  return json({
+    result,
   })
 }
 
@@ -63,6 +67,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       return {
         pageTitle: `${file.found ? 'Editing' : 'Creating'} ${slug}`,
         edit: {
+          formTarget: `/wiki/${page.path}`,
           gitHubEditPath: `https://github.dev/creatorsgarten/contentsgarten-wiki/blob/main/${page.file.path}`,
           content: file.found
             ? Buffer.from(file.content, 'base64').toString()
@@ -143,7 +148,7 @@ export default function WikiPage() {
 
 const WikiPageEditor: FC<{ edit: WikiPageEdit }> = ({ edit }) => {
   return (
-    <Form method="post">
+    <Form method="post" action={edit.formTarget}>
       <p>
         <textarea
           name="content"
