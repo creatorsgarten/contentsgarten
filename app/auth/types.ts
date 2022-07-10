@@ -11,6 +11,7 @@ export interface WikiAuthStateAuthenticated {
   user: {
     id: number
     name: string
+    uid: string
   }
 }
 

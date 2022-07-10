@@ -14,8 +14,8 @@ export class WikiActor {
     this.memoizedGetFile = pMemoize((path) => getFile(path))
   }
 
-  static fromRequest(request: Request) {
-    const credential = getCredentialFromRequest(request)
+  static async fromRequest(request: Request) {
+    const credential = await getCredentialFromRequest(request)
     return new WikiActor(credential)
   }
 
@@ -45,9 +45,10 @@ export class WikiActor {
         (get(result.payload, ['name']) as string) ||
         (get(result.payload, ['email']) as string) ||
         'UID: ' + get(result.payload, ['sub'])
+      const uid = get(result.payload, ['sub']) as string
       return {
         authenticated: true,
-        user: { id, name },
+        user: { id, name, uid },
       }
     } catch (error) {
       return {

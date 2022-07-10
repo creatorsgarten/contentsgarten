@@ -24,7 +24,7 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const actor = WikiActor.fromRequest(request)
+  const actor = await WikiActor.fromRequest(request)
   const data: LoaderData = {
     authState: await actor.getAuthState(),
   }
