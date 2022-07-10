@@ -1,7 +1,7 @@
 import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import type { WikiAuthState } from '~/auth'
-import { WikiActor } from '~/wiki-engine/actor'
+import { WikiActor } from '~/wiki-engine'
 
 export interface LoaderData {
   authState: WikiAuthState

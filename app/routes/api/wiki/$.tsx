@@ -2,7 +2,7 @@ import type { ActionFunction, LoaderFunction } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import type { WikiPage } from '~/wiki-engine'
-import { WikiActor } from '~/wiki-engine/actor'
+import { WikiActor } from '~/wiki-engine'
 
 export interface LoaderData {
   edit?: WikiPageEdit
