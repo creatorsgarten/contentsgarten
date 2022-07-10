@@ -7,9 +7,16 @@ import type { WikiPage } from '~/wiki-engine'
 import { WikiActor } from '~/wiki-engine/actor'
 
 interface LoaderData {
-  page?: WikiPage
-  editPath?: string
+  edit?: WikiPageEdit
+  view?: {
+    page: WikiPage
+    editPath?: string
+  }
   pageTitle: string
+}
+
+interface WikiPageEdit {
+  gitHubEditPath?: string
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -26,15 +33,20 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const searchParams = new URL(request.url).searchParams
   const page = await actor.getPage(slug)
   const result = await (async (): Promise<LoaderData> => {
-    if (searchParams.get('action') === 'edit') {
+    if (searchParams.get('action') === 'edit' && page.file) {
       return {
         pageTitle: `Editing ${slug}`,
+        edit: {
+          gitHubEditPath: `https://github.dev/creatorsgarten/contentsgarten-wiki/blob/main/${page.file.path}`,
+        },
       }
     } else {
       return {
-        page,
         pageTitle: slug,
-        editPath: `/wiki/${page.path}?action=edit`,
+        view: {
+          page,
+          editPath: `/wiki/${page.path}?action=edit`,
+        },
       }
     }
   })()
@@ -55,9 +67,9 @@ export default function WikiPage() {
       <article className="prose">
         <h1>
           {data.pageTitle}
-          {!!data.editPath && (
+          {!!data.view?.editPath && (
             <Link
-              to={data.editPath}
+              to={data.view.editPath}
               className="inline-block ml-2"
               title="Edit this page"
             >
@@ -76,9 +88,21 @@ export default function WikiPage() {
           )}
         </h1>
 
-        {!!data.page && (
+        {!!data.view && (
           <>
-            <Markdown text={data.page.content} />
+            <Markdown text={data.view.page.content} />
+          </>
+        )}
+
+        {!!data.edit && (
+          <>
+            <ul>
+              <li>
+                <a href={data.edit.gitHubEditPath}>
+                  Edit this file on github.dev
+                </a>
+              </li>
+            </ul>
           </>
         )}
       </article>
