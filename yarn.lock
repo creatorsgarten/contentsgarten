@@ -3073,7 +3073,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/markdown-it@npm:^12.2.3":
+"@types/markdown-it-container@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@types/markdown-it-container@npm:2.0.5"
+  dependencies:
+    "@types/markdown-it": "*"
+  checksum: 33e47d2461dcf2203458fd10f2c0f7e15271b61615f00a8d69176668546ecd498844c6f9fb6f12df627e35909221aada091b1fdc7a185cafba8ec07791dfa710
+  languageName: node
+  linkType: hard
+
+"@types/markdown-it@npm:*, @types/markdown-it@npm:^12.2.3":
   version: 12.2.3
   resolution: "@types/markdown-it@npm:12.2.3"
   dependencies:
@@ -7653,6 +7662,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"liquidjs@npm:^9.39.0":
+  version: 9.39.0
+  resolution: "liquidjs@npm:9.39.0"
+  bin:
+    liquid: bin/liquid.js
+    liquidjs: bin/liquid.js
+  checksum: 550a4fbc7090756b4a3a9be799f1c57d479fb28f4e7fd7c1cfec5ec54bde0a2c9fdafd2ca65c389a76a1c69c67009f3b314d88a77c4d8beda1e1314bbef49a34
+  languageName: node
+  linkType: hard
+
 "loader-utils@npm:^2.0.0":
   version: 2.0.2
   resolution: "loader-utils@npm:2.0.2"
@@ -7905,6 +7924,13 @@ __metadata:
   version: 1.1.1
   resolution: "markdown-extensions@npm:1.1.1"
   checksum: 8a6dd128be1c524049ea6a41a9193715c2835d3d706af4b8b714ff2043a82786dbcd4a8f1fa9ddd28facbc444426c97515aef2d1f3dd11d5e2d63749ba577b1e
+  languageName: node
+  linkType: hard
+
+"markdown-it-container@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "markdown-it-container@npm:3.0.0"
+  checksum: 8638a2f7587afe0c7c725558599d541fac46f8578b7ba2a7d305d87db8549d07edfb89c59147d0d17ffa189c8d39eff3f16a80613ec7aaf92af8ead713292693
   languageName: node
   linkType: hard
 
@@ -10089,6 +10115,7 @@ __metadata:
     "@types/js-cookie": ^3.0.2
     "@types/lodash-es": ^4.17.6
     "@types/markdown-it": ^12.2.3
+    "@types/markdown-it-container": ^2.0.5
     "@types/react": ^17.0.45
     "@types/react-dom": ^17.0.17
     autoprefixer: ^10.4.7
@@ -10100,8 +10127,10 @@ __metadata:
     gray-matter: ^4.0.3
     jose: ^4.8.3
     js-cookie: ^3.0.1
+    liquidjs: ^9.39.0
     lodash-es: ^4.17.21
     markdown-it: ^13.0.1
+    markdown-it-container: ^3.0.0
     octokit: ^2.0.3
     p-memoize: ^7.1.0
     postcss: ^8.4.14
