@@ -2,18 +2,20 @@ import type { WikiAuthState, WikiCredential } from '~/auth'
 import { verifyIdToken } from '~/auth'
 import { getCredentialFromRequest } from '~/auth'
 import type { WikiPage } from './types'
-import type { GetFileResult } from './files'
-import { putFile } from './files'
-import { getFile } from './files'
+import type { GetFileResult, WikiFileSystem } from './files'
+import { defaultFileSystem } from './files'
 import pMemoize from 'p-memoize'
 import { get } from 'lodash-es'
+import { createLiquidEngine } from './liquid'
 
 export class WikiActor {
   private memoizedGetFile: (path: string) => Promise<GetFileResult>
   private memoizedGetAuthState: () => Promise<WikiAuthState>
+  private fileSystem: WikiFileSystem
 
   constructor(private credential?: WikiCredential) {
-    this.memoizedGetFile = pMemoize((path) => getFile(path))
+    this.fileSystem = defaultFileSystem
+    this.memoizedGetFile = pMemoize((path) => this.fileSystem.getFile(path))
     this.memoizedGetAuthState = pMemoize(() => this.doGetAuthState())
   }
 
@@ -71,6 +73,7 @@ export class WikiActor {
 
   async getPage(path: string): Promise<WikiPage> {
     const filePath = this.getFilePath(path)
+    const engine = createLiquidEngine(this.fileSystem)
     const file = await this.getFile(filePath)
     return {
       path,
@@ -79,8 +82,9 @@ export class WikiActor {
         sha: file.found ? file.sha : undefined,
       },
       content: file.found
-        ? Buffer.from(file.content, 'base64').toString()
-        : '(This page currently does not exist)',
+        ? await engine.renderFile(path)
+        : //Buffer.from(file.content, 'base64').toString()
+          '(This page currently does not exist)',
     }
   }
 
@@ -108,7 +112,7 @@ export class WikiActor {
         },
       }
     }
-    const result = await putFile(filePath, {
+    const result = await this.fileSystem.putFile(filePath, {
       content: Buffer.from(options.content).toString('base64'),
       sha: options.sha,
       message: `Update page ${path}`,

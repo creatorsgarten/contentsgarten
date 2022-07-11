@@ -37,7 +37,7 @@ const getOctokit = pMemoize(async () => {
   )
 })
 
-export async function getFile(path: string): Promise<GetFileResult> {
+async function getFile(path: string): Promise<GetFileResult> {
   const octokit = await getOctokit()
   const { owner, repo } = getRepoConfig()
   try {
@@ -62,14 +62,9 @@ export async function getFile(path: string): Promise<GetFileResult> {
   }
 }
 
-export async function putFile(
+async function putFile(
   path: string,
-  options: {
-    content: string
-    message: string
-    userId?: number
-    sha?: string
-  },
+  options: PutFileOptions,
 ): Promise<PutFileResult> {
   const octokit = await getOctokit()
   const { owner, repo } = getRepoConfig()
@@ -105,9 +100,23 @@ export interface GetFileResultNotFound {
   found: false
 }
 
+interface PutFileOptions {
+  content: string
+  message: string
+  userId?: number
+  sha?: string
+}
+
 export interface PutFileResult {
   sha: string
 }
+
+export interface WikiFileSystem {
+  getFile: (path: string) => Promise<GetFileResult>
+  putFile: (path: string, options: PutFileOptions) => Promise<PutFileResult>
+}
+
+export const defaultFileSystem: WikiFileSystem = { getFile, putFile }
 
 function isApiError(e: unknown): e is ApiError {
   return 'status' in (e as object) && 'response' in (e as object)
