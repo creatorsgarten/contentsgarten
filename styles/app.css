@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-block {
+  @apply bg-slate-100 border-slate-300 text-slate-700 border rounded-lg px-6 my-6;
+}
+
+.warning.custom-block {
+  @apply bg-yellow-50 border-yellow-300 text-yellow-700;
+}
+
+.danger.custom-block {
+  @apply bg-red-50 border-red-300 text-red-700;
+}
+
+.tip.custom-block {
+  @apply bg-teal-50 border-teal-300 text-teal-700;
+}
+
+.custom-block > .custom-block-title {
+  @apply font-semibold;
+}
