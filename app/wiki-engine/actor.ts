@@ -1,8 +1,12 @@
 import type { WikiAuthState, WikiCredential } from '~/auth'
 import { verifyIdToken } from '~/auth'
 import { getCredentialFromRequest } from '~/auth'
-import type { WikiContext, WikiPage } from './types'
-import type { GetFileResult, WikiFileSystem } from './files'
+import type {
+  GetFileResult,
+  WikiContext,
+  WikiFileSystem,
+  WikiPage,
+} from './types'
 import { defaultFileSystem } from './files'
 import pMemoize from 'p-memoize'
 import { get } from 'lodash-es'

@@ -20,3 +20,35 @@ export interface WikiFileRef {
 export interface WikiContext {
   writeDiagnosticLog(message: string): void
 }
+
+export interface WikiFileSystem {
+  getFile: (context: WikiContext, path: string) => Promise<GetFileResult>
+  putFile: (
+    context: WikiContext,
+    path: string,
+    options: PutFileOptions,
+  ) => Promise<PutFileResult>
+}
+
+export type GetFileResult = GetFileResultFound | GetFileResultNotFound
+
+export interface GetFileResultFound {
+  found: true
+  content: string
+  sha: string
+}
+
+export interface GetFileResultNotFound {
+  found: false
+}
+
+export interface PutFileOptions {
+  content: string
+  message: string
+  userId?: number
+  sha?: string
+}
+
+export interface PutFileResult {
+  sha: string
+}
