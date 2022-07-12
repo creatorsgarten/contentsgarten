@@ -1,6 +1,7 @@
 import { once } from 'lodash-es'
 import { App, Octokit } from 'octokit'
 import pMemoize from 'p-memoize'
+import type { WikiContext } from './types'
 
 const getRepoConfig = once(() => {
   const [owner, repo] = (process.env.GH_REPO as string).split('/')
@@ -37,7 +38,11 @@ const getOctokit = pMemoize(async () => {
   )
 })
 
-async function getFile(path: string): Promise<GetFileResult> {
+async function getFile(
+  context: WikiContext,
+  path: string,
+): Promise<GetFileResult> {
+  context.writeDiagnosticLog(`Fetching file ${path}`)
   const octokit = await getOctokit()
   const { owner, repo } = getRepoConfig()
   try {
@@ -49,12 +54,14 @@ async function getFile(path: string): Promise<GetFileResult> {
     if (!('content' in data)) {
       throw new Error('No content found')
     }
+    context.writeDiagnosticLog(`Fetched ${path}`)
     return {
       found: true,
       content: data.content,
       sha: data.sha,
     }
   } catch (error) {
+    context.writeDiagnosticLog(`Fetch failed for ${path}: ${error}`)
     if (isApiError(error) && error.status === 404) {
       return { found: false }
     }
@@ -63,6 +70,7 @@ async function getFile(path: string): Promise<GetFileResult> {
 }
 
 async function putFile(
+  context: WikiContext,
   path: string,
   options: PutFileOptions,
 ): Promise<PutFileResult> {
@@ -112,8 +120,12 @@ export interface PutFileResult {
 }
 
 export interface WikiFileSystem {
-  getFile: (path: string) => Promise<GetFileResult>
-  putFile: (path: string, options: PutFileOptions) => Promise<PutFileResult>
+  getFile: (context: WikiContext, path: string) => Promise<GetFileResult>
+  putFile: (
+    context: WikiContext,
+    path: string,
+    options: PutFileOptions,
+  ) => Promise<PutFileResult>
 }
 
 export const defaultFileSystem: WikiFileSystem = { getFile, putFile }

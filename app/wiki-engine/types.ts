@@ -16,3 +16,7 @@ export interface WikiFileRef {
   path: string
   sha?: string
 }
+
+export interface WikiContext {
+  writeDiagnosticLog(message: string): void
+}

@@ -1,22 +1,30 @@
 import type { WikiAuthState, WikiCredential } from '~/auth'
 import { verifyIdToken } from '~/auth'
 import { getCredentialFromRequest } from '~/auth'
-import type { WikiPage } from './types'
+import type { WikiContext, WikiPage } from './types'
 import type { GetFileResult, WikiFileSystem } from './files'
 import { defaultFileSystem } from './files'
 import pMemoize from 'p-memoize'
 import { get } from 'lodash-es'
 import { createLiquidEngine } from './liquid'
 
-export class WikiActor {
+export class WikiActor implements WikiContext {
   private memoizedGetFile: (path: string) => Promise<GetFileResult>
   private memoizedGetAuthState: () => Promise<WikiAuthState>
   private fileSystem: WikiFileSystem
+  public diagnosticLog: string[] = []
+  private startTime = Date.now()
 
   constructor(private credential?: WikiCredential) {
     this.fileSystem = defaultFileSystem
-    this.memoizedGetFile = pMemoize((path) => this.fileSystem.getFile(path))
+    this.memoizedGetFile = pMemoize((path) =>
+      this.fileSystem.getFile(this, path),
+    )
     this.memoizedGetAuthState = pMemoize(() => this.doGetAuthState())
+  }
+
+  writeDiagnosticLog(message: string): void {
+    this.diagnosticLog.push(`[${Date.now() - this.startTime}ms] ${message}`)
   }
 
   static async fromRequest(request: Request) {
@@ -73,7 +81,7 @@ export class WikiActor {
 
   async getPage(path: string): Promise<WikiPage> {
     const filePath = this.getFilePath(path)
-    const engine = createLiquidEngine(this.fileSystem)
+    const engine = createLiquidEngine(this, this.fileSystem)
     const file = await this.getFile(filePath)
     return {
       path,
@@ -112,7 +120,7 @@ export class WikiActor {
         },
       }
     }
-    const result = await this.fileSystem.putFile(filePath, {
+    const result = await this.fileSystem.putFile(this, filePath, {
       content: Buffer.from(options.content).toString('base64'),
       sha: options.sha,
       message: `Update page ${path}`,

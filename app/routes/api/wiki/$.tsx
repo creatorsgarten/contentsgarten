@@ -32,9 +32,8 @@ export const action: ActionFunction = async ({ request, params }) => {
   if (result.ok && formData.get('redirect') === 'view') {
     return redirect(`/wiki/${slug}`)
   }
-  return json({
-    result,
-  })
+  Object.assign(result, { _diagnosticLog: actor.diagnosticLog })
+  return json({ result })
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -84,5 +83,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       }
     }
   })()
+  Object.assign(result, { _diagnosticLog: actor.diagnosticLog })
   return json(result)
 }
