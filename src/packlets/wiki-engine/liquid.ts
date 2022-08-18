@@ -1,8 +1,7 @@
 import { Liquid } from 'liquidjs'
 import type { FS } from 'liquidjs/dist/fs/fs'
 import { extname, resolve } from 'path'
-import type { WikiFileSystem } from './files'
-import type { WikiContext } from './types'
+import type { WikiContext, WikiFileSystem } from './types'
 
 function createLiquidFs(
   context: WikiContext,

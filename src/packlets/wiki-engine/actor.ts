@@ -1,6 +1,5 @@
-import type { WikiAuthState, WikiCredential } from '~/auth'
-import { verifyIdToken } from '~/auth'
-import { getCredentialFromRequest } from '~/auth'
+import type { WikiAuthState, WikiCredential } from '../wiki-auth'
+import { verifyIdToken } from '../wiki-auth'
 import type {
   GetFileResult,
   WikiContext,
@@ -29,11 +28,6 @@ export class WikiActor implements WikiContext {
 
   writeDiagnosticLog(message: string): void {
     this.diagnosticLog.push(`[${Date.now() - this.startTime}ms] ${message}`)
-  }
-
-  static async fromRequest(request: Request) {
-    const credential = await getCredentialFromRequest(request)
-    return new WikiActor(credential)
   }
 
   async doGetAuthState(): Promise<WikiAuthState> {
