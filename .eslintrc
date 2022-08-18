@@ -4,6 +4,9 @@
     "@remix-run/eslint-config/node",
     "plugin:@rushstack/eslint-plugin-packlets/recommended"
   ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
     "@typescript-eslint/no-redeclare": "off"
   }
