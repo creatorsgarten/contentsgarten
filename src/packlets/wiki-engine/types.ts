@@ -4,7 +4,7 @@
  * If it is backed by a file, it can be edited.
  */
 export interface WikiPage {
-  path: string
+  pageRef: string
   content: string
   file?: WikiFileRef
 }

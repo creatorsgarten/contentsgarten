@@ -10,18 +10,24 @@ import { defaultFileSystem } from './files'
 import pMemoize from 'p-memoize'
 import { get } from 'lodash-es'
 import { createLiquidEngine } from './liquid'
+import { RedirectToPageRef, WikiError } from './throwables'
+
+export class WikiInstance {
+  constructor(public fileSystem: WikiFileSystem) {}
+}
+
+const defaultInstance = new WikiInstance(defaultFileSystem)
 
 export class WikiActor implements WikiContext {
   private memoizedGetFile: (path: string) => Promise<GetFileResult>
   private memoizedGetAuthState: () => Promise<WikiAuthState>
-  private fileSystem: WikiFileSystem
   public diagnosticLog: string[] = []
   private startTime = Date.now()
+  private wiki = defaultInstance
 
   constructor(private credential?: WikiCredential) {
-    this.fileSystem = defaultFileSystem
     this.memoizedGetFile = pMemoize((path) =>
-      this.fileSystem.getFile(this, path),
+      this.wiki.fileSystem.getFile(this, path),
     )
     this.memoizedGetAuthState = pMemoize(() => this.doGetAuthState())
   }
@@ -77,61 +83,95 @@ export class WikiActor implements WikiContext {
     return this.memoizedGetAuthState()
   }
 
-  async getPage(path: string): Promise<WikiPage> {
-    const filePath = this.getFilePath(path)
-    const engine = createLiquidEngine(this, this.fileSystem)
+  async view(pageRef: string) {
+    if (!pageRef) {
+      throw new RedirectToPageRef('MainPage')
+    }
+    const page = await this.getPage(pageRef)
+    return {
+      pageTitle: pageRef,
+      view: {
+        page,
+        editPath: `/wiki/${page.pageRef}?action=edit`,
+      },
+    }
+  }
+
+  async edit(pageRef: string) {
+    if (!pageRef) {
+      throw new WikiError(400, 'MISSING_SLUG', 'No slug provided')
+    }
+    const page = await this.getPage(pageRef)
+    if (!page.file) {
+      throw new WikiError(
+        400,
+        'NO_ASSOCIATED_FILE',
+        'This page does does not have an associated file',
+      )
+    }
+    const file = await this.getFile(page.file.path)
+    return {
+      pageTitle: `${file.found ? 'Editing' : 'Creating'} ${pageRef}`,
+      edit: {
+        formTarget: `/wiki/${page.pageRef}?action=edit`,
+        apiTarget: `/api/wiki/${page.pageRef}`,
+        gitHubEditPath: `https://github.dev/creatorsgarten/contentsgarten-wiki/blob/main/${page.file.path}`,
+        content: file.found
+          ? Buffer.from(file.content, 'base64').toString()
+          : '',
+        sha: file.found ? file.sha : undefined,
+      },
+    }
+  }
+
+  async update(pageRef: string, options: UpdateOptions) {
+    const result = await this.updatePage(pageRef, options)
+    if (options.redirect === 'view') {
+      throw new RedirectToPageRef(pageRef)
+    }
+    return result
+  }
+
+  private async getPage(pageRef: string): Promise<WikiPage> {
+    const filePath = this.getFilePath(pageRef)
+    const engine = createLiquidEngine(this, this.wiki.fileSystem)
     const file = await this.getFile(filePath)
     return {
-      path,
+      pageRef,
       file: {
         path: filePath,
         sha: file.found ? file.sha : undefined,
       },
       content: file.found
-        ? await engine.renderFile(path)
+        ? await engine.renderFile(pageRef)
         : //Buffer.from(file.content, 'base64').toString()
           '(This page currently does not exist)',
     }
   }
 
-  async updatePage(
-    path: string,
+  private async updatePage(
+    pageRef: string,
     options: UpdatePageOptions,
   ): Promise<UpdatePageResult> {
-    const filePath = this.getFilePath(path)
+    const filePath = this.getFilePath(pageRef)
     const authState = await this.getAuthState()
     if (!authState.authenticated) {
-      return {
-        ok: false,
-        reason: {
-          code: 400,
-          message: 'Not authenticated',
-        },
-      }
+      throw new WikiError(401, 'UNAUTHENTICATED', 'Not authenticated')
     }
     if (authState.user.id !== 193136) {
-      return {
-        ok: false,
-        reason: {
-          code: 403,
-          message: 'Not authorized',
-        },
-      }
+      throw new WikiError(403, 'FORBIDDEN', 'Not allowed to edit page')
     }
-    const result = await this.fileSystem.putFile(this, filePath, {
+    const result = await this.wiki.fileSystem.putFile(this, filePath, {
       content: Buffer.from(options.content).toString('base64'),
       sha: options.sha,
-      message: `Update page ${path}`,
+      message: `Update page ${pageRef}`,
       userId: authState.user.id,
     })
-    return {
-      ok: true,
-      sha: result.sha,
-    }
+    return { sha: result.sha }
   }
 
-  private getFilePath(path: string) {
-    return 'wiki/' + path + '.md.liquid'
+  private getFilePath(pageRef: string) {
+    return 'wiki/' + pageRef + '.md.liquid'
   }
 }
 
@@ -140,19 +180,10 @@ export interface UpdatePageOptions {
   sha?: string
 }
 
-export type UpdatePageResult = UpdatePageSuccessResult | UpdatePageFailureResult
+export interface UpdateOptions extends UpdatePageOptions {
+  redirect?: 'view'
+}
 
-interface UpdatePageSuccessResult {
-  ok: true
+export interface UpdatePageResult {
   sha: string
-}
-
-interface UpdatePageFailureResult {
-  ok: false
-  reason: Reason
-}
-
-interface Reason {
-  code: number
-  message: string
 }
