@@ -1,8 +1,8 @@
 import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import { WikiActor } from '~/wiki-engine'
+import { actorFromRequest } from '~/wiki.server'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const actor = await WikiActor.fromRequest(request)
+  const actor = await actorFromRequest(request)
   return json(await actor.getFile(params['*'] as string))
 }

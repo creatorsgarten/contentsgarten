@@ -1,8 +1,8 @@
 import type { ActionFunction, LoaderFunction } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { json } from '@remix-run/node'
-import type { WikiPage } from '~/wiki-engine'
-import { WikiActor } from '~/wiki-engine'
+import { WikiPage } from 'src/packlets/wiki-engine'
+import { actorFromRequest } from '~/wiki.server'
 
 export interface LoaderData {
   edit?: WikiPageEdit
@@ -22,7 +22,7 @@ export interface WikiPageEdit {
 }
 
 export const action: ActionFunction = async ({ request, params }) => {
-  const actor = await WikiActor.fromRequest(request)
+  const actor = await actorFromRequest(request)
   const slug = params['*'] as string
   const formData = await request.formData()
   const result = await actor.updatePage(slug, {
@@ -37,7 +37,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const actor = await WikiActor.fromRequest(request)
+  const actor = await actorFromRequest(request)
   const slug = params['*'] as string
   if (!slug) {
     return new Response('', {
