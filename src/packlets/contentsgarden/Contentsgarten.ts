@@ -1,12 +1,22 @@
 import { callProcedure, initTRPC } from '@trpc/server'
+import { z } from 'zod'
+import type { ContentsgartenStorage } from './ContentsgartenStorage'
+import type { ContentsgartenRequest } from './ContentsgartenRequest'
+import type { ContentsgartenRequestContext } from './ContentsgartenRequestContext'
 
 export class Contentsgarten {
-  t = initTRPC.create()
+  storage: ContentsgartenStorage
+
+  t = initTRPC.context<ContentsgartenRequestContext>().create()
   router = this.t.router({
-    greeting: this.t.procedure.query(() => 'hello tRPC v10!'),
+    greeting: this.t.procedure
+      .input(z.object({ name: z.string() }))
+      .query(({ input }) => 'hello tRPC v10! ' + input.name),
   })
 
-  constructor(private config: ContentsgartenConfig) {}
+  constructor(config: ContentsgartenConfig) {
+    this.storage = config.storage
+  }
 
   async handleRequest(request: ContentsgartenRequest): Promise<Response> {
     const result = await callProcedure({
@@ -16,7 +26,6 @@ export class Contentsgarten {
       ctx: {},
       type: request.method === 'GET' ? 'query' : 'mutation',
     })
-    console.log(result)
     return new Response(JSON.stringify(result), {
       headers: { 'content-type': 'application/json' },
       status: 200,
@@ -26,24 +35,4 @@ export class Contentsgarten {
 
 export interface ContentsgartenConfig {
   storage: ContentsgartenStorage
-}
-
-export interface ContentsgartenStorage {}
-
-export class GitHubStorage implements ContentsgartenStorage {
-  constructor(private config: GitHubStorageConfig) {}
-}
-
-export interface GitHubStorageConfig {
-  repo: string
-  appId?: number
-  privateKey?: string
-  token?: string
-}
-
-export interface ContentsgartenRequest {
-  action: string
-  params: unknown
-  method: string
-  authorization?: string | null
 }

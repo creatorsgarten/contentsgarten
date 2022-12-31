@@ -1,11 +1,29 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
-import { Contentsgarten, GitHubStorage } from 'src/packlets/contentsgarden'
+import {
+  Contentsgarten,
+  GitHubApp,
+  GitHubFirebaseAuth,
+  GitHubStorage,
+} from 'src/packlets/contentsgarden'
 
+const gitHubApp = new GitHubApp({
+  appId: +process.env.GH_APP_ID!,
+  privateKey: process.env.GH_PRIVATE_KEY!,
+})
 const contentsgarten = new Contentsgarten({
   storage: new GitHubStorage({
     repo: process.env.GH_REPO!,
-    appId: +process.env.GH_APP_ID!,
-    privateKey: process.env.GH_PRIVATE_KEY!,
+    app: gitHubApp,
+  }),
+  auth: new GitHubFirebaseAuth({
+    gitHub: {
+      app: gitHubApp,
+    },
+    firebase: {
+      apiKey: 'AIzaSyCKZng55l411pps2HgMcuenMQou-NTQ0QE',
+      authDomain: 'creatorsgarten-wiki.firebaseapp.com',
+      projectId: 'creatorsgarten-wiki',
+    },
   }),
 })
 
