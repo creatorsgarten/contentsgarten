@@ -1,8 +1,24 @@
+import { callProcedure, initTRPC } from '@trpc/server'
+
 export class Contentsgarten {
+  t = initTRPC.create()
+  router = this.t.router({
+    greeting: this.t.procedure.query(() => 'hello tRPC v10!'),
+  })
+
   constructor(private config: ContentsgartenConfig) {}
+
   async handleRequest(request: ContentsgartenRequest): Promise<Response> {
-    return new Response('Hello, world!', {
-      headers: { 'content-type': 'text/plain' },
+    const result = await callProcedure({
+      procedures: this.router._def.procedures,
+      path: request.action,
+      rawInput: request.params,
+      ctx: {},
+      type: request.method === 'GET' ? 'query' : 'mutation',
+    })
+    console.log(result)
+    return new Response(JSON.stringify(result), {
+      headers: { 'content-type': 'application/json' },
       status: 200,
     })
   }
@@ -28,5 +44,6 @@ export interface GitHubStorageConfig {
 export interface ContentsgartenRequest {
   action: string
   params: unknown
+  method: string
   authorization?: string | null
 }
