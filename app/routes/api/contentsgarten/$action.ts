@@ -15,12 +15,12 @@ export const loader = async (args: LoaderArgs) => {
 export const action = async (args: ActionArgs) => {
   return handleRequest(args)
 }
-
 export function handleRequest(args: LoaderArgs | ActionArgs) {
   const searchParams = new URL(args.request.url).searchParams
   const postBody = args.request.method === 'POST' ? args.request.json() : null
   return contentsgarten.handleRequest({
     action: args.params.action!,
+    method: args.request.method,
     params: {
       ...(postBody || {}),
       ...Object.fromEntries(searchParams),
