@@ -2,12 +2,12 @@ lockfileVersion: 5.4
 
 specifiers:
   '@netlify/functions': ^1.0.0
-  '@remix-run/dev': ^1.6.8
-  '@remix-run/eslint-config': ^1.6.8
-  '@remix-run/netlify': ^1.6.8
-  '@remix-run/node': ^1.6.8
-  '@remix-run/react': ^1.6.8
-  '@remix-run/serve': ^1.6.8
+  '@remix-run/dev': ^1.9.0
+  '@remix-run/eslint-config': ^1.9.0
+  '@remix-run/netlify': ^1.9.0
+  '@remix-run/node': ^1.9.0
+  '@remix-run/react': ^1.9.0
+  '@remix-run/serve': ^1.9.0
   '@rushstack/eslint-plugin-packlets': ^0.5.0
   '@tailwindcss/typography': ^0.5.3
   '@tanstack/query-core': ^4.20.4
@@ -5501,7 +5501,7 @@ packages:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.11
+      fast-glob: 3.2.12
       glob: 7.2.3
       ignore: 5.2.4
       merge2: 1.4.1
