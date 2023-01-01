@@ -31,7 +31,6 @@ specifiers:
   js-cookie: ^3.0.1
   liquidjs: ^9.39.0
   lodash-es: ^4.17.21
-  loose-envify: ^1.4.0
   markdown-it: ^13.0.1
   markdown-it-container: ^3.0.0
   octokit: ^2.0.3
@@ -59,7 +58,6 @@ dependencies:
   jose: 4.11.1
   liquidjs: 9.43.0
   lodash-es: 4.17.21
-  loose-envify: 1.4.0
   markdown-it: 13.0.1
   markdown-it-container: 3.0.0
   octokit: 2.0.10
