@@ -31,7 +31,7 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
-    "@playwright/test": "~1.29.0",
+    "@playwright/test": "~1.30.0",
     "@remix-run/dev": "^1.9.0",
     "@remix-run/eslint-config": "^1.9.0",
     "@rushstack/eslint-plugin-packlets": "^0.5.0",
