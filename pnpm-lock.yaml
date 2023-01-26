@@ -19,7 +19,7 @@ specifiers:
   '@types/markdown-it': ^12.2.3
   '@types/markdown-it-container': ^2.0.5
   '@types/react': ^18.0.0
-  '@types/react-dom': ^17.0.17
+  '@types/react-dom': ^18.0.0
   autoprefixer: ^10.4.7
   axios: ^0.27.2
   concurrently: ^7.2.2
@@ -79,7 +79,7 @@ devDependencies:
   '@types/markdown-it': 12.2.3
   '@types/markdown-it-container': 2.0.5
   '@types/react': 18.0.27
-  '@types/react-dom': 17.0.18
+  '@types/react-dom': 18.0.10
   autoprefixer: 10.4.13_postcss@8.4.20
   concurrently: 7.6.0
   cookie: 0.5.0
@@ -3033,18 +3033,10 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
 
-  /@types/react-dom/17.0.18:
-    resolution: {integrity: sha512-rLVtIfbwyur2iFKykP2w0pl/1unw26b5td16d5xMgp7/yjTHomkyxPYChFoCr/FtEX1lN9wY6lFj1qvKdS5kDw==}
+  /@types/react-dom/18.0.10:
+    resolution: {integrity: sha512-E42GW/JA4Qv15wQdqJq8DL4JhNpB3prJgjgapN3qJT9K2zO5IIAQh4VXvCEDupoqAwnz0cY4RlXeC/ajX5SFHg==}
     dependencies:
-      '@types/react': 17.0.52
-    dev: true
-
-  /@types/react/17.0.52:
-    resolution: {integrity: sha512-vwk8QqVODi0VaZZpDXQCmEmiOuyjEFPY7Ttaw5vjM112LOq37yz1CDJGrRJwA1fYEq4Iitd5rnjd1yWAc/bT+A==}
-    dependencies:
-      '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.2
-      csstype: 3.1.1
+      '@types/react': 18.0.27
     dev: true
 
   /@types/react/18.0.27:
