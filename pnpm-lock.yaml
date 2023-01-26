@@ -18,7 +18,7 @@ specifiers:
   '@types/lodash-es': ^4.17.6
   '@types/markdown-it': ^12.2.3
   '@types/markdown-it-container': ^2.0.5
-  '@types/react': ^17.0.45
+  '@types/react': ^18.0.0
   '@types/react-dom': ^17.0.17
   autoprefixer: ^10.4.7
   axios: ^0.27.2
@@ -78,7 +78,7 @@ devDependencies:
   '@types/lodash-es': 4.17.6
   '@types/markdown-it': 12.2.3
   '@types/markdown-it-container': 2.0.5
-  '@types/react': 17.0.52
+  '@types/react': 18.0.27
   '@types/react-dom': 17.0.18
   autoprefixer: 10.4.13_postcss@8.4.20
   concurrently: 7.6.0
@@ -3041,6 +3041,14 @@ packages:
 
   /@types/react/17.0.52:
     resolution: {integrity: sha512-vwk8QqVODi0VaZZpDXQCmEmiOuyjEFPY7Ttaw5vjM112LOq37yz1CDJGrRJwA1fYEq4Iitd5rnjd1yWAc/bT+A==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.1
+    dev: true
+
+  /@types/react/18.0.27:
+    resolution: {integrity: sha512-3vtRKHgVxu3Jp9t718R9BuzoD4NcQ8YJ5XRzsSKxNDiDonD2MXIT1TmSkenxuCycZJoQT5d2vE8LwWJxBC1gmA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
