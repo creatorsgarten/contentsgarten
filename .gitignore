@@ -17,3 +17,6 @@ node_modules
 !.yarn/cache
 #.pnp.*
 .netlify
+/test-results/
+/playwright-report/
+/playwright/.cache/

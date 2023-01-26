@@ -4,7 +4,7 @@ import type { ContentsgartenStorage } from './ContentsgartenStorage'
 import type { ContentsgartenRequest } from './ContentsgartenRequest'
 import type { ContentsgartenContext } from './ContentsgartenContext'
 import { QueryClient } from '@tanstack/query-core'
-import { ContentsgartenAuth } from './ContentsgartenAuth'
+import type { ContentsgartenAuth } from './ContentsgartenAuth'
 
 const t = initTRPC.context<ContentsgartenContext>().create()
 
