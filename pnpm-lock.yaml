@@ -21,7 +21,7 @@ specifiers:
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
   autoprefixer: ^10.4.7
-  axios: ^0.27.2
+  axios: ^1.0.0
   concurrently: ^7.2.2
   cookie: ^0.5.0
   eslint: ^8.15.0
@@ -53,7 +53,7 @@ dependencies:
   '@remix-run/serve': 1.9.0_sfoxds7t5ydpegc3knd667wn6m
   '@tanstack/query-core': 4.20.4
   '@trpc/server': 10.7.0
-  axios: 0.27.2
+  axios: 1.2.5
   expiry-map: 2.0.0
   gray-matter: 4.0.3
   jose: 4.11.1
@@ -3556,11 +3556,12 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /axios/0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
+  /axios/1.2.5:
+    resolution: {integrity: sha512-9pU/8mmjSSOb4CXVsvGIevN+MlO/t9OWtKadTaLuN85Gge3HGorUckgp8A/2FH4V4hJ7JuQ3LIeI7KAV9ITZrQ==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -7868,7 +7869,6 @@ packages:
 
   /proxy-from-env/1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
-    dev: true
 
   /pump/2.0.1:
     resolution: {integrity: sha512-ruPMNRkN3MHP1cWJc9OWr+T/xDP0jhXYCLfJcBuX54hhfIBnaQmAUMfDcG4DM5UMWByBbJY69QSphm3jtDKIkA==}
