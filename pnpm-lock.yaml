@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@netlify/functions': ^1.0.0
+  '@playwright/test': ~1.29.0
   '@remix-run/dev': ^1.9.0
   '@remix-run/eslint-config': ^1.9.0
   '@remix-run/netlify': ^1.9.0
@@ -67,6 +68,7 @@ dependencies:
   zod: 3.20.2
 
 devDependencies:
+  '@playwright/test': 1.29.2
   '@remix-run/dev': 1.9.0_4gly2bc3dk3uf5bdpzkqhhfboi
   '@remix-run/eslint-config': 1.9.0_r5ar65gawp4e5vlxrvc76zmjn4
   '@rushstack/eslint-plugin-packlets': 0.5.0_iukboom6ndih5an6iafl45j2fe
@@ -2518,6 +2520,15 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.4.1
+    dev: true
+
+  /@playwright/test/1.29.2:
+    resolution: {integrity: sha512-+3/GPwOgcoF0xLz/opTnahel1/y42PdcgZ4hs+BZGIUjtmEFSXGg+nFoaH3NSmuc7a6GSFwXDJ5L7VXpqzigNg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      '@types/node': 18.11.18
+      playwright-core: 1.29.2
     dev: true
 
   /@protobufjs/aspromise/1.1.2:
@@ -7645,6 +7656,12 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       find-up: 3.0.0
+    dev: true
+
+  /playwright-core/1.29.2:
+    resolution: {integrity: sha512-94QXm4PMgFoHAhlCuoWyaBYKb92yOcGVHdQLoxQ7Wjlc7Flg4aC/jbFW7xMR52OfXMVkWicue4WXE7QEegbIRA==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /posix-character-classes/0.1.1:
