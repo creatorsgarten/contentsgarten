@@ -12,7 +12,8 @@ specifiers:
   '@rushstack/eslint-plugin-packlets': ^0.6.0
   '@tailwindcss/typography': ^0.5.3
   '@tanstack/query-core': ^4.20.4
-  '@trpc/server': ^10.7.0
+  '@trpc/client': ^10.9.1
+  '@trpc/server': ^10.9.1
   '@types/cookie': ^0.5.1
   '@types/js-cookie': ^3.0.2
   '@types/lodash-es': ^4.17.6
@@ -52,7 +53,7 @@ dependencies:
   '@remix-run/react': 1.9.0_biqbaboplfbrettd7655fr4n2y
   '@remix-run/serve': 1.9.0_biqbaboplfbrettd7655fr4n2y
   '@tanstack/query-core': 4.20.4
-  '@trpc/server': 10.7.0
+  '@trpc/server': 10.9.1
   axios: 1.2.5
   expiry-map: 2.0.0
   gray-matter: 4.0.3
@@ -73,6 +74,7 @@ devDependencies:
   '@remix-run/eslint-config': 1.9.0_ol4nhuzbuflsbzk2mijpqykzba
   '@rushstack/eslint-plugin-packlets': 0.6.1_iukboom6ndih5an6iafl45j2fe
   '@tailwindcss/typography': 0.5.8_tailwindcss@3.2.4
+  '@trpc/client': 10.9.1_@trpc+server@10.9.1
   '@types/cookie': 0.5.1
   '@types/js-cookie': 3.0.2
   '@types/lodash-es': 4.17.6
@@ -2872,9 +2874,16 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /@trpc/server/10.7.0:
-    resolution: {integrity: sha512-kFhlqhzZt5PwVRRDci8oJKMMFGjjq9189stT6bvS9xuuLjRzzwhMShRi99sm/jqhdjWmlXyO3Ncx0rnghUvH+w==}
-    dev: false
+  /@trpc/client/10.9.1_@trpc+server@10.9.1:
+    resolution: {integrity: sha512-9ma44dFU40KHIEaMdyjRJd9LloFyZZXeAbZJTi2+XK/5sj64FRqqef3fWTj2dBc7A09pk8gls4Tqa3tNC98jSg==}
+    peerDependencies:
+      '@trpc/server': 10.9.1
+    dependencies:
+      '@trpc/server': 10.9.1
+    dev: true
+
+  /@trpc/server/10.9.1:
+    resolution: {integrity: sha512-cUbj8KphlH0IHuoVUhkZrN1E+FdfRpagglqhblyj8VPJKkjzTjb6D8MYHlXhiX7Tdmtwy2w0ev39HBkzlM0thg==}
 
   /@types/acorn/4.0.6:
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
