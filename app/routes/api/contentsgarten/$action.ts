@@ -4,6 +4,7 @@ import {
   GitHubApp,
   GitHubFirebaseAuth,
   GitHubStorage,
+  handleContentsgartenRequest,
 } from 'src/packlets/contentsgarden'
 
 const gitHubApp = new GitHubApp({
@@ -34,15 +35,9 @@ export const action = async (args: ActionArgs) => {
   return handleRequest(args)
 }
 export function handleRequest(args: LoaderArgs | ActionArgs) {
-  const searchParams = new URL(args.request.url).searchParams
-  const postBody = args.request.method === 'POST' ? args.request.json() : null
-  return contentsgarten.handleRequest({
-    action: args.params.action!,
-    method: args.request.method,
-    params: {
-      ...(postBody || {}),
-      ...Object.fromEntries(searchParams),
-    },
-    authorization: args.request.headers.get('authorization'),
-  })
+  return handleContentsgartenRequest(
+    contentsgarten,
+    args.request,
+    '/api/contentsgarten',
+  )
 }
