@@ -1,6 +1,6 @@
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
-  ...(process.env.NODE_ENV === 'production'
+  ...(process.env.NETLIFY
     ? {
         serverBuildTarget: 'netlify',
         server: './server.js',
