@@ -1,9 +1,7 @@
 import type { QueryClient } from '@tanstack/query-core'
-import type { ContentsgartenStorage } from './ContentsgartenStorage'
-import type { ContentsgartenAuth } from './ContentsgartenAuth'
+import type { ContentsgartenConfig } from './ContentsgartenConfig'
 
 export interface ContentsgartenContext {
   queryClient: QueryClient
-  storage: ContentsgartenStorage
-  auth: ContentsgartenAuth
+  config: ContentsgartenConfig
 }
