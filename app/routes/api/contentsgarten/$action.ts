@@ -9,9 +9,9 @@ import {
 
 const gitHubApp = new GitHubApp({
   appId: +process.env.GH_APP_ID!,
-  privateKey: process.env.GH_PRIVATE_KEY!,
+  privateKey: Buffer.from(process.env.GH_APP_PRIVATE_KEY!, 'base64').toString(),
 })
-const contentsgarten = new Contentsgarten({
+export const contentsgarten = new Contentsgarten({
   storage: new GitHubStorage({
     repo: process.env.GH_REPO!,
     app: gitHubApp,
