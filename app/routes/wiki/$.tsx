@@ -10,7 +10,20 @@ import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
 import { contentsgarten } from '../api/contentsgarten/$action'
 
 export async function loader(args: LoaderArgs) {
-  const client = createTRPCProxyClient<typeof ContentsgartenRouter>({
+  const client = createClient(args.request)
+  const slug = args.params['*'] as string
+  return json(await client.view.query({ pageRef: slug }))
+}
+
+export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
+  const { title } = data
+  return {
+    title: `${title} | Contentsgarten`,
+  }
+}
+
+function createClient(_request: Request) {
+  return createTRPCProxyClient<typeof ContentsgartenRouter>({
     links: [
       httpBatchLink({
         url: new URL('/api/contentsgarten', 'http://fake').toString(),
@@ -29,15 +42,6 @@ export async function loader(args: LoaderArgs) {
       }),
     ],
   })
-  const slug = args.params['*'] as string
-  return json(await client.view.query({ pageRef: slug }))
-}
-
-export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
-  const { title } = data
-  return {
-    title: `${title} | Contentsgarten`,
-  }
 }
 
 export default function WikiPage() {
