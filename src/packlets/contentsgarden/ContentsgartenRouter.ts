@@ -35,8 +35,10 @@ async function getPage(ctx: ContentsgartenContext, pageRef: string) {
       path: filePath,
       revision: file ? file.revision : undefined,
     },
-    content: file
-      ? await engine.renderFile(pageRef)
-      : '(This page currently does not exist)',
+    content: String(
+      file
+        ? await engine.renderFile(pageRef)
+        : '(This page currently does not exist)',
+    ),
   }
 }
