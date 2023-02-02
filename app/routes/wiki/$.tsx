@@ -1,16 +1,31 @@
 import type { LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { ContentsgartenRouter } from 'src/packlets/contentsgarden'
+import {
+  ContentsgartenRouter,
+  handleContentsgartenRequest,
+} from 'src/packlets/contentsgarden'
 import { Markdown } from '~/markdown'
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
+import { contentsgarten } from '../api/contentsgarten/$action'
 
 export async function loader(args: LoaderArgs) {
   const client = createTRPCProxyClient<typeof ContentsgartenRouter>({
     links: [
       httpBatchLink({
-        url: new URL('/api/contentsgarten', args.request.url).toString(),
+        url: new URL('/api/contentsgarten', 'http://fake').toString(),
         headers: {},
+        fetch: (input, init) => {
+          if (typeof input === 'string' && input.startsWith('http://fake')) {
+            const request = new Request(input, init)
+            return handleContentsgartenRequest(
+              contentsgarten,
+              request,
+              '/api/contentsgarten',
+            )
+          }
+          return fetch(input, init)
+        },
       }),
     ],
   })
