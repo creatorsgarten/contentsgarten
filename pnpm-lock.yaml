@@ -31,6 +31,7 @@ specifiers:
   gray-matter: ^4.0.3
   jose: ^4.8.3
   js-cookie: ^3.0.1
+  lazy-strict-env: ^0.3.1
   liquidjs: ^10.0.0
   lodash-es: ^4.17.21
   markdown-it: ^13.0.1
@@ -58,6 +59,7 @@ dependencies:
   expiry-map: 2.0.0
   gray-matter: 4.0.3
   jose: 4.11.1
+  lazy-strict-env: 0.3.1_zod@3.20.2
   liquidjs: 10.4.0
   lodash-es: 4.17.21
   markdown-it: 13.0.1
@@ -6034,6 +6036,14 @@ packages:
     dependencies:
       language-subtag-registry: 0.3.22
     dev: true
+
+  /lazy-strict-env/0.3.1_zod@3.20.2:
+    resolution: {integrity: sha512-8A//LSm8Enrz6iBgFk56dfJcHXCM3429zbnSpjBDEVStDEYtD0Chd6+5mQQS1QTjxoALgZ2I3ClRuymy4qw0SA==}
+    peerDependencies:
+      zod: '>=3.0.0'
+    dependencies:
+      zod: 3.20.2
+    dev: false
 
   /levn/0.3.0:
     resolution: {integrity: sha512-0OO4y2iOHix2W6ujICbKIaEQXvFQHue65vUG3pb5EUomzPI90z9hsA1VsO/dbIIpC53J8gxM9Q4Oho0jrCM/yA==}

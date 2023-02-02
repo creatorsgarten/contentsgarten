@@ -1,14 +1,16 @@
-import { MetaFunction, json } from '@remix-run/node'
-import { Form, Link, useLoaderData } from '@remix-run/react'
-import type { FC } from 'react'
+import type { LoaderArgs, MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import {
+  ContentsgartenRouter,
+  createContextFromRequest,
+} from 'src/packlets/contentsgarden'
 import { Markdown } from '~/markdown'
-import type { LoaderArgs } from '@remix-run/node'
-import { ContentsgartenRouter } from 'src/packlets/contentsgarden'
 import { contentsgarten } from '../api/contentsgarten/$action'
 
 export async function loader(args: LoaderArgs) {
   const slug = args.params['*'] as string
-  const context = contentsgarten.createContext()
+  const context = createContextFromRequest(contentsgarten, args.request)
   const caller = ContentsgartenRouter.createCaller(context)
   return json(await caller.view({ pageRef: slug }))
 }

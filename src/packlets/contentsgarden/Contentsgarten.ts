@@ -3,16 +3,23 @@ import { QueryClient } from '@tanstack/query-core'
 import type { ContentsgartenConfig } from './ContentsgartenConfig'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { ContentsgartenRouter } from './ContentsgartenRouter'
+import cookie from 'cookie'
 
 export class Contentsgarten {
   constructor(private config: ContentsgartenConfig) {}
 
-  createContext(): ContentsgartenContext {
+  createContext(input: CreateContextInput): ContentsgartenContext {
     return {
       queryClient: new QueryClient(),
       config: this.config,
+      authToken: input.authToken,
     }
   }
+}
+
+export interface CreateContextInput {
+  /** Bearer token */
+  authToken?: string
 }
 
 export async function handleContentsgartenRequest(
@@ -25,7 +32,29 @@ export async function handleContentsgartenRequest(
     req: request,
     router: ContentsgartenRouter,
     createContext: ({ req }) => {
-      return core.createContext()
+      return createContextFromRequest(core, req)
     },
   })
+}
+
+export function createContextFromRequest(
+  core: Contentsgarten,
+  req: Request,
+): ContentsgartenContext {
+  return core.createContext({
+    authToken: getAuthTokenFromRequest(req),
+  })
+}
+
+function getAuthTokenFromRequest(request: Request): string | undefined {
+  const authHeader = request.headers.get('Authorization')
+  if (authHeader) {
+    return authHeader.split(' ').pop()
+  }
+
+  const parsed = cookie.parse(request.headers.get('Cookie') || '')
+  const tokenFromCookie = parsed['contentsgarten_id_token']
+  if (tokenFromCookie) {
+    return tokenFromCookie
+  }
 }

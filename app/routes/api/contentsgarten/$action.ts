@@ -6,14 +6,25 @@ import {
   GitHubStorage,
   handleContentsgartenRequest,
 } from 'src/packlets/contentsgarden'
+import { Env } from 'lazy-strict-env'
+import { z } from 'zod'
 
+const env = Env(
+  z.object({
+    GH_APP_ID: z.coerce.number(),
+    GH_APP_PRIVATE_KEY: z.string(),
+    GH_REPO: z
+      .string()
+      .regex(/^[^/\s]+\/[^/\s]+$/, 'Must be <owner>/<repo> format'),
+  }),
+)
 const gitHubApp = new GitHubApp({
-  appId: +process.env.GH_APP_ID!,
-  privateKey: Buffer.from(process.env.GH_APP_PRIVATE_KEY!, 'base64').toString(),
+  appId: env.GH_APP_ID,
+  privateKey: Buffer.from(env.GH_APP_PRIVATE_KEY, 'base64').toString(),
 })
 export const contentsgarten = new Contentsgarten({
   storage: new GitHubStorage({
-    repo: process.env.GH_REPO!,
+    repo: env.GH_REPO,
     app: gitHubApp,
   }),
   auth: new GitHubFirebaseAuth({
@@ -34,7 +45,7 @@ export const loader = async (args: LoaderArgs) => {
 export const action = async (args: ActionArgs) => {
   return handleRequest(args)
 }
-export function handleRequest(args: LoaderArgs | ActionArgs) {
+function handleRequest(args: LoaderArgs | ActionArgs) {
   return handleContentsgartenRequest(
     contentsgarten,
     args.request,

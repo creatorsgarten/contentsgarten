@@ -5,4 +5,5 @@ import type { RequestContext } from './RequestContext'
 export interface ContentsgartenContext extends RequestContext {
   queryClient: QueryClient
   config: ContentsgartenConfig
+  authToken?: string
 }
