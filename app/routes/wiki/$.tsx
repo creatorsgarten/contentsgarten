@@ -3,12 +3,14 @@ import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import {
   ContentsgartenRouter,
+  GetPageResult,
   handleContentsgartenRequest,
 } from 'src/packlets/contentsgarden'
 import { Markdown } from '~/markdown'
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
 import { contentsgarten } from '../api/contentsgarten/$action'
 import { Editable } from '~/ui/Editable'
+import { FC } from 'react'
 
 export async function loader(args: LoaderArgs) {
   const client = createClient(args.request)
@@ -54,18 +56,26 @@ export default function WikiPage() {
           {data.title}
           {data.file ? (
             <span className="text-xl pl-2">
-              <Editable>
-                <textarea
-                  className="font-mono p-2 flex-1"
-                  value={data.file.content}
-                />
-              </Editable>
+              <FileEditor file={data.file} />
             </span>
           ) : null}
         </h1>
         <Markdown text={data.content} />
       </article>
     </div>
+  )
+}
+
+interface FileEditor {
+  file: Exclude<GetPageResult['file'], undefined>
+}
+
+const FileEditor: FC<FileEditor> = (props) => {
+  const { file } = props
+  return (
+    <Editable>
+      <textarea className="font-mono p-2 flex-1" value={file.content} />
+    </Editable>
   )
 }
 
