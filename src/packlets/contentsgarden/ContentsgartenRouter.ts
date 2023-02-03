@@ -2,12 +2,17 @@ import { z } from 'zod'
 import { t } from './trpc'
 import type { ContentsgartenContext } from './ContentsgartenContext'
 import { createLiquidEngine } from './createLiquidEngine'
+import { TRPCError } from '@trpc/server'
 
 export const ContentsgartenRouter = t.router({
   about: t.procedure.query(() => {
     return {
       name: 'Contentsgarten',
     }
+  }),
+  userInfo: t.procedure.query(async ({ ctx }) => {
+    const authState = await resolveAuthState(ctx)
+    return authState
   }),
   view: t.procedure
     .input(
@@ -28,13 +33,19 @@ export const ContentsgartenRouter = t.router({
     )
     .mutation(async ({ input: { pageRef, newContent, oldRevision }, ctx }) => {
       const filePath = pageRefToFilePath(ctx, pageRef)
-      // const authState = await ctx.auth.getAuthState()
-      // if (!authState.authenticated) {
-      //   throw new Error('Not authenticated')
-      // }
-      // if (authState.user.id !== 193136) {
-      //   throw new Error('Not allowed to edit page')
-      // }
+      const authState = await resolveAuthState(ctx)
+      if (!authState.authenticated) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'Not authenticated',
+        })
+      }
+      if (authState.user.id !== 193136) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'You are not allowed to edit the page',
+        })
+      }
       const result = await ctx.config.storage.putFile(ctx, filePath, {
         content: Buffer.from(newContent),
         revision: oldRevision,
@@ -70,6 +81,15 @@ async function getPage(ctx: ContentsgartenContext, pageRef: string) {
     status: file ? 200 : 404,
   }
   return result
+}
+
+async function resolveAuthState(ctx: ContentsgartenContext) {
+  return ctx.queryClient.fetchQuery({
+    queryKey: ['authState'],
+    queryFn: async () => {
+      return ctx.config.auth.getAuthState(ctx.authToken)
+    },
+  })
 }
 
 export interface GetPageResult {

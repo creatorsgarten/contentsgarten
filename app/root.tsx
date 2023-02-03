@@ -9,20 +9,15 @@ import {
   useLoaderData,
 } from '@remix-run/react'
 import { AuthBar, AuthProvider } from './auth/client'
-import type { LoaderData } from './routes/api/user'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { trpc } from './utils/trpc'
-
-import { loader } from '~/routes/api/user'
 import styles from './styles/app.css'
 
 export function links() {
   return [{ rel: 'stylesheet', href: styles }]
 }
-
-export { loader }
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
@@ -31,7 +26,6 @@ export const meta: MetaFunction = () => ({
 })
 
 export default function App() {
-  const data: LoaderData = useLoaderData()
   const [queryClient] = useState(() => new QueryClient())
   const [trpcClient] = useState(() =>
     trpc.createClient({
@@ -53,7 +47,7 @@ export default function App() {
       <body>
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
           <QueryClientProvider client={queryClient}>
-            <AuthProvider initialState={data.authState}>
+            <AuthProvider>
               <Outlet />
               <AuthBar />
               <ScrollRestoration />

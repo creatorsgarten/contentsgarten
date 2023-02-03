@@ -8,6 +8,7 @@ import {
 } from 'src/packlets/contentsgarden'
 import { Env } from 'lazy-strict-env'
 import { z } from 'zod'
+import cookie from 'cookie'
 
 const env = Env(
   z.object({
@@ -46,9 +47,16 @@ export const action = async (args: ActionArgs) => {
   return handleRequest(args)
 }
 function handleRequest(args: LoaderArgs | ActionArgs) {
+  const { request } = args
+  const parsed = cookie.parse(request.headers.get('Cookie') || '')
+  const tokenFromCookie = parsed['contentsgarten_id_token']
+  if (tokenFromCookie && !request.headers.get('Authorization')) {
+    request.headers.set('Authorization', `Bearer ${tokenFromCookie}`)
+  }
+
   return handleContentsgartenRequest(
     contentsgarten,
-    args.request,
+    request,
     '/api/contentsgarten',
   )
 }

@@ -5,7 +5,7 @@ import {
   ContentsgartenRouter,
   GetPageResult,
   handleContentsgartenRequest,
-} from 'src/packlets/contentsgarden'
+} from '../../utils/contentsgarten.server'
 import { Markdown } from '~/markdown'
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
 import { contentsgarten } from '../api/contentsgarten/$action'
@@ -49,10 +49,18 @@ function createClient(_request: Request) {
 }
 
 export default function WikiPage() {
-  const data = useLoaderData<typeof loader>()
+  const serverData = useLoaderData<typeof loader>()
+  const freshDataQuery = trpc.view.useQuery(
+    { pageRef: serverData.pageRef },
+    { refetchOnWindowFocus: false },
+  )
+  const data = freshDataQuery.data ?? serverData
   return (
     <div className="p-8">
-      <article className="prose md:prose-lg max-w-[48rem]">
+      <article
+        className="prose md:prose-lg max-w-[48rem]"
+        style={{ opacity: freshDataQuery.isRefetching ? 0.5 : 1 }}
+      >
         <h1>
           {data.title}
           {data.file ? (
@@ -74,21 +82,33 @@ interface FileEditor {
 
 const FileEditor: FC<FileEditor> = (props) => {
   const { file } = props
+  const [cachedContent, setCachedContent] = useState(file.content)
   const [content, setContent] = useState(file.content)
   const save = trpc.save.useMutation()
+  const trpcContext = trpc.useContext()
+
+  if (cachedContent !== file.content && content === cachedContent) {
+    setCachedContent(file.content)
+    setContent(file.content)
+  }
+
   return (
     <Editable
       saving={save.isLoading}
       onSave={async () => {
-        await save.mutateAsync({
-          pageRef: props.pageRef,
-          newContent: content,
-          oldRevision: file.revision,
-        })
-        setTimeout(() => {
-          location.reload()
-        })
-        return true
+        try {
+          await save.mutateAsync({
+            pageRef: props.pageRef,
+            newContent: content,
+            oldRevision: file.revision,
+          })
+          trpcContext.view.invalidate({ pageRef: props.pageRef })
+          return true
+        } catch (error) {
+          console.error(error)
+          alert(`Unable to save: ${error}`)
+          return false
+        }
       }}
     >
       <textarea
@@ -99,24 +119,3 @@ const FileEditor: FC<FileEditor> = (props) => {
     </Editable>
   )
 }
-
-// const WikiPageEditor: FC<{ edit: WikiPageEdit }> = ({ edit }) => {
-//   return (
-//     <Form method="post" action={edit.formTarget}>
-//       <p>
-//         <textarea
-//           name="content"
-//           className="w-full h-[24rem] rounded border border-gray-500 p-2 font-mono text-sm"
-//           defaultValue={edit.content}
-//         ></textarea>
-//       </p>
-//       <p>
-//         <button className="rounded border-2 border-gray-500 px-3 py-1">
-//           Save Changes
-//         </button>
-//       </p>
-//       <input type="hidden" name="sha" value={edit.sha} />
-//       <input type="hidden" name="redirect" value="view" />
-//     </Form>
-//   )
-// }
