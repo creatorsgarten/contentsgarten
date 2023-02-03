@@ -19,26 +19,36 @@ const env = Env(
       .regex(/^[^/\s]+\/[^/\s]+$/, 'Must be <owner>/<repo> format'),
   }),
 )
-const gitHubApp = new GitHubApp({
-  appId: env.GH_APP_ID,
-  privateKey: Buffer.from(env.GH_APP_PRIVATE_KEY, 'base64').toString(),
-})
-export const contentsgarten = new Contentsgarten({
-  storage: new GitHubStorage({
-    repo: env.GH_REPO,
-    app: gitHubApp,
-  }),
-  auth: new GitHubFirebaseAuth({
-    gitHub: {
+
+let instance: Contentsgarten | undefined
+
+export function getInstance() {
+  if (instance) {
+    return instance
+  }
+  const gitHubApp = new GitHubApp({
+    appId: env.GH_APP_ID,
+    privateKey: Buffer.from(env.GH_APP_PRIVATE_KEY, 'base64').toString(),
+  })
+  const contentsgarten = new Contentsgarten({
+    storage: new GitHubStorage({
+      repo: env.GH_REPO,
       app: gitHubApp,
-    },
-    firebase: {
-      apiKey: 'AIzaSyCKZng55l411pps2HgMcuenMQou-NTQ0QE',
-      authDomain: 'creatorsgarten-wiki.firebaseapp.com',
-      projectId: 'creatorsgarten-wiki',
-    },
-  }),
-})
+    }),
+    auth: new GitHubFirebaseAuth({
+      gitHub: {
+        app: gitHubApp,
+      },
+      firebase: {
+        apiKey: 'AIzaSyCKZng55l411pps2HgMcuenMQou-NTQ0QE',
+        authDomain: 'creatorsgarten-wiki.firebaseapp.com',
+        projectId: 'creatorsgarten-wiki',
+      },
+    }),
+  })
+  instance = contentsgarten
+  return contentsgarten
+}
 
 export const loader = async (args: LoaderArgs) => {
   return handleRequest(args)
@@ -55,7 +65,7 @@ function handleRequest(args: LoaderArgs | ActionArgs) {
   }
 
   return handleContentsgartenRequest(
-    contentsgarten,
+    getInstance(),
     request,
     '/api/contentsgarten',
   )

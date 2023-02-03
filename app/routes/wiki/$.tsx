@@ -5,10 +5,10 @@ import {
   ContentsgartenRouter,
   GetPageResult,
   handleContentsgartenRequest,
-} from '../../utils/contentsgarten.server'
+} from 'src/packlets/contentsgarden'
 import { Markdown } from '~/markdown'
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
-import { contentsgarten } from '../api/contentsgarten/$action'
+import { getInstance } from '../api/contentsgarten/$action'
 import { Editable } from '~/ui/Editable'
 import { FC, useState } from 'react'
 import { trpc } from '~/utils/trpc'
@@ -36,7 +36,7 @@ function createClient(_request: Request) {
           if (typeof input === 'string' && input.startsWith('http://fake')) {
             const request = new Request(input, init)
             return handleContentsgartenRequest(
-              contentsgarten,
+              getInstance(),
               request,
               '/api/contentsgarten',
             )
