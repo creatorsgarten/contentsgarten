@@ -10,6 +10,10 @@ import {
 } from '@remix-run/react'
 import { AuthBar, AuthProvider } from './auth/client'
 import type { LoaderData } from './routes/api/user'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { httpBatchLink } from '@trpc/client'
+import React, { useState } from 'react'
+import { trpc } from './utils/trpc'
 
 import { loader } from '~/routes/api/user'
 import styles from './styles/app.css'
@@ -28,20 +32,36 @@ export const meta: MetaFunction = () => ({
 
 export default function App() {
   const data: LoaderData = useLoaderData()
+  const [queryClient] = useState(() => new QueryClient())
+  const [trpcClient] = useState(() =>
+    trpc.createClient({
+      links: [httpBatchLink({ url: '/api/contentsgarten' })],
+    }),
+  )
   return (
     <html lang="en">
       <head>
         <Meta />
         <Links />
+        <script
+          async
+          src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.2/dist/iconify-icon.min.js"
+          integrity="sha256-kwd+IKkvIXP95TLOfLvp/rHfnja1G+Ve+u1UR22A02k="
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
-        <AuthProvider initialState={data.authState}>
-          <Outlet />
-          <AuthBar />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </AuthProvider>
+        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            <AuthProvider initialState={data.authState}>
+              <Outlet />
+              <AuthBar />
+              <ScrollRestoration />
+              <Scripts />
+              <LiveReload />
+            </AuthProvider>
+          </QueryClientProvider>
+        </trpc.Provider>
       </body>
     </html>
   )

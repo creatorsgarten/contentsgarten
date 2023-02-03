@@ -8,6 +8,7 @@ import {
 import { Markdown } from '~/markdown'
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
 import { contentsgarten } from '../api/contentsgarten/$action'
+import { Editable } from '~/ui/Editable'
 
 export async function loader(args: LoaderArgs) {
   const client = createClient(args.request)
@@ -49,7 +50,19 @@ export default function WikiPage() {
   return (
     <div className="p-8">
       <article className="prose md:prose-lg max-w-[48rem]">
-        <h1>{data.title}</h1>
+        <h1>
+          {data.title}
+          {data.file ? (
+            <span className="text-xl pl-2">
+              <Editable>
+                <textarea
+                  className="font-mono p-2 flex-1"
+                  value={data.file.content}
+                />
+              </Editable>
+            </span>
+          ) : null}
+        </h1>
         <Markdown text={data.content} />
       </article>
     </div>

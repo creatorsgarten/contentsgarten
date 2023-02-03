@@ -25,6 +25,7 @@ const AuthContext = createContext<AuthContext>({
 
 export interface AuthProvider {
   initialState: WikiAuthState
+  children: React.ReactNode
 }
 
 export const AuthProvider: FC<AuthProvider> = (props) => {
