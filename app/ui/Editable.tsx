@@ -1,19 +1,16 @@
 import { FC, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Icon } from 'react-iconify-icon-wrapper'
-import { trpc } from '~/utils/trpc'
 
 export interface Editable {
   children: React.ReactNode
-  allowClosing?: boolean
+  saving: boolean
+  onSave: () => Promise<boolean>
 }
 
 export const Editable: FC<Editable> = (props) => {
   const [isEditing, setIsEditing] = useState(false)
   const handleOpenChange = (open: boolean) => {
-    if (isEditing && !open && !props.allowClosing) {
-      return
-    }
     setIsEditing(open)
   }
   return (
@@ -35,9 +32,25 @@ export const Editable: FC<Editable> = (props) => {
             <Dialog.Title className="flex-1 py-2 px-3 border-x border-slate-300">
               Edit
             </Dialog.Title>
-            <button className="flex gap-1 self-stretch items-center px-3">
-              Save
-              <Icon icon="mdi:check" />
+            <button
+              className="flex gap-1 self-stretch items-center px-3"
+              disabled={props.saving}
+              onClick={() => {
+                props.onSave().then((success) => {
+                  if (success) {
+                    setIsEditing(false)
+                  }
+                })
+              }}
+            >
+              {props.saving ? (
+                <>Saving</>
+              ) : (
+                <>
+                  Save
+                  <Icon icon="mdi:check" />
+                </>
+              )}
             </button>
           </div>
           {props.children}

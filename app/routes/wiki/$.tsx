@@ -10,7 +10,8 @@ import { Markdown } from '~/markdown'
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
 import { contentsgarten } from '../api/contentsgarten/$action'
 import { Editable } from '~/ui/Editable'
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import { trpc } from '~/utils/trpc'
 
 export async function loader(args: LoaderArgs) {
   const client = createClient(args.request)
@@ -56,7 +57,7 @@ export default function WikiPage() {
           {data.title}
           {data.file ? (
             <span className="text-xl pl-2">
-              <FileEditor file={data.file} />
+              <FileEditor file={data.file} pageRef={data.pageRef} />
             </span>
           ) : null}
         </h1>
@@ -68,13 +69,33 @@ export default function WikiPage() {
 
 interface FileEditor {
   file: Exclude<GetPageResult['file'], undefined>
+  pageRef: string
 }
 
 const FileEditor: FC<FileEditor> = (props) => {
   const { file } = props
+  const [content, setContent] = useState(file.content)
+  const save = trpc.save.useMutation()
   return (
-    <Editable>
-      <textarea className="font-mono p-2 flex-1" value={file.content} />
+    <Editable
+      saving={save.isLoading}
+      onSave={async () => {
+        await save.mutateAsync({
+          pageRef: props.pageRef,
+          newContent: content,
+          oldRevision: file.revision,
+        })
+        setTimeout(() => {
+          location.reload()
+        })
+        return true
+      }}
+    >
+      <textarea
+        className="font-mono p-2 flex-1"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
     </Editable>
   )
 }

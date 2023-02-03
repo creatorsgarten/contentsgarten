@@ -18,6 +18,32 @@ export const ContentsgartenRouter = t.router({
     .query(async ({ input: { pageRef }, ctx }) => {
       return getPage(ctx, pageRef)
     }),
+  save: t.procedure
+    .input(
+      z.object({
+        pageRef: z.string(),
+        newContent: z.string(),
+        oldRevision: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ input: { pageRef, newContent, oldRevision }, ctx }) => {
+      const filePath = pageRefToFilePath(ctx, pageRef)
+      // const authState = await ctx.auth.getAuthState()
+      // if (!authState.authenticated) {
+      //   throw new Error('Not authenticated')
+      // }
+      // if (authState.user.id !== 193136) {
+      //   throw new Error('Not allowed to edit page')
+      // }
+      const result = await ctx.config.storage.putFile(ctx, filePath, {
+        content: Buffer.from(newContent),
+        revision: oldRevision,
+        message: `Update page ${pageRef}`,
+        // userId: authState.user.id,
+        userId: 193136,
+      })
+      return { revision: result.revision }
+    }),
 })
 
 function pageRefToFilePath(_ctx: ContentsgartenContext, pageRef: string) {
