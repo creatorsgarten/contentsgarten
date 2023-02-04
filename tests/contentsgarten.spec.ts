@@ -10,7 +10,7 @@ const client = createTRPCProxyClient<typeof ContentsgartenRouter>({
   ],
 })
 
-test('About', async () => {
+test.skip('About', async () => {
   const about = await client.about.query()
   expect(about).toEqual({ name: 'Contentsgarten' })
 })

@@ -1,87 +1,121 @@
-import type { MetaFunction } from '@remix-run/node'
-import { Form, Link, useLoaderData } from '@remix-run/react'
-import type { FC } from 'react'
+import type { LoaderArgs, MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import {
+  ContentsgartenRouter,
+  GetPageResult,
+  handleContentsgartenRequest,
+} from 'src/packlets/contentsgarden'
 import { Markdown } from '~/markdown'
+import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
+import { getInstance } from '../api/contentsgarten/$action'
+import { Editable } from '~/ui/Editable'
+import { FC, useState } from 'react'
+import { trpc } from '~/utils/trpc'
 
-import type { LoaderData, WikiPageEdit } from '~/routes/api/wiki/$'
-import { action, loader } from '~/routes/api/wiki/$'
-export { action, loader }
+export async function loader(args: LoaderArgs) {
+  const client = createClient(args.request)
+  const slug = args.params['*'] as string
+  return json(await client.view.query({ pageRef: slug }))
+}
 
-export const meta: MetaFunction = ({ data, params }) => {
-  const { pageTitle } = data as LoaderData
+export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
+  const { title } = data
   return {
-    title: `${pageTitle} | Contentsgarten`,
+    title: `${title} | Contentsgarten`,
   }
 }
 
+function createClient(_request: Request) {
+  return createTRPCProxyClient<typeof ContentsgartenRouter>({
+    links: [
+      httpBatchLink({
+        url: new URL('/api/contentsgarten', 'http://fake').toString(),
+        headers: {},
+        fetch: (input, init) => {
+          if (typeof input === 'string' && input.startsWith('http://fake')) {
+            const request = new Request(input, init)
+            return handleContentsgartenRequest(
+              getInstance(),
+              request,
+              '/api/contentsgarten',
+            )
+          }
+          return fetch(input, init)
+        },
+      }),
+    ],
+  })
+}
+
 export default function WikiPage() {
-  const data: LoaderData = useLoaderData()
+  const serverData = useLoaderData<typeof loader>()
+  const freshDataQuery = trpc.view.useQuery(
+    { pageRef: serverData.pageRef },
+    { refetchOnWindowFocus: false },
+  )
+  const data = freshDataQuery.data ?? serverData
   return (
     <div className="p-8">
-      <article className="prose md:prose-lg max-w-[48rem]">
+      <article
+        className="prose md:prose-lg max-w-[48rem]"
+        style={{ opacity: freshDataQuery.isRefetching ? 0.5 : 1 }}
+      >
         <h1>
-          {data.pageTitle}
-          {!!data.view?.editPath && (
-            <Link
-              to={data.view.editPath}
-              className="inline-block ml-2"
-              title="Edit this page"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                width="16"
-                height="16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25a1.75 1.75 0 01.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.064.108l-.558 1.953 1.953-.558a.249.249 0 00.108-.064l6.286-6.286z"
-                ></path>
-              </svg>
-            </Link>
-          )}
+          {data.title}
+          {data.file ? (
+            <span className="text-xl pl-2">
+              <FileEditor file={data.file} pageRef={data.pageRef} />
+            </span>
+          ) : null}
         </h1>
-
-        {!!data.view && (
-          <>
-            <Markdown text={data.view.page.content} />
-          </>
-        )}
-
-        {!!data.edit && (
-          <>
-            <ul>
-              <li>
-                <a href={data.edit.gitHubEditPath}>
-                  Edit this file on github.dev
-                </a>
-              </li>
-            </ul>
-            <WikiPageEditor edit={data.edit} />
-          </>
-        )}
+        <Markdown text={data.content} />
       </article>
     </div>
   )
 }
 
-const WikiPageEditor: FC<{ edit: WikiPageEdit }> = ({ edit }) => {
+interface FileEditor {
+  file: Exclude<GetPageResult['file'], undefined>
+  pageRef: string
+}
+
+const FileEditor: FC<FileEditor> = (props) => {
+  const { file } = props
+  const [cachedContent, setCachedContent] = useState(file.content)
+  const [content, setContent] = useState(file.content)
+  const save = trpc.save.useMutation()
+  const trpcContext = trpc.useContext()
+
+  if (cachedContent !== file.content && content === cachedContent) {
+    setCachedContent(file.content)
+    setContent(file.content)
+  }
+
   return (
-    <Form method="post" action={edit.formTarget}>
-      <p>
-        <textarea
-          name="content"
-          className="w-full h-[24rem] rounded border border-gray-500 p-2 font-mono text-sm"
-          defaultValue={edit.content}
-        ></textarea>
-      </p>
-      <p>
-        <button className="rounded border-2 border-gray-500 px-3 py-1">
-          Save Changes
-        </button>
-      </p>
-      <input type="hidden" name="sha" value={edit.sha} />
-      <input type="hidden" name="redirect" value="view" />
-    </Form>
+    <Editable
+      saving={save.isLoading}
+      onSave={async () => {
+        try {
+          await save.mutateAsync({
+            pageRef: props.pageRef,
+            newContent: content,
+            oldRevision: file.revision,
+          })
+          trpcContext.view.invalidate({ pageRef: props.pageRef })
+          return true
+        } catch (error) {
+          console.error(error)
+          alert(`Unable to save: ${error}`)
+          return false
+        }
+      }}
+    >
+      <textarea
+        className="font-mono p-2 flex-1"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      />
+    </Editable>
   )
 }
