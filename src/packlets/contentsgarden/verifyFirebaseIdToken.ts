@@ -2,7 +2,6 @@ import { jwtVerify } from 'jose'
 import pMemoize from 'p-memoize'
 import axios from 'axios'
 import { has } from 'lodash-es'
-import { createPublicKey } from 'crypto'
 import ExpiryMap from 'expiry-map'
 
 const getPublicKeys = pMemoize(
@@ -16,6 +15,7 @@ const getPublicKeys = pMemoize(
 )
 
 const getPublicKey = pMemoize(async (kid) => {
+  const { createPublicKey } = await import('crypto')
   const publicKeys = await getPublicKeys()
   if (!kid || !has(publicKeys, kid)) {
     throw new Error('Invalid kid')
@@ -23,7 +23,7 @@ const getPublicKey = pMemoize(async (kid) => {
   return createPublicKey(publicKeys[kid])
 })
 
-export function verifyIdToken(projectId: string, idToken: string) {
+export function verifyFirebaseIdToken(projectId: string, idToken: string) {
   return jwtVerify(idToken, async (header) => getPublicKey(header.kid), {
     issuer: `https://securetoken.google.com/${projectId}`,
     audience: projectId,
