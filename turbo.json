@@ -2,7 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "outputs": ["build/**", "public/build/**", ".netlify/**"],
+      "outputs": ["build/**", "public/build/**", ".netlify/**", "dist/**"],
       "env": ["NETLIFY"]
     },
     "lint": {}

@@ -1,14 +1,21 @@
-import type { ContentsgartenContext } from './ContentsgartenContext'
+import type {
+  ContentsgartenContext,
+  ContentsgartenGlobalContext,
+} from './ContentsgartenContext'
 import { QueryClient } from '@tanstack/query-core'
 import type { ContentsgartenConfig } from './ContentsgartenConfig'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { ContentsgartenRouter } from './ContentsgartenRouter'
 
 export class Contentsgarten {
+  private globalContext: ContentsgartenGlobalContext = {
+    queryClient: new QueryClient(),
+  }
   constructor(private config: ContentsgartenConfig) {}
 
   createContext(input: CreateContextInput): ContentsgartenContext {
     return {
+      global: this.globalContext,
       queryClient: new QueryClient(),
       config: this.config,
       authToken: input.authToken,

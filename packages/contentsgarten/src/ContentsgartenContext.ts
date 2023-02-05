@@ -1,9 +1,10 @@
-import type { QueryClient } from '@tanstack/query-core'
 import type { ContentsgartenConfig } from './ContentsgartenConfig'
-import type { RequestContext } from './RequestContext'
+import type { GlobalContext, RequestContext } from './RequestContext'
 
 export interface ContentsgartenContext extends RequestContext {
-  queryClient: QueryClient
+  global: ContentsgartenGlobalContext
   config: ContentsgartenConfig
   authToken?: string
 }
+
+export interface ContentsgartenGlobalContext extends GlobalContext {}
