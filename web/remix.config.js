@@ -8,10 +8,15 @@ module.exports = {
     : {}),
   ignoredRouteFiles: ['**/.*'],
   // https://remix.run/docs/en/v1/pages/gotchas#importing-esm-packages
-  serverDependenciesToBundle: ['lodash-es', 'p-memoize', 'mimic-fn', 'axios'],
+  serverDependenciesToBundle: [
+    'lodash-es',
+    'contentsgarten',
+    'p-memoize',
+    'mimic-fn',
+  ],
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
-  watchPaths: ['src/**'],
+  watchPaths: ['../packages/contentsgarten/dist/index.js'],
 }

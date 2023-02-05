@@ -1,0 +1,40 @@
+{
+  "name": "contentsgarten",
+  "version": "1.0.0",
+  "description": "A cloud-native wiki engine",
+  "module": "dist/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "dev": "pnpm run build --watch"
+  },
+  "keywords": [],
+  "author": "Thai Pangsakulyanont <dtinth@spacet.me>",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "^1.0.1",
+    "depcheck": "^1.4.3",
+    "tsup": "^6.5.0",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "@tanstack/query-core": "^4.20.4",
+    "@trpc/server": "^10.9.1",
+    "axios": "^1.0.0",
+    "expiry-map": "^2.0.0",
+    "jose": "^4.8.3",
+    "liquidjs": "^10.0.0",
+    "lodash-es": "^4.17.21",
+    "octokit": "^2.0.3",
+    "p-memoize": "^7.1.0",
+    "zod": "^3.20.2"
+  }
+}
