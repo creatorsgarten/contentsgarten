@@ -1,0 +1,6 @@
+{
+  "extends": "@tsconfig/node18",
+  "compilerOptions": {
+    "lib": ["DOM"]
+  }
+}
