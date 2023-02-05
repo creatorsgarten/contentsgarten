@@ -1,3 +1,4 @@
+import { App } from 'octokit'
 import type { GitHubApp } from './GitHubApp'
 import type { RequestContext } from './RequestContext'
 
@@ -36,7 +37,7 @@ export class GitHubStorage implements ContentsgartenStorage {
   }
 
   async getFile(ctx: RequestContext, path: string) {
-    const octokit = await this.config.app.getOctokit(this.config.repo)
+    const octokit = await resolveOctokit(ctx, this.config.app, this.config.repo)
     const { owner, repo } = this
     try {
       const { data } = await octokit.rest.repos.getContent({
@@ -58,12 +59,13 @@ export class GitHubStorage implements ContentsgartenStorage {
       throw error
     }
   }
+
   async putFile(
     ctx: RequestContext,
     path: string,
     options: PutFileOptions,
   ): Promise<PutFileResult> {
-    const octokit = await this.config.app.getOctokit(this.config.repo)
+    const octokit = await resolveOctokit(ctx, this.config.app, this.config.repo)
     const { owner, repo } = this
     const { data } = await octokit.rest.repos.createOrUpdateFileContents({
       owner,
@@ -98,4 +100,27 @@ interface ApiError {
   response: {
     data: any
   }
+}
+
+async function resolveOctokit(
+  ctx: RequestContext,
+  app: GitHubApp,
+  ownerRepo: string,
+) {
+  return ctx.global.queryClient.fetchQuery({
+    queryKey: ['octokit', ownerRepo],
+    queryFn: async () => {
+      const octokitApp = new App({
+        appId: app.config.appId,
+        privateKey: app.config.privateKey,
+      })
+      const [owner, repo] = ownerRepo.split('/')
+      const installationResponse =
+        await octokitApp.octokit.rest.apps.getRepoInstallation({
+          owner,
+          repo,
+        })
+      return octokitApp.getInstallationOctokit(installationResponse.data.id)
+    },
+  })
 }

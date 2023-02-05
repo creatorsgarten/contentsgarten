@@ -76,7 +76,7 @@ async function getPage(ctx: ContentsgartenContext, pageRef: string) {
     content: String(
       file
         ? await engine.renderFile(pageRef)
-        : '(This page currently does not exist)',
+        : '(This page currently does not exist.)',
     ),
     status: file ? 200 : 404,
   }
