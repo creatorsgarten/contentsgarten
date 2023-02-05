@@ -1,10 +1,6 @@
 [build]
-  command = "remix build"
+  command = "pnm run build"
   publish = "web/public"
-
-[dev]
-  command = "remix watch"
-  port = 3000
 
 [functions]
   directory = "web/.netlify/functions-internal"
