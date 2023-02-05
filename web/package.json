@@ -10,6 +10,7 @@
     "start": "remix-serve build"
   },
   "dependencies": {
+    "contentsgarten": "workspace:*",
     "@netlify/functions": "^1.0.0",
     "@radix-ui/react-dialog": "^1.0.2",
     "@remix-run/netlify": "^1.12.0",
@@ -35,6 +36,7 @@
     "@rushstack/eslint-plugin-packlets": "^0.6.0",
     "@tailwindcss/typography": "^0.5.3",
     "@trpc/client": "^10.9.1",
+    "@trpc/server": "^10.9.1",
     "@types/cookie": "^0.5.1",
     "@types/js-cookie": "^3.0.2",
     "@types/lodash-es": "^4.17.6",

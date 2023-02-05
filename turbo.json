@@ -3,7 +3,12 @@
   "pipeline": {
     "build": {
       "outputs": ["build/**", "public/build/**", ".netlify/**", "dist/**"],
+      "dependsOn": ["^build"],
       "env": ["NETLIFY"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
     },
     "lint": {}
   }

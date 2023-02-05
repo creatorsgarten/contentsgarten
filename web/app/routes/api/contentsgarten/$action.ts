@@ -5,7 +5,7 @@ import {
   GitHubFirebaseAuth,
   GitHubStorage,
   handleContentsgartenRequest,
-} from 'src/packlets/contentsgarden'
+} from 'contentsgarten'
 import { Env } from 'lazy-strict-env'
 import { z } from 'zod'
 import cookie from 'cookie'

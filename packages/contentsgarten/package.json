@@ -2,9 +2,16 @@
   "name": "contentsgarten",
   "version": "1.0.0",
   "description": "A cloud-native wiki engine",
-  "main": "index.js",
+  "module": "dist/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs --dts"
+    "build": "tsup src/index.ts --format esm --dts",
+    "dev": "pnpm run build --watch"
   },
   "keywords": [],
   "author": "Thai Pangsakulyanont <dtinth@spacet.me>",
