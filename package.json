@@ -2,7 +2,8 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "turbo build"
+    "build": "turbo build",
+    "dev": "turbo dev"
   },
   "engines": {
     "node": ">=18"
