@@ -1,5 +1,6 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
 import {
+  ContentsgartenDefaultCache,
   Contentsgarten,
   GitHubApp,
   GitHubFirebaseAuth,
@@ -17,6 +18,8 @@ const env = Env(
     GH_REPO: z
       .string()
       .regex(/^[^/\s]+\/[^/\s]+$/, 'Must be <owner>/<repo> format'),
+
+    REDIS_URL: z.string(),
   }),
 )
 
@@ -45,6 +48,7 @@ export function getInstance() {
         projectId: 'creatorsgarten-wiki',
       },
     }),
+    cache: new ContentsgartenDefaultCache(env.REDIS_URL),
   })
   instance = contentsgarten
   return contentsgarten

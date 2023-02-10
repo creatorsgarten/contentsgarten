@@ -1,9 +1,9 @@
-import type { ContentsgartenContext } from './ContentsgartenContext'
+import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 import type { FS } from 'liquidjs/dist/fs/fs'
 import { Liquid } from 'liquidjs'
 import { extname, resolve } from 'path'
 
-export function createLiquidEngine(ctx: ContentsgartenContext) {
+export function createLiquidEngine(ctx: ContentsgartenRequestContext) {
   const engine = new Liquid({
     fs: createLiquidFs(ctx),
     root: '/wiki',
@@ -15,7 +15,7 @@ export function createLiquidEngine(ctx: ContentsgartenContext) {
   return engine
 }
 
-function createLiquidFs(ctx: ContentsgartenContext): FS {
+function createLiquidFs(ctx: ContentsgartenRequestContext): FS {
   const normalizePath = (p: string) => p.replace(/^\/+/, '')
   const storage = ctx.config.storage
   return {
