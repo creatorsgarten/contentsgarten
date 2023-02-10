@@ -1,8 +1,8 @@
 import Keyv from 'keyv'
 
-export interface ContentsGartenCache {}
+export interface ContentsgartenCache {}
 
-export class ContentsgartenDefaultCache implements ContentsGartenCache {
+export class ContentsgartenDefaultCache implements ContentsgartenCache {
   private keyv: Keyv
 
   /**
