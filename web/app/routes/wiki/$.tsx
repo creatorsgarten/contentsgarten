@@ -1,17 +1,16 @@
 import type { LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { GetPageResult, handleContentsgartenRequest } from 'contentsgarten'
-import type { ContentsgartenRouter } from 'contentsgarten'
 import { Markdown } from '~/markdown'
-import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
-import { getInstance } from '../api/contentsgarten/$action'
 import { Editable } from '~/ui/Editable'
-import { FC, useState } from 'react'
+import type { FC } from 'react'
+import { useState } from 'react'
 import { trpc } from '~/utils/trpc'
+import { createServerSideClient } from '~/utils/createServerSideClient.server'
+import type { GetPageResult } from 'contentsgarten'
 
 export async function loader(args: LoaderArgs) {
-  const client = createClient(args.request)
+  const client = createServerSideClient(args.request)
   const slug = args.params['*'] as string
   return json(await client.view.query({ pageRef: slug }))
 }
@@ -21,28 +20,6 @@ export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
   return {
     title: `${title} | Contentsgarten`,
   }
-}
-
-function createClient(_request: Request) {
-  return createTRPCProxyClient<typeof ContentsgartenRouter>({
-    links: [
-      httpBatchLink({
-        url: new URL('/api/contentsgarten', 'http://fake').toString(),
-        headers: {},
-        fetch: (input, init) => {
-          if (typeof input === 'string' && input.startsWith('http://fake')) {
-            const request = new Request(input, init as RequestInit)
-            return handleContentsgartenRequest(
-              getInstance(),
-              request,
-              '/api/contentsgarten',
-            )
-          }
-          return fetch(input, init as RequestInit)
-        },
-      }),
-    ],
-  })
 }
 
 export default function WikiPage() {
