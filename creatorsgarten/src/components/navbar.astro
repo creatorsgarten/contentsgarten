@@ -1,0 +1,20 @@
+---
+import logo from './logo.svg'
+---
+
+<section class="cg-large-container mt-1 flex h-14 py-4 items-center gap-3">
+  <a
+    href="https://creatorsgarten.org"
+    class="flex-0 flex self-stretch items-center"
+  >
+    <img src={logo} class="h-full" alt="Creatorsgarten" />
+  </a>
+  <span class="h-6 border-l border-gray-400"></span>
+  <a rel="prefetch" href="/" class="text-gray-800">Wiki</a>
+</section>
+
+<style>
+  a {
+    @apply text-lg font-medium tracking-[-0.015em] transition-all hover:underline;
+  }
+</style>
