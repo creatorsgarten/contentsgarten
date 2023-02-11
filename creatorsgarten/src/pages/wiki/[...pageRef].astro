@@ -1,0 +1,14 @@
+---
+import BaseLayout from '$layouts/base.astro'
+const { pageRef } = Astro.params
+---
+
+<BaseLayout title={pageRef}>
+  <div class="cg-large-container pt-4">
+    <article class="prose md:prose-lg max-w-[48rem]">
+      <h1>
+        {pageRef}
+      </h1>
+    </article>
+  </div>
+</BaseLayout>
