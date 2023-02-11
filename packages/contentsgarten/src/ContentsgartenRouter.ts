@@ -3,6 +3,7 @@ import { t } from './trpc'
 import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { createLiquidEngine } from './createLiquidEngine'
 import { TRPCError } from '@trpc/server'
+import { getFile } from './getFile'
 
 export const ContentsgartenRouter = t.router({
   about: t.procedure.query(() => {
@@ -67,7 +68,7 @@ function pageRefToFilePath(
 async function getPage(ctx: ContentsgartenRequestContext, pageRef: string) {
   const filePath = pageRefToFilePath(ctx, pageRef)
   const engine = createLiquidEngine(ctx)
-  const file = await ctx.app.storage.getFile(ctx, filePath)
+  const file = await getFile(ctx, filePath)
   const result: GetPageResult = {
     pageRef,
     title: pageRef,

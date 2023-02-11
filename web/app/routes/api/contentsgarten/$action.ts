@@ -1,4 +1,5 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
+import type { ContentsgartenCache } from 'contentsgarten'
 import {
   ContentsgartenDefaultCache,
   Contentsgarten,
@@ -48,10 +49,15 @@ export function getInstance() {
         projectId: 'creatorsgarten-wiki',
       },
     }),
-    cache: new ContentsgartenDefaultCache(env.REDIS_URL),
+    cache: getCache(),
   })
   instance = contentsgarten
   return contentsgarten
+}
+
+function getCache(): ContentsgartenCache {
+  return ((globalThis as any).contentsgartenCache ??=
+    new ContentsgartenDefaultCache())
 }
 
 export const loader = async (args: LoaderArgs) => {
