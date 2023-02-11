@@ -1,14 +1,20 @@
 ---
 import BaseLayout from '$layouts/base.astro'
+import { createServerSideClient } from '@contentsgarten/utils/dist/server'
+import { getInstance } from '../api/contentsgarten/[action]'
+
 const { pageRef } = Astro.params
+const client = createServerSideClient(getInstance(), '/api/contentsgarten')
+const page = await client.view.query({ pageRef: String(pageRef) })
 ---
 
-<BaseLayout title={pageRef}>
+<BaseLayout title={page.title}>
   <div class="cg-large-container pt-4">
     <article class="prose md:prose-lg max-w-[48rem]">
       <h1>
-        {pageRef}
+        {page.title}
       </h1>
+      {page.content}
     </article>
   </div>
 </BaseLayout>

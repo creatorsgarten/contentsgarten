@@ -8,4 +8,7 @@ export interface ContentsgartenRequestContext extends RequestContext {
 
 export interface ContentsgartenAppContext
   extends AppContext,
-    ContentsgartenConfig {}
+    ContentsgartenConfig {
+  pageFilePrefix: string
+  pageFileExtension: string
+}

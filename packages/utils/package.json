@@ -1,0 +1,37 @@
+{
+  "name": "@contentsgarten/utils",
+  "version": "1.0.0",
+  "description": "Utility functions for contentsgarten",
+  "module": "dist/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts src/server.ts --format esm --dts",
+    "dev": "pnpm run build --watch"
+  },
+  "keywords": [],
+  "author": "Thai Pangsakulyanont <dtinth@spacet.me>",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "contentsgarten": "workspace:*",
+    "@trpc/client": "^10.9.1",
+    "@trpc/server": "^10.9.1",
+    "@tsconfig/node18": "^1.0.1",
+    "@types/json-buffer": "^3.0.0",
+    "@types/node": "^18.13.0",
+    "tsup": "^6.5.0",
+    "typescript": "^4.6.4"
+  },
+  "peerDependencies": {
+    "contentsgarten": "workspace:*",
+    "@trpc/client": "^10.9.1",
+    "@trpc/server": "^10.9.1"
+  }
+}

@@ -5,12 +5,13 @@ import { extname, resolve } from 'path'
 import { getFile } from './CachedFileAccess'
 
 export function createLiquidEngine(ctx: ContentsgartenRequestContext) {
+  const root = '/' + ctx.app.pageFilePrefix.replace(/\/$/, '')
   const engine = new Liquid({
     fs: createLiquidFs(ctx),
-    root: '/wiki',
-    partials: '/wiki/Template',
+    root,
+    partials: root + '/Template',
     jekyllInclude: true,
-    extname: '.md.liquid',
+    extname: ctx.app.pageFileExtension,
     relativeReference: false,
   })
   return engine

@@ -48,6 +48,7 @@ export function getInstance() {
       },
     }),
     cache: getCache(),
+    pageFileExtension: '.md',
   })
   instance = contentsgarten
   return contentsgarten

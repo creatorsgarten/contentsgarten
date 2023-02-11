@@ -15,6 +15,8 @@ export class Contentsgarten {
         defaultOptions: { queries: { staleTime: Infinity } },
       }),
       ...config,
+      pageFilePrefix: config.pageFilePrefix ?? 'wiki/',
+      pageFileExtension: config.pageFileExtension ?? '.md.liquid',
     }
   }
 
