@@ -13,16 +13,22 @@
     "@astrojs/node": "^5.0.3",
     "@astrojs/react": "^2.0.2",
     "@astrojs/tailwind": "^3.0.1",
+    "@contentsgarten/markdown": "workspace:*",
+    "@contentsgarten/utils": "workspace:*",
     "@tailwindcss/typography": "^0.5.3",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "astro": "^2.0.8",
     "contentsgarten": "workspace:*",
+    "cookie": "^0.5.0",
+    "lazy-strict-env": "^0.3.1",
     "postcss": "^8.4.21",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "tailwindcss": "^3.0.24",
-    "@contentsgarten/utils": "workspace:*",
-    "@contentsgarten/markdown": "workspace:*"
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.5.1"
   }
 }
