@@ -47,6 +47,7 @@ importers:
       '@trpc/server': ^10.9.1
       '@tsconfig/node18': ^1.0.1
       '@types/json-buffer': ^3.0.0
+      '@types/lodash-es': ^4.17.6
       '@types/node': ^18.13.0
       axios: ^1.0.0
       depcheck: ^1.4.3
@@ -78,6 +79,7 @@ importers:
     devDependencies:
       '@tsconfig/node18': 1.0.1
       '@types/json-buffer': 3.0.0
+      '@types/lodash-es': 4.17.6
       '@types/node': 18.13.0
       depcheck: 1.4.3
       tsup: 6.6.0_typescript@4.9.5
