@@ -11,13 +11,23 @@ importers:
   creatorsgarten:
     specifiers:
       '@astrojs/node': ^5.0.3
+      '@astrojs/react': ^2.0.2
       '@astrojs/tailwind': ^3.0.1
+      '@types/react': ^18.0.21
+      '@types/react-dom': ^18.0.6
       astro: ^2.0.8
+      react: ^18.0.0
+      react-dom: ^18.0.0
       tailwindcss: ^3.0.24
     dependencies:
       '@astrojs/node': 5.0.3_astro@2.0.8
+      '@astrojs/react': 2.0.2_fxtgt6bjwd6p4cwoordejim2zi
       '@astrojs/tailwind': 3.0.1_7ey3tu23aty2if6vwttfsa7ree
+      '@types/react': 18.0.27
+      '@types/react-dom': 18.0.10
       astro: 2.0.8
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
       tailwindcss: 3.2.6
 
   packages/contentsgarten:
@@ -226,6 +236,25 @@ packages:
     engines: {node: '>=16.12.0'}
     dependencies:
       prismjs: 1.29.0
+    dev: false
+
+  /@astrojs/react/2.0.2_fxtgt6bjwd6p4cwoordejim2zi:
+    resolution: {integrity: sha512-UmQNvzJul5M/Q9aZJXnqz4z0ODZXkLuaNvgsYoKB7OdM8c2v85FsTjMZZJ7BvFo4On31jJ0rL/gwTaCeuYqmpw==}
+    engines: {node: '>=16.12.0'}
+    peerDependencies:
+      '@types/react': ^17.0.50 || ^18.0.21
+      '@types/react-dom': ^17.0.17 || ^18.0.6
+      react: ^17.0.2 || ^18.0.0
+      react-dom: ^17.0.2 || ^18.0.0
+    dependencies:
+      '@babel/core': 7.20.12
+      '@babel/plugin-transform-react-jsx': 7.20.13_@babel+core@7.20.12
+      '@types/react': 18.0.27
+      '@types/react-dom': 18.0.10
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@astrojs/tailwind/3.0.1_7ey3tu23aty2if6vwttfsa7ree:
@@ -3794,7 +3823,6 @@ packages:
     resolution: {integrity: sha512-E42GW/JA4Qv15wQdqJq8DL4JhNpB3prJgjgapN3qJT9K2zO5IIAQh4VXvCEDupoqAwnz0cY4RlXeC/ajX5SFHg==}
     dependencies:
       '@types/react': 18.0.27
-    dev: true
 
   /@types/react/18.0.27:
     resolution: {integrity: sha512-3vtRKHgVxu3Jp9t718R9BuzoD4NcQ8YJ5XRzsSKxNDiDonD2MXIT1TmSkenxuCycZJoQT5d2vE8LwWJxBC1gmA==}
