@@ -84,7 +84,7 @@ async function getPage(
         content: String(await engine.renderFile(pageRef)),
         status: 200
       } as const
-    } catch (e) {
+    } catch (e: any) {
       return {
         content: [
           'Unable to render the page:',
