@@ -21,6 +21,7 @@ const env = Env(
       .regex(/^[^/\s]+\/[^/\s]+$/, 'Must be <owner>/<repo> format'),
 
     REDIS_URL: z.string(),
+    CACHE_SIGNING_KEY: z.string(),
   }),
 )
 
@@ -57,7 +58,10 @@ export function getInstance() {
 
 function getCache(): ContentsgartenCache {
   return ((globalThis as any).contentsgartenCache ??=
-    new ContentsgartenDefaultCache())
+    new ContentsgartenDefaultCache({
+      url: env.REDIS_URL,
+      signingKey: env.CACHE_SIGNING_KEY,
+    }))
 }
 
 export const loader = async (args: LoaderArgs) => {
