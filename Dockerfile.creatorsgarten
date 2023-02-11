@@ -1,0 +1,29 @@
+FROM node:18-alpine AS base
+RUN apk add --no-cache libc6-compat
+RUN apk update
+RUN yarn global add pnpm turbo
+WORKDIR /app
+
+# Generate a pruned workspace
+FROM base as pruned-workspace
+COPY ./ ./
+RUN turbo prune --scope=creatorsgarten-wiki --docker
+
+# Install dependencies
+FROM base as deps
+COPY .gitignore .
+COPY --from=pruned-workspace /app/out/json/ ./
+COPY --from=pruned-workspace /app/out/pnpm-lock.yaml ./
+COPY --from=pruned-workspace /app/out/pnpm-workspace.yaml ./
+RUN pnpm install
+
+# Build the project
+FROM deps as builder
+COPY --from=pruned-workspace /app/out/full/ ./
+RUN pnpm exec turbo build --filter=creatorsgarten-wiki...
+
+FROM deps AS runtime
+COPY --from=builder /app/ .
+USER node
+WORKDIR /app/creatorsgarten
+CMD node dist/server/entry.mjs
