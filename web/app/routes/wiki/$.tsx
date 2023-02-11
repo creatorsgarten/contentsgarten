@@ -25,7 +25,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
 export default function WikiPage() {
   const serverData = useLoaderData<typeof loader>()
   const freshDataQuery = trpc.view.useQuery(
-    { pageRef: serverData.pageRef },
+    { pageRef: serverData.pageRef, revalidate: true },
     { refetchOnWindowFocus: false },
   )
   const data = freshDataQuery.data ?? serverData

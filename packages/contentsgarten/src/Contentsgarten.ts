@@ -1,6 +1,6 @@
 import type {
-  ContentsgartenContext,
-  ContentsgartenGlobalContext,
+  ContentsgartenRequestContext,
+  ContentsgartenAppContext,
 } from './ContentsgartenContext'
 import { QueryClient } from '@tanstack/query-core'
 import type { ContentsgartenConfig } from './ContentsgartenConfig'
@@ -8,16 +8,22 @@ import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { ContentsgartenRouter } from './ContentsgartenRouter'
 
 export class Contentsgarten {
-  private globalContext: ContentsgartenGlobalContext = {
-    queryClient: new QueryClient(),
+  private globalContext: ContentsgartenAppContext
+  constructor(config: ContentsgartenConfig) {
+    this.globalContext = {
+      queryClient: new QueryClient({
+        defaultOptions: { queries: { staleTime: Infinity } },
+      }),
+      ...config,
+    }
   }
-  constructor(private config: ContentsgartenConfig) {}
 
-  createContext(input: CreateContextInput): ContentsgartenContext {
+  createContext(input: CreateContextInput): ContentsgartenRequestContext {
     return {
-      global: this.globalContext,
-      queryClient: new QueryClient(),
-      config: this.config,
+      app: this.globalContext,
+      queryClient: new QueryClient({
+        defaultOptions: { queries: { staleTime: Infinity } },
+      }),
       authToken: input.authToken,
     }
   }
@@ -46,7 +52,7 @@ export async function handleContentsgartenRequest(
 export function createContextFromRequest(
   core: Contentsgarten,
   req: Request,
-): ContentsgartenContext {
+): ContentsgartenRequestContext {
   return core.createContext({
     authToken: getAuthTokenFromRequest(req),
   })

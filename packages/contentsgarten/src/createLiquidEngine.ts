@@ -1,9 +1,10 @@
-import type { ContentsgartenContext } from './ContentsgartenContext'
+import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 import type { FS } from 'liquidjs/dist/fs/fs'
 import { Liquid } from 'liquidjs'
 import { extname, resolve } from 'path'
+import { getFile } from './CachedFileAccess'
 
-export function createLiquidEngine(ctx: ContentsgartenContext) {
+export function createLiquidEngine(ctx: ContentsgartenRequestContext) {
   const engine = new Liquid({
     fs: createLiquidFs(ctx),
     root: '/wiki',
@@ -15,12 +16,11 @@ export function createLiquidEngine(ctx: ContentsgartenContext) {
   return engine
 }
 
-function createLiquidFs(ctx: ContentsgartenContext): FS {
+function createLiquidFs(ctx: ContentsgartenRequestContext): FS {
   const normalizePath = (p: string) => p.replace(/^\/+/, '')
-  const storage = ctx.config.storage
   return {
     readFile: async (path) => {
-      const file = await storage.getFile(ctx, normalizePath(path))
+      const file = await getFile(ctx, normalizePath(path))
       if (file) {
         return file.content.toString()
       } else {
@@ -31,7 +31,7 @@ function createLiquidFs(ctx: ContentsgartenContext): FS {
       throw new Error('No sync version')
     },
     exists: async (path) => {
-      const file = await storage.getFile(ctx, normalizePath(path))
+      const file = await getFile(ctx, normalizePath(path))
       return !!file
     },
     existsSync: (path) => {

@@ -1,10 +1,11 @@
 import type { ContentsgartenConfig } from './ContentsgartenConfig'
-import type { GlobalContext, RequestContext } from './RequestContext'
+import type { AppContext, RequestContext } from './RequestContext'
 
-export interface ContentsgartenContext extends RequestContext {
-  global: ContentsgartenGlobalContext
-  config: ContentsgartenConfig
+export interface ContentsgartenRequestContext extends RequestContext {
+  app: ContentsgartenAppContext
   authToken?: string
 }
 
-export interface ContentsgartenGlobalContext extends GlobalContext {}
+export interface ContentsgartenAppContext
+  extends AppContext,
+    ContentsgartenConfig {}
