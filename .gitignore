@@ -22,3 +22,5 @@ node_modules
 /playwright/.cache/
 .turbo
 dist
+
+/out
