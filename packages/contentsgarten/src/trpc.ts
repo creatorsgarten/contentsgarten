@@ -1,4 +1,4 @@
 import { initTRPC } from '@trpc/server'
-import type { ContentsgartenContext } from './ContentsgartenContext'
+import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 
-export const t = initTRPC.context<ContentsgartenContext>().create()
+export const t = initTRPC.context<ContentsgartenRequestContext>().create()

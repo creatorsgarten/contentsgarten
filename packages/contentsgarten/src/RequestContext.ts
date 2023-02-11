@@ -2,9 +2,9 @@ import type { QueryClient } from '@tanstack/query-core'
 
 export interface RequestContext {
   queryClient: QueryClient
-  global: GlobalContext
+  app: AppContext
 }
 
-export interface GlobalContext {
+export interface AppContext {
   queryClient: QueryClient
 }

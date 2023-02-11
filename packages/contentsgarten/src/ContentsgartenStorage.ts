@@ -107,7 +107,7 @@ async function resolveOctokit(
   app: GitHubApp,
   ownerRepo: string,
 ) {
-  return ctx.global.queryClient.fetchQuery({
+  return ctx.app.queryClient.fetchQuery({
     queryKey: ['octokit', ownerRepo],
     queryFn: async () => {
       const octokitApp = new App({

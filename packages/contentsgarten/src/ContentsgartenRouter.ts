@@ -1,8 +1,9 @@
 import { z } from 'zod'
 import { t } from './trpc'
-import type { ContentsgartenContext } from './ContentsgartenContext'
+import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { createLiquidEngine } from './createLiquidEngine'
 import { TRPCError } from '@trpc/server'
+import { getFile, invalidateFile } from './CachedFileAccess'
 
 export const ContentsgartenRouter = t.router({
   about: t.procedure.query(() => {
@@ -18,10 +19,11 @@ export const ContentsgartenRouter = t.router({
     .input(
       z.object({
         pageRef: z.string(),
+        revalidate: z.boolean().optional(),
       }),
     )
-    .query(async ({ input: { pageRef }, ctx }) => {
-      return getPage(ctx, pageRef)
+    .query(async ({ input: { pageRef, revalidate }, ctx }) => {
+      return getPage(ctx, pageRef, revalidate)
     }),
   save: t.procedure
     .input(
@@ -46,25 +48,33 @@ export const ContentsgartenRouter = t.router({
           message: 'You are not allowed to edit the page',
         })
       }
-      const result = await ctx.config.storage.putFile(ctx, filePath, {
+      const result = await ctx.app.storage.putFile(ctx, filePath, {
         content: Buffer.from(newContent),
         revision: oldRevision,
         message: `Update page ${pageRef}`,
         // userId: authState.user.id,
         userId: 193136,
       })
+      await invalidateFile(ctx, filePath)
       return { revision: result.revision }
     }),
 })
 
-function pageRefToFilePath(_ctx: ContentsgartenContext, pageRef: string) {
+function pageRefToFilePath(
+  _ctx: ContentsgartenRequestContext,
+  pageRef: string,
+) {
   return 'wiki/' + pageRef + '.md.liquid'
 }
 
-async function getPage(ctx: ContentsgartenContext, pageRef: string) {
+async function getPage(
+  ctx: ContentsgartenRequestContext,
+  pageRef: string,
+  revalidate = false,
+) {
   const filePath = pageRefToFilePath(ctx, pageRef)
   const engine = createLiquidEngine(ctx)
-  const file = await ctx.config.storage.getFile(ctx, filePath)
+  const file = await getFile(ctx, filePath, { revalidating: revalidate })
   const result: GetPageResult = {
     pageRef,
     title: pageRef,
@@ -83,11 +93,11 @@ async function getPage(ctx: ContentsgartenContext, pageRef: string) {
   return result
 }
 
-async function resolveAuthState(ctx: ContentsgartenContext) {
+async function resolveAuthState(ctx: ContentsgartenRequestContext) {
   return ctx.queryClient.fetchQuery({
     queryKey: ['authState'],
     queryFn: async () => {
-      return ctx.config.auth.getAuthState(ctx.authToken)
+      return ctx.app.auth.getAuthState(ctx.authToken)
     },
   })
 }
