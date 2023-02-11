@@ -16,14 +16,18 @@ importers:
       '@contentsgarten/markdown': workspace:*
       '@contentsgarten/utils': workspace:*
       '@tailwindcss/typography': ^0.5.3
+      '@types/cookie': ^0.5.1
       '@types/react': ^18.0.21
       '@types/react-dom': ^18.0.6
       astro: ^2.0.8
       contentsgarten: workspace:*
+      cookie: ^0.5.0
+      lazy-strict-env: ^0.3.1
       postcss: ^8.4.21
       react: ^18.0.0
       react-dom: ^18.0.0
       tailwindcss: ^3.0.24
+      zod: ^3.20.2
     dependencies:
       '@astrojs/node': 5.0.3_astro@2.0.8
       '@astrojs/react': 2.0.2_fxtgt6bjwd6p4cwoordejim2zi
@@ -35,10 +39,15 @@ importers:
       '@types/react-dom': 18.0.10
       astro: 2.0.8
       contentsgarten: link:../packages/contentsgarten
+      cookie: 0.5.0
+      lazy-strict-env: 0.3.1_zod@3.20.3
       postcss: 8.4.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       tailwindcss: 3.2.6_postcss@8.4.21
+      zod: 3.20.3
+    devDependencies:
+      '@types/cookie': 0.5.1
 
   packages/contentsgarten:
     specifiers:
