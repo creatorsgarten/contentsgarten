@@ -19,6 +19,7 @@ export const ContentsgartenRouter = t.router({
     .input(
       z.object({
         pageRef: z.string(),
+        revalidate: z.boolean().optional(),
       }),
     )
     .query(async ({ input: { pageRef }, ctx }) => {
