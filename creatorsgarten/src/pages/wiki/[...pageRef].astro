@@ -2,6 +2,7 @@
 import BaseLayout from '$layouts/base.astro'
 import { createServerSideClient } from '@contentsgarten/utils/dist/server'
 import { getInstance } from '../api/contentsgarten/[action]'
+import { Markdown } from '@contentsgarten/markdown'
 
 const { pageRef } = Astro.params
 const client = createServerSideClient(getInstance(), '/api/contentsgarten')
@@ -14,7 +15,7 @@ const page = await client.view.query({ pageRef: String(pageRef) })
       <h1>
         {page.title}
       </h1>
-      {page.content}
+      <Markdown client:load text={page.content} />
     </article>
   </div>
 </BaseLayout>
