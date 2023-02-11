@@ -22,8 +22,8 @@ export const ContentsgartenRouter = t.router({
         revalidate: z.boolean().optional(),
       }),
     )
-    .query(async ({ input: { pageRef }, ctx }) => {
-      return getPage(ctx, pageRef)
+    .query(async ({ input: { pageRef, revalidate }, ctx }) => {
+      return getPage(ctx, pageRef, revalidate)
     }),
   save: t.procedure
     .input(
@@ -67,10 +67,14 @@ function pageRefToFilePath(
   return 'wiki/' + pageRef + '.md.liquid'
 }
 
-async function getPage(ctx: ContentsgartenRequestContext, pageRef: string) {
+async function getPage(
+  ctx: ContentsgartenRequestContext,
+  pageRef: string,
+  revalidate = false,
+) {
   const filePath = pageRefToFilePath(ctx, pageRef)
   const engine = createLiquidEngine(ctx)
-  const file = await getFile(ctx, filePath)
+  const file = await getFile(ctx, filePath, { revalidating: revalidate })
   const result: GetPageResult = {
     pageRef,
     title: pageRef,
