@@ -1,6 +1,7 @@
 import Keyv from 'keyv'
 import { RequestContext } from './RequestContext'
 import { createHmac } from 'crypto'
+import '@keyv/redis'
 
 export interface ContentsgartenCache {
   get(ctx: RequestContext, key: string): Promise<any>
