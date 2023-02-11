@@ -18,7 +18,7 @@ export async function getFile(
           return cacheEntry.value
         }
       }
-      const result = await ctx.app.storage.getFile(ctx, path)
+      const result = (await ctx.app.storage.getFile(ctx, path)) || null
       await ctx.app.cache.set(ctx, cacheKey, result)
       return result
     },

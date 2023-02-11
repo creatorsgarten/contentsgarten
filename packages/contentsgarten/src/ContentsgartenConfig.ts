@@ -6,4 +6,6 @@ export interface ContentsgartenConfig {
   storage: ContentsgartenStorage
   auth: ContentsgartenAuth
   cache: ContentsgartenCache
+  pageFilePrefix?: string
+  pageFileExtension?: string
 }

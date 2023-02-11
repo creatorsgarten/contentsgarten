@@ -60,11 +60,9 @@ export const ContentsgartenRouter = t.router({
     }),
 })
 
-function pageRefToFilePath(
-  _ctx: ContentsgartenRequestContext,
-  pageRef: string,
-) {
-  return 'wiki/' + pageRef + '.md.liquid'
+function pageRefToFilePath(ctx: ContentsgartenRequestContext, pageRef: string) {
+  const { pageFileExtension, pageFilePrefix } = ctx.app
+  return pageFilePrefix + pageRef + pageFileExtension
 }
 
 async function getPage(
@@ -77,12 +75,15 @@ async function getPage(
   const file = await getFile(ctx, filePath, { revalidating: revalidate })
   const { content, status } = await (async () => {
     if (!file) {
-      return { content: '(This page currently does not exist.)', status: 404 } as const
+      return {
+        content: '(This page currently does not exist.)',
+        status: 404,
+      } as const
     }
     try {
       return {
         content: String(await engine.renderFile(pageRef)),
-        status: 200
+        status: 200,
       } as const
     } catch (e: any) {
       return {
@@ -93,7 +94,7 @@ async function getPage(
           String(e?.stack || e),
           '```',
         ].join('\n'),
-        status: 500
+        status: 500,
       } as const
     }
   })()
