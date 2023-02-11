@@ -13,6 +13,7 @@ importers:
       '@astrojs/node': ^5.0.3
       '@astrojs/react': ^2.0.2
       '@astrojs/tailwind': ^3.0.1
+      '@contentsgarten/markdown': workspace:*
       '@contentsgarten/utils': workspace:*
       '@tailwindcss/typography': ^0.5.3
       '@types/react': ^18.0.21
@@ -27,6 +28,7 @@ importers:
       '@astrojs/node': 5.0.3_astro@2.0.8
       '@astrojs/react': 2.0.2_fxtgt6bjwd6p4cwoordejim2zi
       '@astrojs/tailwind': 3.0.1_7ey3tu23aty2if6vwttfsa7ree
+      '@contentsgarten/markdown': link:../packages/markdown
       '@contentsgarten/utils': link:../packages/utils
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.6
       '@types/react': 18.0.27
@@ -78,6 +80,27 @@ importers:
       '@types/json-buffer': 3.0.0
       '@types/node': 18.13.0
       depcheck: 1.4.3
+      tsup: 6.6.0_typescript@4.9.5
+      typescript: 4.9.5
+
+  packages/markdown:
+    specifiers:
+      '@tsconfig/node18': ^1.0.1
+      '@types/node': ^18.13.0
+      '@types/react': ^18.0.0
+      '@types/react-dom': ^18.0.0
+      markdown-it: ^13.0.1
+      markdown-it-container: ^3.0.0
+      tsup: ^6.5.0
+      typescript: ^4.6.4
+    dependencies:
+      markdown-it: 13.0.1
+      markdown-it-container: 3.0.0
+    devDependencies:
+      '@tsconfig/node18': 1.0.1
+      '@types/node': 18.13.0
+      '@types/react': 18.0.27
+      '@types/react-dom': 18.0.10
       tsup: 6.6.0_typescript@4.9.5
       typescript: 4.9.5
 

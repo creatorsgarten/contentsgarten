@@ -14,11 +14,7 @@ import type { APIRoute } from 'astro'
 
 const env = Env(
   z.object({
-    GH_APP_ID: z.coerce.number(),
     GH_APP_PRIVATE_KEY: z.string(),
-
-    REDIS_URL: z.string(),
-    CACHE_SIGNING_KEY: z.string(),
   }),
 )
 
@@ -29,7 +25,7 @@ export function getInstance() {
     return instance
   }
   const gitHubApp = new GitHubApp({
-    appId: env.GH_APP_ID,
+    appId: 218517,
     privateKey: Buffer.from(env.GH_APP_PRIVATE_KEY, 'base64').toString(),
   })
   const contentsgarten = new Contentsgarten({
