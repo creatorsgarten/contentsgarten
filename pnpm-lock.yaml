@@ -86,6 +86,8 @@ importers:
   packages/markdown:
     specifiers:
       '@tsconfig/node18': ^1.0.1
+      '@types/markdown-it': ^12.2.3
+      '@types/markdown-it-container': ^2.0.5
       '@types/node': ^18.13.0
       '@types/react': ^18.0.0
       '@types/react-dom': ^18.0.0
@@ -98,6 +100,8 @@ importers:
       markdown-it-container: 3.0.0
     devDependencies:
       '@tsconfig/node18': 1.0.1
+      '@types/markdown-it': 12.2.3
+      '@types/markdown-it-container': 2.0.5
       '@types/node': 18.13.0
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
