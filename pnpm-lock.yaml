@@ -8,7 +8,7 @@ importers:
     devDependencies:
       turbo: 1.7.4
 
-  cg-wiki:
+  creatorsgarten:
     specifiers:
       astro: ^2.0.8
     dependencies:
@@ -141,7 +141,7 @@ importers:
       firebase: 9.17.1
       js-cookie: 3.0.1
       postcss: 8.4.21
-      tailwindcss: 3.2.6
+      tailwindcss: 3.2.6_postcss@8.4.21
       typescript: 4.9.5
 
 packages:
@@ -1512,7 +1512,6 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/android-arm/0.16.3:
@@ -1539,7 +1538,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/android-arm64/0.16.3:
@@ -1566,7 +1564,6 @@ packages:
     cpu: [x64]
     os: [android]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/android-x64/0.16.3:
@@ -1593,7 +1590,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/darwin-arm64/0.16.3:
@@ -1620,7 +1616,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/darwin-x64/0.16.3:
@@ -1647,7 +1642,6 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/freebsd-arm64/0.16.3:
@@ -1674,7 +1668,6 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/freebsd-x64/0.16.3:
@@ -1701,7 +1694,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-arm/0.16.3:
@@ -1728,7 +1720,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-arm64/0.16.3:
@@ -1755,7 +1746,6 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-ia32/0.16.3:
@@ -1782,7 +1772,6 @@ packages:
     cpu: [loong64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-loong64/0.16.3:
@@ -1809,7 +1798,6 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-mips64el/0.16.3:
@@ -1836,7 +1824,6 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-ppc64/0.16.3:
@@ -1863,7 +1850,6 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-riscv64/0.16.3:
@@ -1890,7 +1876,6 @@ packages:
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-s390x/0.16.3:
@@ -1917,7 +1902,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/linux-x64/0.16.3:
@@ -1944,7 +1928,6 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/netbsd-x64/0.16.3:
@@ -1971,7 +1954,6 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/openbsd-x64/0.16.3:
@@ -1998,7 +1980,6 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/sunos-x64/0.16.3:
@@ -2025,7 +2006,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/win32-arm64/0.16.3:
@@ -2052,7 +2032,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/win32-ia32/0.16.3:
@@ -2079,7 +2058,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: false
     optional: true
 
   /@esbuild/win32-x64/0.16.3:
@@ -3490,7 +3468,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.2.6
+      tailwindcss: 3.2.6_postcss@8.4.21
     dev: true
 
   /@tanstack/query-core/4.24.4:
@@ -4041,7 +4019,7 @@ packages:
       '@babel/plugin-syntax-typescript': 7.20.0_@babel+core@7.20.12
       '@vanilla-extract/babel-plugin-debug-ids': 1.0.1
       '@vanilla-extract/css': 1.9.5
-      esbuild: 0.16.3
+      esbuild: 0.16.17
       eval: 0.1.6
       find-up: 5.0.0
       javascript-stringify: 2.1.0
@@ -5513,7 +5491,6 @@ packages:
       '@esbuild/win32-arm64': 0.16.17
       '@esbuild/win32-ia32': 0.16.17
       '@esbuild/win32-x64': 0.16.17
-    dev: false
 
   /esbuild/0.16.3:
     resolution: {integrity: sha512-71f7EjPWTiSguen8X/kxEpkAS7BFHwtQKisCDDV3Y4GLGWBaoSCyD5uXkaUew6JDzA9FEN1W23mdnSwW9kqCeg==}
@@ -6564,7 +6541,7 @@ packages:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.11
+      fast-glob: 3.2.12
       glob: 7.2.3
       ignore: 5.2.4
       merge2: 1.4.1
@@ -10214,10 +10191,12 @@ packages:
       '@pkgr/utils': 2.3.1
       tslib: 2.5.0
 
-  /tailwindcss/3.2.6:
+  /tailwindcss/3.2.6_postcss@8.4.21:
     resolution: {integrity: sha512-BfgQWZrtqowOQMC2bwaSNe7xcIjdDEgixWGYOd6AL0CbKHJlvhfdbINeAW76l1sO+1ov/MJ93ODJ9yluRituIw==}
     engines: {node: '>=12.13.0'}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3
