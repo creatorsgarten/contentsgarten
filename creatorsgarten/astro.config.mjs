@@ -15,5 +15,11 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone'
   }),
-  integrations: [tailwind(), react()]
+  integrations: [tailwind(), react()],
+
+  vite: {
+    ssr: {
+      external: ['contentsgarten'],
+    }
+  }
 });

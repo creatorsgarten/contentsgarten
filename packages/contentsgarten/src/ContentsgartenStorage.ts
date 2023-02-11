@@ -1,4 +1,4 @@
-import { App } from 'octokit/dist-node'
+import { App } from 'octokit'
 import type { GitHubApp } from './GitHubApp'
 import type { RequestContext } from './RequestContext'
 

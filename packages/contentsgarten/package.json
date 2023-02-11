@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A cloud-native wiki engine",
   "module": "dist/index.js",
+  "exports": "./dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
   "files": [
