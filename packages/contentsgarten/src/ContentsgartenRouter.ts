@@ -75,6 +75,28 @@ async function getPage(
   const filePath = pageRefToFilePath(ctx, pageRef)
   const engine = createLiquidEngine(ctx)
   const file = await getFile(ctx, filePath, { revalidating: revalidate })
+  const { content, status } = await (async () => {
+    if (!file) {
+      return { content: '(This page currently does not exist.)', status: 404 } as const
+    }
+    try {
+      return {
+        content: String(await engine.renderFile(pageRef)),
+        status: 200
+      } as const
+    } catch (e) {
+      return {
+        content: [
+          'Unable to render the page:',
+          '',
+          '```',
+          String(e?.stack || e),
+          '```',
+        ].join('\n'),
+        status: 500
+      } as const
+    }
+  })()
   const result: GetPageResult = {
     pageRef,
     title: pageRef,
@@ -83,12 +105,8 @@ async function getPage(
       revision: file ? file.revision : undefined,
       content: file ? file.content.toString('utf8') : '',
     },
-    content: String(
-      file
-        ? await engine.renderFile(pageRef)
-        : '(This page currently does not exist.)',
-    ),
-    status: file ? 200 : 404,
+    content,
+    status,
   }
   return result
 }
@@ -103,7 +121,7 @@ async function resolveAuthState(ctx: ContentsgartenRequestContext) {
 }
 
 export interface GetPageResult {
-  status: 200 | 404
+  status: 200 | 404 | 500
   pageRef: string
   title: string
   file?: {
