@@ -22,6 +22,5 @@ RUN pnpm exec turbo build --filter=creatorsgarten-wiki...
 
 FROM deps AS runtime
 COPY --from=builder /app/ .
-USER node
 WORKDIR /app/creatorsgarten
 CMD node dist/server/entry.mjs
