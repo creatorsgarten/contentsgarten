@@ -3,7 +3,7 @@ import { t } from './trpc'
 import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { createLiquidEngine } from './createLiquidEngine'
 import { TRPCError } from '@trpc/server'
-import { getFile } from './getFile'
+import { getFile, invalidateFile } from './CachedFileAccess'
 
 export const ContentsgartenRouter = t.router({
   about: t.procedure.query(() => {
@@ -55,6 +55,7 @@ export const ContentsgartenRouter = t.router({
         // userId: authState.user.id,
         userId: 193136,
       })
+      await invalidateFile(ctx, filePath)
       return { revision: result.revision }
     }),
 })

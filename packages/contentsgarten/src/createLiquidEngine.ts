@@ -2,7 +2,7 @@ import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 import type { FS } from 'liquidjs/dist/fs/fs'
 import { Liquid } from 'liquidjs'
 import { extname, resolve } from 'path'
-import { getFile } from './getFile'
+import { getFile } from './CachedFileAccess'
 
 export function createLiquidEngine(ctx: ContentsgartenRequestContext) {
   const engine = new Liquid({

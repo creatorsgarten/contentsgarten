@@ -5,6 +5,7 @@ import { createHmac } from 'crypto'
 export interface ContentsgartenCache {
   get(ctx: RequestContext, key: string): Promise<any>
   set(ctx: RequestContext, key: string, value: any): Promise<void>
+  invalidate(ctx: RequestContext, key: string): Promise<void>
   getCacheEntry(
     ctx: RequestContext,
     key: string,
@@ -76,6 +77,10 @@ export class ContentsgartenDefaultCache implements ContentsgartenCache {
   async set(ctx: RequestContext, key: string, value: any) {
     const entry: CacheEntry = { value, cachedAt: new Date().toISOString() }
     await this.keyv.set(key, entry)
+  }
+
+  async invalidate(ctx: RequestContext, key: string) {
+    await this.keyv.delete(key)
   }
 
   async getCacheEntry(ctx: RequestContext, key: string) {

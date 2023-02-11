@@ -33,3 +33,11 @@ export interface CachedGetFileOptions {
    */
   revalidating?: boolean
 }
+
+export async function invalidateFile(
+  ctx: ContentsgartenRequestContext,
+  path: string,
+) {
+  const cacheKey = 'file:' + path
+  await ctx.app.cache.invalidate(ctx, cacheKey)
+}
