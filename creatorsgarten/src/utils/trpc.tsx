@@ -1,16 +1,10 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { createTRPCReact, httpBatchLink } from '@trpc/react-query'
 import type { ContentsgartenRouter } from 'contentsgarten'
 import type { FC, ReactNode } from 'react'
+import { queryClient } from './react-query'
 
 export const trpc = createTRPCReact<typeof ContentsgartenRouter>()
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-})
 const trpcClient = trpc.createClient({
   links: [httpBatchLink({ url: '/api/contentsgarten' })],
 })
