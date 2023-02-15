@@ -1,7 +1,7 @@
 import { Markdown } from '@contentsgarten/markdown'
 import type { GetPageResult } from 'contentsgarten'
 import type { FC } from 'react'
-import { TrpcProvider, trpc } from 'src/utils/trpc'
+import { TrpcProvider, trpc } from '../utils/trpc'
 import { clsx } from 'clsx'
 import { Icon } from 'react-iconify-icon-wrapper'
 
