@@ -1,4 +1,4 @@
-import MarkdownIt from 'markdown-it'
+import MarkdownIt from 'markdown-it/dist/markdown-it.js'
 import container from 'markdown-it-container'
 import type { FC } from 'react'
 
