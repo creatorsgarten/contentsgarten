@@ -1,9 +1,10 @@
-import MarkdownIt from 'markdown-it'
+import MarkdownIt from 'markdown-it/dist/markdown-it.js'
 import container from 'markdown-it-container'
 import type { FC } from 'react'
 
 export interface Markdown {
   text: string
+  className?: string
 }
 
 export const Markdown: FC<Markdown> = (props) => {
@@ -24,7 +25,12 @@ export const Markdown: FC<Markdown> = (props) => {
   addCustomBlock(md, 'warning', 'WARNING')
   addCustomBlock(md, 'danger', 'DANGER')
   const html = md.render(props.text)
-  return <div dangerouslySetInnerHTML={{ __html: html }} />
+  return (
+    <div
+      className={props.className}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  )
 }
 
 function addContainer(md: MarkdownIt, name: string, options: ContainerOptions) {

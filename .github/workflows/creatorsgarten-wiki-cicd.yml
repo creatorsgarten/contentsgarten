@@ -63,3 +63,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           file: Dockerfile.creatorsgarten
+
+      - uses: deploys-app/deploys-action@v1
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          project: creatorsgarten
+          location: gke.cluster-rcf2
+          name: creatorsgarten-wiki
+          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
+        env:
+          DEPLOYS_AUTH_USER: gha@creatorsgarten.serviceaccount.deploys.app
+          DEPLOYS_AUTH_PASS: ${{ secrets.DEPLOYS_AUTH_PASS }}
