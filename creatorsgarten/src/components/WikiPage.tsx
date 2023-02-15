@@ -1,9 +1,10 @@
 import { Markdown } from '@contentsgarten/markdown'
 import type { GetPageResult } from 'contentsgarten'
-import type { FC } from 'react'
+import { FC, Suspense, lazy } from 'react'
 import { TrpcProvider, trpc } from '../utils/trpc'
 import { clsx } from 'clsx'
-import { Icon } from 'react-iconify-icon-wrapper'
+
+const Editor = lazy(() => import('./Editor'))
 
 export interface WikiPage {
   page: GetPageResult
@@ -28,12 +29,9 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
       <h1>
         {page.title}
         {!!page.file && (
-          <span
-            className="text-xl pl-2"
-            onClick={() => alert('under construction!')}
-          >
-            <Icon icon="mdi:lead-pencil" />
-          </span>
+          <Suspense fallback={<></>}>
+            <Editor />
+          </Suspense>
         )}
       </h1>
       <Markdown
