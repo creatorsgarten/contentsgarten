@@ -16,10 +16,15 @@ importers:
       '@contentsgarten/markdown': workspace:*
       '@contentsgarten/utils': workspace:*
       '@tailwindcss/typography': ^0.5.3
+      '@tanstack/react-query': ^4.24.4
+      '@trpc/client': ^10.9.1
+      '@trpc/react-query': ^10.9.1
+      '@trpc/server': ^10.9.1
       '@types/cookie': ^0.5.1
       '@types/react': ^18.0.21
       '@types/react-dom': ^18.0.6
       astro: ^2.0.8
+      clsx: ^1.2.1
       contentsgarten: workspace:*
       cookie: ^0.5.0
       lazy-strict-env: ^0.3.1
@@ -35,9 +40,14 @@ importers:
       '@contentsgarten/markdown': link:../packages/markdown
       '@contentsgarten/utils': link:../packages/utils
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.6
+      '@tanstack/react-query': 4.24.4_biqbaboplfbrettd7655fr4n2y
+      '@trpc/client': 10.10.0_@trpc+server@10.10.0
+      '@trpc/react-query': 10.10.0_5mhyv2iryamqlilh5gtjpyz23q
+      '@trpc/server': 10.10.0
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
       astro: 2.0.8
+      clsx: 1.2.1
       contentsgarten: link:../packages/contentsgarten
       cookie: 0.5.0
       lazy-strict-env: 0.3.1_zod@3.20.3
@@ -5033,6 +5043,11 @@ packages:
   /clone/1.0.4:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
     engines: {node: '>=0.8'}
+
+  /clsx/1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
+    dev: false
 
   /cluster-key-slot/1.1.2:
     resolution: {integrity: sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA==}
