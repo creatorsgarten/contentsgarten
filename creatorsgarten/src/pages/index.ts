@@ -1,9 +1,8 @@
 export function get() {
-  // Redirect to /wiki/MainPage
-  return new Response('Redirecting to /wiki/About/Wiki', {
+  return new Response('Redirecting to /wiki/MainPage', {
     status: 302,
     headers: {
-      Location: '/wiki/About/Wiki',
+      Location: '/wiki/MainPage',
     },
   })
 }
