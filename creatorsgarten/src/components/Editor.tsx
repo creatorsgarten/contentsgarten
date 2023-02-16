@@ -38,7 +38,7 @@ export const Editor: FC<Editor> = (props) => {
       props.onSave(result.revision)
     },
   })
-  const [baseFile] = useState(props.file)
+  const [baseFile, setBaseFile] = useState(props.file)
   const [content, setContent] = useState(baseFile.content)
   const save = async () => {
     return saveMutation.mutateAsync({
@@ -46,6 +46,10 @@ export const Editor: FC<Editor> = (props) => {
       newContent: content,
       pageRef: props.page.pageRef,
     })
+  }
+  if (baseFile.content !== props.file.content && content === baseFile.content) {
+    setBaseFile(props.file)
+    setContent(props.file.content)
   }
   return (
     <span className="text-xl pl-2">
