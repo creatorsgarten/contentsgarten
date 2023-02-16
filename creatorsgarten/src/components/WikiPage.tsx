@@ -1,8 +1,10 @@
 import { Markdown } from '@contentsgarten/markdown'
 import type { GetPageResult } from 'contentsgarten'
-import type { FC } from 'react'
-import { TrpcProvider, trpc } from 'src/utils/trpc'
+import { FC, Suspense, lazy, useState } from 'react'
+import { TrpcProvider, trpc } from '../utils/trpc'
 import { clsx } from 'clsx'
+
+const Editor = lazy(() => import('./Editor'))
 
 export interface WikiPage {
   page: GetPageResult
@@ -22,13 +24,29 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
     revalidate: true,
   })
   const page = freshPageQuery.data ?? stalePage
+  const [lastSavedRevision, setLastSavedRevision] = useState('')
   return (
-    <Markdown
-      className={clsx(
-        'prose-h1:text-4xl prose-h1:mt-12 prose-h1:font-medium',
-        freshPageQuery.data && freshPageQuery.isRefetching && 'opacity-50',
-      )}
-      text={page.content}
-    />
+    <>
+      <h1>
+        {page.title}
+        {!!freshPageQuery.data?.file && (
+          <Suspense fallback={<></>}>
+            <Editor
+              key={lastSavedRevision}
+              page={freshPageQuery.data}
+              file={freshPageQuery.data.file}
+              onSave={setLastSavedRevision}
+            />
+          </Suspense>
+        )}
+      </h1>
+      <Markdown
+        className={clsx(
+          'prose-h1:text-4xl prose-h1:mt-12 prose-h1:font-medium',
+          freshPageQuery.data && freshPageQuery.isRefetching && 'opacity-50',
+        )}
+        text={page.content}
+      />
+    </>
   )
 }
