@@ -21,6 +21,11 @@ export default defineConfig({
     ssr: {
       external: ['contentsgarten'],
     },
+    server: {
+      watch: {
+        ignored: ['!**/node_modules/contentsgarten/**'],
+      },
+    },
   },
   server: {
     port: 18572,

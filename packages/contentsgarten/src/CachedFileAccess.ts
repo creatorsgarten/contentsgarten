@@ -1,4 +1,5 @@
 import { ContentsgartenRequestContext } from './ContentsgartenContext'
+import { staleOrRevalidate } from './cache'
 
 /**
  * Cache-aware, request-aware version of `getFile`
@@ -8,22 +9,12 @@ export async function getFile(
   path: string,
   extraOptions: CachedGetFileOptions = {},
 ) {
-  return ctx.queryClient.fetchQuery({
-    queryKey: ['file', path],
-    queryFn: async () => {
-      const cacheKey = 'file:' + path
-      if (!extraOptions.revalidating) {
-        const cacheEntry = await ctx.app.cache.getCacheEntry(ctx, cacheKey)
-        if (cacheEntry) {
-          return cacheEntry.value
-        }
-      }
-      const result = (await ctx.app.storage.getFile(ctx, path)) || null
-      await ctx.app.cache.set(ctx, cacheKey, result)
-      return result
-    },
-    staleTime: extraOptions.revalidating ? 0 : Infinity,
-  })
+  return staleOrRevalidate(
+    ctx,
+    'file:' + path,
+    async () => (await ctx.app.storage.getFile(ctx, path)) || null,
+    extraOptions.revalidating ? 'revalidate' : 'stale',
+  )
 }
 
 export interface CachedGetFileOptions {

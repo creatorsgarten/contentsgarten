@@ -6,7 +6,10 @@ import { WikiPage } from '$components/WikiPage'
 
 const { pageRef } = Astro.params
 const client = createServerSideClient(getInstance(), '/api/contentsgarten')
-const page = await client.view.query({ pageRef: String(pageRef) })
+const page = await client.view.query({
+  pageRef: String(pageRef),
+  withFile: false,
+})
 ---
 
 <BaseLayout title={page.title}>

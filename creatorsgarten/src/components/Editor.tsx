@@ -24,7 +24,10 @@ export const Editor: FC<Editor> = (props) => {
   const labelId = useId()
   const descriptionId = useId()
   const [open, setOpen] = useState(false)
-  const editable = true
+  const editPermission = trpc.getEditPermission.useQuery({
+    pageRef: props.page.pageRef,
+  })
+  const editable = !!editPermission.data?.granted
   const saveMutation = trpc.save.useMutation({
     onError: (error) => {
       console.error(error)
@@ -39,7 +42,7 @@ export const Editor: FC<Editor> = (props) => {
   const [content, setContent] = useState(baseFile.content)
   const save = async () => {
     return saveMutation.mutateAsync({
-      oldRevision: props.file.revision,
+      oldRevision: baseFile.revision,
       newContent: content,
       pageRef: props.page.pageRef,
     })
