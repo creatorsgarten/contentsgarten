@@ -1,31 +1,90 @@
 import { z } from 'zod'
 import { t } from './trpc'
 import type { ContentsgartenRequestContext } from './ContentsgartenContext'
-import { createLiquidEngine } from './createLiquidEngine'
 import { TRPCError } from '@trpc/server'
-import { getFile, invalidateFile } from './CachedFileAccess'
+import { invalidateFile } from './CachedFileAccess'
+import { DeniedEntry, checkPermission } from './checkPermission'
+import { Policy } from './Policy'
+import { User } from './ContentsgartenAuth'
+import { omit } from 'lodash-es'
+import { GetPageResult, getPage, pageRefToFilePath } from './getPage'
+import { load } from 'js-yaml'
+import { cache } from './cache'
+
+export { GetPageResult } from './getPage'
 
 export const ContentsgartenRouter = t.router({
-  about: t.procedure.query(() => {
-    return {
-      name: 'Contentsgarten',
-    }
-  }),
-  userInfo: t.procedure.query(async ({ ctx }) => {
-    const authState = await resolveAuthState(ctx)
-    return authState
-  }),
+  about: t.procedure
+    .meta({
+      summary: 'Returns some about text',
+      description: 'Mostly used for testing',
+    })
+    .query(() => {
+      return {
+        name: 'Contentsgarten',
+      }
+    }),
+  userInfo: t.procedure
+    .meta({ summary: 'Returns the info of the authenticated user' })
+    .output(
+      z.object({
+        authenticated: z.boolean(),
+        user: User.optional(),
+        reason: z
+          .string()
+          .optional()
+          .describe('If authenticated is false, this is the reason why'),
+      }),
+    )
+    .query(async ({ ctx }) => {
+      const authState = await resolveAuthState(ctx)
+      return authState
+    }),
   view: t.procedure
+    .meta({ summary: 'Returns the page information' })
     .input(
       z.object({
         pageRef: z.string(),
+        withFile: z.boolean().default(true),
         revalidate: z.boolean().optional(),
       }),
     )
-    .query(async ({ input: { pageRef, revalidate }, ctx }) => {
-      return getPage(ctx, pageRef, revalidate)
+    .output(GetPageResult)
+    .query(async ({ input: { pageRef, revalidate, withFile }, ctx }) => {
+      const page = await getPage(ctx, pageRef, revalidate)
+      const result: GetPageResult = withFile ? page : omit(page, 'file')
+      return result
+    }),
+  getEditPermission: t.procedure
+    .meta({
+      summary:
+        'Checks whether the authenticated user is allowed to edit a page',
+    })
+    .input(
+      z.object({
+        pageRef: z.string(),
+      }),
+    )
+    .query(async ({ input: { pageRef }, ctx }) => {
+      const authState = await resolveAuthState(ctx)
+      const userId = authState.authenticated ? authState.user.id : undefined
+      const policies = await getPagePolicies(ctx, pageRef)
+      return checkPermission(
+        ctx,
+        [
+          {
+            userId,
+            permission: 'edit',
+            page: pageRef,
+            frontmatterKey: '__content',
+          },
+          { userId, permission: 'editContent', page: pageRef },
+        ],
+        policies,
+      )
     }),
   save: t.procedure
+    .meta({ summary: 'Attempts to save changes to a page' })
     .input(
       z.object({
         pageRef: z.string(),
@@ -36,81 +95,39 @@ export const ContentsgartenRouter = t.router({
     .mutation(async ({ input: { pageRef, newContent, oldRevision }, ctx }) => {
       const filePath = pageRefToFilePath(ctx, pageRef)
       const authState = await resolveAuthState(ctx)
-      if (!authState.authenticated) {
-        throw new TRPCError({
-          code: 'UNAUTHORIZED',
-          message: 'Not authenticated',
-        })
-      }
-      if (authState.user.id !== 193136) {
+      const userId = authState.authenticated ? authState.user.id : undefined
+      const policies = await getPagePolicies(ctx, pageRef)
+      const permission = await checkPermission(
+        ctx,
+        [
+          {
+            userId,
+            permission: 'edit',
+            page: pageRef,
+            frontmatterKey: '__content',
+          },
+          { userId, permission: 'editContent', page: pageRef },
+        ],
+        policies,
+      )
+      if (!permission.granted) {
         throw new TRPCError({
           code: 'FORBIDDEN',
-          message: 'You are not allowed to edit the page',
+          message:
+            'You are not allowed to edit this page. None of these policies granted you access to edit this page:\n' +
+            explainDenied(permission.denied),
         })
       }
       const result = await ctx.app.storage.putFile(ctx, filePath, {
         content: Buffer.from(newContent),
         revision: oldRevision,
         message: `Update page ${pageRef}`,
-        // userId: authState.user.id,
-        userId: 193136,
+        userId: userId,
       })
       await invalidateFile(ctx, filePath)
       return { revision: result.revision }
     }),
 })
-
-function pageRefToFilePath(ctx: ContentsgartenRequestContext, pageRef: string) {
-  const { pageFileExtension, pageFilePrefix } = ctx.app
-  return pageFilePrefix + pageRef + pageFileExtension
-}
-
-async function getPage(
-  ctx: ContentsgartenRequestContext,
-  pageRef: string,
-  revalidate = false,
-) {
-  const filePath = pageRefToFilePath(ctx, pageRef)
-  const engine = createLiquidEngine(ctx)
-  const file = await getFile(ctx, filePath, { revalidating: revalidate })
-  const { content, status } = await (async () => {
-    if (!file) {
-      return {
-        content: '(This page currently does not exist.)',
-        status: 404,
-      } as const
-    }
-    try {
-      return {
-        content: String(await engine.renderFile(pageRef)),
-        status: 200,
-      } as const
-    } catch (e: any) {
-      return {
-        content: [
-          'Unable to render the page:',
-          '',
-          '```',
-          String(e?.stack || e),
-          '```',
-        ].join('\n'),
-        status: 500,
-      } as const
-    }
-  })()
-  const result: GetPageResult = {
-    pageRef,
-    title: pageRef,
-    file: {
-      path: filePath,
-      revision: file ? file.revision : undefined,
-      content: file ? file.content.toString('utf8') : '',
-    },
-    content,
-    status,
-  }
-  return result
-}
 
 async function resolveAuthState(ctx: ContentsgartenRequestContext) {
   return ctx.queryClient.fetchQuery({
@@ -121,14 +138,54 @@ async function resolveAuthState(ctx: ContentsgartenRequestContext) {
   })
 }
 
-export interface GetPageResult {
-  status: 200 | 404 | 500
-  pageRef: string
-  title: string
-  file?: {
-    path: string
-    content: string
-    revision?: string
+const Config = z.object({
+  policies: z.array(Policy).optional().default([]),
+})
+
+async function getPagePolicies(
+  ctx: ContentsgartenRequestContext,
+  pageRef: string,
+): Promise<Policy[]> {
+  const configFile = await cache(
+    ctx,
+    'config',
+    async () => {
+      const configFile = await ctx.app.storage.getFile(
+        ctx,
+        'contentsgarten.config.yml',
+      )
+      if (!configFile) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: '"contentsgarten.config.yml" not found in storage',
+        })
+      }
+      return configFile
+    },
+    300e3,
+  )
+  const config = Config.parse(load(configFile.content.toString('utf8')))
+  return config.policies
+}
+
+function explainDenied(denied: DeniedEntry[]) {
+  const out: string[] = []
+  for (const entry of denied) {
+    out.push(
+      '* ' +
+        policyName(entry.policy) +
+        ' on ' +
+        JSON.stringify(entry.permissionContext),
+    )
+    for (const item of entry.resolutions) {
+      if (!item.included) {
+        out.push(`  - ${item.reason}`)
+      }
+    }
   }
-  content: string
+  return out.join('\n')
+}
+
+function policyName(policy: Policy) {
+  return policy.name || JSON.stringify(policy)
 }

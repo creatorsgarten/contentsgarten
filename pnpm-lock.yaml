@@ -22,9 +22,9 @@ importers:
       '@mui/joy': 5.0.0-alpha.67
       '@tailwindcss/typography': ^0.5.3
       '@tanstack/react-query': ^4.24.4
-      '@trpc/client': ^10.9.1
-      '@trpc/react-query': ^10.9.1
-      '@trpc/server': ^10.9.1
+      '@trpc/client': ^10.11.1
+      '@trpc/react-query': ^10.11.1
+      '@trpc/server': ^10.11.1
       '@types/cookie': ^0.5.1
       '@types/react': ^18.0.21
       '@types/react-dom': ^18.0.6
@@ -34,12 +34,13 @@ importers:
       cookie: ^0.5.0
       firebase: ^9.9.0
       lazy-strict-env: ^0.3.1
+      openapi-trpc: ^0.1.1
       postcss: ^8.4.21
       react: ^18.0.0
       react-dom: ^18.0.0
       react-iconify-icon-wrapper: ^0.0.3
       tailwindcss: ^3.0.24
-      zod: ^3.20.2
+      zod: ^3.20.6
     dependencies:
       '@astrojs/node': 5.0.3_astro@2.0.8
       '@astrojs/react': 2.0.2_fxtgt6bjwd6p4cwoordejim2zi
@@ -53,9 +54,9 @@ importers:
       '@mui/joy': 5.0.0-alpha.67_rqh7qj4464ntrqrt6banhaqg4q
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.6
       '@tanstack/react-query': 4.24.4_biqbaboplfbrettd7655fr4n2y
-      '@trpc/client': 10.10.0_@trpc+server@10.10.0
-      '@trpc/react-query': 10.10.0_5mhyv2iryamqlilh5gtjpyz23q
-      '@trpc/server': 10.10.0
+      '@trpc/client': 10.11.1_@trpc+server@10.11.1
+      '@trpc/react-query': 10.11.1_ljjygde42lwyehgnfj7vvg6g2e
+      '@trpc/server': 10.11.1
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
       astro: 2.0.8
@@ -63,20 +64,21 @@ importers:
       contentsgarten: link:../packages/contentsgarten
       cookie: 0.5.0
       firebase: 9.17.1
-      lazy-strict-env: 0.3.1_zod@3.20.3
+      lazy-strict-env: 0.3.1_zod@3.20.6
+      openapi-trpc: 0.1.1_rddbu46lyy4fcqpvwrkjezbvue
       postcss: 8.4.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-iconify-icon-wrapper: 0.0.3_react@18.2.0
       tailwindcss: 3.2.6_postcss@8.4.21
-      zod: 3.20.3
+      zod: 3.20.6
     devDependencies:
       '@types/cookie': 0.5.1
 
   packages/client-utils:
     specifiers:
-      '@trpc/client': ^10.9.1
-      '@trpc/server': ^10.9.1
+      '@trpc/client': ^10.11.1
+      '@trpc/server': ^10.11.1
       '@tsconfig/node18': ^1.0.1
       '@types/node': ^18.13.0
       contentsgarten: workspace:*
@@ -84,8 +86,8 @@ importers:
       tsup: ^6.5.0
       typescript: ^4.6.4
     devDependencies:
-      '@trpc/client': 10.10.0_@trpc+server@10.10.0
-      '@trpc/server': 10.10.0
+      '@trpc/client': 10.11.1_@trpc+server@10.11.1
+      '@trpc/server': 10.11.1
       '@tsconfig/node18': 1.0.1
       '@types/node': 18.13.0
       contentsgarten: link:../contentsgarten
@@ -97,8 +99,9 @@ importers:
     specifiers:
       '@keyv/redis': ^2.5.5
       '@tanstack/query-core': ^4.20.4
-      '@trpc/server': ^10.9.1
+      '@trpc/server': ^10.11.1
       '@tsconfig/node18': ^1.0.1
+      '@types/js-yaml': ^4.0.5
       '@types/json-buffer': ^3.0.0
       '@types/lodash-es': ^4.17.6
       '@types/node': ^18.13.0
@@ -106,31 +109,38 @@ importers:
       depcheck: ^1.4.3
       expiry-map: ^2.0.0
       jose: ^4.8.3
+      js-yaml: ^4.1.0
       json-buffer: ^3.0.1
       keyv: ^4.5.2
       liquidjs: ^10.0.0
       lodash-es: ^4.17.21
       octokit: ^2.0.3
+      openapi-trpc: ^0.1.1
       p-memoize: ^7.1.0
+      prettier: ^2.8.4
       tsup: ^6.5.0
       typescript: ^4.6.4
-      zod: ^3.20.2
+      zod: ^3.20.6
     dependencies:
       '@keyv/redis': 2.5.5
       '@tanstack/query-core': 4.24.4
-      '@trpc/server': 10.10.0
+      '@trpc/server': 10.11.1
       axios: 1.3.2
       expiry-map: 2.0.0
       jose: 4.11.4
+      js-yaml: 4.1.0
       json-buffer: 3.0.1
       keyv: 4.5.2
       liquidjs: 10.4.0
       lodash-es: 4.17.21
       octokit: 2.0.14
+      openapi-trpc: 0.1.1_rddbu46lyy4fcqpvwrkjezbvue
       p-memoize: 7.1.1
-      zod: 3.20.3
+      prettier: 2.8.4
+      zod: 3.20.6
     devDependencies:
       '@tsconfig/node18': 1.0.1
+      '@types/js-yaml': 4.0.5
       '@types/json-buffer': 3.0.0
       '@types/lodash-es': 4.17.6
       '@types/node': 18.13.0
@@ -166,16 +176,16 @@ importers:
 
   packages/server-utils:
     specifiers:
-      '@trpc/client': ^10.9.1
-      '@trpc/server': ^10.9.1
+      '@trpc/client': ^10.11.1
+      '@trpc/server': ^10.11.1
       '@tsconfig/node18': ^1.0.1
       '@types/node': ^18.13.0
       contentsgarten: workspace:*
       tsup: ^6.5.0
       typescript: ^4.6.4
     devDependencies:
-      '@trpc/client': 10.10.0_@trpc+server@10.10.0
-      '@trpc/server': 10.10.0
+      '@trpc/client': 10.11.1_@trpc+server@10.11.1
+      '@trpc/server': 10.11.1
       '@tsconfig/node18': 1.0.1
       '@types/node': 18.13.0
       contentsgarten: link:../contentsgarten
@@ -196,9 +206,9 @@ importers:
       '@rushstack/eslint-plugin-packlets': ^0.6.0
       '@tailwindcss/typography': ^0.5.3
       '@tanstack/react-query': ^4.24.4
-      '@trpc/client': ^10.9.1
-      '@trpc/react-query': ^10.9.1
-      '@trpc/server': ^10.9.1
+      '@trpc/client': ^10.11.1
+      '@trpc/react-query': ^10.11.1
+      '@trpc/server': ^10.11.1
       '@types/cookie': ^0.5.1
       '@types/js-cookie': ^3.0.2
       '@types/lodash-es': ^4.17.6
@@ -224,7 +234,7 @@ importers:
       react-iconify-icon-wrapper: ^0.0.3
       tailwindcss: ^3.1.5
       typescript: ^4.6.4
-      zod: ^3.20.2
+      zod: ^3.20.6
     dependencies:
       '@netlify/functions': 1.4.0
       '@radix-ui/react-dialog': 1.0.2_5ndqzdd6t4rivxsukjv3i3ak2q
@@ -233,24 +243,24 @@ importers:
       '@remix-run/react': 1.12.0_biqbaboplfbrettd7655fr4n2y
       '@remix-run/serve': 1.12.0
       '@tanstack/react-query': 4.24.4_biqbaboplfbrettd7655fr4n2y
-      '@trpc/react-query': 10.10.0_5mhyv2iryamqlilh5gtjpyz23q
-      '@trpc/server': 10.10.0
+      '@trpc/react-query': 10.11.1_ljjygde42lwyehgnfj7vvg6g2e
+      '@trpc/server': 10.11.1
       contentsgarten: link:../packages/contentsgarten
-      lazy-strict-env: 0.3.1_zod@3.20.3
+      lazy-strict-env: 0.3.1_zod@3.20.6
       lodash-es: 4.17.21
       markdown-it: 13.0.1
       markdown-it-container: 3.0.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-iconify-icon-wrapper: 0.0.3_react@18.2.0
-      zod: 3.20.3
+      zod: 3.20.6
     devDependencies:
       '@playwright/test': 1.30.0
       '@remix-run/dev': 1.12.0_@remix-run+serve@1.12.0
       '@remix-run/eslint-config': 1.12.0_6phwajf43xwwgpkdgjffawkphy
       '@rushstack/eslint-plugin-packlets': 0.6.1_4vsywjlpuriuw3tl5oq6zy5a64
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.6
-      '@trpc/client': 10.10.0_@trpc+server@10.10.0
+      '@trpc/client': 10.11.1_@trpc+server@10.11.1
       '@types/cookie': 0.5.1
       '@types/js-cookie': 3.0.2
       '@types/lodash-es': 4.17.6
@@ -3919,31 +3929,31 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /@trpc/client/10.10.0_@trpc+server@10.10.0:
-    resolution: {integrity: sha512-HRVGkOsR4FIYpyQILP84HLbj6pRnLKgxy4AIelTf9d9TxD60M5bNhbR2Uz3hqNSb9a2ppaRJBLv7twlV9b4qHQ==}
+  /@trpc/client/10.11.1_@trpc+server@10.11.1:
+    resolution: {integrity: sha512-6aHY27YomzyUAlKhJE4jJulzDjc6vAKAKoWqAmoYbEEhApvyDrMo52bdYqqsukjxvA/L/uPhjOcPU5OsO+x+pA==}
     peerDependencies:
-      '@trpc/server': 10.10.0
+      '@trpc/server': 10.11.1
     dependencies:
-      '@trpc/server': 10.10.0
+      '@trpc/server': 10.11.1
 
-  /@trpc/react-query/10.10.0_5mhyv2iryamqlilh5gtjpyz23q:
-    resolution: {integrity: sha512-Jc/uii1MPevf95/z/W3ufYGHvrFvrtkjxQ8UuXhJCzOgv/FGPqhmA5PH124nLHEgGLBA7zQxHumofhdXosEhUQ==}
+  /@trpc/react-query/10.11.1_ljjygde42lwyehgnfj7vvg6g2e:
+    resolution: {integrity: sha512-GqM0idzlQMi6upK/8IOa117UXckJDsRY+UHVkeawtkLi4hWvk82ic+zXRNw5MDYqKCC2CAlp8JIyrKfOuBdXqw==}
     peerDependencies:
       '@tanstack/react-query': ^4.3.8
-      '@trpc/client': 10.10.0
-      '@trpc/server': 10.10.0
+      '@trpc/client': 10.11.1
+      '@trpc/server': 10.11.1
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
       '@tanstack/react-query': 4.24.4_biqbaboplfbrettd7655fr4n2y
-      '@trpc/client': 10.10.0_@trpc+server@10.10.0
-      '@trpc/server': 10.10.0
+      '@trpc/client': 10.11.1_@trpc+server@10.11.1
+      '@trpc/server': 10.11.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@trpc/server/10.10.0:
-    resolution: {integrity: sha512-tCTqcqBT+3nebYFTHtwM877qo5xQPtVlptxKdUzMVWleWT4lFTL4oddk45qVURToci2iMbVJjd4jQU9y9/XwlQ==}
+  /@trpc/server/10.11.1:
+    resolution: {integrity: sha512-7FnvuaNsSl6HLloh0a297McS4yjhbqg/bw1h/XOAKduNPUQwXNmJf48X1PAsD8ODtO1Rrjz9TeynJD7uCEn0xQ==}
 
   /@tsconfig/node18/1.0.1:
     resolution: {integrity: sha512-sNFeK6X2ATlhlvzyH4kKYQlfHXE2f2/wxtB9ClvYXevWpmwkUT7VaSrjIN9E76Qebz8qP5JOJJ9jD3QoD/Z9TA==}
@@ -4050,6 +4060,10 @@ packages:
 
   /@types/js-cookie/3.0.2:
     resolution: {integrity: sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA==}
+    dev: true
+
+  /@types/js-yaml/4.0.5:
+    resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
     dev: true
 
   /@types/json-buffer/3.0.0:
@@ -4823,7 +4837,7 @@ packages:
       vite: 4.1.1
       vitefu: 0.2.4_vite@4.1.1
       yargs-parser: 21.1.1
-      zod: 3.20.3
+      zod: 3.20.6
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -7694,7 +7708,6 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
-    dev: true
 
   /jsesc/0.5.0:
     resolution: {integrity: sha512-uZz5UnB7u4T9LvwmFqXii7pZSouaRPorGs5who1Ip7VO0wxanFvBL7GkM6dTHlgX+jhBApRetaWpnDabOeTcnA==}
@@ -7821,12 +7834,12 @@ packages:
       language-subtag-registry: 0.3.22
     dev: true
 
-  /lazy-strict-env/0.3.1_zod@3.20.3:
+  /lazy-strict-env/0.3.1_zod@3.20.6:
     resolution: {integrity: sha512-8A//LSm8Enrz6iBgFk56dfJcHXCM3429zbnSpjBDEVStDEYtD0Chd6+5mQQS1QTjxoALgZ2I3ClRuymy4qw0SA==}
     peerDependencies:
       zod: '>=3.0.0'
     dependencies:
-      zod: 3.20.3
+      zod: 3.20.6
     dev: false
 
   /levn/0.3.0:
@@ -8959,6 +8972,22 @@ packages:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
+  /openapi-trpc/0.1.1_rddbu46lyy4fcqpvwrkjezbvue:
+    resolution: {integrity: sha512-jyQ+pSq4uCeL2AKcQkbDHbsCX7jqkWwD5r4YSkuRzjCVSAc4+XUcBqi/HQ48RN1DGHKS69Kgdo3+oDrbit9UoQ==}
+    peerDependencies:
+      '@trpc/server': ^10.11.1
+      zod: ^3.20.6
+    dependencies:
+      '@trpc/server': 10.11.1
+      openapi-types: 12.1.0
+      zod: 3.20.6
+      zod-to-json-schema: 3.20.4_zod@3.20.6
+    dev: false
+
+  /openapi-types/12.1.0:
+    resolution: {integrity: sha512-XpeCy01X6L5EpP+6Hc3jWN7rMZJ+/k1lwki/kTmWzbVhdPie3jd5O2ZtedEx8Yp58icJ0osVldLMrTB/zslQXA==}
+    dev: false
+
   /optionator/0.8.3:
     resolution: {integrity: sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==}
     engines: {node: '>= 0.8.0'}
@@ -9460,6 +9489,12 @@ packages:
     resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+
+  /prettier/2.8.4:
+    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: false
 
   /pretty-format/27.5.1:
     resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}
@@ -11563,8 +11598,16 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  /zod/3.20.3:
-    resolution: {integrity: sha512-+MLeeUcLTlnzVo5xDn9+LVN9oX4esvgZ7qfZczBN+YVUvZBafIrPPVyG2WdjMWU2Qkb2ZAh2M8lpqf1wIoGqJQ==}
+  /zod-to-json-schema/3.20.4_zod@3.20.6:
+    resolution: {integrity: sha512-Un9+kInJ2Zt63n6Z7mLqBifzzPcOyX+b+Exuzf7L1+xqck9Q2EPByyTRduV3kmSPaXaRer1JCsucubpgL1fipg==}
+    peerDependencies:
+      zod: ^3.20.0
+    dependencies:
+      zod: 3.20.6
+    dev: false
+
+  /zod/3.20.6:
+    resolution: {integrity: sha512-oyu0m54SGCtzh6EClBVqDDlAYRz4jrVtKwQ7ZnsEmMI9HnzuZFj8QFwAY1M5uniIYACdGvv0PBWPF2kO0aNofA==}
     dev: false
 
   /zwitch/2.0.4:
