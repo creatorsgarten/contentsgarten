@@ -51,6 +51,12 @@ export const Editor: FC<Editor> = (props) => {
     setBaseFile(props.file)
     setContent(props.file.content)
   }
+  const gh = `https://github.com/creatorsgarten/wiki/blob/main/wiki/${props.page.pageRef}.md`
+  const editOnGitHubLink = (text: string) => (
+    <a href={gh} target="_blank" rel="noreferrer" className="text-sky-600">
+      {text}
+    </a>
+  )
   return (
     <span className="text-xl pl-2">
       <JoyUiProvider>
@@ -72,7 +78,7 @@ export const Editor: FC<Editor> = (props) => {
           <Sheet
             variant="outlined"
             sx={{
-              maxWidth: '52rem',
+              maxWidth: '64rem',
               width: 'calc(100% - 1rem)',
               borderRadius: 'md',
               p: 3,
@@ -99,11 +105,24 @@ export const Editor: FC<Editor> = (props) => {
                 textColor="inherit"
                 fontWeight="lg"
               >
-                Editing page
+                Editing{' '}
+                <strong className="font-extrabold">{props.page.pageRef}</strong>
               </Typography>
               <Typography id={descriptionId}>
-                {editable && <>Please save your changes regularly.</>}
-                {!editable && <NotEditable />}
+                {editable && (
+                  <>
+                    The editor is quite janky, so please save your changes
+                    regularly! You can also{' '}
+                    {editOnGitHubLink('edit this page on GitHub')}.
+                  </>
+                )}
+                {!editable && (
+                  <>
+                    <NotEditable /> However, you can{' '}
+                    {editOnGitHubLink('propose changes to this page on GitHub')}
+                    .
+                  </>
+                )}
               </Typography>
               <Typography>
                 <EditorAuthStateIndicator />
@@ -139,7 +158,7 @@ function NotEditable() {
   const authState = useAuth()
   return (
     <>
-      You do not have the permission to edit this page.{' '}
+      You do not have the permission to edit this page via the web editor.{' '}
       {authState.state === 'unauthenticated' && (
         <>Perhaps you are not signed in.</>
       )}
