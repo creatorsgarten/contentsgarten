@@ -1,6 +1,6 @@
 import { Markdown } from '@contentsgarten/markdown'
 import type { GetPageResult } from 'contentsgarten'
-import { FC, Suspense, lazy } from 'react'
+import { FC, Suspense, lazy, useState } from 'react'
 import { TrpcProvider, trpc } from '../utils/trpc'
 import { clsx } from 'clsx'
 
@@ -24,13 +24,19 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
     revalidate: true,
   })
   const page = freshPageQuery.data ?? stalePage
+  const [lastSavedRevision, setLastSavedRevision] = useState('')
   return (
     <>
       <h1>
         {page.title}
-        {!!page.file && (
+        {!!freshPageQuery.data?.file && (
           <Suspense fallback={<></>}>
-            <Editor />
+            <Editor
+              key={lastSavedRevision}
+              page={freshPageQuery.data}
+              file={freshPageQuery.data.file}
+              onSave={setLastSavedRevision}
+            />
           </Suspense>
         )}
       </h1>

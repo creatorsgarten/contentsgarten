@@ -3,9 +3,9 @@ import {
   getAuth,
   onAuthStateChanged,
   Auth,
-  GoogleAuthProvider,
   signInWithPopup,
   signOut as signOutFirebase,
+  GithubAuthProvider,
 } from 'firebase/auth'
 
 export interface ContentsgartenUser {
@@ -50,7 +50,7 @@ export class FirebaseAuthProvider implements ContentsgartenAuthProvider {
   }
 
   signIn() {
-    const provider = new GoogleAuthProvider()
+    const provider = new GithubAuthProvider()
     signInWithPopup(this.auth, provider)
   }
 
