@@ -101,6 +101,7 @@ importers:
       '@tanstack/query-core': ^4.20.4
       '@trpc/server': ^10.11.1
       '@tsconfig/node18': ^1.0.1
+      '@types/js-yaml': ^4.0.5
       '@types/json-buffer': ^3.0.0
       '@types/lodash-es': ^4.17.6
       '@types/node': ^18.13.0
@@ -108,6 +109,7 @@ importers:
       depcheck: ^1.4.3
       expiry-map: ^2.0.0
       jose: ^4.8.3
+      js-yaml: ^4.1.0
       json-buffer: ^3.0.1
       keyv: ^4.5.2
       liquidjs: ^10.0.0
@@ -115,6 +117,7 @@ importers:
       octokit: ^2.0.3
       openapi-trpc: ^0.1.1
       p-memoize: ^7.1.0
+      prettier: ^2.8.4
       tsup: ^6.5.0
       typescript: ^4.6.4
       zod: ^3.20.6
@@ -125,6 +128,7 @@ importers:
       axios: 1.3.2
       expiry-map: 2.0.0
       jose: 4.11.4
+      js-yaml: 4.1.0
       json-buffer: 3.0.1
       keyv: 4.5.2
       liquidjs: 10.4.0
@@ -132,9 +136,11 @@ importers:
       octokit: 2.0.14
       openapi-trpc: 0.1.1_rddbu46lyy4fcqpvwrkjezbvue
       p-memoize: 7.1.1
+      prettier: 2.8.4
       zod: 3.20.6
     devDependencies:
       '@tsconfig/node18': 1.0.1
+      '@types/js-yaml': 4.0.5
       '@types/json-buffer': 3.0.0
       '@types/lodash-es': 4.17.6
       '@types/node': 18.13.0
@@ -4056,6 +4062,10 @@ packages:
     resolution: {integrity: sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA==}
     dev: true
 
+  /@types/js-yaml/4.0.5:
+    resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
+    dev: true
+
   /@types/json-buffer/3.0.0:
     resolution: {integrity: sha512-3YP80IxxFJB4b5tYC2SUPwkg0XQLiu0nWvhRgEatgjf+29IcWO9X1k8xRv5DGssJ/lCrjYTjQPcobJr2yWIVuQ==}
     dev: true
@@ -7698,7 +7708,6 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
-    dev: true
 
   /jsesc/0.5.0:
     resolution: {integrity: sha512-uZz5UnB7u4T9LvwmFqXii7pZSouaRPorGs5who1Ip7VO0wxanFvBL7GkM6dTHlgX+jhBApRetaWpnDabOeTcnA==}
@@ -9480,6 +9489,12 @@ packages:
     resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+
+  /prettier/2.8.4:
+    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: false
 
   /pretty-format/27.5.1:
     resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}

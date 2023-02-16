@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@tsconfig/node18": "^1.0.1",
+    "@types/js-yaml": "^4.0.5",
     "@types/json-buffer": "^3.0.0",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^18.13.0",
@@ -36,6 +37,7 @@
     "axios": "^1.0.0",
     "expiry-map": "^2.0.0",
     "jose": "^4.8.3",
+    "js-yaml": "^4.1.0",
     "json-buffer": "^3.0.1",
     "keyv": "^4.5.2",
     "liquidjs": "^10.0.0",
@@ -43,6 +45,7 @@
     "octokit": "^2.0.3",
     "openapi-trpc": "^0.1.1",
     "p-memoize": "^7.1.0",
+    "prettier": "^2.8.4",
     "zod": "^3.20.6"
   }
 }

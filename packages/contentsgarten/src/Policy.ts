@@ -13,7 +13,7 @@ function multi<T extends ZodType>(input: T) {
     .transform((x) => (Array.isArray(x) ? x : [x])) as unknown as typeof array
 }
 
-const Policy = z.object({
+export const Policy = z.object({
   permission: multi(Permission),
   name: z.string().optional(),
   userId: multi(z.coerce.number()).optional(),

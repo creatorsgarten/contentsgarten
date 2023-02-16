@@ -8,6 +8,8 @@ import { Policy } from './Policy'
 import { User } from './ContentsgartenAuth'
 import { omit } from 'lodash-es'
 import { GetPageResult, getPage, pageRefToFilePath } from './getPage'
+import { load } from 'js-yaml'
+import { cache } from './cache'
 
 export { GetPageResult } from './getPage'
 
@@ -136,22 +138,34 @@ async function resolveAuthState(ctx: ContentsgartenRequestContext) {
   })
 }
 
+const Config = z.object({
+  policies: z.array(Policy).optional().default([]),
+})
+
 async function getPagePolicies(
   ctx: ContentsgartenRequestContext,
   pageRef: string,
 ): Promise<Policy[]> {
-  return [
-    {
-      name: 'Allow "dtinth" to edit any page',
-      permission: ['edit'],
-      userId: [193136],
+  const configFile = await cache(
+    ctx,
+    'config',
+    async () => {
+      const configFile = await ctx.app.storage.getFile(
+        ctx,
+        'contentsgarten.config.yml',
+      )
+      if (!configFile) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: '"contentsgarten.config.yml" not found in storage',
+        })
+      }
+      return configFile
     },
-    {
-      name: 'Allow "creatorsgarten/creators" to edit any page',
-      permission: ['edit'],
-      team: ['creatorsgarten/creators'],
-    },
-  ]
+    300e3,
+  )
+  const config = Config.parse(load(configFile.content.toString('utf8')))
+  return config.policies
 }
 
 function explainDenied(denied: DeniedEntry[]) {
