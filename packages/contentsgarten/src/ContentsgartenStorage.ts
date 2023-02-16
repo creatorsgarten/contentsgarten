@@ -1,6 +1,6 @@
-import { App } from 'octokit'
 import type { GitHubApp } from './GitHubApp'
 import type { RequestContext } from './RequestContext'
+import { resolveOctokit } from './resolveOctokit'
 
 export interface ContentsgartenStorage {
   getFile(ctx: RequestContext, path: string): Promise<GetFileResult | undefined>
@@ -9,6 +9,7 @@ export interface ContentsgartenStorage {
     path: string,
     options: PutFileOptions,
   ): Promise<PutFileResult>
+  listFiles(ctx: RequestContext): Promise<string[]>
 }
 export interface GetFileResult {
   content: Buffer
@@ -71,6 +72,7 @@ export class GitHubStorage implements ContentsgartenStorage {
       owner,
       repo,
       path,
+      branch: this.config.branch,
       sha: options.revision,
       content: options.content.toString('base64'),
       message:
@@ -84,10 +86,25 @@ export class GitHubStorage implements ContentsgartenStorage {
     }
     return { revision: data.content!.sha! }
   }
+
+  async listFiles(ctx: RequestContext): Promise<string[]> {
+    const octokit = await resolveOctokit(ctx, this.config.app, this.config.repo)
+    const { owner, repo } = this
+    const { data } = await octokit.rest.git.getTree({
+      owner,
+      repo,
+      tree_sha: this.config.branch,
+      recursive: 'true',
+    })
+    return data.tree
+      .filter((item) => item.type === 'blob')
+      .map((item) => item.path!)
+  }
 }
 
 export interface GitHubStorageConfig {
   repo: string
+  branch: string
   app: GitHubApp
 }
 
@@ -100,27 +117,4 @@ interface ApiError {
   response: {
     data: any
   }
-}
-
-async function resolveOctokit(
-  ctx: RequestContext,
-  app: GitHubApp,
-  ownerRepo: string,
-) {
-  return ctx.app.queryClient.fetchQuery({
-    queryKey: ['octokit', ownerRepo],
-    queryFn: async () => {
-      const octokitApp = new App({
-        appId: app.config.appId,
-        privateKey: app.config.privateKey,
-      })
-      const [owner, repo] = ownerRepo.split('/')
-      const installationResponse =
-        await octokitApp.octokit.rest.apps.getRepoInstallation({
-          owner,
-          repo,
-        })
-      return octokitApp.getInstallationOctokit(installationResponse.data.id)
-    },
-  })
 }

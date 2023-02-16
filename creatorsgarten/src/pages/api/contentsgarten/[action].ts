@@ -1,4 +1,4 @@
-import type { ContentsgartenCache } from 'contentsgarten'
+import { ContentsgartenCache, GitHubTeamResolver } from 'contentsgarten'
 import {
   ContentsgartenDefaultCache,
   Contentsgarten,
@@ -31,6 +31,7 @@ export function getInstance() {
   const contentsgarten = new Contentsgarten({
     storage: new GitHubStorage({
       repo: 'creatorsgarten/wiki',
+      branch: 'main',
       app: gitHubApp,
     }),
     auth: new GitHubFirebaseAuth({
@@ -43,6 +44,7 @@ export function getInstance() {
         projectId: 'creatorsgarten-wiki',
       },
     }),
+    teamResolver: new GitHubTeamResolver(gitHubApp),
     cache: getCache(),
     pageFileExtension: '.md',
   })

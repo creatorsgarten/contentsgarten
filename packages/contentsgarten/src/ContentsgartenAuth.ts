@@ -1,6 +1,7 @@
 import { get } from 'lodash-es'
 import type { GitHubApp } from './GitHubApp'
 import { verifyFirebaseIdToken } from './verifyFirebaseIdToken'
+import { z } from 'zod'
 
 export interface ContentsgartenAuth {
   getAuthState(authToken?: string): Promise<AuthState>
@@ -48,15 +49,20 @@ export class GitHubFirebaseAuth implements ContentsgartenAuth {
   }
 }
 
+export const User = z
+  .object({
+    id: z.number().describe('Numeric ID, represents the user from GitHub API'),
+    name: z.string().describe('Display name of the user'),
+    uid: z.string().describe('Firebase UID'),
+  })
+  .describe('A user object')
+export type User = z.infer<typeof User>
+
 export type AuthState = AuthStateAuthenticated | AuthStateUnauthenticated
 
 export interface AuthStateAuthenticated {
   authenticated: true
-  user: {
-    id: number
-    name: string
-    uid: string
-  }
+  user: User
 }
 
 export interface AuthStateUnauthenticated {

@@ -18,8 +18,8 @@
     "@remix-run/react": "^1.12.0",
     "@remix-run/serve": "^1.12.0",
     "@tanstack/react-query": "^4.24.4",
-    "@trpc/react-query": "^10.9.1",
-    "@trpc/server": "^10.9.1",
+    "@trpc/react-query": "^10.11.1",
+    "@trpc/server": "^10.11.1",
     "lazy-strict-env": "^0.3.1",
     "lodash-es": "^4.17.21",
     "markdown-it": "^13.0.1",
@@ -27,7 +27,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-iconify-icon-wrapper": "^0.0.3",
-    "zod": "^3.20.2"
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@playwright/test": "~1.30.0",
@@ -35,8 +35,8 @@
     "@remix-run/eslint-config": "^1.12.0",
     "@rushstack/eslint-plugin-packlets": "^0.6.0",
     "@tailwindcss/typography": "^0.5.3",
-    "@trpc/client": "^10.9.1",
-    "@trpc/server": "^10.9.1",
+    "@trpc/client": "^10.11.1",
+    "@trpc/server": "^10.11.1",
     "@types/cookie": "^0.5.1",
     "@types/js-cookie": "^3.0.2",
     "@types/lodash-es": "^4.17.6",

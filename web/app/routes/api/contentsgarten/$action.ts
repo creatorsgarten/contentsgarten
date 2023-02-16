@@ -1,5 +1,5 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
-import type { ContentsgartenCache } from 'contentsgarten'
+import { ContentsgartenCache, GitHubTeamResolver } from 'contentsgarten'
 import {
   ContentsgartenDefaultCache,
   Contentsgarten,
@@ -38,6 +38,7 @@ export function getInstance() {
   const contentsgarten = new Contentsgarten({
     storage: new GitHubStorage({
       repo: env.GH_REPO,
+      branch: 'main',
       app: gitHubApp,
     }),
     auth: new GitHubFirebaseAuth({
@@ -51,6 +52,7 @@ export function getInstance() {
       },
     }),
     cache: getCache(),
+    teamResolver: new GitHubTeamResolver(gitHubApp),
   })
   instance = contentsgarten
   return contentsgarten
