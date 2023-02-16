@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '$layouts/base.astro'
-import { createServerSideClient } from '@contentsgarten/utils/dist/server'
+import { createServerSideClient } from '@contentsgarten/server-utils'
 import { getInstance } from '../api/contentsgarten/[action]'
 import { WikiPage } from '$components/WikiPage'
 
@@ -12,9 +12,6 @@ const page = await client.view.query({ pageRef: String(pageRef) })
 <BaseLayout title={page.title}>
   <div class="cg-large-container pt-4">
     <article class="prose md:prose-lg max-w-[48rem] mx-auto">
-      <h1>
-        {page.title}
-      </h1>
       <WikiPage client:load page={page} />
     </article>
   </div>
