@@ -47,9 +47,20 @@ export namespace testing {
   export function createFakeAuth(): ContentsgartenAuth {
     return {
       async getAuthState(authToken) {
+        if (authToken?.startsWith('fake:')) {
+          const userId = authToken.slice('fake:'.length)
+          return {
+            authenticated: true,
+            user: {
+              id: parseInt(userId, 10) || 1,
+              name: 'Fake user ' + userId,
+              uid: userId,
+            },
+          }
+        }
         return {
           authenticated: false,
-          reason: 'Unimplemented',
+          reason: 'Not authenticated',
         }
       },
     }
