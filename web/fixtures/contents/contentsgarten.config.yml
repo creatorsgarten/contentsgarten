@@ -1,0 +1,3 @@
+policies:
+  - name: Grant anyone to edit any page
+    permission: edit

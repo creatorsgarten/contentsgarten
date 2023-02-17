@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import { once } from 'lodash-es'
 import type { FC } from 'react'
 import { useEffect } from 'react'
-import { trpc } from '~/utils/trpc'
+import { trpc, trpcClient } from '~/utils/trpc'
 
 export interface AuthProvider {
   children: React.ReactNode

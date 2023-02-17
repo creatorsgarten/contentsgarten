@@ -16,7 +16,7 @@ export const Editable: FC<Editable> = (props) => {
   return (
     <Dialog.Root onOpenChange={handleOpenChange} open={isEditing}>
       <Dialog.Trigger asChild>
-        <button>
+        <button title="Edit this page">
           <Icon icon="mdi:lead-pencil" />
         </button>
       </Dialog.Trigger>
