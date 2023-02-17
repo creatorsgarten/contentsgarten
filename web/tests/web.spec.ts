@@ -16,4 +16,7 @@ test('Can edit a page', async ({ page }) => {
 
   // Once saving is finished, the save button should disappear
   await expect(page.getByRole('button', { name: 'Save' })).not.toBeVisible()
+
+  // The new page content should be visible
+  await expect(page.getByText(content)).toBeVisible()
 })

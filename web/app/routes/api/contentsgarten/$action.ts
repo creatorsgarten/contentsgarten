@@ -17,6 +17,9 @@ import { Env } from 'lazy-strict-env'
 import { z } from 'zod'
 import cookie from 'cookie'
 import { ContentsgartenStorage } from 'contentsgarten'
+import fs from 'fs'
+import path from 'path'
+import { createHash } from 'crypto'
 
 export const config = {
   testing: Env(
@@ -94,8 +97,8 @@ function getRedisCache(): ContentsgartenCache {
 
 function createFakeStorage(): ContentsgartenStorage {
   return {
-    async getFile(ctx, path) {
-      if (path === 'contentsgarten.config.yml') {
+    async getFile(ctx, filePath) {
+      if (filePath === 'contentsgarten.config.yml') {
         return {
           content: Buffer.from(
             JSON.stringify({
@@ -106,16 +109,31 @@ function createFakeStorage(): ContentsgartenStorage {
           revision: '0',
         }
       }
+      const fsPath = getFsPath(filePath)
+      if (fs.existsSync(fsPath)) {
+        const buffer = fs.readFileSync(fsPath)
+        return { content: buffer, revision: hashBuffer(buffer) }
+      }
       return undefined
     },
     async listFiles(ctx) {
       return []
     },
-    async putFile(ctx, path, options) {
-      return {
-        revision: 'fake-sha',
-      }
+    async putFile(ctx, filePath, options) {
+      const fsPath = getFsPath(filePath)
+      fs.mkdirSync(path.dirname(fsPath), { recursive: true })
+      const buffer = options.content
+      fs.writeFileSync(fsPath, buffer)
+      return { revision: hashBuffer(buffer) }
     },
+  }
+
+  function getFsPath(filePath: string) {
+    return `.data/contents/${filePath}`
+  }
+
+  function hashBuffer(buffer: Buffer) {
+    return createHash('sha1').update(buffer).digest('hex')
   }
 }
 
