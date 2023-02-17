@@ -99,7 +99,7 @@ const config: PlaywrightTestConfig = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm run start',
+    command: 'env BACKEND=fake pnpm run start',
     port: 3000,
     reuseExistingServer: true,
   },

@@ -114,6 +114,11 @@ function createFakeStorage(): ContentsgartenStorage {
         const buffer = fs.readFileSync(fsPath)
         return { content: buffer, revision: hashBuffer(buffer) }
       }
+      const fixturePath = `fixtures/contents/${filePath}`
+      if (fs.existsSync(fixturePath)) {
+        const buffer = fs.readFileSync(fixturePath)
+        return { content: buffer, revision: hashBuffer(buffer) }
+      }
       return undefined
     },
     async listFiles(ctx) {
