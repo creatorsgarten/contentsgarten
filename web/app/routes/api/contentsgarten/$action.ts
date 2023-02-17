@@ -18,8 +18,8 @@ export const config = {
   testing: Env(
     z.object({
       BACKEND: z
-        .union([z.enum(['standalone', 'fake']), z.string().url()])
-        .default('standalone'),
+        .union([z.enum(['real', 'fake']), z.string().url()])
+        .default('real'),
     }),
   ),
   credentials: Env(

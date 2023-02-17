@@ -16,12 +16,13 @@ export { GetPageResult } from './getPage'
 export const ContentsgartenRouter = t.router({
   about: t.procedure
     .meta({
-      summary: 'Returns some about text',
-      description: 'Mostly used for testing',
+      summary:
+        'Returns information about the instance, as well as configured settings',
     })
-    .query(() => {
+    .query(async ({ ctx }) => {
       return {
         name: 'Contentsgarten',
+        config: await getConfig(ctx),
       }
     }),
   userInfo: t.procedure
@@ -146,6 +147,11 @@ async function getPagePolicies(
   ctx: ContentsgartenRequestContext,
   pageRef: string,
 ): Promise<Policy[]> {
+  const config = await getConfig(ctx)
+  return config.policies
+}
+
+async function getConfig(ctx: ContentsgartenRequestContext) {
   const configFile = await cache(
     ctx,
     'config',
@@ -165,7 +171,7 @@ async function getPagePolicies(
     300e3,
   )
   const config = Config.parse(load(configFile.content.toString('utf8')))
-  return config.policies
+  return config
 }
 
 function explainDenied(denied: DeniedEntry[]) {
