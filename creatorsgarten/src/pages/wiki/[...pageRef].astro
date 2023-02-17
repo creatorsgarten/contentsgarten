@@ -7,7 +7,7 @@ import { WikiPage } from '$components/WikiPage'
 const { pageRef } = Astro.params
 const client = createServerSideClient(
   config.testing.BACKEND === 'production'
-    ? 'https://contentsgarten.netlify.app'
+    ? 'https://wiki.creatorsgarten.org'
     : getInstance(),
   '/api/contentsgarten',
 )
