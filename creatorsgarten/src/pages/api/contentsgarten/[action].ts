@@ -12,11 +12,18 @@ import { z } from 'zod'
 import cookie from 'cookie'
 import type { APIRoute } from 'astro'
 
-const env = Env(
-  z.object({
-    GH_APP_PRIVATE_KEY: z.string(),
-  }),
-)
+export const config = {
+  testing: Env(
+    z.object({
+      BACKEND: z.enum(['production', 'real']).default('real'),
+    }),
+  ),
+  credentials: Env(
+    z.object({
+      GH_APP_PRIVATE_KEY: z.string(),
+    }),
+  ),
+}
 
 let instance: Contentsgarten | undefined
 
@@ -26,7 +33,10 @@ export function getInstance() {
   }
   const gitHubApp = new GitHubApp({
     appId: 218517,
-    privateKey: Buffer.from(env.GH_APP_PRIVATE_KEY, 'base64').toString(),
+    privateKey: Buffer.from(
+      config.credentials.GH_APP_PRIVATE_KEY,
+      'base64',
+    ).toString(),
   })
   const contentsgarten = new Contentsgarten({
     storage: new GitHubStorage({
@@ -57,11 +67,28 @@ function getCache(): ContentsgartenCache {
     new ContentsgartenDefaultCache())
 }
 
-export const all: APIRoute = ({ params, request }) => {
-  const parsed = cookie.parse(request.headers.get('Cookie') || '')
-  const tokenFromCookie = parsed['contentsgarten_id_token']
-  if (tokenFromCookie && !request.headers.get('Authorization')) {
-    request.headers.set('Authorization', `Bearer ${tokenFromCookie}`)
+export const all: APIRoute = async ({ params, request }) => {
+  if (config.testing.BACKEND === 'production') {
+    const requestUrl = new URL(request.url)
+    const backendUrl = new URL(
+      requestUrl.pathname + requestUrl.search,
+      'https://wiki.creatorsgarten.org',
+    )
+    const headers: Record<string, string> = {}
+    if (request.headers.get('authorization')) {
+      headers.authorization = request.headers.get('authorization')!
+    }
+    const response = await fetch(backendUrl, {
+      method: request.method,
+      headers,
+      body: request.body,
+    })
+    return new Response(response.body, {
+      status: response.status,
+      headers: {
+        'Content-Type': response.headers.get('Content-Type')!,
+      },
+    })
   }
 
   return handleContentsgartenRequest(

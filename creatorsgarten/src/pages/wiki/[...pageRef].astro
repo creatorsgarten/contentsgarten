@@ -1,11 +1,16 @@
 ---
 import BaseLayout from '$layouts/base.astro'
 import { createServerSideClient } from '@contentsgarten/server-utils'
-import { getInstance } from '../api/contentsgarten/[action]'
+import { config, getInstance } from '../api/contentsgarten/[action]'
 import { WikiPage } from '$components/WikiPage'
 
 const { pageRef } = Astro.params
-const client = createServerSideClient(getInstance(), '/api/contentsgarten')
+const client = createServerSideClient(
+  config.testing.BACKEND === 'production'
+    ? 'https://contentsgarten.netlify.app'
+    : getInstance(),
+  '/api/contentsgarten',
+)
 const page = await client.view.query({
   pageRef: String(pageRef),
   withFile: false,

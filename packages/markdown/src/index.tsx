@@ -1,6 +1,6 @@
 import MarkdownIt from 'markdown-it/dist/markdown-it.js'
 import container from 'markdown-it-container'
-import type { FC } from 'react'
+import { FC, useMemo } from 'react'
 
 export interface Markdown {
   text: string
@@ -8,23 +8,25 @@ export interface Markdown {
 }
 
 export const Markdown: FC<Markdown> = (props) => {
-  const md = MarkdownIt({ html: true })
-  addContainer(md, 'lead', {
-    open: () => '<div class="lead">',
-    close: () => '</div>',
-  })
-  addContainer(md, 'details', {
-    open: (info) => {
-      const title = md.renderInline(info || 'Details')
-      return `<details><summary>${title}</summary>\n`
-    },
-    close: () => '</details>',
-  })
-  addCustomBlock(md, 'tip', 'TIP')
-  addCustomBlock(md, 'info', 'INFO')
-  addCustomBlock(md, 'warning', 'WARNING')
-  addCustomBlock(md, 'danger', 'DANGER')
-  const html = md.render(props.text)
+  const html = useMemo(() => {
+    const md = MarkdownIt({ html: true })
+    addContainer(md, 'lead', {
+      open: () => '<div class="lead">',
+      close: () => '</div>',
+    })
+    addContainer(md, 'details', {
+      open: (info) => {
+        const title = md.renderInline(info || 'Details')
+        return `<details><summary>${title}</summary>\n`
+      },
+      close: () => '</details>',
+    })
+    addCustomBlock(md, 'tip', 'TIP')
+    addCustomBlock(md, 'info', 'INFO')
+    addCustomBlock(md, 'warning', 'WARNING')
+    addCustomBlock(md, 'danger', 'DANGER')
+    return md.render(props.text)
+  }, [props.text])
   return (
     <div
       className={props.className}
