@@ -1,9 +1,6 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
-import type {
-  ContentsgartenAuth,
-  ContentsgartenCache,
-  ContentsgartenTeamResolver,
-} from 'contentsgarten'
+import type { ContentsgartenCache } from 'contentsgarten'
+import { testing } from 'contentsgarten'
 import { GitHubTeamResolver } from 'contentsgarten'
 import {
   ContentsgartenDefaultCache,
@@ -16,10 +13,6 @@ import {
 import { Env } from 'lazy-strict-env'
 import { z } from 'zod'
 import cookie from 'cookie'
-import { ContentsgartenStorage } from 'contentsgarten'
-import fs from 'fs'
-import path from 'path'
-import { createHash } from 'crypto'
 
 export const config = {
   testing: Env(
@@ -51,7 +44,7 @@ export function getInstance() {
   }
   const contentsgarten =
     config.testing.BACKEND === 'fake'
-      ? createFakeInstance()
+      ? testing.createFakeInstance()
       : createStandloneInstance()
   instance = contentsgarten
   return contentsgarten
@@ -93,82 +86,6 @@ function getRedisCache(): ContentsgartenCache {
       url: config.credentials.REDIS_URL,
       signingKey: config.credentials.CACHE_SIGNING_KEY,
     }))
-}
-
-function createFakeStorage(): ContentsgartenStorage {
-  return {
-    async getFile(ctx, filePath) {
-      if (filePath === 'contentsgarten.config.yml') {
-        return {
-          content: Buffer.from(
-            JSON.stringify({
-              // Grant permission to anyone to edit the page.
-              policies: [{ permission: ['edit'] }],
-            }),
-          ),
-          revision: '0',
-        }
-      }
-      const fsPath = getFsPath(filePath)
-      if (fs.existsSync(fsPath)) {
-        const buffer = fs.readFileSync(fsPath)
-        return { content: buffer, revision: hashBuffer(buffer) }
-      }
-      const fixturePath = `fixtures/contents/${filePath}`
-      if (fs.existsSync(fixturePath)) {
-        const buffer = fs.readFileSync(fixturePath)
-        return { content: buffer, revision: hashBuffer(buffer) }
-      }
-      return undefined
-    },
-    async listFiles(ctx) {
-      return []
-    },
-    async putFile(ctx, filePath, options) {
-      const fsPath = getFsPath(filePath)
-      fs.mkdirSync(path.dirname(fsPath), { recursive: true })
-      const buffer = options.content
-      fs.writeFileSync(fsPath, buffer)
-      return { revision: hashBuffer(buffer) }
-    },
-  }
-
-  function getFsPath(filePath: string) {
-    return `.data/contents/${filePath}`
-  }
-
-  function hashBuffer(buffer: Buffer) {
-    return createHash('sha1').update(buffer).digest('hex')
-  }
-}
-
-function createFakeAuth(): ContentsgartenAuth {
-  return {
-    async getAuthState(authToken) {
-      return {
-        authenticated: false,
-        reason: 'Unimplemented',
-      }
-    },
-  }
-}
-
-function createFakeTeamResolver(): ContentsgartenTeamResolver {
-  return {
-    async checkMembership(ctx, userId, ownerAndTeamSlug) {
-      return false
-    },
-  }
-}
-
-function createFakeInstance() {
-  const contentsgarten = new Contentsgarten({
-    storage: createFakeStorage(),
-    auth: createFakeAuth(),
-    cache: new ContentsgartenDefaultCache(),
-    teamResolver: createFakeTeamResolver(),
-  })
-  return contentsgarten
 }
 
 export const loader = async (args: LoaderArgs) => {
