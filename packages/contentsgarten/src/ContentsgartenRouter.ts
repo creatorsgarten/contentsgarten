@@ -145,6 +145,18 @@ async function resolveAuthState(ctx: ContentsgartenRequestContext) {
 
 const Config = z.object({
   policies: z.array(Policy).optional().default([]),
+  auth: z
+    .object({
+      firebase: z
+        .object({
+          apiKey: z.string(),
+          authDomain: z.string(),
+          projectId: z.string(),
+        })
+        .optional(),
+    })
+    .optional()
+    .default({}),
 })
 
 async function getPagePolicies(
