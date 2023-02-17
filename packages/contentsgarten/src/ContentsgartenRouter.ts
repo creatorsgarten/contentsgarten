@@ -28,14 +28,18 @@ export const ContentsgartenRouter = t.router({
   userInfo: t.procedure
     .meta({ summary: 'Returns the info of the authenticated user' })
     .output(
-      z.object({
-        authenticated: z.boolean(),
-        user: User.optional(),
-        reason: z
-          .string()
-          .optional()
-          .describe('If authenticated is false, this is the reason why'),
-      }),
+      z.union([
+        z.object({
+          authenticated: z.literal(true),
+          user: User,
+        }),
+        z.object({
+          authenticated: z.literal(false),
+          reason: z
+            .string()
+            .describe('If authenticated is false, this is the reason why'),
+        }),
+      ]),
     )
     .query(async ({ ctx }) => {
       const authState = await resolveAuthState(ctx)
