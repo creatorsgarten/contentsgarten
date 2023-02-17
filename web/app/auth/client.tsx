@@ -18,7 +18,27 @@ export const AuthProvider: FC<AuthProvider> = (props) => {
   )
 }
 
-const getAuthController = once(async () => {
+const getAuthController = once(async (): Promise<AuthController> => {
+  const about = await trpcClient.about.query()
+  const authConfig = about.config.auth
+
+  if (!authConfig.firebase) {
+    let onInvalidate = () => {}
+    return {
+      signOut: () => {
+        Cookies.remove('contentsgarten_id_token')
+        onInvalidate()
+      },
+      signIn: () => {
+        Cookies.set('contentsgarten_id_token', 'fake:1', { expires: 1 })
+        onInvalidate()
+      },
+      setInvalidateCallback: (fn: () => void) => {
+        onInvalidate = fn
+      },
+    }
+  }
+
   const firebase = await import('./firebase-sdk.client')
   const app = firebase.initializeApp({
     apiKey: 'AIzaSyCKZng55l411pps2HgMcuenMQou-NTQ0QE',
@@ -49,6 +69,12 @@ const getAuthController = once(async () => {
     },
   }
 })
+
+interface AuthController {
+  signOut: () => void
+  signIn: () => void
+  setInvalidateCallback: (fn: () => void) => void
+}
 
 export const AuthWorker: FC = () => {
   const trpcContext = trpc.useContext()

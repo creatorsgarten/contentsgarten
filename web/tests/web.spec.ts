@@ -10,6 +10,10 @@ test('Can edit a page', async ({ page }) => {
   const id = randomUUID()
   const content = randomUUID()
   await page.goto('/wiki/Playground/' + id)
+
+  await page.getByRole('button', { name: 'Sign in' }).click()
+  await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
+
   await page.getByRole('button', { name: 'Edit this page' }).click()
   await page.getByRole('textbox').fill(content)
   await page.getByRole('button', { name: 'Save' }).click()
@@ -18,5 +22,9 @@ test('Can edit a page', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Save' })).not.toBeVisible()
 
   // The new page content should be visible
+  await expect(page.getByText(content)).toBeVisible()
+
+  // The content should still be visible after reloading the page
+  await page.reload()
   await expect(page.getByText(content)).toBeVisible()
 })
