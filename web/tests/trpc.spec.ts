@@ -1,5 +1,5 @@
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
-import type { ContentsgartenRouter } from '../src/packlets/contentsgarden'
+import type { ContentsgartenRouter } from 'contentsgarten'
 import test, { expect } from '@playwright/test'
 
 const client = createTRPCProxyClient<typeof ContentsgartenRouter>({
@@ -10,7 +10,7 @@ const client = createTRPCProxyClient<typeof ContentsgartenRouter>({
   ],
 })
 
-test.skip('About', async () => {
+test('About', async () => {
   const about = await client.about.query()
   expect(about).toEqual({ name: 'Contentsgarten' })
 })
