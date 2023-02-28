@@ -19,7 +19,7 @@
     "@contentsgarten/server-utils": "workspace:*",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/joy": "5.0.0-alpha.68",
+    "@mui/joy": "5.0.0-alpha.69",
     "@tailwindcss/typography": "^0.5.3",
     "@tanstack/react-query": "^4.24.4",
     "@trpc/client": "^10.11.1",
