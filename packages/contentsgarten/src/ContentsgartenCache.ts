@@ -1,7 +1,7 @@
 import Keyv from 'keyv'
 import { RequestContext } from './RequestContext'
 import { createHmac } from 'crypto'
-import '@keyv/redis'
+import KeyvRedis from '@keyv/redis'
 
 export interface ContentsgartenCache {
   get(ctx: RequestContext, key: string): Promise<any>
@@ -62,7 +62,7 @@ export class ContentsgartenDefaultCache implements ContentsgartenCache {
   private keyv: Keyv
 
   constructor({ url, signingKey }: ContentsgartenDefaultCacheOptions = {}) {
-    const keyv = new Keyv(url)
+    const keyv = url ? new Keyv({ store: new KeyvRedis(url) }) : new Keyv()
     this.keyv = keyv
     if (signingKey) {
       const wrapper = createSigningWrapper(signingKey)
