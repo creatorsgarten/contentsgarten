@@ -1,7 +1,5 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
-import type { ContentsgartenCache } from 'contentsgarten'
-import { testing } from 'contentsgarten'
-import { GitHubTeamResolver } from 'contentsgarten'
+import type { ContentsgartenCache } from 'contentsgarten-cjs'
 import {
   ContentsgartenDefaultCache,
   Contentsgarten,
@@ -9,7 +7,9 @@ import {
   GitHubFirebaseAuth,
   GitHubStorage,
   handleContentsgartenRequest,
-} from 'contentsgarten'
+  testing,
+  GitHubTeamResolver,
+} from 'contentsgarten-cjs'
 import { Env } from 'lazy-strict-env'
 import { z } from 'zod'
 import cookie from 'cookie'

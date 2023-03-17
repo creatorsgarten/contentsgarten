@@ -6,6 +6,9 @@ on:
     branches: [main, master]
 jobs:
   test:
+    permissions:
+      contents: read
+      id-token: write
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -22,13 +25,28 @@ jobs:
         run: pnpm run build
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
-        working-directory: web
+        working-directory: contentsgarten.netlify.app
       - name: Run Playwright tests
         run: pnpm exec playwright test
-        working-directory: web
+        working-directory: contentsgarten.netlify.app
       - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: playwright-report
           path: contentsgarten.netlify.app/playwright-report/
           retention-days: 30
+      - uses: dtinth/action-upload-to-firebase-storage@main
+        if: always()
+        continue-on-error: true
+        id: publish
+        with:
+          workload-identity-provider: 'projects/35904191124/locations/global/workloadIdentityPools/github-actions/providers/github-actions'
+          service-account: 'github@dtinth-url.iam.gserviceaccount.com'
+          storage-prefix: 'gs://dtinth-url.appspot.com'
+          path: contentsgarten.netlify.app/playwright-report/
+      - run: |
+          if [ -n "$REPORT_URL" ]; then echo "# [View Playwright report]($REPORT_URL)" > $GITHUB_STEP_SUMMARY; fi
+        env:
+          REPORT_URL: ${{ steps.publish.outputs.http-url }}/index.html
+        if: always()
+        continue-on-error: true

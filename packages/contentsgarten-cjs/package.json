@@ -1,16 +1,16 @@
 {
-  "name": "@contentsgarten/server-utils",
+  "name": "contentsgarten-cjs",
   "version": "1.0.0",
-  "description": "Utility functions for contentsgarten",
+  "description": "Like contentsgarten but everything is bundled into CommonJS to work around Remix issue.... why do I have to do this??????? https://github.com/remix-run/remix/issues/2930",
   "module": "dist/index.js",
-  "type": "module",
+  "exports": "./dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "src",
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
+    "build": "tsup src/index.ts --format cjs --dts",
     "dev": "pnpm run build --watch"
   },
   "keywords": [],
@@ -20,17 +20,9 @@
     "access": "public"
   },
   "devDependencies": {
-    "@trpc/client": "^10.16.0",
-    "@trpc/server": "^10.16.0",
     "@tsconfig/node18": "^1.0.1",
-    "@types/node": "^18.15.3",
-    "contentsgarten": "workspace:*",
     "tsup": "^6.6.3",
-    "typescript": "4"
-  },
-  "peerDependencies": {
-    "@trpc/client": "^10.11.1",
-    "@trpc/server": "^10.11.1",
+    "typescript": "4",
     "contentsgarten": "workspace:*"
   }
 }

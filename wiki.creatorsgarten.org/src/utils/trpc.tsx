@@ -5,7 +5,7 @@ import type { FC, ReactNode } from 'react'
 import { queryClient } from './react-query'
 import { auth } from './auth'
 
-export const trpc = createTRPCReact<typeof ContentsgartenRouter>()
+export const trpc = createTRPCReact<ContentsgartenRouter>()
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({

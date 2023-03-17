@@ -1,4 +1,8 @@
-import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
+import {
+  CreateTRPCProxyClient,
+  createTRPCProxyClient,
+  httpBatchLink,
+} from '@trpc/client'
 import type {} from '@trpc/server'
 import type { Contentsgarten, ContentsgartenRouter } from 'contentsgarten'
 import { handleContentsgartenRequest } from 'contentsgarten'
@@ -6,10 +10,10 @@ import { handleContentsgartenRequest } from 'contentsgarten'
 export function createServerSideClient(
   base: Contentsgarten | string,
   apiPath = '/api/contentsgarten',
-) {
+): CreateTRPCProxyClient<ContentsgartenRouter> {
   const baseUrl = typeof base === 'string' ? base : 'http://fake'
   const url = new URL(apiPath, baseUrl).toString()
-  return createTRPCProxyClient<typeof ContentsgartenRouter>({
+  return createTRPCProxyClient<ContentsgartenRouter>({
     links: [
       httpBatchLink({
         url,
