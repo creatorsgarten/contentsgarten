@@ -6,6 +6,9 @@ on:
     branches: [main, master]
 jobs:
   test:
+    permissions:
+      contents: read
+      id-token: write
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
