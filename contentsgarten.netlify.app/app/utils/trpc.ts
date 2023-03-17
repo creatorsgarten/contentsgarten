@@ -1,7 +1,7 @@
 import { createTRPCReact } from '@trpc/react-query'
 import type { CreateTRPCClientOptions } from '@trpc/client'
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
-import type { ContentsgartenRouter } from 'contentsgarten'
+import type { ContentsgartenRouter } from 'contentsgarten-cjs'
 
 /**
  * For use in React code.

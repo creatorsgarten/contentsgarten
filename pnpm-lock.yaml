@@ -34,7 +34,7 @@ importers:
       '@types/react-dom': ^18.0.11
       autoprefixer: ^10.4.14
       concurrently: ^7.2.2
-      contentsgarten: workspace:*
+      contentsgarten-cjs: workspace:*
       cookie: ^0.5.0
       depcheck: ^1.4.3
       eslint: ^8.36.0
@@ -62,7 +62,7 @@ importers:
       '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
       '@trpc/react-query': 10.16.0_tnkr7fi5fbqnhgn52yurs4dymi
       '@trpc/server': 10.16.0
-      contentsgarten: link:../packages/contentsgarten
+      contentsgarten-cjs: link:../packages/contentsgarten-cjs
       lazy-strict-env: 0.3.1_zod@3.21.4
       lodash-es: 4.17.21
       markdown-it: 13.0.1
@@ -167,6 +167,18 @@ importers:
       '@types/lodash-es': 4.17.7
       '@types/node': 18.15.3
       depcheck: 1.4.3
+      tsup: 6.6.3_typescript@4.9.5
+      typescript: 4.9.5
+
+  packages/contentsgarten-cjs:
+    specifiers:
+      '@tsconfig/node18': ^1.0.1
+      contentsgarten: workspace:*
+      tsup: ^6.6.3
+      typescript: '4'
+    devDependencies:
+      '@tsconfig/node18': 1.0.1
+      contentsgarten: link:../contentsgarten
       tsup: 6.6.3_typescript@4.9.5
       typescript: 4.9.5
 
@@ -7057,7 +7069,7 @@ packages:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.11
+      fast-glob: 3.2.12
       glob: 7.2.3
       ignore: 5.2.4
       merge2: 1.4.1
