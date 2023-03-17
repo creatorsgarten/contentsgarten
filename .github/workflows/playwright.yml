@@ -30,5 +30,5 @@ jobs:
         if: always()
         with:
           name: playwright-report
-          path: web/playwright-report/
+          path: contentsgarten.netlify.app/playwright-report/
           retention-days: 30

@@ -19,5 +19,5 @@ RUN pnpm install
 FROM deps as app
 COPY --from=pruned-workspace /app/out/full/ ./
 RUN pnpm exec turbo build --filter=creatorsgarten-wiki...
-WORKDIR /app/creatorsgarten
+WORKDIR /app/wiki.creatorsgarten.org
 CMD node dist/server/entry.mjs

@@ -1,4 +1,4 @@
 packages:
   - 'packages/*'
-  - 'web'
-  - 'creatorsgarten'
+  - 'contentsgarten.netlify.app'
+  - 'wiki.creatorsgarten.org'

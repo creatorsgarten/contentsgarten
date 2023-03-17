@@ -1,9 +1,9 @@
 [build]
   command = "pnpm run build"
-  publish = "web/public"
+  publish = "contentsgarten.netlify.app/public"
 
 [functions]
-  directory = "web/.netlify/functions-internal"
+  directory = "contentsgarten.netlify.app/.netlify/functions-internal"
 
 [[redirects]]
   from = "/*"
