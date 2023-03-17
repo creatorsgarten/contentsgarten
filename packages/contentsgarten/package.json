@@ -28,7 +28,7 @@
     "@types/node": "^18.15.3",
     "depcheck": "^1.4.3",
     "tsup": "^6.6.3",
-    "typescript": "4"
+    "typescript": "5"
   },
   "dependencies": {
     "@keyv/redis": "^2.5.6",
