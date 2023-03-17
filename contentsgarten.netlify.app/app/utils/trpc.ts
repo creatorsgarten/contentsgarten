@@ -6,17 +6,16 @@ import type { ContentsgartenRouter } from 'contentsgarten'
 /**
  * For use in React code.
  */
-export const trpc = createTRPCReact<typeof ContentsgartenRouter>()
+export const trpc = createTRPCReact<ContentsgartenRouter>()
 
-const options: CreateTRPCClientOptions<typeof ContentsgartenRouter> = {
+const options: CreateTRPCClientOptions<ContentsgartenRouter> = {
   links: [httpBatchLink({ url: '/api/contentsgarten' })],
 }
 
 /**
  * For use in framework-agnostic code.
  */
-export const trpcClient =
-  createTRPCProxyClient<typeof ContentsgartenRouter>(options)
+export const trpcClient = createTRPCProxyClient<ContentsgartenRouter>(options)
 
 /**
  * For use in framework-agnostic code.

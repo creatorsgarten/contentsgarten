@@ -134,6 +134,8 @@ export const ContentsgartenRouter = t.router({
     }),
 })
 
+export type ContentsgartenRouter = typeof ContentsgartenRouter
+
 async function resolveAuthState(ctx: ContentsgartenRequestContext) {
   return ctx.queryClient.fetchQuery({
     queryKey: ['authState'],

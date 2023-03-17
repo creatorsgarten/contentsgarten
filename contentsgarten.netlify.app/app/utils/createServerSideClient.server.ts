@@ -7,7 +7,7 @@ export function createServerSideClient(_request: Request) {
   const baseUrl = config.testing.BACKEND.includes('://')
     ? config.testing.BACKEND
     : 'http://fake'
-  return createTRPCProxyClient<typeof ContentsgartenRouter>({
+  return createTRPCProxyClient<ContentsgartenRouter>({
     links: [
       httpBatchLink({
         url: new URL('/api/contentsgarten', baseUrl).toString(),
