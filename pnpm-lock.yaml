@@ -11,7 +11,7 @@ importers:
   contentsgarten.netlify.app:
     specifiers:
       '@netlify/functions': ^1.0.0
-      '@playwright/test': ~1.31.2
+      '@playwright/test': ~1.32.0
       '@radix-ui/react-dialog': ^1.0.3
       '@remix-run/dev': ^1.14.3
       '@remix-run/eslint-config': ^1.14.3
@@ -73,7 +73,7 @@ importers:
       undici: 5.21.0
       zod: 3.21.4
     devDependencies:
-      '@playwright/test': 1.31.2
+      '@playwright/test': 1.32.0
       '@remix-run/dev': 1.14.3_@remix-run+serve@1.14.3
       '@remix-run/eslint-config': 1.14.3_m2buwt4aurdom7izueoze32r4i
       '@rushstack/eslint-plugin-packlets': 0.6.1_j4766f7ecgqbon3u7zlxn5zszu
@@ -3464,13 +3464,13 @@ packages:
       tiny-glob: 0.2.9
       tslib: 2.5.0
 
-  /@playwright/test/1.31.2:
-    resolution: {integrity: sha512-BYVutxDI4JeZKV1+ups6dt5WiqKhjBtIYowyZIJ3kBDmJgsuPKsqqKNIMFbUePLSCmp2cZu+BDL427RcNKTRYw==}
+  /@playwright/test/1.32.0:
+    resolution: {integrity: sha512-zOdGloaF0jeec7hqoLqM5S3L2rR4WxMJs6lgiAeR70JlH7Ml54ZPoIIf3X7cvnKde3Q9jJ/gaxkFh8fYI9s1rg==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
       '@types/node': 18.15.3
-      playwright-core: 1.31.2
+      playwright-core: 1.32.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
@@ -9396,8 +9396,8 @@ packages:
       pathe: 1.1.0
     dev: true
 
-  /playwright-core/1.31.2:
-    resolution: {integrity: sha512-a1dFgCNQw4vCsG7bnojZjDnPewZcw7tZUNFN0ZkcLYKj+mPmXvg4MpaaKZ5SgqPsOmqIf2YsVRkgqiRDxD+fDQ==}
+  /playwright-core/1.32.0:
+    resolution: {integrity: sha512-Z9Ij17X5Z3bjpp6XKujGBp9Gv4eViESac9aDmwgQFUEJBW0K80T21m/Z+XJQlu4cNsvPygw33b6V1Va6Bda5zQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
