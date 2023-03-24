@@ -10,6 +10,10 @@ import {
 import { Env } from 'lazy-strict-env'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+export const fetchCache = 'force-no-store'
+
 export const config = {
   testing: Env(
     z.object({

@@ -45,6 +45,13 @@ export async function handleContentsgartenRequest(
     endpoint: prefix,
     req: request,
     router: ContentsgartenRouter,
+    responseMeta() {
+      return {
+        headers: {
+          'Cache-Control': 'no-store',
+        },
+      }
+    },
     createContext: ({ req }) => {
       return createContextFromRequest(core, req)
     },

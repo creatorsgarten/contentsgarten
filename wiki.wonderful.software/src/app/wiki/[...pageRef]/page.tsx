@@ -4,6 +4,10 @@ import { WikiClientSidePage } from './WikiClientSidePage'
 import { csChatThaiUi, sourceSansPro } from '@/typography'
 import clsx from 'clsx'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+export const fetchCache = 'force-no-store'
+
 interface WikiPage {
   params: {
     pageRef: string
