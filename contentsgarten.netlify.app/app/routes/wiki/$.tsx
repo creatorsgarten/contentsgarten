@@ -1,7 +1,7 @@
 import type { LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { Markdown } from '~/markdown'
+import { Markdown } from '@contentsgarten/markdown'
 import { Editable } from '~/ui/Editable'
 import type { FC } from 'react'
 import { useState } from 'react'

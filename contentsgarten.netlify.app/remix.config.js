@@ -13,10 +13,14 @@ module.exports = {
     'contentsgarten',
     'p-memoize',
     'mimic-fn',
+    '@contentsgarten/markdown',
   ],
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
-  watchPaths: ['../packages/contentsgarten/dist/index.js'],
+  watchPaths: [
+    '../packages/contentsgarten-cjs/dist/index.js',
+    '../packages/markdown/dist/index.js',
+  ],
 }
