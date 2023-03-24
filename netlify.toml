@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm run build"
+  command = "pnpm run build --filter=contentsgarten-web"
   publish = "contentsgarten.netlify.app/public"
 
 [functions]
