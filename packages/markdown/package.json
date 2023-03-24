@@ -2,15 +2,14 @@
   "name": "@contentsgarten/markdown",
   "version": "1.0.0",
   "description": "Markdown component for contentsgarten",
-  "module": "dist/index.js",
-  "type": "module",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "src",
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm --dts",
+    "build": "tsup src/index.tsx --format cjs --dts",
     "dev": "pnpm run build --watch"
   },
   "keywords": [],
@@ -30,10 +29,16 @@
     "markdown-it-container": "^3.0.0",
     "punycode": "^2.3.0",
     "tsup": "^6.6.3",
-    "typescript": "5"
+    "typescript": "5",
+    "micromark": "^3.1.0",
+    "micromark-extension-directive": "^2.1.2",
+    "micromark-extension-gfm": "^2.0.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
-  }
+  },
+  "dependencies": {}
 }
