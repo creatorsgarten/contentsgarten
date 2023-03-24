@@ -307,6 +307,12 @@ importers:
 
   wiki.wonderful.software:
     specifiers:
+      '@contentsgarten/client-utils': workspace:*
+      '@contentsgarten/markdown': workspace:*
+      '@contentsgarten/server-utils': workspace:*
+      '@emotion/react': ^11.10.6
+      '@emotion/styled': ^11.10.6
+      '@mui/joy': 5.0.0-alpha.72
       '@tailwindcss/typography': ^0.5.3
       '@tanstack/react-query': ^4.26.1
       '@trpc/client': ^10.16.0
@@ -316,17 +322,27 @@ importers:
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
       autoprefixer: ^10.4.14
+      clsx: ^1.2.1
+      contentsgarten: workspace:*
       eslint: ^8.36.0
       eslint-config-next: 13.2.4
       firebase: ^9.18.0
+      lazy-strict-env: ^0.3.1
       next: 13.2.4
       postcss: ^8.4.21
       react: ^18.0.0
       react-dom: ^18.0.0
+      react-iconify-icon-wrapper: ^0.0.3
       tailwindcss: ^3.2.7
       typescript: '5'
       zod: ^3.21.4
     dependencies:
+      '@contentsgarten/client-utils': link:../packages/client-utils
+      '@contentsgarten/markdown': link:../packages/markdown
+      '@contentsgarten/server-utils': link:../packages/server-utils
+      '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
+      '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
+      '@mui/joy': 5.0.0-alpha.72_xqeqsl5kvjjtyxwyi3jhw3yuli
       '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
       '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.16.0_@trpc+server@10.16.0
@@ -335,12 +351,16 @@ importers:
       '@types/node': 18.15.3
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
+      clsx: 1.2.1
+      contentsgarten: link:../packages/contentsgarten
       eslint: 8.36.0
       eslint-config-next: 13.2.4_j4766f7ecgqbon3u7zlxn5zszu
       firebase: 9.18.0
+      lazy-strict-env: 0.3.1_zod@3.21.4
       next: 13.2.4_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-iconify-icon-wrapper: 0.0.3_react@18.2.0
       typescript: 5.0.2
       zod: 3.21.4
     devDependencies:

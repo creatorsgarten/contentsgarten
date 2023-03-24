@@ -1,23 +1,35 @@
-import Image from 'next/image'
-import { Source_Sans_Pro } from 'next/font/google'
+import { createServerSideClient } from '@contentsgarten/server-utils'
+import { config, getInstance } from '@/app/api/contentsgarten/[action]/route'
+import { WikiClientSidePage } from './WikiClientSidePage'
+import { csChatThaiUi, sourceSansPro } from '@/typography'
+import clsx from 'clsx'
 
-const sourceSansPro = Source_Sans_Pro({
-  weight: ['400', '600', '700'],
-  subsets: ['latin'],
-})
-
-export default function Home() {
+interface WikiPage {
+  params: {
+    pageRef: string
+  }
+}
+export default async function WikiPage(props: WikiPage) {
+  const { pageRef } = props.params
+  const client = createServerSideClient(
+    config.testing.BACKEND === 'production'
+      ? 'https://wiki.creatorsgarten.org'
+      : getInstance(),
+    '/api/contentsgarten',
+  )
+  const page = await client.view.query({
+    pageRef: String(pageRef),
+    withFile: false,
+  })
   return (
-    <main className={sourceSansPro.className}>
-      <div className="p-8">
-        <article
-          className="prose md:prose-lg max-w-[48rem] mx-auto"
-          style={{ opacity: false ? 0.5 : 1 }}
-        >
-          <h1>Title</h1>
-          <p>Content</p>
-        </article>
-      </div>
+    <main
+      className={clsx(
+        'font-prose',
+        sourceSansPro.variable,
+        csChatThaiUi.variable,
+      )}
+    >
+      <WikiClientSidePage page={page} />
     </main>
   )
 }

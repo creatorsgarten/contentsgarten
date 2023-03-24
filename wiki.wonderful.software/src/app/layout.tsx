@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import './globals.css'
 import logo from './logo.svg'
+import { JoyUiProvider } from '@/utils/joy'
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,6 +15,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          async
+          src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.2/dist/iconify-icon.min.js"
+          integrity="sha256-kwd+IKkvIXP95TLOfLvp/rHfnja1G+Ve+u1UR22A02k="
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="antialiased">
         <header className="bg-[#f5f4f3] text-[#605850] p-[0.7rem_1.5rem] flex">
           <Link
@@ -29,7 +38,7 @@ export default function RootLayout({
             <strong className="font-semibold">wiki.wonderful.software</strong>
           </Link>
         </header>
-        {children}
+        <JoyUiProvider>{children}</JoyUiProvider>
       </body>
     </html>
   )
