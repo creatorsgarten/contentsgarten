@@ -1,4 +1,6 @@
+import Link from 'next/link'
 import './globals.css'
+import logo from './logo.svg'
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,7 +14,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="antialiased">
+        <header className="bg-[#f5f4f3] text-[#605850] p-[0.7rem_1.5rem] flex">
+          <Link
+            href="/"
+            className="flex gap-[0.8rem] items-center text-[1.3rem]"
+          >
+            <img
+              src={logo.src}
+              alt="wonderful.software"
+              width={59}
+              height={35}
+            />
+            <strong className="font-semibold">wiki.wonderful.software</strong>
+          </Link>
+        </header>
         {children}
       </body>
     </html>

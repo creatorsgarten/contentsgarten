@@ -307,17 +307,31 @@ importers:
 
   wiki.wonderful.software:
     specifiers:
+      '@tailwindcss/typography': ^0.5.3
+      '@tanstack/react-query': ^4.26.1
+      '@trpc/client': ^10.16.0
+      '@trpc/react-query': ^10.16.0
+      '@trpc/server': ^10.16.0
       '@types/node': ^18.15.3
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
+      autoprefixer: ^10.4.14
       eslint: ^8.36.0
       eslint-config-next: 13.2.4
       firebase: ^9.18.0
       next: 13.2.4
+      postcss: ^8.4.21
       react: ^18.0.0
       react-dom: ^18.0.0
+      tailwindcss: ^3.2.7
       typescript: '5'
+      zod: ^3.21.4
     dependencies:
+      '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.7
+      '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
+      '@trpc/client': 10.16.0_@trpc+server@10.16.0
+      '@trpc/react-query': 10.16.0_tnkr7fi5fbqnhgn52yurs4dymi
+      '@trpc/server': 10.16.0
       '@types/node': 18.15.3
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
@@ -328,6 +342,11 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       typescript: 5.0.2
+      zod: 3.21.4
+    devDependencies:
+      autoprefixer: 10.4.14_postcss@8.4.21
+      postcss: 8.4.21
+      tailwindcss: 3.2.7_postcss@8.4.21
 
 packages:
 
