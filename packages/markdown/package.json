@@ -2,14 +2,15 @@
   "name": "@contentsgarten/markdown",
   "version": "1.0.0",
   "description": "Markdown component for contentsgarten",
-  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "files": [
     "src",
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format cjs --dts",
+    "build": "tsup src/index.tsx --format esm --dts",
     "dev": "pnpm run build --watch"
   },
   "keywords": [],
