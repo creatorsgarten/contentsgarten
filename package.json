@@ -3,7 +3,8 @@
   "sideEffects": false,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev"
+    "dev": "turbo dev",
+    "start": "echo Please run a specific site && exit 1"
   },
   "engines": {
     "node": ">=16"
