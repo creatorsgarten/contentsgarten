@@ -2,6 +2,7 @@ import { micromark } from 'micromark'
 import { gfm, gfmHtml } from 'micromark-extension-gfm'
 import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
 import { FC, useMemo } from 'react'
+import parse from 'html-react-parser'
 import { Directive } from 'micromark-extension-directive/lib/html'
 
 export type MarkdownRenderer = (text: string) => string
@@ -89,10 +90,8 @@ export const Markdown: FC<Markdown> = (props) => {
     const renderer = props.markdownRenderer || renderMarkdown
     return renderer(props.text)
   }, [props.text, props.markdownRenderer])
-  return (
-    <div
-      className={props.className}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  )
+  const element = useMemo(() => {
+    return parse(html)
+  }, [html])
+  return <div className={props.className}>{element}</div>
 }

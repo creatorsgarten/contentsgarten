@@ -46,7 +46,6 @@ export class GitHubStorage implements ContentsgartenStorage {
         repo,
         path,
       })
-      console.log(data)
       if (!('content' in data)) {
         throw new Error('No content found')
       }

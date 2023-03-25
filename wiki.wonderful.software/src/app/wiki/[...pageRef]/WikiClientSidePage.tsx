@@ -32,7 +32,7 @@ export const WikiClientSidePageInner: FC<WikiClientSidePage> = (props) => {
   return (
     <div className="p-8">
       <article
-        className="prose-lg md:prose-xl max-w-[48rem] mx-auto"
+        className="prose prose-lg md:prose-xl max-w-[48rem] mx-auto"
         style={{
           opacity: freshPageQuery.data && freshPageQuery.isRefetching ? 0.5 : 1,
         }}

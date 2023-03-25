@@ -21,25 +21,23 @@
   },
   "devDependencies": {
     "@tsconfig/node18": "^1.0.1",
-    "@types/markdown-it": "^12.2.3",
-    "@types/markdown-it-container": "^2.0.5",
     "@types/node": "^18.15.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "markdown-it": "^13.0.1",
-    "markdown-it-container": "^3.0.0",
-    "punycode": "^2.3.0",
-    "tsup": "^6.6.3",
-    "typescript": "5",
     "micromark": "^3.1.0",
     "micromark-extension-directive": "^2.1.2",
     "micromark-extension-gfm": "^2.0.1",
+    "punycode": "^2.3.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "tsup": "^6.6.3",
+    "typescript": "5"
   },
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "html-react-parser": "^3.0.14"
+  }
 }

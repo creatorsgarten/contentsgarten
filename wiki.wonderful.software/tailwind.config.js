@@ -1,4 +1,3 @@
-const colors = require('tailwindcss/colors')
 const { fontFamily } = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
@@ -9,7 +8,7 @@ module.exports = {
       fontFamily: {
         prose: ['var(--font-latin)', 'var(--font-thai)', ...fontFamily.sans],
       },
-      typography: {
+      typography: (theme) => ({
         lg: {
           css: {
             lineHeight: '1.555555',
@@ -17,14 +16,14 @@ module.exports = {
         },
         DEFAULT: {
           css: {
-            '--tw-prose-links': colors.sky[600],
+            '--tw-prose-links': '#da3567',
             a: {
               textDecoration: 'none',
               fontWeight: 'inherit',
             },
           },
         },
-      },
+      }),
     },
   },
   plugins: [require('@tailwindcss/typography')],
