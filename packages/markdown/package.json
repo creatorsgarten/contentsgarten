@@ -2,6 +2,7 @@
   "name": "@contentsgarten/markdown",
   "version": "1.0.0",
   "description": "Markdown component for contentsgarten",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
