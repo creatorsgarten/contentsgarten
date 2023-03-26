@@ -7,10 +7,10 @@ name: Creatorsgarten Wiki
 
 on:
   push:
-    branches: ['main']
+    branches: ['main', 'nixpacks-deploys']
     tags: ['v*.*.*']
   pull_request:
-    branches: ['main', 'nixpacks-deploys']
+    branches: ['main']
 
 env:
   REGISTRY: ghcr.io
