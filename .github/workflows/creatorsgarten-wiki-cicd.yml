@@ -63,18 +63,20 @@ jobs:
       - name: View image history
         run: docker history app
 
-      - name: Get image digest
-        id: digest
-        run: |
-          echo "digest=$(docker inspect --format='{{index .RepoDigests 0}}' app | cut -d: -2)" >> $GITHUB_OUTPUT
-
       - name: Tag and push
         run: |
           docker tag app "$TAG"
           docker push "$TAG"
         env:
-          TAG: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}
+          TAG: ${{ steps.meta.outputs.tags }}
         if: ${{ github.event_name != 'pull_request' }}
+
+      - name: Get image digest
+        id: digest
+        run: |
+          DIGEST="$(docker inspect --format='{{index .RepoDigests 0}}' app | cut -d: -2)"
+          echo "$DIGEST"
+          echo "digest=$DIGEST" >> $GITHUB_OUTPUT
 
       - uses: deploys-app/deploys-action@v1
         if: ${{ github.event_name != 'pull_request' }}
