@@ -64,14 +64,15 @@ jobs:
         run: docker history app
 
       - name: Tag and push
+        if: ${{ github.event_name != 'pull_request' }}
         run: |
           docker tag app "$TAG"
           docker push "$TAG"
         env:
           TAG: ${{ steps.meta.outputs.tags }}
-        if: ${{ github.event_name != 'pull_request' }}
 
       - name: Get image digest
+        if: ${{ github.event_name != 'pull_request' }}
         id: digest
         run: |
           DIGEST="$(docker inspect --format='{{index .RepoDigests 0}}' app | cut -d: -2)"
