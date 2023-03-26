@@ -1,4 +1,4 @@
-import { Markdown } from '@contentsgarten/markdown'
+import { Markdown, MarkdownCustomComponents } from '@contentsgarten/markdown'
 import type { GetPageResult } from 'contentsgarten'
 import { FC, Suspense, lazy, useState } from 'react'
 import { TrpcProvider, trpc } from '../utils/trpc'
@@ -46,7 +46,48 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
           freshPageQuery.data && freshPageQuery.isRefetching && 'opacity-50',
         )}
         text={page.content}
+        customComponents={customComponents}
       />
     </>
+  )
+}
+
+const customComponents: MarkdownCustomComponents = {
+  leafDirective: {
+    RatingTally,
+  },
+}
+
+interface RatingTally {
+  attributes: {
+    tally: string
+  }
+}
+function RatingTally(props: RatingTally) {
+  const map: Record<number, number> = {}
+  for (const item of (props.attributes.tally || '').split(',')) {
+    const [rating, count] = item.split('=')
+    map[Number(rating)] = Number(count)
+  }
+  const max = Math.max(1, ...Object.values(map))
+  return (
+    <div className="not-prose">
+      <div className="flex items-end">
+        {Array.from({ length: 10 }).map((_, i) => {
+          const k = i + 1
+          const v = map[k] || 0
+          const height = Math.round((v / max) * 100)
+          return (
+            <div key={k} className="flex-1 flex flex-col text-center">
+              <div className="text-slate-600">{v}</div>
+              <div className="px-[10%]">
+                <div className="bg-sky-600" style={{ height }} />
+              </div>
+              <div className="border-t border-slate-400">{k}</div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 }

@@ -2,8 +2,11 @@ import { micromark } from 'micromark'
 import { gfm, gfmHtml } from 'micromark-extension-gfm'
 import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
 import { FC, useMemo } from 'react'
-import parse from 'html-react-parser'
-import { Directive } from 'micromark-extension-directive/lib/html'
+import parse, { HTMLReactParserOptions, domToReact } from 'html-react-parser'
+import {
+  Directive,
+  DirectiveType,
+} from 'micromark-extension-directive/lib/html'
 
 export type MarkdownRenderer = (text: string) => string
 
@@ -24,27 +27,23 @@ export const directives: Record<string, Handle> = {
   warning: createCustomBlockHandler('warning', 'WARNING'),
   danger: createCustomBlockHandler('danger', 'DANGER'),
   '*': function (d) {
-    if (d.type === 'textDirective') {
-      this.tag('<markdown-text-directive')
-      this.tag(` name="${this.encode(d.name)}"`)
-      if (d.attributes) {
-        this.tag(` attributes="${this.encode(JSON.stringify(d.attributes))}"`)
-      }
-      this.tag('>')
-      if (d.label) this.raw(d.label)
-      this.tag('</markdown-text-directive>')
-    } else {
-      this.tag('<div class="unknown-directive custom-block danger">')
-      this.tag(
-        `<p class="custom-block-title">Unknown directive: ${this.encode(
-          d.name,
-        )}</p>`,
-      )
-      if (d.content) {
-        this.raw(d.content)
-      }
-      this.tag('</div>')
+    this.tag('<markdown-directive')
+    this.tag(` type="${this.encode(d.type)}"`)
+    this.tag(` name="${this.encode(d.name)}"`)
+    if (d.label && d.type !== 'textDirective') {
+      this.tag(` label="${this.encode(d.label)}"`)
     }
+    if (d.attributes) {
+      this.tag(` attributes="${this.encode(JSON.stringify(d.attributes))}"`)
+    }
+    this.tag('>')
+    if (d.label && d.type === 'textDirective') {
+      this.raw(d.label)
+    }
+    if (d.content) {
+      this.raw(d.content)
+    }
+    this.tag('</markdown-directive>')
   },
 }
 
@@ -79,10 +78,15 @@ export function renderMarkdown(text: string): string {
   return result
 }
 
+export type MarkdownCustomComponents = Partial<
+  Record<DirectiveType, Record<string, FC<any>>>
+>
+
 export interface Markdown {
   text: string
   className?: string
   markdownRenderer?: MarkdownRenderer
+  customComponents?: MarkdownCustomComponents
 }
 
 export const Markdown: FC<Markdown> = (props) => {
@@ -91,7 +95,47 @@ export const Markdown: FC<Markdown> = (props) => {
     return renderer(props.text)
   }, [props.text, props.markdownRenderer])
   const element = useMemo(() => {
-    return parse(html)
-  }, [html])
+    const options: HTMLReactParserOptions = {
+      replace: (domNode) => {
+        if (domNode.type !== 'tag') return
+        if (!('name' in domNode)) return
+        if (domNode.name !== 'markdown-directive') return
+        const type = domNode.attribs.type as DirectiveType
+        const name = domNode.attribs.name
+        const definition = props.customComponents?.[type]?.[name]
+        if (!definition) return
+        const label = domNode.attribs.label
+        const attributes = domNode.attribs.attributes
+        const children = domToReact(domNode.children, options)
+        return (
+          <MarkdownCustomComponent
+            Component={definition}
+            label={label}
+            attributes={attributes}
+          >
+            {children}
+          </MarkdownCustomComponent>
+        )
+      },
+    }
+    return parse(html, options)
+  }, [html, props.customComponents])
   return <div className={props.className}>{element}</div>
+}
+
+interface MarkdownCustomComponent {
+  Component: FC<any>
+  label?: string
+  attributes?: string
+  children?: React.ReactNode
+}
+function MarkdownCustomComponent(props: MarkdownCustomComponent) {
+  return (
+    <props.Component
+      label={props.label}
+      attributes={JSON.parse(props.attributes || '{}')}
+    >
+      {props.children}
+    </props.Component>
+  )
 }
