@@ -61,20 +61,30 @@ const customComponents: MarkdownCustomComponents = {
 interface RatingTally {
   attributes: {
     tally: string
+    min: string
+    max: string
   }
 }
 function RatingTally(props: RatingTally) {
+  const minKey = Number(props.attributes.min || 1)
+  const maxKey = Number(props.attributes.max || 10)
+  const bucketCount = maxKey - minKey + 1
   const map: Record<number, number> = {}
   for (const item of (props.attributes.tally || '').split(',')) {
     const [rating, count] = item.split('=')
     map[Number(rating)] = Number(count)
   }
   const max = Math.max(1, ...Object.values(map))
+  const sum = Object.entries(map).reduce(
+    (acc, [k, v]) => acc + Number(k) * v,
+    0,
+  )
+  const count = Object.values(map).reduce((acc, v) => acc + v, 0)
   return (
     <div className="not-prose">
       <div className="flex items-end">
-        {Array.from({ length: 10 }).map((_, i) => {
-          const k = i + 1
+        {Array.from({ length: bucketCount }).map((_, i) => {
+          const k = minKey + i
           const v = map[k] || 0
           const height = Math.round((v / max) * 100)
           return (
@@ -87,6 +97,15 @@ function RatingTally(props: RatingTally) {
             </div>
           )
         })}
+      </div>
+      <div className="text-slate-500 text-center">
+        {count > 0 ? (
+          <>
+            (average={Math.round((sum / count) * 10) / 10}, n={count})
+          </>
+        ) : (
+          <>(no ratings)</>
+        )}
       </div>
     </div>
   )
