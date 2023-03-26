@@ -75,7 +75,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         id: digest
         run: |
-          DIGEST="$(docker inspect --format='{{index .RepoDigests 0}}' app | cut -d: -f2)"
+          DIGEST="$(docker inspect --format='{{index .RepoDigests 0}}' app)"
           echo "$DIGEST"
           echo "digest=$DIGEST" >> $GITHUB_OUTPUT
 
