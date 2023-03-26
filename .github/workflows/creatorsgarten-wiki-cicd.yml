@@ -7,7 +7,7 @@ name: Creatorsgarten Wiki
 
 on:
   push:
-    branches: ['main', 'nixpacks-deploys']
+    branches: ['main']
     tags: ['v*.*.*']
   pull_request:
     branches: ['main']
@@ -50,34 +50,19 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      # Install Nixpacks
-      - run: curl -sSL https://nixpacks.com/install.sh | bash
-
-      - name: Build image
-        run: |
-          nixpacks build . \
-            -e NIXPACKS_TURBO_APP_NAME=creatorsgarten-wiki \
-            -e NIXPACKS_BUILD_CMD='pnpm turbo build --filter creatorsgarten-wiki' \
-            --name app
-
-      - name: View image history
-        run: docker history app
-
-      - name: Tag and push
-        if: ${{ github.event_name != 'pull_request' }}
-        run: |
-          docker tag app "$TAG"
-          docker push "$TAG"
-        env:
-          TAG: ${{ steps.meta.outputs.tags }}
-
-      - name: Get image digest
-        if: ${{ github.event_name != 'pull_request' }}
-        id: digest
-        run: |
-          DIGEST="$(docker inspect --format='{{index .RepoDigests 0}}' app)"
-          echo "$DIGEST"
-          echo "digest=$DIGEST" >> $GITHUB_OUTPUT
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          file: Dockerfile.creatorsgarten
 
       - uses: deploys-app/deploys-action@v1
         if: ${{ github.event_name != 'pull_request' }}
@@ -85,7 +70,7 @@ jobs:
           project: creatorsgarten
           location: gke.cluster-rcf2
           name: creatorsgarten-wiki
-          image: ${{ steps.digest.outputs.digest }}
+          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build-and-push.outputs.digest }}
         env:
           DEPLOYS_AUTH_USER: gha@creatorsgarten.serviceaccount.deploys.app
           DEPLOYS_AUTH_PASS: ${{ secrets.DEPLOYS_AUTH_PASS }}
