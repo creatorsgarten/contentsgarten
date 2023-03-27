@@ -21,6 +21,7 @@
     "@trpc/react-query": "^10.16.0",
     "@trpc/server": "^10.16.0",
     "contentsgarten-cjs": "workspace:*",
+    "html-react-parser": "^3.0.14",
     "lazy-strict-env": "^0.3.1",
     "lodash-es": "^4.17.21",
     "markdown-it": "^13.0.1",
