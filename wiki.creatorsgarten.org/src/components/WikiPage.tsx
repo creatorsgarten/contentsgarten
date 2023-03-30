@@ -3,6 +3,7 @@ import type { GetPageResult } from 'contentsgarten'
 import { FC, Suspense, lazy, useState } from 'react'
 import { TrpcProvider, trpc } from '../utils/trpc'
 import { clsx } from 'clsx'
+import { Icon as Iconify } from 'react-iconify-icon-wrapper'
 
 const Editor = lazy(() => import('./Editor'))
 
@@ -55,6 +56,9 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
 const customComponents: MarkdownCustomComponents = {
   leafDirective: {
     RatingTally,
+  },
+  textDirective: {
+    Icon,
   },
 }
 
@@ -109,4 +113,13 @@ function RatingTally(props: RatingTally) {
       </div>
     </div>
   )
+}
+
+interface Icon {
+  attributes: {
+    icon: string
+  }
+}
+function Icon(props: Icon) {
+  return <Iconify inline icon={props.attributes.icon} />
 }
