@@ -7,6 +7,7 @@ import {
   Directive,
   DirectiveType,
 } from 'micromark-extension-directive/lib/html'
+import * as wikiLink from 'micromark-extension-wiki-link'
 
 export type MarkdownRenderer = (text: string) => string
 
@@ -72,8 +73,28 @@ function createCustomBlockHandler(name: string, defaultTitle: string) {
 export function renderMarkdown(text: string): string {
   const result = micromark(text, {
     allowDangerousHtml: true,
-    extensions: [gfm({ singleTilde: false }), directive()],
-    htmlExtensions: [gfmHtml(), directiveHtml(directives)],
+    extensions: [
+      gfm({ singleTilde: false }),
+      directive(),
+      wikiLink.syntax({ aliasDivider: '|' }),
+    ],
+    htmlExtensions: [
+      gfmHtml(),
+      directiveHtml(directives),
+      wikiLink.html({
+        pageResolver: (pageName) => [
+          pageName
+            .split('/')
+            .map((s) =>
+              s
+                .replace(/[\W_](\w)/g, (a, x) => x.toUpperCase())
+                .replace(/[\W_]/g, ''),
+            )
+            .join('/'),
+        ],
+        hrefTemplate: (pageName) => `/wiki/${pageName}`,
+      }),
+    ],
   })
   return result
 }

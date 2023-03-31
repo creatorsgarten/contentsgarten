@@ -39,6 +39,7 @@
     "react-dom": "^18.0.0"
   },
   "dependencies": {
-    "html-react-parser": "^3.0.14"
+    "html-react-parser": "^3.0.14",
+    "micromark-extension-wiki-link": "^0.0.4"
   }
 }

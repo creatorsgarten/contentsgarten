@@ -1,6 +1,10 @@
-declare module 'markdown-it/dist/markdown-it.js' {
-  import MarkdownIt from 'markdown-it'
-  export default MarkdownIt
+declare module 'micromark-extension-wiki-link' {
+  export const syntax: (options: { aliasDivider?: string }) => any
+  export const html: (options: {
+    permalinks?: string[]
+    pageResolver?: (pageName: string) => string[]
+    hrefTemplate?: (permalink: string) => string
+    wikiLinkClassName?: string
+    newClassName?: string
+  }) => any
 }
-
-declare module 'markdown-it-wikilinks'

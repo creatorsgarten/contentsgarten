@@ -13,6 +13,9 @@ import { cache } from './cache'
 
 export { GetPageResult } from './getPage'
 
+export const PageRefRegex = /^[A-Za-z0-9_/-]+$/
+export const PageRef = z.string().regex(PageRefRegex)
+
 export const ContentsgartenRouter = t.router({
   about: t.procedure
     .meta({
@@ -49,7 +52,7 @@ export const ContentsgartenRouter = t.router({
     .meta({ summary: 'Returns the page information' })
     .input(
       z.object({
-        pageRef: z.string(),
+        pageRef: PageRef,
         withFile: z.boolean().default(true),
         revalidate: z.boolean().optional(),
       }),
@@ -67,7 +70,7 @@ export const ContentsgartenRouter = t.router({
     })
     .input(
       z.object({
-        pageRef: z.string(),
+        pageRef: PageRef,
       }),
     )
     .query(async ({ input: { pageRef }, ctx }) => {
@@ -92,7 +95,7 @@ export const ContentsgartenRouter = t.router({
     .meta({ summary: 'Attempts to save changes to a page' })
     .input(
       z.object({
-        pageRef: z.string(),
+        pageRef: PageRef,
         newContent: z.string(),
         oldRevision: z.string().optional(),
       }),
