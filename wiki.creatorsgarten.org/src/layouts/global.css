@@ -32,3 +32,30 @@ body {
 .custom-block > .custom-block-title {
   @apply font-semibold;
 }
+
+/* Style the footnotes section. */
+.footnotes {
+  font-size: smaller;
+  @apply border-t border-slate-500 text-slate-700 mt-12;
+}
+
+/* Hide the section label for visual users. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  word-wrap: normal;
+  border: 0;
+}
+
+/* Place `[` and `]` around footnote calls. */
+[data-footnote-ref]::before {
+  content: '[';
+}
+
+[data-footnote-ref]::after {
+  content: ']';
+}
