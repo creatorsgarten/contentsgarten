@@ -85,10 +85,11 @@ export function renderMarkdown(text: string): string {
         pageResolver: (pageName) => [
           pageName
             .split('/')
-            .map((s) =>
+            .map((s, i) =>
               s
                 .replace(/[\W_](\w)/g, (a, x) => x.toUpperCase())
-                .replace(/[\W_]/g, ''),
+                .replace(/[\W_]/g, '')
+                .replace(/^[a-z]/, (x) => (i === 0 ? x.toUpperCase() : x)),
             )
             .join('/'),
         ],

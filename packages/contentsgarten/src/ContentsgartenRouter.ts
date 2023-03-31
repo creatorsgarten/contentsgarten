@@ -13,7 +13,7 @@ import { cache } from './cache'
 
 export { GetPageResult } from './getPage'
 
-export const PageRefRegex = /^[A-Za-z0-9_/-]+$/
+export const PageRefRegex = /^[A-Z][A-Za-z0-9_/-]*$/
 export const PageRef = z.string().regex(PageRefRegex)
 
 export const ContentsgartenRouter = t.router({
