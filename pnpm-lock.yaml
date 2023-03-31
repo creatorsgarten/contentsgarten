@@ -267,9 +267,6 @@ importers:
       html-react-parser:
         specifier: ^3.0.14
         version: 3.0.14(react@18.2.0)
-      micromark-extension-wiki-link:
-        specifier: ^0.0.4
-        version: 0.0.4
     devDependencies:
       '@tsconfig/node18':
         specifier: ^1.0.1
@@ -292,6 +289,9 @@ importers:
       micromark-extension-gfm:
         specifier: ^2.0.1
         version: 2.0.1
+      micromark-extension-wiki-link:
+        specifier: ^0.0.4
+        version: 0.0.4
       punycode:
         specifier: ^2.3.0
         version: 2.3.0
@@ -8920,7 +8920,7 @@ packages:
     resolution: {integrity: sha512-dJc8AfnoU8BHkN+7fWZvIS20SMsMS1ZlxQUn6We67MqeKbOiEDZV5eEvCpwqGBijbJbxX3Kxz879L4K9HIiOvw==}
     dependencies:
       '@babel/runtime': 7.21.0
-    dev: false
+    dev: true
 
   /micromark-factory-destination@1.0.0:
     resolution: {integrity: sha512-eUBA7Rs1/xtTVun9TmV3gjfPz2wEwgK5R5xcbIM5ZYAtvGF6JkyaDsj0agx8urXnO31tEO6Ug83iVH3tdedLnw==}
