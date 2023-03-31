@@ -32,14 +32,14 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "tsup": "^6.6.3",
-    "typescript": "5"
+    "typescript": "5",
+    "micromark-extension-wiki-link": "^0.0.4"
   },
   "peerDependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "dependencies": {
-    "html-react-parser": "^3.0.14",
-    "micromark-extension-wiki-link": "^0.0.4"
+    "html-react-parser": "^3.0.14"
   }
 }
