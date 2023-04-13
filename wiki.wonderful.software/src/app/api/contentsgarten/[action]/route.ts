@@ -1,10 +1,7 @@
-import { ContentsgartenCache, GitHubTeamResolver } from 'contentsgarten'
 import {
-  ContentsgartenDefaultCache,
   Contentsgarten,
   GitHubApp,
-  GitHubFirebaseAuth,
-  GitHubStorage,
+  createContentsgarten,
   handleContentsgartenRequest,
 } from 'contentsgarten'
 import { Env } from 'lazy-strict-env'
@@ -40,33 +37,27 @@ export function getInstance() {
       'base64',
     ).toString(),
   })
-  const contentsgarten = new Contentsgarten({
-    storage: new GitHubStorage({
+  const contentsgarten = createContentsgarten({
+    firebase: {
+      apiKey: 'AIzaSyARMFoJ_pvFwev2738Dn19BJogq1NqPcRQ',
+      authDomain: 'wonderful-software.firebaseapp.com',
+      projectId: 'wonderful-software',
+    },
+    github: {
+      auth: {
+        appId: 309602,
+        privateKey: Buffer.from(
+          config.credentials.GH_APP_PRIVATE_KEY_309602,
+          'base64',
+        ).toString(),
+      },
       repo: 'wonderfulsoftware/wiki',
       branch: 'main',
-      app: gitHubApp,
-    }),
-    auth: new GitHubFirebaseAuth({
-      gitHub: {
-        app: gitHubApp,
-      },
-      firebase: {
-        apiKey: 'AIzaSyARMFoJ_pvFwev2738Dn19BJogq1NqPcRQ',
-        authDomain: 'wonderful-software.firebaseapp.com',
-        projectId: 'wonderful-software',
-      },
-    }),
-    teamResolver: new GitHubTeamResolver(gitHubApp),
-    cache: getCache(),
+    },
     pageFileExtension: '.md',
   })
   instance = contentsgarten
   return contentsgarten
-}
-
-function getCache(): ContentsgartenCache {
-  return ((globalThis as any).contentsgartenCache ??=
-    new ContentsgartenDefaultCache())
 }
 
 const handleRequest = async (request: Request) => {

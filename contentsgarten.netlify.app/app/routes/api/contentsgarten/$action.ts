@@ -1,18 +1,13 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
-import type { ContentsgartenCache } from 'contentsgarten-cjs'
+import type { Contentsgarten } from 'contentsgarten-cjs'
 import {
-  ContentsgartenDefaultCache,
-  Contentsgarten,
-  GitHubApp,
-  GitHubFirebaseAuth,
-  GitHubStorage,
+  createContentsgarten,
   handleContentsgartenRequest,
   testing,
-  GitHubTeamResolver,
 } from 'contentsgarten-cjs'
+import cookie from 'cookie'
 import { Env } from 'lazy-strict-env'
 import { z } from 'zod'
-import cookie from 'cookie'
 
 export const config = {
   testing: Env(
@@ -51,41 +46,29 @@ export function getInstance() {
 }
 
 function createStandloneInstance() {
-  const gitHubApp = new GitHubApp({
-    appId: config.credentials.GH_APP_ID,
-    privateKey: Buffer.from(
-      config.credentials.GH_APP_PRIVATE_KEY,
-      'base64',
-    ).toString(),
-  })
-  const contentsgarten = new Contentsgarten({
-    storage: new GitHubStorage({
+  const contentsgarten = createContentsgarten({
+    firebase: {
+      apiKey: 'AIzaSyCKZng55l411pps2HgMcuenMQou-NTQ0QE',
+      authDomain: 'creatorsgarten-wiki.firebaseapp.com',
+      projectId: 'creatorsgarten-wiki',
+    },
+    github: {
+      auth: {
+        appId: config.credentials.GH_APP_ID,
+        privateKey: Buffer.from(
+          config.credentials.GH_APP_PRIVATE_KEY,
+          'base64',
+        ).toString(),
+      },
       repo: config.credentials.GH_REPO,
       branch: 'main',
-      app: gitHubApp,
-    }),
-    auth: new GitHubFirebaseAuth({
-      gitHub: {
-        app: gitHubApp,
-      },
-      firebase: {
-        apiKey: 'AIzaSyCKZng55l411pps2HgMcuenMQou-NTQ0QE',
-        authDomain: 'creatorsgarten-wiki.firebaseapp.com',
-        projectId: 'creatorsgarten-wiki',
-      },
-    }),
-    cache: getRedisCache(),
-    teamResolver: new GitHubTeamResolver(gitHubApp),
-  })
-  return contentsgarten
-}
-
-function getRedisCache(): ContentsgartenCache {
-  return ((globalThis as any).contentsgartenCache ??=
-    new ContentsgartenDefaultCache({
+    },
+    legacyCache: {
       url: config.credentials.REDIS_URL,
       signingKey: config.credentials.CACHE_SIGNING_KEY,
-    }))
+    },
+  })
+  return contentsgarten
 }
 
 export const loader = async (args: LoaderArgs) => {
