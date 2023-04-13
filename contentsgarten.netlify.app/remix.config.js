@@ -23,4 +23,7 @@ module.exports = {
     '../packages/contentsgarten-cjs/dist/index.js',
     '../packages/markdown/dist/index.js',
   ],
+  future: {
+    unstable_tailwind: true,
+  },
 }

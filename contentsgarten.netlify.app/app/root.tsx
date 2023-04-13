@@ -1,3 +1,4 @@
+import stylesheet from './tailwind.css'
 import type { MetaFunction } from '@remix-run/node'
 import {
   Links,
@@ -10,11 +11,10 @@ import {
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState } from 'react'
 import { AuthBar, AuthProvider } from './auth/client'
-import styles from './styles/app.css'
 import { trpc, trpcReactClient } from './utils/trpc'
 
 export function links() {
-  return [{ rel: 'stylesheet', href: styles }]
+  return [{ rel: 'stylesheet', href: stylesheet }]
 }
 
 export const meta: MetaFunction = () => ({
