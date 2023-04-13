@@ -42,6 +42,7 @@
     "keyv": "^4.5.2",
     "liquidjs": "^10.6.1",
     "lodash-es": "^4.17.21",
+    "mongodb": "^5.2.0",
     "octokit": "^2.0.3",
     "openapi-trpc": "^0.1.2",
     "p-memoize": "^7.1.0",
