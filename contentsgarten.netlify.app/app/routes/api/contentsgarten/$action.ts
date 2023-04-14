@@ -27,6 +27,7 @@ export const config = {
 
       REDIS_URL: z.string(),
       CACHE_SIGNING_KEY: z.string(),
+      MONGODB_URI: z.string(),
     }),
   ),
 }
@@ -62,6 +63,10 @@ function createStandloneInstance() {
       },
       repo: config.credentials.GH_REPO,
       branch: 'main',
+    },
+    mongodb: {
+      uri: config.credentials.MONGODB_URI,
+      database: 'contentsgarten_wiki',
     },
     legacyCache: {
       url: config.credentials.REDIS_URL,

@@ -1,6 +1,5 @@
 import {
   Contentsgarten,
-  GitHubApp,
   createContentsgarten,
   handleContentsgartenRequest,
 } from 'contentsgarten'
@@ -20,6 +19,7 @@ export const config = {
   credentials: Env(
     z.object({
       GH_APP_PRIVATE_KEY_309602: z.string(),
+      MONGODB_URI: z.string(),
     }),
   ),
 }
@@ -30,13 +30,6 @@ export function getInstance() {
   if (instance) {
     return instance
   }
-  const gitHubApp = new GitHubApp({
-    appId: 309602,
-    privateKey: Buffer.from(
-      config.credentials.GH_APP_PRIVATE_KEY_309602,
-      'base64',
-    ).toString(),
-  })
   const contentsgarten = createContentsgarten({
     firebase: {
       apiKey: 'AIzaSyARMFoJ_pvFwev2738Dn19BJogq1NqPcRQ',
@@ -53,6 +46,10 @@ export function getInstance() {
       },
       repo: 'wonderfulsoftware/wiki',
       branch: 'main',
+    },
+    mongodb: {
+      uri: config.credentials.MONGODB_URI,
+      database: 'wonderfulsoftware_wiki',
     },
     pageFileExtension: '.md',
   })

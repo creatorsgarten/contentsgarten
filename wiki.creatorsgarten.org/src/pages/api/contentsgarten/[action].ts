@@ -16,6 +16,7 @@ export const config = {
   credentials: Env(
     z.object({
       GH_APP_PRIVATE_KEY: z.string(),
+      MONGODB_URI: z.string(),
     }),
   ),
 }
@@ -42,6 +43,10 @@ export function getInstance() {
       },
       repo: 'creatorsgarten/wiki',
       branch: 'main',
+    },
+    mongodb: {
+      uri: config.credentials.MONGODB_URI,
+      database: 'creatorsgarten_wiki',
     },
     pageFileExtension: '.md',
   })
