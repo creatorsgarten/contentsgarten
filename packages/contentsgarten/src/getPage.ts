@@ -43,12 +43,12 @@ export async function getPage(
   const engine = createLiquidEngine(ctx, {
     getPageContent: async (pageRef) => {
       const page = await getPage(pageRef, false)
-      return page.contents
+      return page.data?.contents ?? null
     },
   })
 
   const { content, status } = await (async () => {
-    if (pageFile.contents == null) {
+    if (!pageFile.data) {
       return {
         content: '(This page currently does not exist.)',
         status: 404,
@@ -77,8 +77,8 @@ export async function getPage(
     title: pageRef,
     file: {
       path: filePath,
-      revision: pageFile.revision || undefined,
-      content: pageFile.contents || '',
+      revision: pageFile.data?.revision || undefined,
+      content: pageFile.data?.contents || '',
     },
     content,
     status,
@@ -108,8 +108,12 @@ export async function refreshPageFile(
   const filePath = pageRefToFilePath(ctx, pageRef)
   const getFileResult = (await ctx.app.storage.getFile(ctx, filePath)) || null
   return ctx.app.pageDatabase.save(pageRef, {
-    contents: getFileResult?.content.toString('utf8') ?? null,
-    revision: getFileResult?.revision ?? null,
+    data: getFileResult
+      ? {
+          contents: getFileResult.content.toString('utf8'),
+          revision: getFileResult.revision,
+        }
+      : null,
     lastModified: getFileResult?.lastModified
       ? new Date(getFileResult.lastModified)
       : null,

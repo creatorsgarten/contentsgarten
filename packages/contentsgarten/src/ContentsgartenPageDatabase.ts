@@ -1,6 +1,7 @@
 import { Document, Db } from 'mongodb'
 
 const PageCollection = defineCollectionSchema<PageDoc>('pages')
+const currentCacheVersion = 'v2'
 
 export interface ContentsgartenPageDatabase {
   getCached(pageRef: string): Promise<PageData | null>
@@ -11,7 +12,10 @@ export class MongoDBPageDatabase implements ContentsgartenPageDatabase {
   constructor(private db: Db) {}
   async getCached(pageRef: string): Promise<PageData | null> {
     const collection = PageCollection.of(this.db)
-    const doc = await collection.findOne({ _id: pageRef })
+    const doc = await collection.findOne({
+      _id: pageRef,
+      cacheVersion: currentCacheVersion,
+    })
     if (!doc) {
       return null
     }
@@ -19,10 +23,10 @@ export class MongoDBPageDatabase implements ContentsgartenPageDatabase {
   }
   async save(pageRef: string, input: PageDataInput): Promise<PageData> {
     const collection = PageCollection.of(this.db)
-    const newDoc = {
+    const newDoc: PageDoc = {
       _id: pageRef,
-      contents: input.contents,
-      revision: input.revision,
+      cacheVersion: currentCacheVersion,
+      data: input.data,
       lastModified: input.lastModified,
       cached: new Date(),
     }
@@ -33,15 +37,19 @@ export class MongoDBPageDatabase implements ContentsgartenPageDatabase {
 
 export interface PageDoc {
   _id: string
+  cacheVersion: string
 
-  contents: string | null
-  revision: string | null
+  data: PageDocFile | null
   lastModified: Date | null
 
   cached: Date
 }
+export interface PageDocFile {
+  contents: string
+  revision: string
+}
 
-export type PageData = Pick<PageDoc, 'contents' | 'revision' | 'lastModified'>
+export type PageData = Pick<PageDoc, 'data' | 'lastModified'>
 export type PageDataInput = PageData
 
 export function defineCollectionSchema<TDoc extends Document>(name: string) {

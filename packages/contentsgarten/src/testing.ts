@@ -54,8 +54,7 @@ export namespace testing {
       async save(pageRef, input) {
         const newDoc = {
           _id: pageRef,
-          contents: input.contents,
-          revision: input.revision,
+          data: input.data,
           lastModified: input.lastModified,
           cached: new Date(),
         }
