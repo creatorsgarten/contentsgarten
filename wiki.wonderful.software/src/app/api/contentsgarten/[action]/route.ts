@@ -19,7 +19,7 @@ export const config = {
   credentials: Env(
     z.object({
       GH_APP_PRIVATE_KEY_309602: z.string(),
-      MONGODB_URI: z.string(),
+      MONGO_URI: z.string(),
     }),
   ),
 }
@@ -48,7 +48,7 @@ export function getInstance() {
       branch: 'main',
     },
     mongodb: {
-      uri: config.credentials.MONGODB_URI,
+      uri: config.credentials.MONGO_URI,
       database: 'wonderfulsoftware_wiki',
     },
     pageFileExtension: '.md',

@@ -6,6 +6,7 @@ import { GitHubStorage } from './ContentsgartenStorage'
 import { GitHubTeamResolver } from './ContentsgartenTeamResolver'
 import { ContentsgartenUserConfig } from './ContentsgartenUserConfig'
 import { GitHubApp } from './GitHubApp'
+import { MongoDBPageDatabase } from './ContentsgartenPageDatabase'
 
 export function createContentsgarten(
   config: ContentsgartenUserConfig,
@@ -21,6 +22,7 @@ export function createContentsgarten(
       branch: config.github.branch,
       app: gitHubApp,
     }),
+    pageDatabase: new MongoDBPageDatabase(db),
     auth: new GitHubFirebaseAuth({
       gitHub: {
         app: gitHubApp,

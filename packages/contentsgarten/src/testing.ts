@@ -6,6 +6,7 @@ import { ContentsgartenAuth } from './ContentsgartenAuth'
 import { ContentsgartenTeamResolver } from './ContentsgartenTeamResolver'
 import { Contentsgarten } from './Contentsgarten'
 import { ContentsgartenDefaultCache } from './ContentsgartenCache'
+import { ContentsgartenPageDatabase } from './ContentsgartenPageDatabase'
 
 export namespace testing {
   export function createFakeStorage(): ContentsgartenStorage {
@@ -41,6 +42,26 @@ export namespace testing {
 
     function hashBuffer(buffer: Buffer) {
       return createHash('sha1').update(buffer).digest('hex')
+    }
+  }
+
+  export function createFakePageDatabase(): ContentsgartenPageDatabase {
+    const docs = new Map<string, any>()
+    return {
+      async getCached(pageRef) {
+        return docs.get(pageRef) || null
+      },
+      async save(pageRef, input) {
+        const newDoc = {
+          _id: pageRef,
+          contents: input.contents,
+          revision: input.revision,
+          lastModified: input.lastModified,
+          cached: new Date(),
+        }
+        docs.set(pageRef, newDoc)
+        return newDoc
+      },
     }
   }
 
@@ -80,6 +101,7 @@ export namespace testing {
       auth: createFakeAuth(),
       cache: new ContentsgartenDefaultCache(),
       teamResolver: createFakeTeamResolver(),
+      pageDatabase: createFakePageDatabase(),
     })
     return contentsgarten
   }
