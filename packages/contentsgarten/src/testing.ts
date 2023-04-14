@@ -32,7 +32,10 @@ export namespace testing {
         fs.mkdirSync(path.dirname(fsPath), { recursive: true })
         const buffer = options.content
         fs.writeFileSync(fsPath, buffer)
-        return { revision: hashBuffer(buffer) }
+        return {
+          revision: hashBuffer(buffer),
+          lastModified: new Date().toISOString(),
+        }
       },
     }
 
@@ -60,6 +63,15 @@ export namespace testing {
         }
         docs.set(pageRef, newDoc)
         return newDoc
+      },
+      async getRecentlyChangedPages() {
+        return Array.from(docs.values())
+          .filter((a) => a.lastModified)
+          .sort((a, b) => b.lastModified - a.lastModified)
+          .map((a) => ({
+            pageRef: a._id,
+            lastModified: a.lastModified,
+          }))
       },
     }
   }

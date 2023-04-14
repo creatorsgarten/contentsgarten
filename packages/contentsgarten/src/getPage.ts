@@ -151,6 +151,18 @@ export async function getSpecialPage(
         ].join('\n'),
       }
     },
+    RecentChanges: async () => {
+      const recentChanges = await ctx.app.pageDatabase.getRecentlyChangedPages()
+      return {
+        content: [
+          'Recent changes:',
+          '',
+          ...recentChanges.map(
+            (page) => `- [${page.pageRef}](/wiki/${page.pageRef})`,
+          ),
+        ].join('\n'),
+      }
+    },
   }
   const pageKey = pageRef.slice('special/'.length)
   if (Object.hasOwn(specialPages, pageKey)) {
