@@ -153,12 +153,23 @@ export async function getSpecialPage(
     },
     RecentChanges: async () => {
       const recentChanges = await ctx.app.pageDatabase.getRecentlyChangedPages()
+      let lastDate = ''
+      const header = (date: Date) => {
+        const dateComponent = date.toISOString().slice(0, 10)
+        if (lastDate && dateComponent >= lastDate) {
+          return ''
+        }
+        lastDate = dateComponent
+        return `\n${dateComponent}\n`
+      }
       return {
         content: [
-          'Recent changes:',
+          'This page lists the recently changed pages:',
           '',
           ...recentChanges.map(
-            (page) => `- [${page.pageRef}](/wiki/${page.pageRef})`,
+            (page) =>
+              header(page.lastModified) +
+              `- [${page.pageRef}](/wiki/${page.pageRef})`,
           ),
         ].join('\n'),
       }
