@@ -2,7 +2,6 @@ import { z } from 'zod'
 import { t } from './trpc'
 import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { TRPCError } from '@trpc/server'
-import { invalidateFile } from './CachedFileAccess'
 import { DeniedEntry, checkPermission } from './checkPermission'
 import { Policy } from './Policy'
 import { User } from './ContentsgartenAuth'
@@ -132,7 +131,13 @@ export const ContentsgartenRouter = t.router({
         message: `Update page ${pageRef}`,
         userId: userId,
       })
-      await invalidateFile(ctx, filePath)
+      await ctx.app.pageDatabase.save(pageRef, {
+        data: {
+          contents: newContent,
+          revision: result.revision,
+        },
+        lastModified: new Date(result.lastModified),
+      })
       return { revision: result.revision }
     }),
 })

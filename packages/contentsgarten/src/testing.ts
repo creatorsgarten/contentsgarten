@@ -6,6 +6,7 @@ import { ContentsgartenAuth } from './ContentsgartenAuth'
 import { ContentsgartenTeamResolver } from './ContentsgartenTeamResolver'
 import { Contentsgarten } from './Contentsgarten'
 import { ContentsgartenDefaultCache } from './ContentsgartenCache'
+import { ContentsgartenPageDatabase } from './ContentsgartenPageDatabase'
 
 export namespace testing {
   export function createFakeStorage(): ContentsgartenStorage {
@@ -31,7 +32,10 @@ export namespace testing {
         fs.mkdirSync(path.dirname(fsPath), { recursive: true })
         const buffer = options.content
         fs.writeFileSync(fsPath, buffer)
-        return { revision: hashBuffer(buffer) }
+        return {
+          revision: hashBuffer(buffer),
+          lastModified: new Date().toISOString(),
+        }
       },
     }
 
@@ -41,6 +45,34 @@ export namespace testing {
 
     function hashBuffer(buffer: Buffer) {
       return createHash('sha1').update(buffer).digest('hex')
+    }
+  }
+
+  export function createFakePageDatabase(): ContentsgartenPageDatabase {
+    const docs = new Map<string, any>()
+    return {
+      async getCached(pageRef) {
+        return docs.get(pageRef) || null
+      },
+      async save(pageRef, input) {
+        const newDoc = {
+          _id: pageRef,
+          data: input.data,
+          lastModified: input.lastModified,
+          cached: new Date(),
+        }
+        docs.set(pageRef, newDoc)
+        return newDoc
+      },
+      async getRecentlyChangedPages() {
+        return Array.from(docs.values())
+          .filter((a) => a.lastModified)
+          .sort((a, b) => b.lastModified - a.lastModified)
+          .map((a) => ({
+            pageRef: a._id,
+            lastModified: a.lastModified,
+          }))
+      },
     }
   }
 
@@ -80,6 +112,7 @@ export namespace testing {
       auth: createFakeAuth(),
       cache: new ContentsgartenDefaultCache(),
       teamResolver: createFakeTeamResolver(),
+      pageDatabase: createFakePageDatabase(),
     })
     return contentsgarten
   }

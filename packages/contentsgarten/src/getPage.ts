@@ -1,8 +1,8 @@
 import { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { createLiquidEngine } from './createLiquidEngine'
-import { getFile } from './CachedFileAccess'
 import { z } from 'zod'
 import { staleOrRevalidate } from './cache'
+import { PageData } from './ContentsgartenPageDatabase'
 
 export const GetPageResult = z.object({
   status: z.union([z.literal(200), z.literal(404), z.literal(500)]),
@@ -29,10 +29,26 @@ export async function getPage(
   }
 
   const filePath = pageRefToFilePath(ctx, pageRef)
-  const engine = createLiquidEngine(ctx)
-  const file = await getFile(ctx, filePath, { revalidating: revalidate })
+
+  const pagePromises = new Map<string, Promise<PageData>>()
+  const getPage = (pageRef: string, revalidate: boolean) => {
+    const existing = pagePromises.get(pageRef)
+    if (existing) return existing
+    const promise = getPageFile(ctx, pageRef, revalidate)
+    pagePromises.set(pageRef, promise)
+    return promise
+  }
+
+  const pageFile = await getPage(pageRef, revalidate)
+  const engine = createLiquidEngine(ctx, {
+    getPageContent: async (pageRef) => {
+      const page = await getPage(pageRef, false)
+      return page.data?.contents ?? null
+    },
+  })
+
   const { content, status } = await (async () => {
-    if (!file) {
+    if (!pageFile.data) {
       return {
         content: '(This page currently does not exist.)',
         status: 404,
@@ -61,13 +77,47 @@ export async function getPage(
     title: pageRef,
     file: {
       path: filePath,
-      revision: file ? file.revision : undefined,
-      content: file ? file.content.toString('utf8') : '',
+      revision: pageFile.data?.revision || undefined,
+      content: pageFile.data?.contents || '',
     },
     content,
     status,
   }
   return result
+}
+
+export async function getPageFile(
+  ctx: ContentsgartenRequestContext,
+  pageRef: string,
+  revalidate = false,
+) {
+  if (!revalidate) {
+    const cachedPage = await ctx.app.pageDatabase.getCached(pageRef)
+    if (cachedPage) {
+      return cachedPage
+    }
+  }
+  const page = await refreshPageFile(ctx, pageRef)
+  return page
+}
+
+export async function refreshPageFile(
+  ctx: ContentsgartenRequestContext,
+  pageRef: string,
+) {
+  const filePath = pageRefToFilePath(ctx, pageRef)
+  const getFileResult = (await ctx.app.storage.getFile(ctx, filePath)) || null
+  return ctx.app.pageDatabase.save(pageRef, {
+    data: getFileResult
+      ? {
+          contents: getFileResult.content.toString('utf8'),
+          revision: getFileResult.revision,
+        }
+      : null,
+    lastModified: getFileResult?.lastModified
+      ? new Date(getFileResult.lastModified)
+      : null,
+  })
 }
 
 export async function getSpecialPage(
@@ -98,6 +148,29 @@ export async function getSpecialPage(
           'All pages:',
           '',
           ...pages.map((page) => `- [${page}](/wiki/${page})`),
+        ].join('\n'),
+      }
+    },
+    RecentChanges: async () => {
+      const recentChanges = await ctx.app.pageDatabase.getRecentlyChangedPages()
+      let lastDate = ''
+      const header = (date: Date) => {
+        const dateComponent = date.toISOString().slice(0, 10)
+        if (lastDate && dateComponent >= lastDate) {
+          return ''
+        }
+        lastDate = dateComponent
+        return `\n${dateComponent}\n`
+      }
+      return {
+        content: [
+          'This page lists the recently changed pages:',
+          '',
+          ...recentChanges.map(
+            (page) =>
+              header(page.lastModified) +
+              `- [${page.pageRef}](/wiki/${page.pageRef})`,
+          ),
         ].join('\n'),
       }
     },

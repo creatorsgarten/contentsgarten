@@ -1,13 +1,19 @@
 import type { ContentsgartenRequestContext } from './ContentsgartenContext'
-import type { FS } from 'liquidjs/dist/fs/fs'
+import type { FS } from 'liquidjs/dist/src/fs/fs'
 import { Liquid } from 'liquidjs'
 import { extname, resolve } from 'path'
-import { getFile } from './CachedFileAccess'
 
-export function createLiquidEngine(ctx: ContentsgartenRequestContext) {
+export interface PageContentLoader {
+  getPageContent: (pageRef: string) => Promise<string | null>
+}
+
+export function createLiquidEngine(
+  ctx: ContentsgartenRequestContext,
+  loader: PageContentLoader,
+) {
   const root = '/' + ctx.app.pageFilePrefix.replace(/\/$/, '')
   const engine = new Liquid({
-    fs: createLiquidFs(ctx),
+    fs: createLiquidFs(ctx, loader),
     root,
     partials: root + '/Template',
     jekyllInclude: true,
@@ -17,23 +23,41 @@ export function createLiquidEngine(ctx: ContentsgartenRequestContext) {
   return engine
 }
 
-function createLiquidFs(ctx: ContentsgartenRequestContext): FS {
-  const normalizePath = (p: string) => p.replace(/^\/+/, '')
+function createLiquidFs(
+  ctx: ContentsgartenRequestContext,
+  loader: PageContentLoader,
+): FS {
+  const toPageRef = (p: string) => {
+    if (p.endsWith(ctx.app.pageFileExtension)) {
+      p = p.slice(0, -ctx.app.pageFileExtension.length)
+    }
+    if (p.startsWith('/')) {
+      p = p.slice(1)
+    }
+    if (p.startsWith(ctx.app.pageFilePrefix)) {
+      p = p.slice(ctx.app.pageFilePrefix.length)
+    }
+    if (p.startsWith('/')) {
+      p = p.slice(1)
+    }
+    return p
+  }
   return {
     readFile: async (path) => {
-      const file = await getFile(ctx, normalizePath(path))
-      if (file) {
-        return file.content.toString()
-      } else {
+      const pageRef = toPageRef(path)
+      const content = await loader.getPageContent(pageRef)
+      if (content == null) {
         throw new Error(`File not found: ${path}`)
       }
+      return content
     },
     readFileSync: () => {
       throw new Error('No sync version')
     },
     exists: async (path) => {
-      const file = await getFile(ctx, normalizePath(path))
-      return !!file
+      const pageRef = toPageRef(path)
+      const content = await loader.getPageContent(pageRef)
+      return content != null
     },
     existsSync: (path) => {
       throw new Error('No sync version')

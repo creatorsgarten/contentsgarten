@@ -13,6 +13,7 @@ export interface ContentsgartenStorage {
 }
 export interface GetFileResult {
   content: Buffer
+  lastModified?: string
   revision: string
 }
 
@@ -25,6 +26,7 @@ export interface PutFileOptions {
 
 export interface PutFileResult {
   revision: string
+  lastModified: string
 }
 
 export class GitHubStorage implements ContentsgartenStorage {
@@ -37,21 +39,33 @@ export class GitHubStorage implements ContentsgartenStorage {
     this.repo = repo
   }
 
-  async getFile(ctx: RequestContext, path: string) {
+  async getFile(
+    ctx: RequestContext,
+    path: string,
+  ): Promise<GetFileResult | undefined> {
     const octokit = await resolveOctokit(ctx, this.config.app, this.config.repo)
     const { owner, repo } = this
     try {
-      const { data } = await octokit.rest.repos.getContent({
-        owner,
-        repo,
-        path,
-      })
+      const [{ data }, { data: history }] = await Promise.all([
+        octokit.rest.repos.getContent({
+          owner,
+          repo,
+          path,
+        }),
+        octokit.rest.repos.listCommits({
+          owner,
+          repo,
+          path,
+          per_page: 1,
+        }),
+      ])
       if (!('content' in data)) {
         throw new Error('No content found')
       }
       return {
         content: Buffer.from(data.content, 'base64'),
         revision: data.sha,
+        lastModified: history?.[0]?.commit.author?.date,
       }
     } catch (error) {
       if (isApiError(error) && error.status === 404) {
@@ -84,7 +98,10 @@ export class GitHubStorage implements ContentsgartenStorage {
     if (!('content' in data)) {
       throw new Error('No content found')
     }
-    return { revision: data.content!.sha! }
+    return {
+      revision: data.content!.sha!,
+      lastModified: data.commit!.author!.date!,
+    }
   }
 
   async listFiles(ctx: RequestContext): Promise<string[]> {

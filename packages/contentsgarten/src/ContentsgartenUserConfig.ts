@@ -3,8 +3,7 @@ import type { ContentsgartenDefaultCacheOptions } from './ContentsgartenCache'
 export interface ContentsgartenUserConfig {
   github: GitHubUserConfig
   firebase: FirebaseUserConfig
-  /** Currently unused... */
-  mongodb?: MongoDBUserConfig
+  mongodb: MongoDBUserConfig
   pageFilePrefix?: string
   pageFileExtension?: string
   legacyCache?: ContentsgartenDefaultCacheOptions
