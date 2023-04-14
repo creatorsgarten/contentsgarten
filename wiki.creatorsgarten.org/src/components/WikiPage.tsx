@@ -1,6 +1,6 @@
 import { Markdown, MarkdownCustomComponents } from '@contentsgarten/markdown'
 import type { GetPageResult } from 'contentsgarten'
-import { FC, Suspense, lazy, useState } from 'react'
+import { FC, ReactNode, Suspense, lazy, useState } from 'react'
 import { TrpcProvider, trpc } from '../utils/trpc'
 import { clsx } from 'clsx'
 import { Icon as Iconify } from 'react-iconify-icon-wrapper'
@@ -29,7 +29,7 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
   return (
     <>
       <h1>
-        {page.title}
+        <PascalWordBreaker title={page.title} />
         {!!freshPageQuery.data?.file && (
           <Suspense fallback={<></>}>
             <Editor
@@ -51,6 +51,21 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
       />
     </>
   )
+}
+
+export interface PascalWordBreaker {
+  title: string
+}
+
+export function PascalWordBreaker(props: PascalWordBreaker) {
+  const nodes: ReactNode[] = []
+  for (const [i, part] of props.title.split(/(?=[A-Z])/).entries()) {
+    if (nodes.length > 0) {
+      nodes.push(<wbr key={i} />)
+    }
+    nodes.push(part)
+  }
+  return <>{nodes}</>
 }
 
 const customComponents: MarkdownCustomComponents = {
