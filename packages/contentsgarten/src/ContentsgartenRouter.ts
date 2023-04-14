@@ -131,6 +131,13 @@ export const ContentsgartenRouter = t.router({
         message: `Update page ${pageRef}`,
         userId: userId,
       })
+      await ctx.app.pageDatabase.save(pageRef, {
+        data: {
+          contents: newContent,
+          revision: result.revision,
+        },
+        lastModified: new Date(result.lastModified),
+      })
       return { revision: result.revision }
     }),
 })

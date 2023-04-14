@@ -26,6 +26,7 @@ export interface PutFileOptions {
 
 export interface PutFileResult {
   revision: string
+  lastModified: string
 }
 
 export class GitHubStorage implements ContentsgartenStorage {
@@ -97,7 +98,10 @@ export class GitHubStorage implements ContentsgartenStorage {
     if (!('content' in data)) {
       throw new Error('No content found')
     }
-    return { revision: data.content!.sha! }
+    return {
+      revision: data.content!.sha!,
+      lastModified: data.commit!.author!.date!,
+    }
   }
 
   async listFiles(ctx: RequestContext): Promise<string[]> {
