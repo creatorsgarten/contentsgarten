@@ -1,5 +1,5 @@
 import type { ContentsgartenRequestContext } from './ContentsgartenContext'
-import type { FS } from 'liquidjs/dist/fs/fs'
+import type { FS } from 'liquidjs/dist/src/fs/fs'
 import { Liquid } from 'liquidjs'
 import { extname, resolve } from 'path'
 import { getFile } from './CachedFileAccess'
