@@ -76,6 +76,9 @@ const customComponents: MarkdownCustomComponents = {
   textDirective: {
     Icon,
   },
+  containerDirective: {
+    Draft,
+  },
 }
 
 interface RatingTally {
@@ -140,13 +143,12 @@ function Icon(props: Icon) {
   return <Iconify inline icon={props.attributes.icon} />
 }
 
-export interface GoogleMap {
+interface GoogleMap {
   attributes: {
     src: string
   }
 }
-
-export function GoogleMap(props: GoogleMap) {
+function GoogleMap(props: GoogleMap) {
   const src = String(props.attributes.src)
   // Match pattern like https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15501.45973148637!2d100.5657039!3d13.7568529!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29e62ffffffff%3A0x109e22bdc9d374e6!2sPay%20Solution%20Co.%2C%20Ltd.!5e0!3m2!1sen!2sth!4v1681588598414!5m2!1sen!2sth
   const match = src.match(/https:\/\/www\.google\.com\/maps\/embed\?pb=([^&]+)/)
@@ -162,5 +164,19 @@ export function GoogleMap(props: GoogleMap) {
       loading="lazy"
       referrerPolicy="no-referrer-when-downgrade"
     ></iframe>
+  )
+}
+
+interface Draft {
+  children?: ReactNode
+}
+function Draft(props: Draft) {
+  return (
+    <div className="my-3 text-slate-700 font-casual rounded border border-slate-400 px-2 border-dashed pt-5 relative">
+      <div className="absolute border-b border-r border-slate-400 top-0 left-0 text-xs border-dashed rounded-br px-2 py-1">
+        draft
+      </div>
+      {props.children}
+    </div>
   )
 }
