@@ -153,8 +153,8 @@ importers:
         specifier: ^10.16.0
         version: 10.20.0
       '@tsconfig/node18':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^2.0.0
+        version: 2.0.0
       '@types/node':
         specifier: ^18.15.3
         version: 18.15.11
@@ -226,8 +226,8 @@ importers:
         version: 3.21.4
     devDependencies:
       '@tsconfig/node18':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^2.0.0
+        version: 2.0.0
       '@types/js-yaml':
         specifier: ^4.0.5
         version: 4.0.5
@@ -253,8 +253,8 @@ importers:
   packages/contentsgarten-cjs:
     devDependencies:
       '@tsconfig/node18':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^2.0.0
+        version: 2.0.0
       contentsgarten:
         specifier: workspace:*
         version: link:../contentsgarten
@@ -272,8 +272,8 @@ importers:
         version: 3.0.15(react@18.2.0)
     devDependencies:
       '@tsconfig/node18':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^2.0.0
+        version: 2.0.0
       '@types/node':
         specifier: ^18.15.3
         version: 18.15.11
@@ -320,8 +320,8 @@ importers:
         specifier: ^10.16.0
         version: 10.20.0
       '@tsconfig/node18':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^2.0.0
+        version: 2.0.0
       '@types/node':
         specifier: ^18.15.3
         version: 18.15.11
@@ -4312,8 +4312,8 @@ packages:
   /@trpc/server@10.20.0:
     resolution: {integrity: sha512-pbrdgw2mO8lWygyZjGLbOq/EoWFWEJvLaxp8JmGsivMIh/IZR5mksPJdywAGQ4TBrbcqssKhuoJ/8OE9mhaveg==}
 
-  /@tsconfig/node18@1.0.1:
-    resolution: {integrity: sha512-sNFeK6X2ATlhlvzyH4kKYQlfHXE2f2/wxtB9ClvYXevWpmwkUT7VaSrjIN9E76Qebz8qP5JOJJ9jD3QoD/Z9TA==}
+  /@tsconfig/node18@2.0.0:
+    resolution: {integrity: sha512-uI/B0ShkiEwTk036pncXucVlj4y11EW6mycQvCEzC1PkR2TBvdQZ5Wf96dp+XXWAc70FEDfvwTqanoaDpP6rPw==}
     dev: true
 
   /@types/acorn@4.0.6:

@@ -21,7 +21,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@tsconfig/node18": "^1.0.1",
+    "@tsconfig/node18": "^2.0.0",
     "@types/js-yaml": "^4.0.5",
     "@types/json-buffer": "^3.0.0",
     "@types/lodash-es": "^4.17.7",

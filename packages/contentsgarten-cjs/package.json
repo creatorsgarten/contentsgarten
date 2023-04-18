@@ -20,7 +20,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@tsconfig/node18": "^1.0.1",
+    "@tsconfig/node18": "^2.0.0",
     "tsup": "^6.6.3",
     "typescript": "5",
     "contentsgarten": "workspace:*"
