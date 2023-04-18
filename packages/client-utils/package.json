@@ -22,7 +22,7 @@
   "devDependencies": {
     "@trpc/client": "^10.16.0",
     "@trpc/server": "^10.16.0",
-    "@tsconfig/node18": "^1.0.1",
+    "@tsconfig/node18": "^2.0.0",
     "@types/node": "^18.15.3",
     "contentsgarten": "workspace:*",
     "firebase": "^9.18.0",
