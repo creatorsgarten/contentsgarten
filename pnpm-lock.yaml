@@ -200,9 +200,6 @@ importers:
       keyv:
         specifier: ^4.5.2
         version: 4.5.2
-      liquidjs:
-        specifier: ^10.6.1
-        version: 10.7.0
       mongodb:
         specifier: ^5.2.0
         version: 5.2.0
@@ -231,6 +228,9 @@ importers:
       depcheck:
         specifier: ^1.4.3
         version: 1.4.3
+      liquidjs:
+        specifier: ^10.6.1
+        version: 10.7.0
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -5677,7 +5677,7 @@ packages:
   /commander@10.0.0:
     resolution: {integrity: sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==}
     engines: {node: '>=14'}
-    dev: false
+    dev: true
 
   /commander@4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
@@ -8276,7 +8276,7 @@ packages:
     hasBin: true
     dependencies:
       commander: 10.0.0
-    dev: false
+    dev: true
 
   /load-tsconfig@0.2.5:
     resolution: {integrity: sha512-IXO6OCs9yg8tMKzfPZ1YmheJbZCiEsnBdcB03l0OcfK9prKnJb96siuHCr5Fl37/yo9DnKU+TLpxzTUspw9shg==}

@@ -32,6 +32,7 @@
     "lodash-es": "^4.17.21",
     "prettier": "^2.8.4",
     "p-memoize": "^7.1.0",
+    "liquidjs": "^10.6.1",
     "typescript": "5"
   },
   "dependencies": {
@@ -44,7 +45,6 @@
     "js-yaml": "^4.1.0",
     "json-buffer": "^3.0.1",
     "keyv": "^4.5.2",
-    "liquidjs": "^10.6.1",
     "mongodb": "^5.2.0",
     "openapi-trpc": "^0.1.2",
     "zod": "^3.21.4"
