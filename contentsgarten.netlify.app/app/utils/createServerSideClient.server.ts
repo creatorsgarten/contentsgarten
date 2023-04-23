@@ -1,6 +1,6 @@
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
-import type { ContentsgartenRouter } from 'contentsgarten-cjs'
-import { handleContentsgartenRequest } from 'contentsgarten-cjs'
+import type { ContentsgartenRouter } from 'contentsgarten'
+import { handleContentsgartenRequest } from 'contentsgarten'
 import { config, getInstance } from '../routes/api/contentsgarten/$action'
 
 export function createServerSideClient(_request: Request) {

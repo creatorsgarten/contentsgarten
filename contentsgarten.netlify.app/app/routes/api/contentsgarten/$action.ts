@@ -1,10 +1,10 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
-import type { Contentsgarten } from 'contentsgarten-cjs'
+import type { Contentsgarten } from 'contentsgarten'
 import {
   createContentsgarten,
   handleContentsgartenRequest,
   testing,
-} from 'contentsgarten-cjs'
+} from 'contentsgarten'
 import cookie from 'cookie'
 import { Env } from 'lazy-strict-env'
 import { z } from 'zod'

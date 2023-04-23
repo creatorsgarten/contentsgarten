@@ -7,7 +7,7 @@ import type { FC } from 'react'
 import { useState } from 'react'
 import { trpc } from '~/utils/trpc'
 import { createServerSideClient } from '~/utils/createServerSideClient.server'
-import type { GetPageResult } from 'contentsgarten-cjs'
+import type { GetPageResult } from 'contentsgarten'
 
 export async function loader(args: LoaderArgs) {
   const client = createServerSideClient(args.request)

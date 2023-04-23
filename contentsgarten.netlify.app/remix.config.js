@@ -20,7 +20,7 @@ module.exports = {
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
   watchPaths: [
-    '../packages/contentsgarten-cjs/dist/index.js',
+    '../packages/contentsgarten/dist/index.js',
     '../packages/markdown/dist/index.js',
   ],
   future: {

@@ -28,6 +28,10 @@
     "@types/node": "^18.15.3",
     "depcheck": "^1.4.3",
     "tsup": "^6.6.3",
+    "octokit": "^2.0.3",
+    "lodash-es": "^4.17.21",
+    "prettier": "^2.8.4",
+    "p-memoize": "^7.1.0",
     "typescript": "5"
   },
   "dependencies": {
@@ -41,12 +45,8 @@
     "json-buffer": "^3.0.1",
     "keyv": "^4.5.2",
     "liquidjs": "^10.6.1",
-    "lodash-es": "^4.17.21",
     "mongodb": "^5.2.0",
-    "octokit": "^2.0.3",
     "openapi-trpc": "^0.1.2",
-    "p-memoize": "^7.1.0",
-    "prettier": "^2.8.4",
     "zod": "^3.21.4"
   }
 }
