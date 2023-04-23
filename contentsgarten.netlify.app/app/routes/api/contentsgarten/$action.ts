@@ -1,10 +1,5 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/node'
-import type { Contentsgarten } from 'contentsgarten-cjs'
-import {
-  createContentsgarten,
-  handleContentsgartenRequest,
-  testing,
-} from 'contentsgarten-cjs'
+import type { Contentsgarten } from 'contentsgarten'
 import cookie from 'cookie'
 import { Env } from 'lazy-strict-env'
 import { z } from 'zod'
@@ -32,7 +27,7 @@ export const config = {
   ),
 }
 
-let instance: Contentsgarten | undefined
+let instance: Promise<Contentsgarten> | undefined
 
 export function getInstance() {
   if (instance) {
@@ -40,13 +35,19 @@ export function getInstance() {
   }
   const contentsgarten =
     config.testing.BACKEND === 'fake'
-      ? testing.createFakeInstance()
+      ? createFakeInstance()
       : createStandloneInstance()
   instance = contentsgarten
   return contentsgarten
 }
 
-function createStandloneInstance() {
+async function createFakeInstance() {
+  const { testing } = await import('contentsgarten')
+  return testing.createFakeInstance()
+}
+
+async function createStandloneInstance() {
+  const { createContentsgarten } = await import('contentsgarten')
   const contentsgarten = createContentsgarten({
     firebase: {
       apiKey: 'AIzaSyCKZng55l411pps2HgMcuenMQou-NTQ0QE',
@@ -83,6 +84,8 @@ export const action = async (args: ActionArgs) => {
   return handleRequest(args)
 }
 async function handleRequest(args: LoaderArgs | ActionArgs) {
+  const { handleContentsgartenRequest } = await import('contentsgarten')
+
   // If backend is a URL, the API will proxy the request to the remote backend
   // instead of handling it locally.
   if (config.testing.BACKEND.includes('://')) {
@@ -114,7 +117,7 @@ async function handleRequest(args: LoaderArgs | ActionArgs) {
   }
 
   return handleContentsgartenRequest(
-    getInstance(),
+    await getInstance(),
     request,
     '/api/contentsgarten',
   )

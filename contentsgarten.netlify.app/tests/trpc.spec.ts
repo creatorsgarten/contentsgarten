@@ -1,5 +1,5 @@
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
-import type { ContentsgartenRouter } from 'contentsgarten-cjs'
+import type { ContentsgartenRouter } from 'contentsgarten'
 import test, { expect } from '@playwright/test'
 
 const client = createTRPCProxyClient<typeof ContentsgartenRouter>({

@@ -10,7 +10,6 @@ module.exports = {
   // https://remix.run/docs/en/v1/pages/gotchas#importing-esm-packages
   serverDependenciesToBundle: [
     'lodash-es',
-    'contentsgarten',
     'p-memoize',
     'mimic-fn',
     '@contentsgarten/markdown',
@@ -20,7 +19,7 @@ module.exports = {
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
   watchPaths: [
-    '../packages/contentsgarten-cjs/dist/index.js',
+    '../packages/contentsgarten/dist/index.js',
     '../packages/markdown/dist/index.js',
   ],
   future: {

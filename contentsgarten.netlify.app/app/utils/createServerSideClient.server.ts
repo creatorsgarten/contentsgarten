@@ -1,6 +1,5 @@
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client'
-import type { ContentsgartenRouter } from 'contentsgarten-cjs'
-import { handleContentsgartenRequest } from 'contentsgarten-cjs'
+import type { ContentsgartenRouter } from 'contentsgarten'
 import { config, getInstance } from '../routes/api/contentsgarten/$action'
 
 export function createServerSideClient(_request: Request) {
@@ -15,10 +14,12 @@ export function createServerSideClient(_request: Request) {
         fetch: (input, init) => {
           if (typeof input === 'string' && input.startsWith('http://fake')) {
             const request = new Request(input, init as RequestInit)
-            return handleContentsgartenRequest(
-              getInstance(),
-              request,
-              '/api/contentsgarten',
+            return import('contentsgarten').then(async (m) =>
+              m.handleContentsgartenRequest(
+                await getInstance(),
+                request,
+                '/api/contentsgarten',
+              ),
             )
           }
           return fetch(input, init as RequestInit)
