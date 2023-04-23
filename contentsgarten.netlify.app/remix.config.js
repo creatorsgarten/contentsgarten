@@ -10,7 +10,6 @@ module.exports = {
   // https://remix.run/docs/en/v1/pages/gotchas#importing-esm-packages
   serverDependenciesToBundle: [
     'lodash-es',
-    'contentsgarten',
     'p-memoize',
     'mimic-fn',
     '@contentsgarten/markdown',
