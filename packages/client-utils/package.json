@@ -34,5 +34,8 @@
     "@trpc/server": "^10.11.1",
     "contentsgarten": "workspace:*",
     "firebase": "^9.9.0"
+  },
+  "repository": {
+    "url": "git+https://github.com/creatorsgarten/contentsgarten"
   }
 }

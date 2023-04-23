@@ -48,5 +48,8 @@
     "openapi-trpc": "^0.1.2",
     "p-memoize": "^7.1.0",
     "zod": "^3.21.4"
+  },
+  "repository": {
+    "url": "git+https://github.com/creatorsgarten/contentsgarten"
   }
 }

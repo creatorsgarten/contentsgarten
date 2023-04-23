@@ -32,5 +32,8 @@
     "@trpc/client": "^10.11.1",
     "@trpc/server": "^10.11.1",
     "contentsgarten": "workspace:*"
+  },
+  "repository": {
+    "url": "git+https://github.com/creatorsgarten/contentsgarten"
   }
 }
