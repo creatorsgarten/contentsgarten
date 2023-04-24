@@ -5,7 +5,6 @@ import { ContentsgartenStorage } from './ContentsgartenStorage'
 import { ContentsgartenAuth } from './ContentsgartenAuth'
 import { ContentsgartenTeamResolver } from './ContentsgartenTeamResolver'
 import { Contentsgarten } from './Contentsgarten'
-import { ContentsgartenDefaultCache } from './ContentsgartenCache'
 import { ContentsgartenPageDatabase } from './ContentsgartenPageDatabase'
 
 export namespace testing {
@@ -110,7 +109,6 @@ export namespace testing {
     const contentsgarten = new Contentsgarten({
       storage: createFakeStorage(),
       auth: createFakeAuth(),
-      cache: new ContentsgartenDefaultCache(),
       teamResolver: createFakeTeamResolver(),
       pageDatabase: createFakePageDatabase(),
     })

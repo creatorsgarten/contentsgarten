@@ -1,12 +1,9 @@
-import type { ContentsgartenDefaultCacheOptions } from './ContentsgartenCache'
-
 export interface ContentsgartenUserConfig {
   github: GitHubUserConfig
   firebase: FirebaseUserConfig
   mongodb: MongoDBUserConfig
   pageFilePrefix?: string
   pageFileExtension?: string
-  legacyCache?: ContentsgartenDefaultCacheOptions
 }
 
 export interface GitHubUserConfig {
