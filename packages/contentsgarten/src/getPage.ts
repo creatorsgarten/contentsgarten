@@ -3,6 +3,7 @@ import { createLiquidEngine } from './createLiquidEngine'
 import { z } from 'zod'
 import { staleOrRevalidate } from './cache'
 import { PageData } from './ContentsgartenPageDatabase'
+import matter from 'gray-matter'
 
 export const GetPageResult = z.object({
   status: z.union([z.literal(200), z.literal(404), z.literal(500)]),
@@ -38,12 +39,13 @@ export async function getPage(
     pagePromises.set(pageRef, promise)
     return promise
   }
-
   const pageFile = await getPage(pageRef, revalidate)
   const engine = createLiquidEngine(ctx, {
     getPageContent: async (pageRef) => {
       const page = await getPage(pageRef, false)
-      return page.data?.contents ?? null
+      const content = page.data?.contents
+      if (!content) return null
+      return matter(content).content
     },
   })
 
@@ -55,8 +57,13 @@ export async function getPage(
       } as const
     }
     try {
+      const liquidCtx: Record<string, any> = {}
+      const pageData = matter(pageFile.data.contents).data
+      if (pageData) {
+        liquidCtx.page = pageData
+      }
       return {
-        content: String(await engine.renderFile(pageRef)),
+        content: String(await engine.renderFile(pageRef, liquidCtx)),
         status: 200,
       } as const
     } catch (e: any) {
