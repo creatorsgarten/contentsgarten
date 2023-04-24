@@ -139,7 +139,6 @@ export async function getSpecialPage(
         'AllPages:fileList',
         async () => ctx.app.storage.listFiles(ctx),
         revalidate ? 'revalidate' : 'stale',
-        180e3,
       )
       const { pageFilePrefix, pageFileExtension } = ctx.app
       const pages = fileList

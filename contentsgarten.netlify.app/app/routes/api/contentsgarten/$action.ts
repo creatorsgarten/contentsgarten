@@ -69,10 +69,6 @@ async function createStandloneInstance() {
       uri: config.credentials.MONGO_URI,
       database: 'contentsgarten_wiki',
     },
-    legacyCache: {
-      url: config.credentials.REDIS_URL,
-      signingKey: config.credentials.CACHE_SIGNING_KEY,
-    },
   })
   return contentsgarten
 }

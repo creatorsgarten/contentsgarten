@@ -1,7 +1,6 @@
 import { MongoClient } from 'mongodb'
 import { Contentsgarten } from './Contentsgarten'
 import { GitHubFirebaseAuth } from './ContentsgartenAuth'
-import { ContentsgartenDefaultCache } from './ContentsgartenCache'
 import { GitHubStorage } from './ContentsgartenStorage'
 import { GitHubTeamResolver } from './ContentsgartenTeamResolver'
 import { ContentsgartenUserConfig } from './ContentsgartenUserConfig'
@@ -30,22 +29,8 @@ export function createContentsgarten(
       firebase: config.firebase,
     }),
     teamResolver: new GitHubTeamResolver(gitHubApp),
-    cache: getCache(config.legacyCache?.url, config.legacyCache?.signingKey),
     pageFileExtension: config.pageFileExtension,
     pageFilePrefix: config.pageFilePrefix,
   })
   return contentsgarten
-}
-
-function getCache(url?: string, signingKey?: string) {
-  const globalAny = global as any as {
-    __contentsgarten_cache__: Map<string, any>
-  }
-  const map = (globalAny.__contentsgarten_cache__ ??= new Map())
-  const mapKey = [url, signingKey].join(' ')
-  const cache = map.get(mapKey)
-  if (cache) return cache
-  const newCache = new ContentsgartenDefaultCache({ url, signingKey })
-  map.set(mapKey, newCache)
-  return newCache
 }
