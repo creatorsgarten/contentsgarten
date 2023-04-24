@@ -6,7 +6,12 @@ import { DeniedEntry, checkPermission } from './checkPermission'
 import { Policy } from './Policy'
 import { User } from './ContentsgartenAuth'
 import { omit } from 'lodash-es'
-import { GetPageResult, getPage, pageRefToFilePath } from './getPage'
+import {
+  GetPageResult,
+  getPage,
+  pageRefToFilePath,
+  savePageToDatabase,
+} from './getPage'
 import { load } from 'js-yaml'
 import { cache } from './cache'
 
@@ -131,12 +136,10 @@ export const ContentsgartenRouter = t.router({
         message: `Update page ${pageRef}`,
         userId: userId,
       })
-      await ctx.app.pageDatabase.save(pageRef, {
-        data: {
-          contents: newContent,
-          revision: result.revision,
-        },
-        lastModified: new Date(result.lastModified),
+      await savePageToDatabase(ctx, pageRef, {
+        content: Buffer.from(newContent),
+        revision: result.revision,
+        lastModified: result.lastModified,
       })
       return { revision: result.revision }
     }),

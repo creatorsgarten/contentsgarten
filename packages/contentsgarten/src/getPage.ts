@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { staleOrRevalidate } from './cache'
 import { PageData } from './ContentsgartenPageDatabase'
 import matter from 'gray-matter'
+import { GetFileResult } from './ContentsgartenStorage'
 
 export const GetPageResult = z.object({
   status: z.union([z.literal(200), z.literal(404), z.literal(500)]),
@@ -114,17 +115,37 @@ export async function refreshPageFile(
 ) {
   const filePath = pageRefToFilePath(ctx, pageRef)
   const getFileResult = (await ctx.app.storage.getFile(ctx, filePath)) || null
-  return ctx.app.pageDatabase.save(pageRef, {
-    data: getFileResult
+  return savePageToDatabase(ctx, pageRef, getFileResult)
+}
+
+export async function savePageToDatabase(
+  ctx: ContentsgartenRequestContext,
+  pageRef: string,
+  getFileResult: GetFileResult | null,
+) {
+  return ctx.app.pageDatabase.save(
+    pageRef,
+    getFileResult
       ? {
-          contents: getFileResult.content.toString('utf8'),
-          revision: getFileResult.revision,
+          data: {
+            contents: getFileResult.content.toString('utf8'),
+            revision: getFileResult.revision,
+          },
+          lastModified: getFileResult.lastModified
+            ? new Date(getFileResult.lastModified)
+            : null,
+          aux: {
+            frontmatter: matter(getFileResult.content.toString('utf8')).data,
+          },
         }
-      : null,
-    lastModified: getFileResult?.lastModified
-      ? new Date(getFileResult.lastModified)
-      : null,
-  })
+      : {
+          data: null,
+          lastModified: null,
+          aux: {
+            frontmatter: {},
+          },
+        },
+  )
 }
 
 export async function getSpecialPage(

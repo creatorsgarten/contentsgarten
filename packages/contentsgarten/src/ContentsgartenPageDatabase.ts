@@ -1,8 +1,7 @@
 import { Document, Db } from 'mongodb'
-import { ContentsgartenRequestContext } from './ContentsgartenContext'
 
 const PageCollection = defineCollectionSchema<PageDoc>('pages')
-const currentCacheVersion = 'v2'
+const currentCacheVersion = 'v3'
 
 export interface ContentsgartenPageDatabase {
   getCached(pageRef: string): Promise<PageData | null>
@@ -35,6 +34,7 @@ export class MongoDBPageDatabase implements ContentsgartenPageDatabase {
       cacheVersion: currentCacheVersion,
       data: input.data,
       lastModified: input.lastModified,
+      aux: input.aux,
       cached: new Date(),
     }
     await collection.replaceOne({ _id: pageRef }, newDoc, { upsert: true })
@@ -65,13 +65,17 @@ export interface PageDoc {
   lastModified: Date | null
 
   cached: Date
+  aux: PageAuxiliaryData
 }
 export interface PageDocFile {
   contents: string
   revision: string
 }
+export interface PageAuxiliaryData {
+  frontmatter: Record<string, any>
+}
 
-export type PageData = Pick<PageDoc, 'data' | 'lastModified'>
+export type PageData = Pick<PageDoc, 'data' | 'lastModified' | 'aux'>
 export type PageDataInput = PageData
 
 export function defineCollectionSchema<TDoc extends Document>(name: string) {
