@@ -58,6 +58,7 @@ export namespace testing {
           _id: pageRef,
           data: input.data,
           lastModified: input.lastModified,
+          aux: input.aux,
           cached: new Date(),
         }
         docs.set(pageRef, newDoc)
