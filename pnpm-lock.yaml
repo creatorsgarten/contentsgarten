@@ -149,12 +149,6 @@ importers:
 
   packages/client-utils:
     devDependencies:
-      '@trpc/client':
-        specifier: ^10.16.0
-        version: 10.20.0(@trpc/server@10.20.0)
-      '@trpc/server':
-        specifier: ^10.16.0
-        version: 10.20.0
       '@tsconfig/node18':
         specifier: ^2.0.0
         version: 2.0.0
