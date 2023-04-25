@@ -4,6 +4,13 @@
 
 ### Patch Changes
 
+- Updated dependencies [c7a92f4]
+  - contentsgarten@1.3.0
+
+## null
+
+### Patch Changes
+
 - Updated dependencies [f245bdf]
   - contentsgarten@1.2.0
 
