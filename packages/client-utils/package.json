@@ -20,8 +20,6 @@
     "access": "public"
   },
   "devDependencies": {
-    "@trpc/client": "^10.16.0",
-    "@trpc/server": "^10.16.0",
     "@tsconfig/node18": "^2.0.0",
     "@types/node": "^18.15.3",
     "contentsgarten": "workspace:*",
@@ -30,10 +28,7 @@
     "typescript": "5"
   },
   "peerDependencies": {
-    "@trpc/client": "^10.11.1",
-    "@trpc/server": "^10.11.1",
-    "contentsgarten": "workspace:*",
-    "firebase": "^9.9.0"
+    "firebase": "^9.18.0"
   },
   "repository": {
     "url": "git+https://github.com/creatorsgarten/contentsgarten"
