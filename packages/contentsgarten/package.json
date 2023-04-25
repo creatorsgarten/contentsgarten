@@ -1,6 +1,6 @@
 {
   "name": "contentsgarten",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A cloud-native wiki engine",
   "module": "dist/index.js",
   "exports": "./dist/index.js",

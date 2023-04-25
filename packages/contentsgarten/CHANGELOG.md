@@ -1,5 +1,11 @@
 # contentsgarten
 
+## 1.3.0
+
+### Minor Changes
+
+- c7a92f4: expose lastModified and lastModifiedBy from view API
+
 ## 1.2.0
 
 ### Minor Changes

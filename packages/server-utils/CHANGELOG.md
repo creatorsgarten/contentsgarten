@@ -1,5 +1,12 @@
 # @contentsgarten/server-utils
 
+## 4.0.0
+
+### Patch Changes
+
+- Updated dependencies [c7a92f4]
+  - contentsgarten@1.3.0
+
 ## 3.0.0
 
 ### Patch Changes
