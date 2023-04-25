@@ -1,5 +1,14 @@
 # wiki.wonderful.software
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [f245bdf]
+  - contentsgarten@1.2.0
+  - @contentsgarten/client-utils@2.0.0
+  - @contentsgarten/server-utils@3.0.0
+
 ## 0.1.1
 
 ### Patch Changes

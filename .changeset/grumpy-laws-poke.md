@@ -1,5 +1,0 @@
----
-'contentsgarten': minor
----
-
-expose frontMatter
