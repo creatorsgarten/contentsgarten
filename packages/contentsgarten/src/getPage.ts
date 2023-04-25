@@ -19,6 +19,8 @@ export const GetPageResult = z.object({
     .optional(),
   content: z.string(),
   frontMatter: z.record(z.any()),
+  lastModified: z.string().optional(),
+  lastModifiedBy: z.array(z.string()).optional(),
 })
 export type GetPageResult = z.infer<typeof GetPageResult>
 
@@ -95,6 +97,8 @@ export async function getPage(
     content,
     frontMatter,
     status,
+    lastModified: pageFile.lastModified?.toISOString() || undefined,
+    lastModifiedBy: pageFile.lastModifiedBy,
   }
   return result
 }
@@ -139,6 +143,7 @@ export async function savePageToDatabase(
           lastModified: getFileResult.lastModified
             ? new Date(getFileResult.lastModified)
             : null,
+          lastModifiedBy: getFileResult.lastModifiedBy ?? [],
           aux: {
             frontmatter: matter(getFileResult.content.toString('utf8')).data,
           },
@@ -146,6 +151,7 @@ export async function savePageToDatabase(
       : {
           data: null,
           lastModified: null,
+          lastModifiedBy: [],
           aux: {
             frontmatter: {},
           },

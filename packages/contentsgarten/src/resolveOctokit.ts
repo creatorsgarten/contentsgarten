@@ -16,7 +16,7 @@ export async function resolveOctokit(
   })
 }
 
-interface ContentsgartenOctokit {
+export interface ContentsgartenOctokit {
   rest: Octokit['rest']
   request: Octokit['request']
 }

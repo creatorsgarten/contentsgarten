@@ -58,6 +58,7 @@ export namespace testing {
           _id: pageRef,
           data: input.data,
           lastModified: input.lastModified,
+          lastModifiedBy: [],
           aux: input.aux,
           cached: new Date(),
         }

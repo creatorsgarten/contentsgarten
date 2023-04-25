@@ -1,6 +1,7 @@
 import type { GitHubApp } from './GitHubApp'
 import type { RequestContext } from './RequestContext'
-import { resolveOctokit } from './resolveOctokit'
+import { resolveGitHubUsernameFromId } from './resolveGitHubUsernameFromId'
+import { resolveOctokit, ContentsgartenOctokit } from './resolveOctokit'
 
 export interface ContentsgartenStorage {
   getFile(ctx: RequestContext, path: string): Promise<GetFileResult | undefined>
@@ -14,6 +15,7 @@ export interface ContentsgartenStorage {
 export interface GetFileResult {
   content: Buffer
   lastModified?: string
+  lastModifiedBy?: string[]
   revision: string
 }
 
@@ -66,6 +68,11 @@ export class GitHubStorage implements ContentsgartenStorage {
         content: Buffer.from(data.content, 'base64'),
         revision: data.sha,
         lastModified: history?.[0]?.commit.author?.date,
+        lastModifiedBy: await getUsernamesFromCommit(
+          ctx,
+          octokit,
+          history?.[0],
+        ),
       }
     } catch (error) {
       if (isApiError(error) && error.status === 404) {
@@ -134,4 +141,50 @@ interface ApiError {
   response: {
     data: any
   }
+}
+
+async function getUsernamesFromCommit(
+  ctx: RequestContext,
+  octokit: ContentsgartenOctokit,
+  item?: {
+    commit: { message: string }
+    author: { login: string } | null
+  },
+) {
+  if (!item) {
+    return undefined
+  }
+  const logins = new Set<string>()
+  if (item.author?.login) {
+    logins.add(item.author.login)
+  }
+
+  // Parse co-authored-by
+  const promises: Promise<void>[] = []
+  for (const line of item.commit.message.split('\n')) {
+    const match = line
+      .trim()
+      .match(
+        /^Co-authored-by: (?:.*) <(\d+)+[^@]+@users\.noreply\.github\.com>$/,
+      )
+    if (match) {
+      promises.push(
+        (async () => {
+          const username = await resolveGitHubUsernameFromId(
+            ctx,
+            octokit,
+            +match[1],
+          )
+          if (username) {
+            logins.add(username)
+          }
+        })(),
+      )
+    }
+  }
+
+  await Promise.all(promises)
+  const list = Array.from(logins)
+  const listWithoutBots = list.filter((login) => !login.endsWith('[bot]'))
+  return listWithoutBots.length > 0 ? listWithoutBots : list
 }
