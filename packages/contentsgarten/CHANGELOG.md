@@ -1,5 +1,11 @@
 # contentsgarten
 
+## 1.2.0
+
+### Minor Changes
+
+- f245bdf: expose frontMatter
+
 ## 1.1.0
 
 ### Minor Changes
