@@ -214,6 +214,7 @@ export async function getSpecialPage(
       title: pageRef,
       status: 200,
       content: '',
+      frontMatter: {},
       ...(await specialPages[pageKey as keyof typeof specialPages]()),
     }
   }
@@ -222,6 +223,7 @@ export async function getSpecialPage(
     title: pageRef,
     content: '(There is no special page with this name.)',
     status: 404,
+    frontMatter: {},
   }
   return result
 }
