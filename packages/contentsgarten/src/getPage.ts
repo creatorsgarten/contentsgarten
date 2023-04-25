@@ -18,6 +18,7 @@ export const GetPageResult = z.object({
     })
     .optional(),
   content: z.string(),
+  frontMatter: z.record(z.any()),
 })
 export type GetPageResult = z.infer<typeof GetPageResult>
 
@@ -50,10 +51,11 @@ export async function getPage(
     },
   })
 
-  const { content, status } = await (async () => {
+  const { content, frontMatter, status } = await (async () => {
     if (!pageFile.data) {
       return {
         content: '(This page currently does not exist.)',
+        frontMatter: {},
         status: 404,
       } as const
     }
@@ -65,6 +67,7 @@ export async function getPage(
       }
       return {
         content: String(await engine.renderFile(pageRef, liquidCtx)),
+        frontMatter: pageData,
         status: 200,
       } as const
     } catch (e: any) {
@@ -76,6 +79,7 @@ export async function getPage(
           String(e?.stack || e),
           '```',
         ].join('\n'),
+        frontMatter: {},
         status: 500,
       } as const
     }
@@ -89,6 +93,7 @@ export async function getPage(
       content: pageFile.data?.contents || '',
     },
     content,
+    frontMatter,
     status,
   }
   return result
