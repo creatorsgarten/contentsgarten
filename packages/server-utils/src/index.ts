@@ -3,7 +3,6 @@ import {
   createTRPCProxyClient,
   httpBatchLink,
 } from '@trpc/client'
-import type {} from '@trpc/server'
 import type { Contentsgarten, ContentsgartenRouter } from 'contentsgarten'
 import { handleContentsgartenRequest } from 'contentsgarten'
 
