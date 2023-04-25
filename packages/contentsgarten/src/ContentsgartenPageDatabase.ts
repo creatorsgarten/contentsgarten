@@ -34,6 +34,7 @@ export class MongoDBPageDatabase implements ContentsgartenPageDatabase {
       cacheVersion: currentCacheVersion,
       data: input.data,
       lastModified: input.lastModified,
+      lastModifiedBy: input.lastModifiedBy,
       aux: input.aux,
       cached: new Date(),
     }
@@ -63,6 +64,7 @@ export interface PageDoc {
 
   data: PageDocFile | null
   lastModified: Date | null
+  lastModifiedBy: string[]
 
   cached: Date
   aux: PageAuxiliaryData
@@ -75,7 +77,10 @@ export interface PageAuxiliaryData {
   frontmatter: Record<string, any>
 }
 
-export type PageData = Pick<PageDoc, 'data' | 'lastModified' | 'aux'>
+export type PageData = Pick<
+  PageDoc,
+  'data' | 'lastModified' | 'lastModifiedBy' | 'aux'
+>
 export type PageDataInput = PageData
 
 export function defineCollectionSchema<TDoc extends Document>(name: string) {

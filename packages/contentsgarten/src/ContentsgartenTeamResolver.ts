@@ -1,5 +1,6 @@
 import { GitHubApp } from './GitHubApp'
 import { RequestContext } from './RequestContext'
+import { resolveGitHubUsernameFromId } from './resolveGitHubUsernameFromId'
 import { resolveOctokit } from './resolveOctokit'
 
 export interface ContentsgartenTeamResolver {
@@ -19,18 +20,7 @@ export class GitHubTeamResolver implements ContentsgartenTeamResolver {
   ) {
     const [owner, teamSlug] = ownerAndTeamSlug.split('/')
     const octokit = await resolveOctokit(ctx, this.app, owner)
-
-    // https://stackoverflow.com/a/30579888/559913
-    const username = await ctx.app.queryClient.fetchQuery({
-      queryKey: ['userIdToUsername', userId],
-      queryFn: async () => {
-        const response = await octokit.request('GET /user/{user_id}', {
-          user_id: userId,
-        })
-        return response.data.login as string
-      },
-      staleTime: 300e3,
-    })
+    const username = await resolveGitHubUsernameFromId(ctx, octokit, userId)
 
     return octokit.rest.teams
       .getMembershipForUserInOrg({
