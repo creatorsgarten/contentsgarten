@@ -47,7 +47,14 @@ export const Html: FC<Html> = (props) => {
             domToReact([domNode], {
               ...options,
               replace(node) {
-                if (node === domNode) return
+                if (
+                  node.type === 'tag' &&
+                  'name' in node &&
+                  node.name === 'a'
+                ) {
+                  // Don't replace links twice.
+                  return
+                }
                 return options.replace?.(node)
               },
             }),

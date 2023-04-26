@@ -60,10 +60,7 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
         renderLink={(props) => (
           <a
             {...props}
-            className={clsx(
-              isWikiLink(props) ? 'internal' : 'external',
-              props.className,
-            )}
+            className={clsx(isWikiLink(props) && 'wikilink', props.className)}
           />
         )}
       />
