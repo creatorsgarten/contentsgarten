@@ -34,6 +34,7 @@ export namespace testing {
         return {
           revision: hashBuffer(buffer),
           lastModified: new Date().toISOString(),
+          lastModifiedBy: [],
         }
       },
     }

@@ -16,7 +16,6 @@ export function createLiquidEngine(
     fs: createLiquidFs(ctx, loader),
     root,
     partials: root + '/Template',
-    jekyllInclude: true,
     extname: ctx.app.pageFileExtension,
     relativeReference: false,
   })

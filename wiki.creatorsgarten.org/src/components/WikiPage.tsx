@@ -35,21 +35,39 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
   if (!rendered) {
     throw new Error('Page has no rendered content')
   }
+  const effectiveTitle = String(
+    (page.frontMatter as Record<string, any>).title || page.title,
+  )
+  const pageRef = page.pageRef
+  const editButton = (
+    <>
+      {!!freshPageQuery.data?.file && (
+        <Suspense fallback={<></>}>
+          <Editor
+            key={lastSavedRevision}
+            page={freshPageQuery.data}
+            file={freshPageQuery.data.file}
+            onSave={setLastSavedRevision}
+          />
+        </Suspense>
+      )}
+    </>
+  )
   return (
     <>
-      <h1>
-        <PascalWordBreaker title={page.title} />
-        {!!freshPageQuery.data?.file && (
-          <Suspense fallback={<></>}>
-            <Editor
-              key={lastSavedRevision}
-              page={freshPageQuery.data}
-              file={freshPageQuery.data.file}
-              onSave={setLastSavedRevision}
-            />
-          </Suspense>
-        )}
-      </h1>
+      {page.title !== effectiveTitle ? (
+        <>
+          <div className="text-slate-500">
+            <PascalWordBreaker title={page.title} /> {editButton}
+          </div>
+          <h1>{effectiveTitle}</h1>
+        </>
+      ) : (
+        <h1>
+          <PascalWordBreaker title={effectiveTitle} />
+          {editButton}
+        </h1>
+      )}
       <Html
         className={clsx(
           'prose-h1:text-4xl prose-h1:mt-12 prose-h1:font-medium',
@@ -60,7 +78,12 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
         renderLink={(props) => (
           <a
             {...props}
-            className={clsx(isWikiLink(props) && 'wikilink', props.className)}
+            className={clsx(
+              isWikiLink(props) && 'wikilink',
+              props.href.replace(/[?#].*/, '') === `/wiki/${pageRef}` &&
+                'text-inherit font-bold',
+              props.className,
+            )}
           />
         )}
       />
@@ -74,7 +97,7 @@ export interface PascalWordBreaker {
 
 export function PascalWordBreaker(props: PascalWordBreaker) {
   const nodes: ReactNode[] = []
-  for (const [i, part] of props.title.split(/(?=[A-Z])/).entries()) {
+  for (const [i, part] of props.title.split(/(?=[A-Z/])/).entries()) {
     if (nodes.length > 0) {
       nodes.push(<wbr key={i} />)
     }

@@ -9,8 +9,14 @@ import { processMarkdown } from '@contentsgarten/markdown'
 import { PageRefRegex } from './PageRefRegex'
 
 export const GetPageResult = z.object({
-  status: z.union([z.literal(200), z.literal(404), z.literal(500)]),
+  status: z.union([
+    z.literal(200),
+    z.literal(301),
+    z.literal(404),
+    z.literal(500),
+  ]),
   pageRef: z.string(),
+  targetPageRef: z.string().optional(),
   title: z.string(),
   file: z
     .object({
@@ -82,7 +88,7 @@ export async function getPage(
     }
   })
 
-  const { content, frontMatter, status } = await (async () => {
+  const { content, frontMatter, status, targetPageRef } = await (async () => {
     if (!pageFile.data) {
       return {
         content: '(This page currently does not exist.)',
@@ -92,7 +98,25 @@ export async function getPage(
     }
     try {
       const pageData = matter(pageFile.data.contents).data
-      const liquidCtx: Record<string, any> = createLiquidContext(ctx, pageData)
+      if (pageData.redirect && PageRefRegex.test(pageData.redirect)) {
+        const target = await getPage(pageData.redirect, false)
+        if (target.data) {
+          const targetPageData = matter(target.data.contents).data
+          if (targetPageData.redirect !== pageRef) {
+            return {
+              content: `Redirecting to [[${pageData.redirect}]]...`,
+              frontMatter: {},
+              status: 301,
+              targetPageRef: pageData.redirect,
+            } as const
+          }
+        }
+      }
+      const liquidCtx: Record<string, any> = createLiquidContext(
+        ctx,
+        pageRef,
+        pageData,
+      )
       return {
         content: String(await engine.renderFile(pageRef, liquidCtx)),
         frontMatter: pageData,
@@ -114,6 +138,7 @@ export async function getPage(
   })()
   const result: GetPageResult = {
     pageRef,
+    targetPageRef,
     title: pageRef,
     file: {
       path: filePath,
@@ -136,11 +161,13 @@ function postProcess(result: GetPageResult, render: boolean): GetPageResult {
 
 function createLiquidContext(
   ctx: ContentsgartenRequestContext,
+  pageRef: string,
   pageData: { [key: string]: any },
 ) {
   const liquidCtx: Record<string, any> = {}
   if (pageData) {
     liquidCtx.page = pageData
+    liquidCtx.ref = pageRef
   }
   return liquidCtx
 }
