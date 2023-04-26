@@ -1,4 +1,4 @@
-import { Markdown, MarkdownCustomComponents } from '@contentsgarten/markdown'
+import { Html, MarkdownCustomComponents } from '@contentsgarten/html'
 import type { GetPageResult } from 'contentsgarten'
 import { FC, ReactNode, Suspense, lazy, useState } from 'react'
 import { TrpcProvider, trpc } from '../utils/trpc'
@@ -23,9 +23,14 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
   const freshPageQuery = trpc.view.useQuery({
     pageRef: stalePage.pageRef,
     revalidate: true,
+    render: true,
   })
   const page = freshPageQuery.data ?? stalePage
   const [lastSavedRevision, setLastSavedRevision] = useState('')
+  const rendered = page.rendered
+  if (!rendered) {
+    throw new Error('Page has no rendered content')
+  }
   return (
     <>
       <h1>
@@ -41,12 +46,12 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
           </Suspense>
         )}
       </h1>
-      <Markdown
+      <Html
         className={clsx(
           'prose-h1:text-4xl prose-h1:mt-12 prose-h1:font-medium',
           freshPageQuery.data && freshPageQuery.isRefetching && 'opacity-50',
         )}
-        text={page.content}
+        html={rendered.html}
         customComponents={customComponents}
       />
     </>

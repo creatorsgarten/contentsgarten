@@ -16,7 +16,7 @@
     "@astrojs/tailwind": "^3.1.1",
     "@babel/core": "^7.21.3",
     "@contentsgarten/client-utils": "workspace:*",
-    "@contentsgarten/markdown": "workspace:*",
+    "@contentsgarten/html": "workspace:*",
     "@contentsgarten/server-utils": "workspace:*",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
