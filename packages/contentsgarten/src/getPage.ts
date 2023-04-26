@@ -40,7 +40,9 @@ export async function getPage(
   render = false,
 ) {
   if (pageRef.toLowerCase().startsWith('special/')) {
-    return getSpecialPage(ctx, pageRef, revalidate)
+    return getSpecialPage(ctx, pageRef, revalidate).then((result) =>
+      postProcess(result, render),
+    )
   }
 
   const filePath = pageRefToFilePath(ctx, pageRef)
@@ -72,11 +74,8 @@ export async function getPage(
       } as const
     }
     try {
-      const liquidCtx: Record<string, any> = {}
       const pageData = matter(pageFile.data.contents).data
-      if (pageData) {
-        liquidCtx.page = pageData
-      }
+      const liquidCtx: Record<string, any> = createLiquidContext(ctx, pageData)
       return {
         content: String(await engine.renderFile(pageRef, liquidCtx)),
         frontMatter: pageData,
@@ -96,7 +95,6 @@ export async function getPage(
       } as const
     }
   })()
-  const rendered = render ? processMarkdown(content) : undefined
   const result: GetPageResult = {
     pageRef,
     title: pageRef,
@@ -110,9 +108,24 @@ export async function getPage(
     status,
     lastModified: pageFile.lastModified?.toISOString() || undefined,
     lastModifiedBy: pageFile.lastModifiedBy,
-    ...(rendered ? { rendered } : {}),
   }
-  return result
+  return postProcess(result, render)
+}
+
+function postProcess(result: GetPageResult, render: boolean): GetPageResult {
+  const rendered = render ? processMarkdown(result.content) : undefined
+  return rendered ? { ...result, rendered } : result
+}
+
+function createLiquidContext(
+  ctx: ContentsgartenRequestContext,
+  pageData: { [key: string]: any },
+) {
+  const liquidCtx: Record<string, any> = {}
+  if (pageData) {
+    liquidCtx.page = pageData
+  }
+  return liquidCtx
 }
 
 export async function getPageFile(
