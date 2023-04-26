@@ -2,12 +2,22 @@ import { micromark } from 'micromark'
 import { gfm, gfmHtml } from 'micromark-extension-gfm'
 import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
 import { FC, useMemo } from 'react'
-import parse, { HTMLReactParserOptions, domToReact } from 'html-react-parser'
+import parse, {
+  HTMLReactParserOptions,
+  domToReact,
+  htmlToDOM,
+} from 'html-react-parser'
 import {
   Directive,
   DirectiveType,
 } from 'micromark-extension-directive/lib/html'
 import * as wikiLink from 'micromark-extension-wiki-link'
+import { rehype } from 'rehype'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import { visit } from 'unist-util-visit'
+import { headingRank } from 'hast-util-heading-rank'
+import { toString } from 'hast-util-to-string'
 
 export type MarkdownRenderer = (text: string) => string
 
@@ -71,6 +81,21 @@ function createCustomBlockHandler(name: string, defaultTitle: string) {
 }
 
 export function renderMarkdown(text: string): string {
+  return processMarkdown(text).html
+}
+
+export interface MarkdownProcessingResult {
+  html: string
+  headings: Heading[]
+}
+
+export interface Heading {
+  id: string
+  label: string
+  rank: number
+}
+
+export function processMarkdown(text: string): MarkdownProcessingResult {
   const result = micromark(text, {
     allowDangerousHtml: true,
     extensions: [
@@ -97,7 +122,29 @@ export function renderMarkdown(text: string): string {
       }),
     ],
   })
-  return result
+
+  const headings: Heading[] = []
+  const processor = rehype()
+    .data('settings', { fragment: true })
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings)
+    .use(() => (tree) => {
+      visit(tree, 'element', (node) => {
+        const rank = headingRank(node)
+        if (rank) {
+          const id = node.properties?.id
+          if (id && typeof id === 'string') {
+            headings.push({ id, label: toString(node), rank })
+          }
+        }
+      })
+    })
+  const processed = processor.processSync(result)
+
+  return {
+    html: processed.toString(),
+    headings,
+  }
 }
 
 export type MarkdownCustomComponents = Partial<
