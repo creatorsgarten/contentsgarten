@@ -1,5 +1,16 @@
 # wiki.wonderful.software
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [cac978d]
+- Updated dependencies [4fbf8a7]
+  - contentsgarten@1.5.0
+  - @contentsgarten/markdown@1.1.1
+  - @contentsgarten/client-utils@2.0.0
+  - @contentsgarten/server-utils@6.0.0
+
 ## 0.1.4
 
 ### Patch Changes
