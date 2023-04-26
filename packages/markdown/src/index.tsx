@@ -81,12 +81,16 @@ export function renderMarkdown(text: string): string {
 export interface MarkdownProcessingResult {
   html: string
   headings: Heading[]
+  wikiLinks: WikiLink[]
 }
-
 export interface Heading {
   id: string
   label: string
   rank: number
+}
+export interface WikiLink {
+  pageRef: string
+  label: string
 }
 
 export function processMarkdown(text: string): MarkdownProcessingResult {
@@ -118,6 +122,7 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
   })
 
   const headings: Heading[] = []
+  const wikiLinks: WikiLink[] = []
   const processor = rehype()
     .data('settings', { fragment: true })
     .use(rehypeSlug)
@@ -131,6 +136,18 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
             headings.push({ id, label: toString(node), rank })
           }
         }
+
+        if (node.tagName === 'a' && node.properties?.href) {
+          const href = node.properties.href
+          if (typeof href === 'string') {
+            const match = href.match(/^\/wiki\/([^?#]+)(?:[?#].*)?$/)
+            if (match) {
+              const pageRef = match[1]
+              const label = toString(node)
+              wikiLinks.push({ pageRef, label })
+            }
+          }
+        }
       })
     })
   const processed = processor.processSync(result)
@@ -138,6 +155,7 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
   return {
     html: processed.toString(),
     headings,
+    wikiLinks,
   }
 }
 

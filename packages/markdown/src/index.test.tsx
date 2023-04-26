@@ -47,3 +47,13 @@ test('heading extraction', () => {
     { id: 'hello-1', label: 'hello', rank: 2 },
   ])
 })
+
+test('wikilink extraction', () => {
+  const md = '[[foo]] [bar](/wiki/Baz#wtf) [[Special/AllPages]]'
+  const { wikiLinks } = processMarkdown(md)
+  expect(wikiLinks.map((link) => link.pageRef)).toEqual([
+    'Foo',
+    'Baz',
+    'Special/AllPages',
+  ])
+})
