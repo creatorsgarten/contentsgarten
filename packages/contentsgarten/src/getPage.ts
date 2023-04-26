@@ -5,6 +5,7 @@ import { staleOrRevalidate } from './cache'
 import { PageData } from './ContentsgartenPageDatabase'
 import matter from 'gray-matter'
 import { GetFileResult } from './ContentsgartenStorage'
+import { processMarkdown } from '@contentsgarten/markdown'
 
 export const GetPageResult = z.object({
   status: z.union([z.literal(200), z.literal(404), z.literal(500)]),
@@ -18,6 +19,14 @@ export const GetPageResult = z.object({
     })
     .optional(),
   content: z.string(),
+  rendered: z
+    .object({
+      html: z.string(),
+      headings: z.array(
+        z.object({ id: z.string(), label: z.string(), rank: z.number() }),
+      ),
+    })
+    .optional(),
   frontMatter: z.record(z.any()),
   lastModified: z.string().optional(),
   lastModifiedBy: z.array(z.string()).optional(),
@@ -28,6 +37,7 @@ export async function getPage(
   ctx: ContentsgartenRequestContext,
   pageRef: string,
   revalidate = false,
+  render = false,
 ) {
   if (pageRef.toLowerCase().startsWith('special/')) {
     return getSpecialPage(ctx, pageRef, revalidate)
@@ -86,6 +96,7 @@ export async function getPage(
       } as const
     }
   })()
+  const rendered = render ? processMarkdown(content) : undefined
   const result: GetPageResult = {
     pageRef,
     title: pageRef,
@@ -99,6 +110,7 @@ export async function getPage(
     status,
     lastModified: pageFile.lastModified?.toISOString() || undefined,
     lastModifiedBy: pageFile.lastModifiedBy,
+    ...(rendered ? { rendered } : {}),
   }
   return result
 }

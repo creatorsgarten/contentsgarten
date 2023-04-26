@@ -2,12 +2,16 @@ import { micromark } from 'micromark'
 import { gfm, gfmHtml } from 'micromark-extension-gfm'
 import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
 import { FC, useMemo } from 'react'
-import parse, { HTMLReactParserOptions, domToReact } from 'html-react-parser'
-import {
-  Directive,
-  DirectiveType,
-} from 'micromark-extension-directive/lib/html'
+import { Html } from '@contentsgarten/html'
+import type { MarkdownCustomComponents } from '@contentsgarten/html'
+import { Directive } from 'micromark-extension-directive/lib/html'
 import * as wikiLink from 'micromark-extension-wiki-link'
+import { rehype } from 'rehype'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import { visit } from 'unist-util-visit'
+import { headingRank } from 'hast-util-heading-rank'
+import { toString } from 'hast-util-to-string'
 
 export type MarkdownRenderer = (text: string) => string
 
@@ -71,6 +75,25 @@ function createCustomBlockHandler(name: string, defaultTitle: string) {
 }
 
 export function renderMarkdown(text: string): string {
+  return processMarkdown(text).html
+}
+
+export interface MarkdownProcessingResult {
+  html: string
+  headings: Heading[]
+  wikiLinks: WikiLink[]
+}
+export interface Heading {
+  id: string
+  label: string
+  rank: number
+}
+export interface WikiLink {
+  pageRef: string
+  label: string
+}
+
+export function processMarkdown(text: string): MarkdownProcessingResult {
   const result = micromark(text, {
     allowDangerousHtml: true,
     extensions: [
@@ -97,13 +120,50 @@ export function renderMarkdown(text: string): string {
       }),
     ],
   })
-  return result
+
+  const headings: Heading[] = []
+  const wikiLinks: WikiLink[] = []
+  const processor = rehype()
+    .data('settings', { fragment: true })
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings)
+    .use(() => (tree) => {
+      visit(tree, 'element', (node) => {
+        const rank = headingRank(node)
+        if (rank) {
+          const id = node.properties?.id
+          if (id && typeof id === 'string') {
+            headings.push({ id, label: toString(node), rank })
+          }
+        }
+
+        if (node.tagName === 'a' && node.properties?.href) {
+          const href = node.properties.href
+          if (typeof href === 'string') {
+            const match = href.match(/^\/wiki\/([^?#]+)(?:[?#].*)?$/)
+            if (match) {
+              const pageRef = match[1]
+              const label = toString(node)
+              wikiLinks.push({ pageRef, label })
+            }
+          }
+        }
+      })
+    })
+  const processed = processor.processSync(result)
+
+  return {
+    html: processed.toString(),
+    headings,
+    wikiLinks,
+  }
 }
 
-export type MarkdownCustomComponents = Partial<
-  Record<DirectiveType, Record<string, FC<any>>>
->
+export { MarkdownCustomComponents }
 
+/**
+ * @deprecated Use `@contentsgarten/html` with HTML input directly instead
+ */
 export interface Markdown {
   text: string
   className?: string
@@ -111,53 +171,19 @@ export interface Markdown {
   customComponents?: MarkdownCustomComponents
 }
 
+/**
+ * @deprecated Use `@contentsgarten/html` with HTML input directly instead
+ */
 export const Markdown: FC<Markdown> = (props) => {
   const html = useMemo(() => {
     const renderer = props.markdownRenderer || renderMarkdown
     return renderer(props.text)
   }, [props.text, props.markdownRenderer])
-  const element = useMemo(() => {
-    const options: HTMLReactParserOptions = {
-      replace: (domNode) => {
-        if (domNode.type !== 'tag') return
-        if (!('name' in domNode)) return
-        if (domNode.name !== 'markdown-directive') return
-        const type = domNode.attribs.type as DirectiveType
-        const name = domNode.attribs.name
-        const definition = props.customComponents?.[type]?.[name]
-        if (!definition) return
-        const label = domNode.attribs.label
-        const attributes = domNode.attribs.attributes
-        const children = domToReact(domNode.children, options)
-        return (
-          <MarkdownCustomComponent
-            Component={definition}
-            label={label}
-            attributes={attributes}
-          >
-            {children}
-          </MarkdownCustomComponent>
-        )
-      },
-    }
-    return parse(html, options)
-  }, [html, props.customComponents])
-  return <div className={props.className}>{element}</div>
-}
-
-interface MarkdownCustomComponent {
-  Component: FC<any>
-  label?: string
-  attributes?: string
-  children?: React.ReactNode
-}
-function MarkdownCustomComponent(props: MarkdownCustomComponent) {
   return (
-    <props.Component
-      label={props.label}
-      attributes={JSON.parse(props.attributes || '{}')}
-    >
-      {props.children}
-    </props.Component>
+    <Html
+      className={props.className}
+      html={html}
+      customComponents={props.customComponents}
+    />
   )
 }

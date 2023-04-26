@@ -1,7 +1,7 @@
 import type { LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { Markdown } from '@contentsgarten/markdown'
+import { Html } from '@contentsgarten/html'
 import { Editable } from '~/ui/Editable'
 import type { FC } from 'react'
 import { useState } from 'react'
@@ -12,7 +12,7 @@ import type { GetPageResult } from 'contentsgarten'
 export async function loader(args: LoaderArgs) {
   const client = createServerSideClient(args.request)
   const slug = args.params['*'] as string
-  return json(await client.view.query({ pageRef: slug }))
+  return json(await client.view.query({ pageRef: slug, render: true }))
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
@@ -25,10 +25,14 @@ export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
 export default function WikiPage() {
   const serverData = useLoaderData<typeof loader>()
   const freshDataQuery = trpc.view.useQuery(
-    { pageRef: serverData.pageRef, revalidate: true },
+    { pageRef: serverData.pageRef, revalidate: true, render: true },
     { refetchOnWindowFocus: false },
   )
   const data = freshDataQuery.data ?? serverData
+  const rendered = data.rendered
+  if (!rendered) {
+    throw new Error('Page has no rendered content')
+  }
   return (
     <div className="p-8">
       <article
@@ -43,7 +47,7 @@ export default function WikiPage() {
             </span>
           ) : null}
         </h1>
-        <Markdown text={data.content} />
+        <Html html={rendered.html} />
       </article>
     </div>
   )
