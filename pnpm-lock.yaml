@@ -289,15 +289,15 @@ importers:
 
   packages/markdown:
     dependencies:
+      '@contentsgarten/html':
+        specifier: workspace:*
+        version: link:../html
       hast-util-heading-rank:
         specifier: ^2.1.1
         version: 2.1.1
       hast-util-to-string:
         specifier: ^2.0.0
         version: 2.0.0
-      html-react-parser:
-        specifier: ^3.0.14
-        version: 3.0.15(react@18.2.0)
       rehype:
         specifier: ^12.0.1
         version: 12.0.1
@@ -332,9 +332,6 @@ importers:
       micromark-extension-wiki-link:
         specifier: ^0.0.4
         version: 0.0.4
-      punycode:
-        specifier: ^2.3.0
-        version: 2.3.0
       react:
         specifier: ^18.0.0
         version: 18.2.0
