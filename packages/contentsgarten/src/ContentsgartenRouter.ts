@@ -59,14 +59,17 @@ export const ContentsgartenRouter = t.router({
         pageRef: PageRef,
         withFile: z.boolean().default(true),
         revalidate: z.boolean().optional(),
+        render: z.boolean().optional(),
       }),
     )
     .output(GetPageResult)
-    .query(async ({ input: { pageRef, revalidate, withFile }, ctx }) => {
-      const page = await getPage(ctx, pageRef, revalidate)
-      const result: GetPageResult = withFile ? page : omit(page, 'file')
-      return result
-    }),
+    .query(
+      async ({ input: { pageRef, revalidate, withFile, render }, ctx }) => {
+        const page = await getPage(ctx, pageRef, revalidate, render)
+        const result: GetPageResult = withFile ? page : omit(page, 'file')
+        return result
+      },
+    ),
   getEditPermission: t.procedure
     .meta({
       summary:

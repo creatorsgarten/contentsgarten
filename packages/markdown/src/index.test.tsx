@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest'
+import { test, expect, suite } from 'vitest'
 import { processMarkdown, renderMarkdown } from '.'
 
 test('heading id', () => {
@@ -23,6 +23,17 @@ test('no <html>', () => {
   const md = `# Hello World`
   const html = renderMarkdown(md)
   expect(html).not.toContain('<html>')
+})
+
+suite('directives', () => {
+  test('container', () => {
+    const md = [':::Component', 'children', ':::'].join('\n')
+    const html = renderMarkdown(md)
+    expect(html).toContain(
+      '<markdown-directive type="containerDirective" name="Component">',
+    )
+    expect(html).toContain('children')
+  })
 })
 
 test('heading extraction', () => {

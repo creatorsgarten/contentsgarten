@@ -48,7 +48,8 @@
     "octokit": "^2.0.3",
     "openapi-trpc": "^0.1.2",
     "p-memoize": "^7.1.0",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "@contentsgarten/markdown": "workspace:*"
   },
   "repository": {
     "url": "git+https://github.com/creatorsgarten/contentsgarten"

@@ -170,6 +170,9 @@ importers:
 
   packages/contentsgarten:
     dependencies:
+      '@contentsgarten/markdown':
+        specifier: workspace:*
+        version: link:../markdown
       '@keyv/redis':
         specifier: ^2.5.6
         version: 2.5.7
