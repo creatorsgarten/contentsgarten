@@ -12,6 +12,7 @@ module.exports = {
     'lodash-es',
     'p-memoize',
     'mimic-fn',
+    '@contentsgarten/html',
     '@contentsgarten/markdown',
   ],
   // appDirectory: "app",
