@@ -62,12 +62,12 @@ export const ContentsgartenRouter = t.router({
         render: z.boolean().optional(),
       }),
     )
-    .output(GetPageResult)
+    .output(GetPageResult.merge(z.object({ perf: z.array(z.string()) })))
     .query(
       async ({ input: { pageRef, revalidate, withFile, render }, ctx }) => {
         const page = await getPage(ctx, pageRef, revalidate, render)
         const result: GetPageResult = withFile ? page : omit(page, 'file')
-        return result
+        return { ...result, perf: ctx.perf.toMessageArray() }
       },
     ),
   getEditPermission: t.procedure

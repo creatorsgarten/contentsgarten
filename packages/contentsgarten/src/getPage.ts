@@ -48,7 +48,7 @@ export async function getPage(
 ) {
   if (pageRef.toLowerCase().startsWith('special/')) {
     return getSpecialPage(ctx, pageRef, revalidate).then((result) =>
-      postProcess(result, render),
+      postProcess(ctx, result, render),
     )
   }
 
@@ -151,11 +151,19 @@ export async function getPage(
     lastModified: pageFile.lastModified?.toISOString() || undefined,
     lastModifiedBy: pageFile.lastModifiedBy,
   }
-  return postProcess(result, render)
+  return postProcess(ctx, result, render)
 }
 
-function postProcess(result: GetPageResult, render: boolean): GetPageResult {
-  const rendered = render ? processMarkdown(result.content) : undefined
+async function postProcess(
+  ctx: ContentsgartenRequestContext,
+  result: GetPageResult,
+  render: boolean,
+): Promise<GetPageResult> {
+  const rendered = render
+    ? await ctx.perf.measure('processMarkdown', async () =>
+        processMarkdown(result.content),
+      )
+    : undefined
   return rendered ? { ...result, rendered } : result
 }
 
@@ -177,23 +185,34 @@ export async function getPageFile(
   pageRef: string,
   revalidate = false,
 ) {
-  if (!revalidate) {
-    const cachedPage = await ctx.app.pageDatabase.getCached(pageRef)
-    if (cachedPage) {
-      return cachedPage
-    }
-  }
-  const page = await refreshPageFile(ctx, pageRef)
-  return page
+  return staleOrRevalidate(
+    ctx,
+    `page:${pageRef}`,
+    () =>
+      ctx.perf.measure(`getPageFile(${pageRef})`, async (entry) => {
+        if (!revalidate) {
+          const cachedPage = await ctx.app.pageDatabase.getCached(pageRef)
+          if (cachedPage) {
+            return cachedPage
+          }
+          entry.addInfo('MISS')
+        }
+        const page = await refreshPageFile(ctx, pageRef)
+        return page
+      }),
+    revalidate ? 'revalidate' : 'stale',
+  )
 }
 
 export async function refreshPageFile(
   ctx: ContentsgartenRequestContext,
   pageRef: string,
 ) {
-  const filePath = pageRefToFilePath(ctx, pageRef)
-  const getFileResult = (await ctx.app.storage.getFile(ctx, filePath)) || null
-  return savePageToDatabase(ctx, pageRef, getFileResult)
+  return ctx.perf.measure(`refreshPageFile(${pageRef})`, async (entry) => {
+    const filePath = pageRefToFilePath(ctx, pageRef)
+    const getFileResult = (await ctx.app.storage.getFile(ctx, filePath)) || null
+    return savePageToDatabase(ctx, pageRef, getFileResult)
+  })
 }
 
 export async function savePageToDatabase(
@@ -201,30 +220,32 @@ export async function savePageToDatabase(
   pageRef: string,
   getFileResult: GetFileResult | null,
 ) {
-  return ctx.app.pageDatabase.save(
-    pageRef,
-    getFileResult
-      ? {
-          data: {
-            contents: getFileResult.content.toString('utf8'),
-            revision: getFileResult.revision,
+  return ctx.perf.measure(`savePageToDatabase(${pageRef})`, () =>
+    ctx.app.pageDatabase.save(
+      pageRef,
+      getFileResult
+        ? {
+            data: {
+              contents: getFileResult.content.toString('utf8'),
+              revision: getFileResult.revision,
+            },
+            lastModified: getFileResult.lastModified
+              ? new Date(getFileResult.lastModified)
+              : null,
+            lastModifiedBy: getFileResult.lastModifiedBy ?? [],
+            aux: {
+              frontmatter: matter(getFileResult.content.toString('utf8')).data,
+            },
+          }
+        : {
+            data: null,
+            lastModified: null,
+            lastModifiedBy: [],
+            aux: {
+              frontmatter: {},
+            },
           },
-          lastModified: getFileResult.lastModified
-            ? new Date(getFileResult.lastModified)
-            : null,
-          lastModifiedBy: getFileResult.lastModifiedBy ?? [],
-          aux: {
-            frontmatter: matter(getFileResult.content.toString('utf8')).data,
-          },
-        }
-      : {
-          data: null,
-          lastModified: null,
-          lastModifiedBy: [],
-          aux: {
-            frontmatter: {},
-          },
-        },
+    ),
   )
 }
 
