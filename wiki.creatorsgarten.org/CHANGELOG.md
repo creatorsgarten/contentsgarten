@@ -1,5 +1,17 @@
 # creatorsgarten-wiki
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [cac978d]
+- Updated dependencies [cac978d]
+- Updated dependencies [4fbf8a7]
+  - @contentsgarten/html@1.1.0
+  - contentsgarten@1.5.0
+  - @contentsgarten/client-utils@2.0.0
+  - @contentsgarten/server-utils@6.0.0
+
 ## 0.0.5
 
 ### Patch Changes

@@ -4,6 +4,16 @@
 
 ### Patch Changes
 
+- Updated dependencies [cac978d]
+- Updated dependencies [cac978d]
+- Updated dependencies [4fbf8a7]
+  - @contentsgarten/html@1.1.0
+  - contentsgarten@1.5.0
+
+## null
+
+### Patch Changes
+
 - Updated dependencies [08d7777]
   - contentsgarten@1.4.0
 

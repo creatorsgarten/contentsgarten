@@ -1,5 +1,16 @@
 # contentsgarten
 
+## 1.5.0
+
+### Minor Changes
+
+- cac978d: Added an _experimental_ `getpage` Liquid filter to query the existence of another page or access its front-matter.
+
+### Patch Changes
+
+- 4fbf8a7: Fixed a bug where special pages do not return HTML content despite `render` flag set to true.
+  - @contentsgarten/markdown@1.1.1
+
 ## 1.4.0
 
 ### Minor Changes
