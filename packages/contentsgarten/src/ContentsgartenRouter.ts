@@ -14,10 +14,10 @@ import {
 } from './getPage'
 import { load } from 'js-yaml'
 import { cache } from './cache'
+import { PageRefRegex } from './PageRefRegex'
 
 export { GetPageResult } from './getPage'
-
-export const PageRefRegex = /^[A-Z][A-Za-z0-9_/-]*$/
+export { PageRefRegex }
 export const PageRef = z.string().regex(PageRefRegex)
 
 export const ContentsgartenRouter = t.router({

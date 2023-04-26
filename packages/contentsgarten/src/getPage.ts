@@ -6,6 +6,7 @@ import { PageData } from './ContentsgartenPageDatabase'
 import matter from 'gray-matter'
 import { GetFileResult } from './ContentsgartenStorage'
 import { processMarkdown } from '@contentsgarten/markdown'
+import { PageRefRegex } from './PageRefRegex'
 
 export const GetPageResult = z.object({
   status: z.union([z.literal(200), z.literal(404), z.literal(500)]),
@@ -63,6 +64,22 @@ export async function getPage(
       if (!content) return null
       return matter(content).content
     },
+  })
+  engine.registerFilter('getpage', (pageRef: string) => {
+    pageRef = String(pageRef)
+    if (!PageRefRegex.test(pageRef)) return
+    const promise = getPage(pageRef, false)
+    return {
+      ref: pageRef,
+      exists: promise.then((page) => !!page.data),
+      data: promise.then((page) => {
+        if (!page.data) return
+        return matter(page.data.contents).data
+      }),
+      toString() {
+        return `[Page ${pageRef}]`
+      },
+    }
   })
 
   const { content, frontMatter, status } = await (async () => {

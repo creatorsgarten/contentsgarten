@@ -1,4 +1,8 @@
-import { Html, MarkdownCustomComponents } from '@contentsgarten/html'
+import {
+  Html,
+  MarkdownCustomComponents,
+  isWikiLink,
+} from '@contentsgarten/html'
 import type { GetPageResult } from 'contentsgarten'
 import { FC, ReactNode, Suspense, lazy, useState } from 'react'
 import { TrpcProvider, trpc } from '../utils/trpc'
@@ -53,6 +57,15 @@ export const WikiPageInner: FC<WikiPage> = (props) => {
         )}
         html={rendered.html}
         customComponents={customComponents}
+        renderLink={(props) => (
+          <a
+            {...props}
+            className={clsx(
+              isWikiLink(props) ? 'internal' : 'external',
+              props.className,
+            )}
+          />
+        )}
       />
     </>
   )
