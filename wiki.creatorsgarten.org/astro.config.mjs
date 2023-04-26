@@ -19,7 +19,7 @@ export default defineConfig({
 
   vite: {
     ssr: {
-      external: ['contentsgarten', '@contentsgarten/markdown'],
+      external: ['contentsgarten', '@contentsgarten/html'],
     },
     server: {
       watch: {
