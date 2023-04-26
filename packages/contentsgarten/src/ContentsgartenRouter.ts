@@ -143,6 +143,7 @@ export const ContentsgartenRouter = t.router({
         content: Buffer.from(newContent),
         revision: result.revision,
         lastModified: result.lastModified,
+        lastModifiedBy: result.lastModifiedBy,
       })
       return { revision: result.revision }
     }),

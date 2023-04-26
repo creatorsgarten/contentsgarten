@@ -29,6 +29,7 @@ export interface PutFileOptions {
 export interface PutFileResult {
   revision: string
   lastModified: string
+  lastModifiedBy: string[]
 }
 
 export class GitHubStorage implements ContentsgartenStorage {
@@ -108,6 +109,9 @@ export class GitHubStorage implements ContentsgartenStorage {
     return {
       revision: data.content!.sha!,
       lastModified: data.commit!.author!.date!,
+      lastModifiedBy: options.userId
+        ? [await resolveGitHubUsernameFromId(ctx, octokit, options.userId)]
+        : [],
     }
   }
 
