@@ -13,7 +13,6 @@ module.exports = {
     'p-memoize',
     'mimic-fn',
     '@contentsgarten/html',
-    '@contentsgarten/markdown',
   ],
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",

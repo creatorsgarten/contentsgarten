@@ -13,9 +13,9 @@ importers:
 
   contentsgarten.netlify.app:
     dependencies:
-      '@contentsgarten/markdown':
+      '@contentsgarten/html':
         specifier: workspace:*
-        version: link:../packages/markdown
+        version: link:../packages/html
       '@netlify/functions':
         specifier: ^1.0.0
         version: 1.4.0
