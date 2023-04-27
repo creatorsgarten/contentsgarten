@@ -2,7 +2,7 @@ import { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { createLiquidEngine } from './createLiquidEngine'
 import { z } from 'zod'
 import { staleOrRevalidate } from './cache'
-import { PageData } from './ContentsgartenPageDatabase'
+import { PageData, PageAuxiliaryData } from './ContentsgartenPageDatabase'
 import matter from 'gray-matter'
 import { GetFileResult } from './ContentsgartenStorage'
 import { processMarkdown } from '@contentsgarten/markdown'
@@ -90,8 +90,16 @@ export async function getPage(
 
   const { content, frontMatter, status, targetPageRef } = await (async () => {
     if (!pageFile.data) {
+      const similarlyNamedPages = await ctx.perf.measure('checkTypo', () =>
+        ctx.app.pageDatabase.checkTypo(normalizePageRef(pageRef)),
+      )
       return {
-        content: '(This page currently does not exist.)',
+        content:
+          '(This page currently does not exist.)' +
+          (similarlyNamedPages.length > 0
+            ? '\n\nDid you mean one of these pages?\n\n' +
+              similarlyNamedPages.map((page) => `- [[${page}]]`).join('\n')
+            : ''),
         frontMatter: {},
         status: 404,
       } as const
@@ -233,20 +241,56 @@ export async function savePageToDatabase(
               ? new Date(getFileResult.lastModified)
               : null,
             lastModifiedBy: getFileResult.lastModifiedBy ?? [],
-            aux: {
-              frontmatter: matter(getFileResult.content.toString('utf8')).data,
-            },
+            aux: getAux(
+              pageRef,
+              matter(getFileResult.content.toString('utf8')).data,
+            ),
           }
         : {
             data: null,
             lastModified: null,
             lastModifiedBy: [],
-            aux: {
-              frontmatter: {},
-            },
+            aux: { frontmatter: {} },
           },
     ),
   )
+}
+
+function getAux(pageRef: string, frontMatter: any): PageAuxiliaryData {
+  return {
+    frontmatter: frontMatter,
+    keyValues: getKeyValues(frontMatter),
+    normalized: normalizePageRef(pageRef),
+  }
+}
+
+function normalizePageRef(pageRef: string): string {
+  return pageRef.replace(/[_-]/g, '').toLowerCase()
+}
+
+function getKeyValues(frontMatter: any): string[] {
+  const keyValues = new Set<string>()
+  const traverse = (object: any, path: string[] = []): any => {
+    if (
+      (typeof object === 'string' ||
+        typeof object === 'number' ||
+        typeof object === 'boolean' ||
+        typeof object === 'bigint') &&
+      path.length > 0
+    ) {
+      keyValues.add(path.join('.') + '=' + object)
+    } else if (Array.isArray(object)) {
+      for (const item of object) {
+        traverse(item, path)
+      }
+    } else if (typeof object === 'object' && object) {
+      for (const [key, value] of Object.entries(object)) {
+        traverse(value, [...path, key])
+      }
+    }
+  }
+  traverse(frontMatter)
+  return Array.from(keyValues).sort()
 }
 
 export async function getSpecialPage(

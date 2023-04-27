@@ -14,11 +14,13 @@ import {
 } from './getPage'
 import { load } from 'js-yaml'
 import { cache } from './cache'
-import { PageRefRegex } from './PageRefRegex'
+import { LaxPageRefRegex, PageRefRegex } from './PageRefRegex'
+import { PageDatabaseQuery } from './ContentsgartenPageDatabase'
 
 export { GetPageResult } from './getPage'
 export { PageRefRegex }
 export const PageRef = z.string().regex(PageRefRegex)
+export const LaxPageRef = z.string().regex(LaxPageRefRegex)
 
 export const ContentsgartenRouter = t.router({
   about: t.procedure
@@ -56,7 +58,7 @@ export const ContentsgartenRouter = t.router({
     .meta({ summary: 'Returns the page information' })
     .input(
       z.object({
-        pageRef: PageRef,
+        pageRef: LaxPageRef,
         withFile: z.boolean().default(true),
         revalidate: z.boolean().optional(),
         render: z.boolean().optional(),
@@ -146,6 +148,15 @@ export const ContentsgartenRouter = t.router({
         lastModifiedBy: result.lastModifiedBy,
       })
       return { revision: result.revision }
+    }),
+  query: t.procedure
+    .meta({
+      summary:
+        'Runs a query against the pages in database. Most recently updated pages are returned first.',
+    })
+    .input(PageDatabaseQuery)
+    .query(async ({ input, ctx }) => {
+      return await ctx.app.pageDatabase.queryPages(input)
     }),
 })
 

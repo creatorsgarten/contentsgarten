@@ -75,6 +75,14 @@ export namespace testing {
             lastModified: a.lastModified,
           }))
       },
+      async queryPages() {
+        return {
+          results: [],
+        }
+      },
+      async checkTypo() {
+        return []
+      },
     }
   }
 
