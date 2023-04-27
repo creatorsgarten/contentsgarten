@@ -1,8 +1,12 @@
 import { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { createLiquidEngine } from './createLiquidEngine'
 import { z } from 'zod'
-import { staleOrRevalidate } from './cache'
-import { PageData, PageAuxiliaryData } from './ContentsgartenPageDatabase'
+import { cache, staleOrRevalidate } from './cache'
+import {
+  PageData,
+  PageAuxiliaryData,
+  PageDatabaseQuery,
+} from './ContentsgartenPageDatabase'
 import matter from 'gray-matter'
 import { GetFileResult } from './ContentsgartenStorage'
 import { processMarkdown } from '@contentsgarten/markdown'
@@ -71,7 +75,7 @@ export async function getPage(
       return matter(content).content
     },
   })
-  engine.registerFilter('getpage', (pageRef: string) => {
+  engine.registerFilter('get_page', (pageRef: string) => {
     pageRef = String(pageRef)
     if (!PageRefRegex.test(pageRef)) return
     const promise = getPage(pageRef, false)
@@ -86,6 +90,34 @@ export async function getPage(
         return `[Page ${pageRef}]`
       },
     }
+  })
+
+  const queryPages = async (query: PageDatabaseQuery) => {
+    const results = await cache(
+      ctx,
+      'query:' + JSON.stringify(query),
+      () => ctx.app.pageDatabase.queryPages(query),
+      60e3,
+    )
+    return results.results.map((p) => {
+      return {
+        ref: p.pageRef,
+        exists: true,
+        data: p.frontMatter,
+        toString() {
+          return `[Page ${p.pageRef}]`
+        },
+      }
+    })
+  }
+  engine.registerFilter('get_subpages', (pageRef: string) => {
+    pageRef = String(pageRef)
+    if (!PageRefRegex.test(pageRef)) return
+    return queryPages({ prefix: pageRef + '/' })
+  })
+  engine.registerFilter('query_pages', async (q: string) => {
+    const query = PageDatabaseQuery.parse(JSON.parse(q))
+    return queryPages(query)
   })
 
   const { content, frontMatter, status, targetPageRef } = await (async () => {
