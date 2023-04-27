@@ -2,4 +2,4 @@
 'contentsgarten': minor
 ---
 
-Add ability to query page data
+Add a `query` API to query pages from the page database.
