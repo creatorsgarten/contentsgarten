@@ -1,5 +1,5 @@
 import parse, { HTMLReactParserOptions, domToReact } from 'html-react-parser'
-import { Children, FC, useMemo } from 'react'
+import { Children, FC, HTMLAttributes, useMemo } from 'react'
 
 export type DirectiveType =
   | 'containerDirective'
@@ -22,6 +22,7 @@ export interface Html {
   html: string
   customComponents?: MarkdownCustomComponents
   renderLink?: (props: LinkProps) => JSX.Element
+  renderCode?: (props: HTMLAttributes<HTMLElement>) => JSX.Element
 }
 
 export function isWikiLink(props: { href: string }) {
@@ -39,6 +40,26 @@ export const Html: FC<Html> = (props) => {
         const { attribs, children } = domNode
         if (domNode.name === 'a') return replaceLink()
         if (domNode.name === 'markdown-directive') return replaceDirective()
+        if (domNode.name === 'code') return replaceCode()
+
+        function replaceCode() {
+          const element = Children.only(domToReact([domNode], {
+            ...options,
+            replace(node) {
+              if (
+                node.type === 'tag' &&
+                'name' in node &&
+                node.name === 'a'
+              ) {
+                // Don't replace links twice.
+                return
+              }
+              return options.replace?.(node)
+            }
+          }))
+          if (typeof element !== 'object') return
+          return props.renderCode?.(element.props) || undefined
+        }
 
         function replaceLink() {
           const href = attribs.href
