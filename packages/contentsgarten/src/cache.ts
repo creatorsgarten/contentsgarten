@@ -6,14 +6,17 @@ export async function cache<T>(
   f: () => Promise<T>,
   ttl: number,
 ): Promise<T> {
-  return ctx.app.queryClient.fetchQuery({
-    queryKey: ['cache', cacheKey],
-    queryFn: async () => {
-      const result = await f()
-      return result
-    },
-    staleTime: ttl,
-  })
+  return ctx.perf.measure(`cache(${cacheKey}, ttl=${ttl})`, (e) =>
+    ctx.app.queryClient.fetchQuery({
+      queryKey: ['cache', cacheKey],
+      queryFn: async () => {
+        e.addInfo('MISS')
+        const result = await f()
+        return result
+      },
+      staleTime: ttl,
+    }),
+  )
 }
 
 export async function staleOrRevalidate<T>(

@@ -6,6 +6,7 @@ import { QueryClient } from '@tanstack/query-core'
 import type { ContentsgartenConfig } from './ContentsgartenConfig'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { ContentsgartenRouter } from './ContentsgartenRouter'
+import { PerfContextImpl } from './PerfContextImpl'
 
 export class Contentsgarten {
   private globalContext: ContentsgartenAppContext
@@ -27,6 +28,7 @@ export class Contentsgarten {
         defaultOptions: { queries: { staleTime: Infinity } },
       }),
       authToken: input.authToken,
+      perf: new PerfContextImpl(),
     }
   }
 }
