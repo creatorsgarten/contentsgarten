@@ -5,6 +5,7 @@ import { cache, staleOrRevalidate } from './cache'
 import {
   PageData,
   PageAuxiliaryData,
+  PageDatabaseSearch,
   PageDatabaseQuery,
 } from './ContentsgartenPageDatabase'
 import matter from 'gray-matter'
@@ -116,7 +117,7 @@ export async function getPage(
     return queryPages({ prefix: pageRef + '/' })
   })
   engine.registerFilter('query_pages', async (q: string) => {
-    const query = PageDatabaseQuery.parse(JSON.parse(q))
+    const query = PageDatabaseSearch.parse(JSON.parse(q))
     return queryPages(query)
   })
 
