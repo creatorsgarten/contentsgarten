@@ -4,7 +4,6 @@ import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
 import { FC, useMemo } from 'react'
 import { Html } from '@contentsgarten/html'
 import type { MarkdownCustomComponents } from '@contentsgarten/html'
-import { rehypeOembed } from '@contentsgarten/rehype-oembed'
 import { Directive } from 'micromark-extension-directive/lib/html'
 import * as wikiLink from 'micromark-extension-wiki-link'
 import { rehype } from 'rehype'
@@ -128,7 +127,6 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
     .data('settings', { fragment: true })
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
-    .use(rehypeOembed)
     .use(() => (tree) => {
       visit(tree, 'element', (node) => {
         const rank = headingRank(node)

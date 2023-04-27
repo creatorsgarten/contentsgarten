@@ -46,8 +46,7 @@
     "react": "^18.0.0"
   },
   "dependencies": {
-    "@contentsgarten/html": "workspace:*",
-    "@contentsgarten/rehype-oembed": "workspace:*"
+    "@contentsgarten/html": "workspace:*"
   },
   "repository": {
     "url": "git+https://github.com/creatorsgarten/contentsgarten"
