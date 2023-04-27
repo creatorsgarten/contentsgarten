@@ -49,7 +49,7 @@ export const Html: FC<Html> = (props) => {
               if (
                 node.type === 'tag' &&
                 'name' in node &&
-                node.name === 'a'
+                node.name === 'code'
               ) {
                 // Don't replace links twice.
                 return
