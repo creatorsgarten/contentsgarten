@@ -362,9 +362,6 @@ importers:
       unist-util-select:
         specifier: ^4.0.3
         version: 4.0.3
-      wretch:
-        specifier: ^2.5.2
-        version: 2.5.2
     devDependencies:
       '@tsconfig/node18':
         specifier: ^2.0.0
@@ -372,9 +369,6 @@ importers:
       '@types/hast':
         specifier: ^2.3.4
         version: 2.3.4
-      '@types/node':
-        specifier: ^18.15.3
-        version: 18.15.11
       tsup:
         specifier: ^6.6.3
         version: 6.7.0(typescript@5.0.4)
@@ -13110,11 +13104,6 @@ packages:
 
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
-
-  /wretch@2.5.2:
-    resolution: {integrity: sha512-6Pd1GvoNYzf17WH1jggzsq8E00UQqiO0kJvLS1dmIEnX8IE0zBfd77Sid5IqTGYVKhad88ygTudbvHdsvPvmCA==}
-    engines: {node: '>=14'}
-    dev: false
 
   /ws@7.5.9:
     resolution: {integrity: sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==}
