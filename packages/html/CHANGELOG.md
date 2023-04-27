@@ -1,5 +1,11 @@
 # @contentsgarten/html
 
+## 1.2.0
+
+### Minor Changes
+
+- 1010b18: Added `renderCode` option to the Html component to allow customize the rendering.
+
 ## 1.1.0
 
 ### Minor Changes

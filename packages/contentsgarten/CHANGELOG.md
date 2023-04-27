@@ -1,5 +1,21 @@
 # contentsgarten
 
+## 1.6.0
+
+### Minor Changes
+
+- f47e19a: **Syntax change:** The `getpage` filter has been renamed to `get_page`.
+- aebab74: The `view` method now returns a `perf` array which contains the performance logs
+- cfd983a: Added redirection support. By setting `redirect: target` in the frontmatter, will cause `status` to be 301 and `targetPageRef` to be the page to redirect to. Consumers should handle this new status and redirect the user accordingly. Consumers can choose to handle `?redirect=no` to prevent redirection (thus allowing the page to be easily edited) like in MediaWiki.
+- aebab74: Add a `query` API to query pages from the page database.
+- f47e19a: Added `get_subpages` and `query_pages` Liquid filters.
+- cfd983a: **Syntax change:** The [`jekyllInclude`](https://liquidjs.com/tutorials/options.html#Jekyll-include) option in Liquid.js has been turned off.
+
+### Patch Changes
+
+- cfd983a: Fixed a bug where authorship information is temporarily lost when saving a page.
+  - @contentsgarten/markdown@1.1.2
+
 ## 1.5.0
 
 ### Minor Changes

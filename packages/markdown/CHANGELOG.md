@@ -1,5 +1,12 @@
 # @contentsgarten/markdown
 
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies [1010b18]
+  - @contentsgarten/html@1.2.0
+
 ## 1.1.1
 
 ### Patch Changes

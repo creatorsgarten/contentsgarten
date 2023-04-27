@@ -1,5 +1,18 @@
 # @contentsgarten/server-utils
 
+## 7.0.0
+
+### Patch Changes
+
+- Updated dependencies [f47e19a]
+- Updated dependencies [cfd983a]
+- Updated dependencies [aebab74]
+- Updated dependencies [cfd983a]
+- Updated dependencies [aebab74]
+- Updated dependencies [f47e19a]
+- Updated dependencies [cfd983a]
+  - contentsgarten@1.6.0
+
 ## 6.0.0
 
 ### Patch Changes
