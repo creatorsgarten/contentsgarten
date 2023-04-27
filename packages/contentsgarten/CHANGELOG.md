@@ -1,5 +1,11 @@
 # contentsgarten
 
+## 1.7.0
+
+### Minor Changes
+
+- 060294f: **Syntax change:** `query` method to be changed to `search` instead due to method conflicts with `@trpc/client`
+
 ## 1.6.0
 
 ### Minor Changes

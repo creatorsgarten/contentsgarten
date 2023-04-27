@@ -1,6 +1,6 @@
 {
   "name": "wiki.wonderful.software",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "scripts": {
     "dev": "next dev -p ${PORT:-2023}",
