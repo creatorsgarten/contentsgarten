@@ -3,10 +3,8 @@ export interface OembedProvider {
   provider_url: string
   endpoints: {
     // glob
-    schemes?: string[]
+    schemes: string[]
     // api
     url: string
-    discovery?: boolean
-    formats?: string[]
   }[]
 }

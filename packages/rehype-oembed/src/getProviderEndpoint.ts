@@ -1,9 +1,9 @@
-import { oembedProviders } from './constants/oembedProviders'
+import { OembedProvider } from "./@types/OembedProvider"
 
-export const getProviderEndpoint = (url: string) => {
+export const getProviderEndpoint = (url: string, providers: OembedProvider[]) => {
   let transformedEndpoint = undefined
 
-  for (const provider of oembedProviders || []) {
+  for (const provider of providers || []) {
     for (const endpoint of provider.endpoints || []) {
       for (let schema of endpoint.schemes || []) {
         if (transformedEndpoint === undefined) {
