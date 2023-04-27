@@ -1,5 +1,22 @@
 # creatorsgarten-wiki
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [f47e19a]
+- Updated dependencies [cfd983a]
+- Updated dependencies [aebab74]
+- Updated dependencies [cfd983a]
+- Updated dependencies [1010b18]
+- Updated dependencies [aebab74]
+- Updated dependencies [f47e19a]
+- Updated dependencies [cfd983a]
+  - contentsgarten@1.6.0
+  - @contentsgarten/html@1.2.0
+  - @contentsgarten/client-utils@2.0.0
+  - @contentsgarten/server-utils@7.0.0
+
 ## 0.0.6
 
 ### Patch Changes
