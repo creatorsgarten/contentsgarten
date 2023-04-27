@@ -6,7 +6,7 @@ import { escapeRegExp } from 'lodash-es'
 const PageCollection = defineCollectionSchema<PageDoc>('pages')
 const currentCacheVersion = 'v3'
 
-export const PageDatabaseQuery = z.object({
+export const PageDatabaseSearch = z.object({
   match: z
     .record(z.union([z.string(), z.array(z.string())]))
     .optional()
@@ -22,7 +22,7 @@ export const PageDatabaseQuery = z.object({
       'Only return pages with this prefix. The prefix must end with a slash.',
     ),
 })
-export type PageDatabaseQuery = z.infer<typeof PageDatabaseQuery>
+export type PageDatabaseQuery = z.infer<typeof PageDatabaseSearch>
 export interface PageDatabaseQueryResult {
   count: number
   results: PageDatabaseQueryResultItem[]

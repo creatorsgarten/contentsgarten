@@ -15,7 +15,7 @@ import {
 import { load } from 'js-yaml'
 import { cache } from './cache'
 import { LaxPageRefRegex, PageRefRegex } from './PageRefRegex'
-import { PageDatabaseQuery } from './ContentsgartenPageDatabase'
+import { PageDatabaseSearch } from './ContentsgartenPageDatabase'
 
 export { GetPageResult } from './getPage'
 export { PageRefRegex }
@@ -149,12 +149,12 @@ export const ContentsgartenRouter = t.router({
       })
       return { revision: result.revision }
     }),
-  query: t.procedure
+  search: t.procedure
     .meta({
       summary:
         'Runs a query against the pages in database. Most recently updated pages are returned first.',
     })
-    .input(PageDatabaseQuery)
+    .input(PageDatabaseSearch)
     .query(async ({ input, ctx }) => {
       return await ctx.app.pageDatabase.queryPages(input)
     }),
