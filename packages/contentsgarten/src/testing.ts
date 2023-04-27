@@ -77,6 +77,7 @@ export namespace testing {
       },
       async queryPages() {
         return {
+          count: 0,
           results: [],
         }
       },
