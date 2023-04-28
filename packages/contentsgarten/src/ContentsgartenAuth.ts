@@ -87,7 +87,7 @@ export class GitHubFirebaseAuth implements ContentsgartenAuth {
     authToken: string,
   ): Promise<AuthState> {
     const result = await jwtVerify(authToken, customJwks.jwks)
-    const id = +get(result.payload, ['connections', 'github'])
+    const id = +get(result.payload, ['connections', 'github', 'id'])
     if (!id) {
       return {
         authenticated: false,
