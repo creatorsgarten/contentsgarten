@@ -27,6 +27,7 @@ export function createContentsgarten(
         app: gitHubApp,
       },
       firebase: config.firebase,
+      customJwtAuth: config.customJwtAuth,
     }),
     teamResolver: new GitHubTeamResolver(gitHubApp),
     pageFileExtension: config.pageFileExtension,

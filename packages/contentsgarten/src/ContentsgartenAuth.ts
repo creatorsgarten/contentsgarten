@@ -2,13 +2,36 @@ import { get } from 'lodash-es'
 import type { GitHubApp } from './GitHubApp'
 import { verifyFirebaseIdToken } from './verifyFirebaseIdToken'
 import { z } from 'zod'
+import {
+  JSONWebKeySet,
+  createLocalJWKSet,
+  decodeProtectedHeader,
+  jwtVerify,
+} from 'jose'
 
 export interface ContentsgartenAuth {
   getAuthState(authToken?: string): Promise<AuthState>
 }
 
+interface CustomJwks {
+  jwks: ReturnType<typeof createLocalJWKSet>
+  kids: Set<string>
+}
+
 export class GitHubFirebaseAuth implements ContentsgartenAuth {
-  constructor(private config: GitHubFirebaseAuthConfig) {}
+  private customJwks?: CustomJwks
+  constructor(private config: GitHubFirebaseAuthConfig) {
+    if (config.customJwtAuth) {
+      this.customJwks = {
+        jwks: createLocalJWKSet(config.customJwtAuth.jwks),
+        kids: new Set(
+          config.customJwtAuth.jwks.keys
+            .map((key) => key.kid!)
+            .filter((x) => x),
+        ),
+      }
+    }
+  }
   async getAuthState(authToken?: string | undefined): Promise<AuthState> {
     try {
       if (!authToken) {
@@ -17,6 +40,17 @@ export class GitHubFirebaseAuth implements ContentsgartenAuth {
           reason: 'No credential provided',
         }
       }
+
+      // Special case - handle custom JWT
+      const decoded = decodeProtectedHeader(authToken)
+      if (
+        decoded.alg === 'RS256' &&
+        decoded.kid &&
+        this.customJwks?.kids.has(decoded.kid)
+      ) {
+        return this.checkCustom(this.customJwks, authToken)
+      }
+
       const projectId = this.config.firebase.projectId
       const result = await verifyFirebaseIdToken(projectId, authToken)
       const id = +get(result.payload, [
@@ -45,6 +79,26 @@ export class GitHubFirebaseAuth implements ContentsgartenAuth {
         authenticated: false,
         reason: `Error while verifying credential: ${error}`,
       }
+    }
+  }
+
+  private async checkCustom(
+    customJwks: CustomJwks,
+    authToken: string,
+  ): Promise<AuthState> {
+    const result = await jwtVerify(authToken, customJwks.jwks)
+    const id = +get(result.payload, ['connections', 'github'])
+    if (!id) {
+      return {
+        authenticated: false,
+        reason: 'The current user did not log in with GitHub',
+      }
+    }
+    const name = get(result.payload, ['name']) as string
+    const uid = String(get(result.payload, ['uid']) as string)
+    return {
+      authenticated: true,
+      user: { id, name, uid },
     }
   }
 }
@@ -78,5 +132,8 @@ export interface GitHubFirebaseAuthConfig {
     apiKey: string
     authDomain: string
     projectId: string
+  }
+  customJwtAuth?: {
+    jwks: JSONWebKeySet
   }
 }

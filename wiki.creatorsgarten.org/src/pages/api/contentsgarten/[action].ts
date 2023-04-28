@@ -49,6 +49,18 @@ export function getInstance() {
       database: 'creatorsgarten_wiki',
     },
     pageFileExtension: '.md',
+    customJwtAuth: {
+      jwks: {
+        keys: [
+          {
+            kid: 'riffy1',
+            kty: 'RSA',
+            n: 'jwkfv-nTypGWr4bH1Ewddm4X_cIB8b6G3NmHCMW4Hlu2frBSR7-iDf2ilk6Y5sBoeeVMikuJrx2EyokfnsB6J-uok6XauwVa1UCQ9Blnv9yPuSaM-Lyvdo7PFLpLX7f68-sLSzuNxv51fL8VW8OpnTo0kMLRTGB9FwYGrDcsq_h0reCRdPKxiypiPiKOe106YO0eTKtm5m4Jw6hIE26x2-s09SB7Uh-d8700RomOCKXdKuXR5cFx5B37JZuvHxaGd16hZq6_ok5bnu0NQSkeEfNMRQ03xLjs7OZWKLs056HGrP_17HhaPzd2ceoGsWSmDIFMOEjFTUwUtkMPGyAmdw',
+            e: 'AQAB',
+          },
+        ],
+      },
+    },
   })
   instance = contentsgarten
   return contentsgarten
