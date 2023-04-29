@@ -57,7 +57,9 @@ export async function getPage(
     )
   }
 
-  const filePath = pageRefToFilePath(ctx, pageRef)
+  const filePath = PageRefRegex.test(pageRef)
+    ? pageRefToFilePath(ctx, pageRef)
+    : null
 
   const pagePromises = new Map<string, Promise<PageData>>()
   const getPage = (pageRef: string, revalidate: boolean) => {
@@ -181,11 +183,13 @@ export async function getPage(
     pageRef,
     targetPageRef,
     title: pageRef,
-    file: {
+    file: filePath
+      ? {
       path: filePath,
       revision: pageFile.data?.revision || undefined,
       content: pageFile.data?.contents || '',
-    },
+        }
+      : undefined,
     content,
     frontMatter,
     status,
