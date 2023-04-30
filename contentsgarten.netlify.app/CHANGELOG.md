@@ -4,6 +4,14 @@
 
 ### Patch Changes
 
+- Updated dependencies [4e5fa18]
+- Updated dependencies [4e5fa18]
+  - contentsgarten@1.8.0
+
+## null
+
+### Patch Changes
+
 - Updated dependencies [060294f]
   - contentsgarten@1.7.0
 

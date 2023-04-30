@@ -1,5 +1,18 @@
 # contentsgarten
 
+## 1.8.0
+
+### Minor Changes
+
+- 4e5fa18: Search API: Added ability to search by `pageRef`.
+
+  - `{"pageRef":"MainPage"}` — Looks up a single page.
+  - `{"pageRef":["MainPage","Syntax"]}` — Looks up multiple pages.
+
+- 4e5fa18: Search API: Added ability to match pages that contains a property (of any value).
+
+  - `{"match":{"event":true}}` — Looks up pages that have an `event` property with any value.
+
 ## 1.7.0
 
 ### Minor Changes
