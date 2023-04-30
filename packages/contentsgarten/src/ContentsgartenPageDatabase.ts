@@ -8,10 +8,15 @@ const currentCacheVersion = 'v3'
 
 export const PageDatabaseSearch = z.object({
   match: z
-    .record(z.union([z.string(), z.array(z.string())]))
+    .record(z.union([z.string(), z.array(z.string()), z.literal(true)]))
     .optional()
     .describe(
-      'Only return pages that have front-matter matching these properties.',
+      'Only return pages that have front-matter matching these properties. ' +
+        'The key specifies the property path, dot-separated (e.g. "title" or "foo.bar"). ' +
+        'The value specifies the condition. ' +
+        'If the value is a string, it must match the property value exactly (note that property values are automatically converted to string when indexed). ' +
+        'If the value is an array, the property value must be one of the values in the array. ' +
+        'If the value is true, the property must exist.',
     ),
   prefix: z
     .string()
@@ -174,6 +179,9 @@ function compileQuery(input: PageDatabaseQuery): any {
         const f = (v: string) => `${key}=${v}`
         if (Array.isArray(value)) {
           return { 'aux.keyValues': { $in: value.map(f) } }
+        }
+        if (value === true) {
+          return { 'aux.keyValues': `${key}:*` }
         }
         return { 'aux.keyValues': f(value) }
       }),

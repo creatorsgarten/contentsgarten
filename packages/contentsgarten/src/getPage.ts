@@ -185,9 +185,9 @@ export async function getPage(
     title: pageRef,
     file: filePath
       ? {
-      path: filePath,
-      revision: pageFile.data?.revision || undefined,
-      content: pageFile.data?.contents || '',
+          path: filePath,
+          revision: pageFile.data?.revision || undefined,
+          content: pageFile.data?.contents || '',
         }
       : undefined,
     content,
@@ -324,6 +324,11 @@ function getKeyValues(frontMatter: any): string[] {
       for (const [key, value] of Object.entries(object)) {
         traverse(value, [...path, key])
       }
+    }
+
+    // Add an index to check for existence of a key
+    if (path.length > 0) {
+      keyValues.add(path.join('.') + ':*')
     }
   }
   traverse(frontMatter)
