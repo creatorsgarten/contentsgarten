@@ -26,6 +26,13 @@ export const PageDatabaseSearch = z.object({
     .describe(
       'Only return pages with this prefix. The prefix must end with a slash.',
     ),
+  pageRef: z
+    .union([
+      z.string().regex(PageRefRegex),
+      z.array(z.string().regex(PageRefRegex)),
+    ])
+    .optional()
+    .describe('Only return pages with these refs. Can be an array.'),
 })
 export type PageDatabaseQuery = z.infer<typeof PageDatabaseSearch>
 export interface PageDatabaseQueryResult {
@@ -190,6 +197,13 @@ function compileQuery(input: PageDatabaseQuery): any {
   if (input.prefix) {
     ands.push({
       _id: { $regex: `^${escapeRegExp(input.prefix)}` },
+    })
+  }
+  if (input.pageRef) {
+    ands.push({
+      _id: {
+        $in: Array.isArray(input.pageRef) ? input.pageRef : [input.pageRef],
+      },
     })
   }
   return { $and: ands }
