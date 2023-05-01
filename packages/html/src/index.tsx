@@ -22,7 +22,7 @@ export interface Html {
   html: string
   customComponents?: MarkdownCustomComponents
   renderLink?: (props: LinkProps) => JSX.Element
-  renderCode?: (props: HTMLAttributes<HTMLElement>) => JSX.Element
+  renderImage?: (props: HTMLAttributes<HTMLImageElement>) => JSX.Element
 }
 
 export function isWikiLink(props: { href: string }) {
@@ -49,7 +49,7 @@ export const Html: FC<Html> = (props) => {
               if (
                 node.type === 'tag' &&
                 'name' in node &&
-                node.name === 'code'
+                node.name === 'img'
               ) {
                 // Don't replace links twice.
                 return
@@ -58,7 +58,7 @@ export const Html: FC<Html> = (props) => {
             }
           }))
           if (typeof element !== 'object') return
-          return props.renderCode?.(element.props) || undefined
+          return props.renderImage?.(element.props) || undefined
         }
 
         function replaceLink() {
