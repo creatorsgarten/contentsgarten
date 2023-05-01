@@ -1,5 +1,11 @@
 # @contentsgarten/server-utils
 
+## 9.0.1
+
+### Patch Changes
+
+- contentsgarten@1.8.1
+
 ## 9.0.0
 
 ### Patch Changes

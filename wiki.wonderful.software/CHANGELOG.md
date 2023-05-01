@@ -1,5 +1,14 @@
 # wiki.wonderful.software
 
+## 0.1.9
+
+### Patch Changes
+
+- @contentsgarten/markdown@1.1.3
+- contentsgarten@1.8.1
+- @contentsgarten/client-utils@2.0.0
+- @contentsgarten/server-utils@9.0.1
+
 ## 0.1.8
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # contentsgarten
 
+## 1.8.1
+
+### Patch Changes
+
+- @contentsgarten/markdown@1.1.3
+
 ## 1.8.0
 
 ### Minor Changes
