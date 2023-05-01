@@ -40,9 +40,9 @@ export const Html: FC<Html> = (props) => {
         const { attribs, children } = domNode
         if (domNode.name === 'a') return replaceLink()
         if (domNode.name === 'markdown-directive') return replaceDirective()
-        if (domNode.name === 'code') return replaceCode()
+        if (domNode.name === 'img') return replaceImage()
 
-        function replaceCode() {
+        function replaceImage() {
           const element = Children.only(domToReact([domNode], {
             ...options,
             replace(node) {
