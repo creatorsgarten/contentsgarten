@@ -1,5 +1,11 @@
 # creatorsgarten-wiki
 
+## 0.1.0
+
+### Minor Changes
+
+- 425c36b: Prevent wiki.creators from indexing, content duplication with creatorsgarten.org/wiki
+
 ## 0.0.10
 
 ### Patch Changes
