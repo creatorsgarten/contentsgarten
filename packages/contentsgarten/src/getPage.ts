@@ -1,7 +1,7 @@
 import { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { createLiquidEngine } from './createLiquidEngine'
 import { z } from 'zod'
-import { cache, staleOrRevalidate } from './cache'
+import { cache, invalidateCache, staleOrRevalidate } from './cache'
 import {
   PageData,
   PageAuxiliaryData,
@@ -247,6 +247,13 @@ export async function getPageFile(
       }),
     revalidate ? 'revalidate' : 'stale',
   )
+}
+
+export async function invalidateCachedPageFile(
+  ctx: ContentsgartenRequestContext,
+  pageRef: string,
+) {
+  return invalidateCache(ctx, `page:${pageRef}`)
 }
 
 export async function refreshPageFile(

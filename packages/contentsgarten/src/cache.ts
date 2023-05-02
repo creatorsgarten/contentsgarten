@@ -27,3 +27,10 @@ export async function staleOrRevalidate<T>(
 ): Promise<T> {
   return cache(ctx, cacheKey, f, mode === 'stale' ? Infinity : 0)
 }
+
+export async function invalidateCache(
+  ctx: ContentsgartenRequestContext,
+  cacheKey: string,
+) {
+  await ctx.app.queryClient.invalidateQueries(['cache', cacheKey])
+}

@@ -9,6 +9,7 @@ import { omit } from 'lodash-es'
 import {
   GetPageResult,
   getPage,
+  invalidateCachedPageFile,
   pageRefToFilePath,
   savePageToDatabase,
 } from './getPage'
@@ -147,6 +148,7 @@ export const ContentsgartenRouter = t.router({
         lastModified: result.lastModified,
         lastModifiedBy: result.lastModifiedBy,
       })
+      await invalidateCachedPageFile(ctx, pageRef)
       return { revision: result.revision }
     }),
   search: t.procedure
