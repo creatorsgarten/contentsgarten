@@ -13,25 +13,8 @@ export interface ContentsgartenAuth {
   getAuthState(authToken?: string): Promise<AuthState>
 }
 
-interface CustomJwks {
-  jwks: ReturnType<typeof createLocalJWKSet>
-  kids: Set<string>
-}
-
 export class GitHubFirebaseAuth implements ContentsgartenAuth {
-  private customJwks?: CustomJwks
-  constructor(private config: GitHubFirebaseAuthConfig) {
-    if (config.customJwtAuth) {
-      this.customJwks = {
-        jwks: createLocalJWKSet(config.customJwtAuth.jwks),
-        kids: new Set(
-          config.customJwtAuth.jwks.keys
-            .map((key) => key.kid!)
-            .filter((x) => x),
-        ),
-      }
-    }
-  }
+  constructor(private config: GitHubFirebaseAuthConfig) {}
   async getAuthState(authToken?: string | undefined): Promise<AuthState> {
     try {
       if (!authToken) {
@@ -39,16 +22,6 @@ export class GitHubFirebaseAuth implements ContentsgartenAuth {
           authenticated: false,
           reason: 'No credential provided',
         }
-      }
-
-      // Special case - handle custom JWT
-      const decoded = decodeProtectedHeader(authToken)
-      if (
-        decoded.alg === 'RS256' &&
-        decoded.kid &&
-        this.customJwks?.kids.has(decoded.kid)
-      ) {
-        return this.checkCustom(this.customJwks, authToken)
       }
 
       const projectId = this.config.firebase.projectId
@@ -81,12 +54,40 @@ export class GitHubFirebaseAuth implements ContentsgartenAuth {
       }
     }
   }
+}
 
-  private async checkCustom(
-    customJwks: CustomJwks,
-    authToken: string,
-  ): Promise<AuthState> {
-    const result = await jwtVerify(authToken, customJwks.jwks)
+export class CustomAuth implements ContentsgartenAuth {
+  private jwks: ReturnType<typeof createLocalJWKSet>
+  private kids: Set<string>
+
+  constructor(private config: { jwks: JSONWebKeySet }) {
+    this.jwks = createLocalJWKSet(config.jwks)
+    this.kids = new Set(
+      config.jwks.keys.map((key) => key.kid!).filter((x) => x),
+    )
+  }
+
+  async getAuthState(authToken?: string): Promise<AuthState> {
+    if (!authToken) {
+      return {
+        authenticated: false,
+        reason: 'No credential provided',
+      }
+    }
+
+    const decoded = decodeProtectedHeader(authToken)
+    if (
+      decoded.alg !== 'RS256' ||
+      !decoded.kid ||
+      !this.kids.has(decoded.kid)
+    ) {
+      return {
+        authenticated: false,
+        reason: 'Unrecognized key ID',
+      }
+    }
+
+    const result = await jwtVerify(authToken, this.jwks)
     const id = +get(result.payload, ['connections', 'github', 'id'])
     if (!id) {
       return {
@@ -94,11 +95,28 @@ export class GitHubFirebaseAuth implements ContentsgartenAuth {
         reason: 'The current user did not log in with GitHub',
       }
     }
+
     const name = get(result.payload, ['name']) as string
     const uid = String(get(result.payload, ['uid']) as string)
     return {
       authenticated: true,
       user: { id, name, uid },
+    }
+  }
+}
+
+export class CompositeAuth implements ContentsgartenAuth {
+  constructor(private auths: ContentsgartenAuth[]) {}
+  async getAuthState(authToken?: string): Promise<AuthState> {
+    for (const auth of this.auths) {
+      const authState = await auth.getAuthState(authToken)
+      if (authState.authenticated) {
+        return authState
+      }
+    }
+    return {
+      authenticated: false,
+      reason: 'None of the auth providers recognized the credential',
     }
   }
 }
@@ -132,8 +150,5 @@ export interface GitHubFirebaseAuthConfig {
     apiKey: string
     authDomain: string
     projectId: string
-  }
-  customJwtAuth?: {
-    jwks: JSONWebKeySet
   }
 }
