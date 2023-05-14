@@ -1,5 +1,11 @@
 # @contentsgarten/server-utils
 
+## 10.0.0
+
+### Major Changes
+
+- 4d47bab: Replaced the server-utils with an implementation of a tRPC local link.
+
 ## 9.0.1
 
 ### Patch Changes

@@ -4,6 +4,17 @@
 
 ### Patch Changes
 
+- Updated dependencies [2226727]
+- Updated dependencies [4d47bab]
+- Updated dependencies [2226727]
+- Updated dependencies [4d47bab]
+  - contentsgarten@2.0.0
+  - @contentsgarten/server-utils@10.0.0
+
+## null
+
+### Patch Changes
+
 - Updated dependencies [9dd3a53]
   - @contentsgarten/html@1.3.0
   - contentsgarten@1.8.1

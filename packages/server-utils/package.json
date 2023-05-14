@@ -1,6 +1,6 @@
 {
   "name": "@contentsgarten/server-utils",
-  "version": "9.0.1",
+  "version": "10.0.0",
   "description": "Utility functions for contentsgarten",
   "main": "dist/index.js",
   "module": "dist/index.js",
