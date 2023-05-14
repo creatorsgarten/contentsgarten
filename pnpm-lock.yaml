@@ -291,6 +291,10 @@ importers:
         version: 0.31.0
 
   packages/markdown:
+    dependencies:
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
     devDependencies:
       '@tsconfig/node18':
         specifier: ^2.0.0

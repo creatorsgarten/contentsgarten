@@ -19,6 +19,12 @@ test('wikilink', async () => {
   expect(html).toContain('href="/wiki/CreativeCoding"')
 })
 
+test('wikilink with hash', async () => {
+  const md = `[[Guilds#Working Group]]`
+  const html = await renderMarkdown(md)
+  expect(html).toContain('href="/wiki/Guilds#working-group"')
+})
+
 test('no <html>', async () => {
   const md = `# Hello World`
   const html = await renderMarkdown(md)

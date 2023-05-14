@@ -1,3 +1,4 @@
+import Slugger from 'github-slugger'
 import { headingRank } from 'hast-util-heading-rank'
 import { toString } from 'hast-util-to-string'
 import { micromark } from 'micromark'
@@ -105,17 +106,7 @@ export async function processMarkdown(
       gfmHtml(),
       directiveHtml(directives),
       wikiLink.html({
-        pageResolver: (pageName) => [
-          pageName
-            .split('/')
-            .map((s, i) =>
-              s
-                .replace(/[\W_](\w)/g, (a, x) => x.toUpperCase())
-                .replace(/[\W_]/g, '')
-                .replace(/^[a-z]/, (x) => (i === 0 ? x.toUpperCase() : x)),
-            )
-            .join('/'),
-        ],
+        pageResolver: (pageName) => [normalizePageName(pageName)],
         hrefTemplate: (pageName) => `/wiki/${pageName}`,
       }),
     ],
@@ -157,4 +148,21 @@ export async function processMarkdown(
     headings,
     wikiLinks,
   }
+}
+
+export function normalizePageName(pageName: string) {
+  const slugs = new Slugger()
+  const [name, ...hashes] = pageName.split('#')
+  const pageRef = name
+    .split('/')
+    .map((s, i) =>
+      s
+        .replace(/[\W_](\w)/g, (a, x) => x.toUpperCase())
+        .replace(/[\W_]/g, '')
+        .replace(/^[a-z]/, (x) => (i === 0 ? x.toUpperCase() : x)),
+    )
+    .join('/')
+  return hashes.length > 0
+    ? `${pageRef}#${slugs.slug(hashes.join('#'))}`
+    : pageRef
 }
