@@ -151,7 +151,7 @@ export async function processMarkdown(
   }
 }
 
-export function normalizePageName(pageName: string) {
+function normalizePageName(pageName: string) {
   const slugs = new Slugger()
   const [name, ...hashes] = pageName.split('#')
   const pageRef = name
