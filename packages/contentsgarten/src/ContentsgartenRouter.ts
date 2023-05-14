@@ -165,6 +165,7 @@ async function authorize(
     },
     user: authState.user,
     gitHub: createGitHubHelpers(ctx),
+    claims: authState.claims,
   })
 }
 

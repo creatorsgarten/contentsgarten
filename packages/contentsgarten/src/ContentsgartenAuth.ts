@@ -46,6 +46,7 @@ export class GitHubFirebaseAuth implements ContentsgartenAuth {
       return {
         authenticated: true,
         user: { id, name, uid },
+        claims: result.payload,
       }
     } catch (error) {
       return {
@@ -101,6 +102,7 @@ export class CustomAuth implements ContentsgartenAuth {
     return {
       authenticated: true,
       user: { id, name, uid },
+      claims: result.payload,
     }
   }
 }
@@ -135,6 +137,7 @@ export type AuthState = AuthStateAuthenticated | AuthStateUnauthenticated
 export interface AuthStateAuthenticated {
   authenticated: true
   user: User
+  claims?: unknown
 }
 
 export interface AuthStateUnauthenticated {

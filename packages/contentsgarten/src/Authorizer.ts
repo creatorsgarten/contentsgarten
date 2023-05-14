@@ -8,6 +8,7 @@ export interface AuthorizerContext {
   user: User
   action: Action
   gitHub: GitHubHelpers
+  claims?: unknown
 }
 
 export type AuthorizerResult = AuthorizationGranted | AuthorizationDenied
