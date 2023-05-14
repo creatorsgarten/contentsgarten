@@ -41,6 +41,10 @@ export function getInstance() {
   return contentsgarten
 }
 
+export function isTestMode() {
+  return config.testing.BACKEND === 'fake'
+}
+
 async function createFakeInstance() {
   const { testing } = await import('contentsgarten')
   return testing.createFakeInstance()

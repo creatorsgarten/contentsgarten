@@ -19,10 +19,7 @@ export const AuthProvider: FC<AuthProvider> = (props) => {
 }
 
 const getAuthController = once(async (): Promise<AuthController> => {
-  const about = await trpcClient.about.query()
-  const authConfig = about.config.auth
-
-  if (!authConfig.firebase) {
+  if (document.documentElement.dataset.testMode === 'true') {
     let onInvalidate = () => {}
     return {
       signOut: () => {

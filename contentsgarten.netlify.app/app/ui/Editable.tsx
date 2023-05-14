@@ -1,4 +1,5 @@
-import { FC, useState } from 'react'
+import type { FC } from 'react'
+import { useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Icon } from 'react-iconify-icon-wrapper'
 
