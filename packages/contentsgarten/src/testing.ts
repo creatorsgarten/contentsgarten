@@ -123,6 +123,7 @@ export namespace testing {
       auth: createFakeAuth(),
       teamResolver: createFakeTeamResolver(),
       pageDatabase: createFakePageDatabase(),
+      authorizer: () => ({ authorized: true }),
     })
     return contentsgarten
   }

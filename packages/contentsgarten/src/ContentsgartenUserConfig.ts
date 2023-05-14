@@ -1,4 +1,5 @@
 import { JSONWebKeySet } from 'jose'
+import { Authorizer } from './Authorizer'
 
 export interface ContentsgartenUserConfig {
   github: GitHubUserConfig
@@ -7,6 +8,7 @@ export interface ContentsgartenUserConfig {
   pageFilePrefix?: string
   customJwtAuth?: CustomJwtAuthUserConfig
   pageFileExtension?: string
+  authorizer?: Authorizer
 }
 
 export interface GitHubUserConfig {
