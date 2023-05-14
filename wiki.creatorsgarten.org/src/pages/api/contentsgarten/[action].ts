@@ -61,6 +61,16 @@ export function getInstance() {
         ],
       },
     },
+    authorizer: async ({ gitHub, user }) => {
+      if (await gitHub.isUserInTeam(user, 'creatorsgarten', 'creators')) {
+        return { granted: true }
+      }
+      return {
+        granted: false,
+        reason:
+          'You should be in the "creators" team to edit the wiki. To join, submit a PR to https://github.com/creatorsgarten/configuration/blob/main/index.ts',
+      }
+    },
   })
   instance = contentsgarten
   return contentsgarten

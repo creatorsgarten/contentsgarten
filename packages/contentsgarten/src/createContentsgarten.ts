@@ -41,7 +41,7 @@ export function createContentsgarten(
     authorizer:
       config.authorizer ||
       (() => ({
-        authorized: false,
+        granted: false,
         reason: 'No authorizer configured',
       })),
   })

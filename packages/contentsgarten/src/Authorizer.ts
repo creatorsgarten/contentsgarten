@@ -13,11 +13,11 @@ export interface AuthorizerContext {
 export type AuthorizerResult = AuthorizationGranted | AuthorizationDenied
 
 export interface AuthorizationGranted {
-  authorized: true
+  granted: true
 }
 
 export interface AuthorizationDenied {
-  authorized: false
+  granted: false
   reason: string
 }
 
