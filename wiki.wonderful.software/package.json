@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@contentsgarten/client-utils": "workspace:*",
-    "@contentsgarten/markdown": "workspace:*",
+    "@contentsgarten/html": "workspace:*",
     "@contentsgarten/server-utils": "workspace:*",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

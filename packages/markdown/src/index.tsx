@@ -1,17 +1,15 @@
-import { micromark } from 'micromark'
-import { gfm, gfmHtml } from 'micromark-extension-gfm'
-import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
-import { FC, useMemo } from 'react'
-import { Html } from '@contentsgarten/html'
-import type { MarkdownCustomComponents } from '@contentsgarten/html'
-import { Directive } from 'micromark-extension-directive/lib/html'
-import * as wikiLink from 'micromark-extension-wiki-link'
-import { rehype } from 'rehype'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import { visit } from 'unist-util-visit'
+import Slugger from 'github-slugger'
 import { headingRank } from 'hast-util-heading-rank'
 import { toString } from 'hast-util-to-string'
+import { micromark } from 'micromark'
+import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
+import { Directive } from 'micromark-extension-directive/lib/html'
+import { gfm, gfmHtml } from 'micromark-extension-gfm'
+import * as wikiLink from 'micromark-extension-wiki-link'
+import { rehype } from 'rehype'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeSlug from 'rehype-slug'
+import { visit } from 'unist-util-visit'
 
 export type MarkdownRenderer = (text: string) => string
 
@@ -74,8 +72,9 @@ function createCustomBlockHandler(name: string, defaultTitle: string) {
   })
 }
 
-export function renderMarkdown(text: string): string {
-  return processMarkdown(text).html
+export async function renderMarkdown(text: string): Promise<string> {
+  const result = await processMarkdown(text)
+  return result.html
 }
 
 export interface MarkdownProcessingResult {
@@ -93,7 +92,9 @@ export interface WikiLink {
   label: string
 }
 
-export function processMarkdown(text: string): MarkdownProcessingResult {
+export async function processMarkdown(
+  text: string,
+): Promise<MarkdownProcessingResult> {
   const result = micromark(text, {
     allowDangerousHtml: true,
     extensions: [
@@ -105,17 +106,7 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
       gfmHtml(),
       directiveHtml(directives),
       wikiLink.html({
-        pageResolver: (pageName) => [
-          pageName
-            .split('/')
-            .map((s, i) =>
-              s
-                .replace(/[\W_](\w)/g, (a, x) => x.toUpperCase())
-                .replace(/[\W_]/g, '')
-                .replace(/^[a-z]/, (x) => (i === 0 ? x.toUpperCase() : x)),
-            )
-            .join('/'),
-        ],
+        pageResolver: (pageName) => [normalizePageName(pageName)],
         hrefTemplate: (pageName) => `/wiki/${pageName}`,
       }),
     ],
@@ -127,6 +118,7 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
     .data('settings', { fragment: true })
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
+    // .use(rehypeStarryNight) // Cannot get this working on Netlify...
     .use(() => (tree) => {
       visit(tree, 'element', (node) => {
         const rank = headingRank(node)
@@ -150,7 +142,7 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
         }
       })
     })
-  const processed = processor.processSync(result)
+  const processed = await processor.process(result)
 
   return {
     html: processed.toString(),
@@ -159,31 +151,19 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
   }
 }
 
-export { MarkdownCustomComponents }
-
-/**
- * @deprecated Use `@contentsgarten/html` with HTML input directly instead
- */
-export interface Markdown {
-  text: string
-  className?: string
-  markdownRenderer?: MarkdownRenderer
-  customComponents?: MarkdownCustomComponents
-}
-
-/**
- * @deprecated Use `@contentsgarten/html` with HTML input directly instead
- */
-export const Markdown: FC<Markdown> = (props) => {
-  const html = useMemo(() => {
-    const renderer = props.markdownRenderer || renderMarkdown
-    return renderer(props.text)
-  }, [props.text, props.markdownRenderer])
-  return (
-    <Html
-      className={props.className}
-      html={html}
-      customComponents={props.customComponents}
-    />
-  )
+function normalizePageName(pageName: string) {
+  const slugs = new Slugger()
+  const [name, ...hashes] = pageName.split('#')
+  const pageRef = name
+    .split('/')
+    .map((s, i) =>
+      s
+        .replace(/[\W_](\w)/g, (a, x) => x.toUpperCase())
+        .replace(/[\W_]/g, '')
+        .replace(/^[a-z]/, (x) => (i === 0 ? x.toUpperCase() : x)),
+    )
+    .join('/')
+  return hashes.length > 0
+    ? `${pageRef}#${slugs.slug(hashes.join('#'))}`
+    : pageRef
 }
