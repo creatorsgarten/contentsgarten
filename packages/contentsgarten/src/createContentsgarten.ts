@@ -38,12 +38,16 @@ export function createContentsgarten(
     teamResolver: new GitHubTeamResolver(gitHubApp),
     pageFileExtension: config.pageFileExtension,
     pageFilePrefix: config.pageFilePrefix,
-    authorizer:
-      config.authorizer ||
-      (() => ({
-        granted: false,
-        reason: 'No authorizer configured',
-      })),
+    authorizer: async (ctx) => {
+      const result = await config.authorizer(ctx)
+      if (!result) {
+        return {
+          granted: false,
+          reason: `The configured authorizer returns an unexpected value: \`${result}\`.`,
+        }
+      }
+      return result
+    },
   })
   return contentsgarten
 }

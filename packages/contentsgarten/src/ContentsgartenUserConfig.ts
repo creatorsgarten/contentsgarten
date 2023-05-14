@@ -8,7 +8,7 @@ export interface ContentsgartenUserConfig {
   pageFilePrefix?: string
   customJwtAuth?: CustomJwtAuthUserConfig
   pageFileExtension?: string
-  authorizer?: Authorizer
+  authorizer: Authorizer
 }
 
 export interface GitHubUserConfig {

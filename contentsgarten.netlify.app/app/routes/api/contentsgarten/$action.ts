@@ -73,6 +73,15 @@ async function createStandloneInstance() {
       uri: config.credentials.MONGO_URI,
       database: 'contentsgarten_wiki',
     },
+    authorizer: (ctx) => {
+      if (ctx.user.id === 193136) {
+        return { granted: true }
+      }
+      return {
+        granted: false,
+        reason: 'Right now only @dtinth can edit this wiki.',
+      }
+    },
   })
   return contentsgarten
 }
