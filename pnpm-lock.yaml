@@ -468,9 +468,9 @@ importers:
       '@contentsgarten/client-utils':
         specifier: workspace:*
         version: link:../packages/client-utils
-      '@contentsgarten/markdown':
+      '@contentsgarten/html':
         specifier: workspace:*
-        version: link:../packages/markdown
+        version: link:../packages/html
       '@contentsgarten/server-utils':
         specifier: workspace:*
         version: link:../packages/server-utils

@@ -1,7 +1,7 @@
 'use client'
 
-import { Markdown } from '@contentsgarten/markdown'
 import type { GetPageResult } from 'contentsgarten'
+import { Html } from '@contentsgarten/html'
 import { FC, useState } from 'react'
 import { TrpcProvider, trpc } from '@/utils/trpc'
 import dynamic from 'next/dynamic'
@@ -25,9 +25,14 @@ export const WikiClientSidePageInner: FC<WikiClientSidePage> = (props) => {
   const freshPageQuery = trpc.view.useQuery({
     pageRef: stalePage.pageRef,
     revalidate: true,
+    render: true,
   })
   const page = freshPageQuery.data ?? stalePage
   const [lastSavedRevision, setLastSavedRevision] = useState('')
+
+  if (!page.rendered) {
+    throw new Error('Page not rendered')
+  }
 
   return (
     <div className="p-8">
@@ -48,7 +53,7 @@ export const WikiClientSidePageInner: FC<WikiClientSidePage> = (props) => {
             />
           )}
         </h1>
-        <Markdown text={page.content} />
+        <Html html={page.rendered.html} />
       </article>
     </div>
   )

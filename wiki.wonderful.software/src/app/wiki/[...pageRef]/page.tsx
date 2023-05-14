@@ -32,6 +32,7 @@ export default async function WikiPage(props: WikiPage) {
   const page = await client.view.query({
     pageRef: String(pageRef),
     withFile: false,
+    render: true,
   })
   return (
     <main
