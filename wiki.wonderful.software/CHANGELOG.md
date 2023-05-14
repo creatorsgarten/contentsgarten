@@ -1,5 +1,12 @@
 # wiki.wonderful.software
 
+## 0.1.11
+
+### Patch Changes
+
+- contentsgarten@2.0.1
+- @contentsgarten/client-utils@2.0.0
+
 ## 0.1.10
 
 ### Patch Changes

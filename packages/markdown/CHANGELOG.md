@@ -1,5 +1,16 @@
 # @contentsgarten/markdown
 
+## 2.0.0
+
+### Major Changes
+
+- 85edb28: Markdown processing is now async. This is to facilitate future improvements such as code syntax highlighting.
+- 85edb28: Removed `<Markdown />` React component. The `@contentsgarten/markdown` package now only turns Markdown into HTML strings. To render Markdown in React, use the `@contentsgarten/html` package to render the HTML string returned by `@contentsgarten/markdown` into a React component.
+
+### Patch Changes
+
+- 85edb28: Fixed a bug where wiki links with a hash in them would not be rendered correctly.
+
 ## 1.1.3
 
 ### Patch Changes

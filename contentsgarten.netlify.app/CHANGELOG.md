@@ -4,6 +4,12 @@
 
 ### Patch Changes
 
+- contentsgarten@2.0.1
+
+## null
+
+### Patch Changes
+
 - Updated dependencies [2226727]
 - Updated dependencies [4d47bab]
 - Updated dependencies [2226727]
