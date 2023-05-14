@@ -52,6 +52,15 @@ export function getInstance() {
       database: 'wonderfulsoftware_wiki',
     },
     pageFileExtension: '.md',
+    authorizer: (ctx) => {
+      if (ctx.user.id === 193136) {
+        return { granted: true }
+      }
+      return {
+        granted: false,
+        reason: 'Right now only @dtinth can edit this wiki.',
+      }
+    },
   })
   instance = contentsgarten
   return contentsgarten

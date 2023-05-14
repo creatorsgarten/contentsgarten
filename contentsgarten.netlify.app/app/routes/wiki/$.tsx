@@ -10,7 +10,7 @@ import { createServerSideClient } from '~/utils/createServerSideClient.server'
 import type { GetPageResult } from 'contentsgarten'
 
 export async function loader(args: LoaderArgs) {
-  const client = createServerSideClient(args.request)
+  const client = createServerSideClient()
   const slug = args.params['*'] as string
   return json(await client.view.query({ pageRef: slug, render: true }))
 }

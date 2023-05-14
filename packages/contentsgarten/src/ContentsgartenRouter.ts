@@ -1,11 +1,11 @@
-import { z } from 'zod'
-import { t } from './trpc'
-import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { TRPCError } from '@trpc/server'
-import { DeniedEntry, checkPermission } from './checkPermission'
-import { Policy } from './Policy'
-import { User } from './ContentsgartenAuth'
 import { omit } from 'lodash-es'
+import { z } from 'zod'
+import { AuthorizerResult, GitHubHelpers } from './Authorizer'
+import { AuthState, User } from './ContentsgartenAuth'
+import type { ContentsgartenRequestContext } from './ContentsgartenContext'
+import { PageDatabaseSearch } from './ContentsgartenPageDatabase'
+import { LaxPageRefRegex, PageRefRegex } from './PageRefRegex'
 import {
   GetPageResult,
   getPage,
@@ -13,10 +13,8 @@ import {
   pageRefToFilePath,
   savePageToDatabase,
 } from './getPage'
-import { load } from 'js-yaml'
+import { t } from './trpc'
 import { cache } from './cache'
-import { LaxPageRefRegex, PageRefRegex } from './PageRefRegex'
-import { PageDatabaseSearch } from './ContentsgartenPageDatabase'
 
 export { GetPageResult } from './getPage'
 export { PageRefRegex }
@@ -32,7 +30,6 @@ export const ContentsgartenRouter = t.router({
     .query(async ({ ctx }) => {
       return {
         name: 'Contentsgarten',
-        config: await getConfig(ctx),
       }
     }),
   userInfo: t.procedure
@@ -83,23 +80,15 @@ export const ContentsgartenRouter = t.router({
         pageRef: PageRef,
       }),
     )
+    .output(
+      z.object({
+        granted: z.boolean(),
+        reason: z.string().optional(),
+      }),
+    )
     .query(async ({ input: { pageRef }, ctx }) => {
       const authState = await resolveAuthState(ctx)
-      const userId = authState.authenticated ? authState.user.id : undefined
-      const policies = await getPagePolicies(ctx, pageRef)
-      return checkPermission(
-        ctx,
-        [
-          {
-            userId,
-            permission: 'edit',
-            page: pageRef,
-            frontmatterKey: '__content',
-          },
-          { userId, permission: 'editContent', page: pageRef },
-        ],
-        policies,
-      )
+      return authorize(ctx, authState, pageRef)
     }),
   save: t.procedure
     .meta({ summary: 'Attempts to save changes to a page' })
@@ -114,26 +103,11 @@ export const ContentsgartenRouter = t.router({
       const filePath = pageRefToFilePath(ctx, pageRef)
       const authState = await resolveAuthState(ctx)
       const userId = authState.authenticated ? authState.user.id : undefined
-      const policies = await getPagePolicies(ctx, pageRef)
-      const permission = await checkPermission(
-        ctx,
-        [
-          {
-            userId,
-            permission: 'edit',
-            page: pageRef,
-            frontmatterKey: '__content',
-          },
-          { userId, permission: 'editContent', page: pageRef },
-        ],
-        policies,
-      )
-      if (!permission.granted) {
+      const authz = await authorize(ctx, authState, pageRef)
+      if (!authz.granted) {
         throw new TRPCError({
           code: 'FORBIDDEN',
-          message:
-            'You are not allowed to edit this page. None of these policies granted you access to edit this page:\n' +
-            explainDenied(permission.denied),
+          message: `You are not allowed to edit this page: ${authz.reason}`,
         })
       }
       const result = await ctx.app.storage.putFile(ctx, filePath, {
@@ -173,71 +147,43 @@ async function resolveAuthState(ctx: ContentsgartenRequestContext) {
   })
 }
 
-const Config = z.object({
-  policies: z.array(Policy).optional().default([]),
-  auth: z
-    .object({
-      firebase: z
-        .object({
-          apiKey: z.string(),
-          authDomain: z.string(),
-          projectId: z.string(),
-        })
-        .optional(),
-    })
-    .optional()
-    .default({}),
-})
-
-async function getPagePolicies(
+async function authorize(
   ctx: ContentsgartenRequestContext,
+  authState: AuthState,
   pageRef: string,
-): Promise<Policy[]> {
-  const config = await getConfig(ctx)
-  return config.policies
-}
-
-async function getConfig(ctx: ContentsgartenRequestContext) {
-  const configFile = await cache(
-    ctx,
-    'config',
-    async () => {
-      const configFile = await ctx.app.storage.getFile(
-        ctx,
-        'contentsgarten.config.yml',
-      )
-      if (!configFile) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: '"contentsgarten.config.yml" not found in storage',
-        })
-      }
-      return configFile
-    },
-    300e3,
-  )
-  const config = Config.parse(load(configFile.content.toString('utf8')))
-  return config
-}
-
-function explainDenied(denied: DeniedEntry[]) {
-  const out: string[] = []
-  for (const entry of denied) {
-    out.push(
-      '* ' +
-        policyName(entry.policy) +
-        ' on ' +
-        JSON.stringify(entry.permissionContext),
-    )
-    for (const item of entry.resolutions) {
-      if (!item.included) {
-        out.push(`  - ${item.reason}`)
-      }
+): Promise<AuthorizerResult> {
+  if (!authState.authenticated) {
+    return {
+      granted: false,
+      reason: 'Not authenticated',
     }
   }
-  return out.join('\n')
+  return ctx.app.authorizer({
+    action: {
+      type: 'edit',
+      pageRef,
+    },
+    user: authState.user,
+    gitHub: createGitHubHelpers(ctx),
+    claims: authState.claims,
+  })
 }
 
-function policyName(policy: Policy) {
-  return policy.name || JSON.stringify(policy)
+function createGitHubHelpers(ctx: ContentsgartenRequestContext): GitHubHelpers {
+  return {
+    isUserInTeam: (user, owner, teamSlug) => {
+      return cache(
+        ctx,
+        `team:${owner}/${teamSlug}:member:${user.id}`,
+        async () => {
+          return ctx.app.teamResolver.checkMembership(
+            ctx,
+            user.id,
+            `${owner}/${teamSlug}`,
+          )
+        },
+        300e3,
+      )
+    },
+  }
 }

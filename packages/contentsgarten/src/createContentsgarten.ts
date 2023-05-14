@@ -1,6 +1,10 @@
 import { MongoClient } from 'mongodb'
 import { Contentsgarten } from './Contentsgarten'
-import { GitHubFirebaseAuth } from './ContentsgartenAuth'
+import {
+  CompositeAuth,
+  CustomAuth,
+  GitHubFirebaseAuth,
+} from './ContentsgartenAuth'
 import { GitHubStorage } from './ContentsgartenStorage'
 import { GitHubTeamResolver } from './ContentsgartenTeamResolver'
 import { ContentsgartenUserConfig } from './ContentsgartenUserConfig'
@@ -22,16 +26,28 @@ export function createContentsgarten(
       app: gitHubApp,
     }),
     pageDatabase: new MongoDBPageDatabase(db),
-    auth: new GitHubFirebaseAuth({
-      gitHub: {
-        app: gitHubApp,
-      },
-      firebase: config.firebase,
-      customJwtAuth: config.customJwtAuth,
-    }),
+    auth: new CompositeAuth([
+      ...(config.customJwtAuth ? [new CustomAuth(config.customJwtAuth)] : []),
+      new GitHubFirebaseAuth({
+        gitHub: {
+          app: gitHubApp,
+        },
+        firebase: config.firebase,
+      }),
+    ]),
     teamResolver: new GitHubTeamResolver(gitHubApp),
     pageFileExtension: config.pageFileExtension,
     pageFilePrefix: config.pageFilePrefix,
+    authorizer: async (ctx) => {
+      const result = await config.authorizer(ctx)
+      if (!result) {
+        return {
+          granted: false,
+          reason: `The configured authorizer returns an unexpected value: \`${result}\`.`,
+        }
+      }
+      return result
+    },
   })
   return contentsgarten
 }

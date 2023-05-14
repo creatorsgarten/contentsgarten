@@ -2,6 +2,7 @@ import { ContentsgartenStorage } from './ContentsgartenStorage'
 import { ContentsgartenAuth } from './ContentsgartenAuth'
 import { ContentsgartenTeamResolver } from './ContentsgartenTeamResolver'
 import { ContentsgartenPageDatabase } from './ContentsgartenPageDatabase'
+import { Authorizer } from './Authorizer'
 
 export interface ContentsgartenConfig {
   storage: ContentsgartenStorage
@@ -10,4 +11,5 @@ export interface ContentsgartenConfig {
   teamResolver: ContentsgartenTeamResolver
   pageFilePrefix?: string
   pageFileExtension?: string
+  authorizer: Authorizer
 }

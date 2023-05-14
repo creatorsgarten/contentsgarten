@@ -1,34 +1,35 @@
-import {
-  CreateTRPCProxyClient,
-  createTRPCProxyClient,
-  httpBatchLink,
-} from '@trpc/client'
-import type { Contentsgarten, ContentsgartenRouter } from 'contentsgarten'
-import { handleContentsgartenRequest } from 'contentsgarten'
+import { httpLink } from '@trpc/client'
+import type { AnyRouter, inferRouterContext } from '@trpc/server'
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 
-export function createServerSideClient(
-  base: Contentsgarten | string,
-  apiPath = '/api/contentsgarten',
-): CreateTRPCProxyClient<ContentsgartenRouter> {
-  const baseUrl = typeof base === 'string' ? base : 'http://fake'
-  const url = new URL(apiPath, baseUrl).toString()
-  return createTRPCProxyClient<ContentsgartenRouter>({
-    links: [
-      httpBatchLink({
-        url,
-        headers: {},
-        fetch: (input, init) => {
-          if (
-            typeof input === 'string' &&
-            typeof base !== 'string' &&
-            input.startsWith('http://fake')
-          ) {
-            const request = new Request(input, init as RequestInit)
-            return handleContentsgartenRequest(base, request, apiPath)
-          }
-          return fetch(input, init as RequestInit)
-        },
-      }),
-    ],
+/**
+ * Creates a tRPC link that uses the local tRPC router.
+ * @param router - The tRPC router to use.
+ * @param context - The context to pass to the router.
+ * @returns a tRPC link that can be used with `createClient` or `createTRPCProxyClient`.
+ */
+export function localLink<TRouter extends AnyRouter>(
+  router: Resolvable<TRouter>,
+  context: Resolvable<inferRouterContext<TRouter>>,
+) {
+  return httpLink({
+    url: 'http://local',
+    fetch: async (...args) => {
+      const request = new Request(...args)
+      return fetchRequestHandler({
+        endpoint: '',
+        req: request,
+        router: await resolve(router),
+        createContext: () => resolve(context),
+      })
+    },
   })
+}
+
+type Resolvable<T> = T | Promise<T> | (() => T | Promise<T>)
+
+async function resolve<T>(resolvable: Resolvable<T>): Promise<T> {
+  return typeof resolvable === 'function'
+    ? (resolvable as () => T | Promise<T>)()
+    : resolvable
 }
