@@ -10,7 +10,6 @@ import { rehype } from 'rehype'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 import { visit } from 'unist-util-visit'
-import { rehypeStarryNight } from './rehype-starry-night'
 
 export type MarkdownRenderer = (text: string) => string
 
@@ -119,7 +118,7 @@ export async function processMarkdown(
     .data('settings', { fragment: true })
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
-    .use(rehypeStarryNight)
+    // .use(rehypeStarryNight) // Cannot get this working on Netlify...
     .use(() => (tree) => {
       visit(tree, 'element', (node) => {
         const rank = headingRank(node)
