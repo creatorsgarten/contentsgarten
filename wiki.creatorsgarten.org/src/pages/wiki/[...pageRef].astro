@@ -1,22 +1,29 @@
 ---
 import BaseLayout from '$layouts/base.astro'
-import { createServerSideClient } from '@contentsgarten/server-utils'
+import { localLink } from '@contentsgarten/server-utils'
 import { config, getInstance } from '../api/contentsgarten/[action]'
 import { WikiPage } from '$components/WikiPage'
+import { createTRPCProxyClient, httpLink } from '@trpc/react-query'
+import { ContentsgartenRouter } from 'contentsgarten'
 
 const { pageRef } = Astro.params
-const client = createServerSideClient(
-  config.testing.BACKEND === 'production'
-    ? 'https://wiki.creatorsgarten.org'
-    : getInstance(),
-  '/api/contentsgarten',
-)
+const client = createTRPCProxyClient<ContentsgartenRouter>({
+  links: [
+    config.testing.BACKEND === 'production'
+      ? httpLink({ url: 'https://wiki.creatorsgarten.org' })
+      : localLink(ContentsgartenRouter, getInstance().createContext({})),
+  ],
+})
 const page = await client.view.query({
   pageRef: String(pageRef),
   withFile: false,
   render: true,
 })
-if (page.status === 301 && page.targetPageRef && Astro.url.searchParams.get('redirect') !== 'no') {
+if (
+  page.status === 301 &&
+  page.targetPageRef &&
+  Astro.url.searchParams.get('redirect') !== 'no'
+) {
   Astro.response.status = 301
   Astro.response.headers.set('Location', `/wiki/${page.targetPageRef}`)
 } else if (page.status === 404) {

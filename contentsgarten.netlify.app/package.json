@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@contentsgarten/html": "workspace:*",
+    "@contentsgarten/server-utils": "workspace:*",
     "@netlify/functions": "^1.0.0",
     "@radix-ui/react-dialog": "^1.0.3",
     "@remix-run/netlify": "^1.14.3",

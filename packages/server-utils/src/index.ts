@@ -9,8 +9,8 @@ import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
  * @returns a tRPC link that can be used with `createClient` or `createTRPCProxyClient`.
  */
 export function localLink<TRouter extends AnyRouter>(
-  router: TRouter,
-  context: inferRouterContext<TRouter>,
+  router: Resolvable<TRouter>,
+  context: Resolvable<inferRouterContext<TRouter>>,
 ) {
   return httpLink({
     url: 'http://local',
@@ -19,9 +19,17 @@ export function localLink<TRouter extends AnyRouter>(
       return fetchRequestHandler({
         endpoint: '',
         req: request,
-        router,
-        createContext: () => context,
+        router: await resolve(router),
+        createContext: () => resolve(context),
       })
     },
   })
+}
+
+type Resolvable<T> = T | Promise<T> | (() => T | Promise<T>)
+
+async function resolve<T>(resolvable: Resolvable<T>): Promise<T> {
+  return typeof resolvable === 'function'
+    ? (resolvable as () => T | Promise<T>)()
+    : resolvable
 }

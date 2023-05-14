@@ -16,6 +16,9 @@ importers:
       '@contentsgarten/html':
         specifier: workspace:*
         version: link:../packages/html
+      '@contentsgarten/server-utils':
+        specifier: workspace:*
+        version: link:../packages/server-utils
       '@netlify/functions':
         specifier: ^1.0.0
         version: 1.4.0

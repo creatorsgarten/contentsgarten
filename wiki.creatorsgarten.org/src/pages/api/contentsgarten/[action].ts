@@ -100,7 +100,6 @@ export const all: APIRoute = async ({ params, request }) => {
     })
   }
 
-  console.log('request', request.url)
   return handleContentsgartenRequest(
     getInstance(),
     request,
