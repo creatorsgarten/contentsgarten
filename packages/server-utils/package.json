@@ -24,14 +24,12 @@
     "@trpc/server": "^10.16.0",
     "@tsconfig/node18": "^2.0.0",
     "@types/node": "^18.15.3",
-    "contentsgarten": "workspace:*",
     "tsup": "^6.6.3",
     "typescript": "5"
   },
   "peerDependencies": {
     "@trpc/client": "^10.11.1",
-    "@trpc/server": "^10.11.1",
-    "contentsgarten": "workspace:*"
+    "@trpc/server": "^10.11.1"
   },
   "repository": {
     "url": "git+https://github.com/creatorsgarten/contentsgarten"

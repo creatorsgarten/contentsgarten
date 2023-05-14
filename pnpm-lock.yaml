@@ -368,9 +368,6 @@ importers:
       '@types/node':
         specifier: ^18.15.3
         version: 18.15.11
-      contentsgarten:
-        specifier: workspace:*
-        version: link:../contentsgarten
       tsup:
         specifier: ^6.6.3
         version: 6.7.0(typescript@5.0.4)
