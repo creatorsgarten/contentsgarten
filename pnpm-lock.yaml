@@ -291,10 +291,6 @@ importers:
         version: 0.31.0
 
   packages/markdown:
-    dependencies:
-      '@contentsgarten/html':
-        specifier: workspace:*
-        version: link:../html
     devDependencies:
       '@tsconfig/node18':
         specifier: ^2.0.0
@@ -302,12 +298,6 @@ importers:
       '@types/node':
         specifier: ^18.15.3
         version: 18.15.11
-      '@types/react':
-        specifier: ^18.0.28
-        version: 18.0.35
-      '@types/react-dom':
-        specifier: ^18.0.11
-        version: 18.0.11
       hast-util-heading-rank:
         specifier: ^2.1.1
         version: 2.1.1
@@ -326,12 +316,6 @@ importers:
       micromark-extension-wiki-link:
         specifier: ^0.0.4
         version: 0.0.4
-      react:
-        specifier: ^18.0.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.0.0
-        version: 18.2.0(react@18.2.0)
       rehype:
         specifier: ^12.0.1
         version: 12.0.1

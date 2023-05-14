@@ -1,17 +1,14 @@
-import { micromark } from 'micromark'
-import { gfm, gfmHtml } from 'micromark-extension-gfm'
-import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
-import { FC, useMemo } from 'react'
-import { Html } from '@contentsgarten/html'
-import type { MarkdownCustomComponents } from '@contentsgarten/html'
-import { Directive } from 'micromark-extension-directive/lib/html'
-import * as wikiLink from 'micromark-extension-wiki-link'
-import { rehype } from 'rehype'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import { visit } from 'unist-util-visit'
 import { headingRank } from 'hast-util-heading-rank'
 import { toString } from 'hast-util-to-string'
+import { micromark } from 'micromark'
+import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
+import { Directive } from 'micromark-extension-directive/lib/html'
+import { gfm, gfmHtml } from 'micromark-extension-gfm'
+import * as wikiLink from 'micromark-extension-wiki-link'
+import { rehype } from 'rehype'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeSlug from 'rehype-slug'
+import { visit } from 'unist-util-visit'
 
 export type MarkdownRenderer = (text: string) => string
 
@@ -157,33 +154,4 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
     headings,
     wikiLinks,
   }
-}
-
-export { MarkdownCustomComponents }
-
-/**
- * @deprecated Use `@contentsgarten/html` with HTML input directly instead
- */
-export interface Markdown {
-  text: string
-  className?: string
-  markdownRenderer?: MarkdownRenderer
-  customComponents?: MarkdownCustomComponents
-}
-
-/**
- * @deprecated Use `@contentsgarten/html` with HTML input directly instead
- */
-export const Markdown: FC<Markdown> = (props) => {
-  const html = useMemo(() => {
-    const renderer = props.markdownRenderer || renderMarkdown
-    return renderer(props.text)
-  }, [props.text, props.markdownRenderer])
-  return (
-    <Html
-      className={props.className}
-      html={html}
-      customComponents={props.customComponents}
-    />
-  )
 }
