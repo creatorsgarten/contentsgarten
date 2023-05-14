@@ -31,6 +31,13 @@ test('no <html>', async () => {
   expect(html).not.toContain('<html>')
 })
 
+test('syntax highlighting', async () => {
+  const md = '```js\nconsole.log("hello")\n```'
+  const html = await renderMarkdown(md)
+  expect(html).toContain('highlight-js')
+  expect(html).toContain('pl-en')
+})
+
 suite('directives', () => {
   test('container', async () => {
     const md = [':::Component', 'children', ':::'].join('\n')

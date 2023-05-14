@@ -292,16 +292,22 @@ importers:
 
   packages/markdown:
     dependencies:
-      github-slugger:
+      '@wooorm/starry-night':
         specifier: ^2.0.0
         version: 2.0.0
     devDependencies:
       '@tsconfig/node18':
         specifier: ^2.0.0
         version: 2.0.0
+      '@types/hast':
+        specifier: ^2.3.4
+        version: 2.3.4
       '@types/node':
         specifier: ^18.15.3
         version: 18.15.11
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
       hast-util-heading-rank:
         specifier: ^2.1.1
         version: 2.1.1
@@ -5207,6 +5213,15 @@ packages:
 
   /@web3-storage/multipart-parser@1.0.0:
     resolution: {integrity: sha512-BEO6al7BYqcnfX15W2cnGR+Q566ACXAT9UQykORCWW80lmkpWsnEob6zJS1ZVBKsSJC8+7vJkHwlp+lXG1UCdw==}
+
+  /@wooorm/starry-night@2.0.0:
+    resolution: {integrity: sha512-7CUPjVkpjCmjCzQ34TrDcHqUMpriqVEJZLVL+PUDsL3yWxHO6COg6xgzdpg6clvr+6jbjb8ZV4NxlozdWiyJ4A==}
+    dependencies:
+      '@types/hast': 2.3.4
+      import-meta-resolve: 2.2.2
+      vscode-oniguruma: 1.7.0
+      vscode-textmate: 9.0.0
+    dev: false
 
   /@zxing/text-encoding@0.9.0:
     resolution: {integrity: sha512-U/4aVJ2mxI0aDNI8Uq0wEhMgY+u4CNtEb0om3+y3+niDAsoTCOB33UF0sxpzqzdqXLqmvc+vZyAt4O8pPdfkwA==}
@@ -12875,6 +12890,10 @@ packages:
 
   /vscode-textmate@6.0.0:
     resolution: {integrity: sha512-gu73tuZfJgu+mvCSy4UZwd2JXykjK9zAZsfmDeut5dx/1a7FeTk0XwJsSuqQn+cuMCGVbIBfl+s53X4T19DnzQ==}
+    dev: false
+
+  /vscode-textmate@9.0.0:
+    resolution: {integrity: sha512-Cl65diFGxz7gpwbav10HqiY/eVYTO1sjQpmRmV991Bj7wAoOAjGQ97PpQcXorDE2Uc4hnGWLY17xme+5t6MlSg==}
     dev: false
 
   /vscode-uri@2.1.2:
