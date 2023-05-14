@@ -1,34 +1,34 @@
 import { test, expect, suite } from 'vitest'
 import { processMarkdown, renderMarkdown } from '.'
 
-test('heading id', () => {
+test('heading id', async () => {
   const md = `# Hello World`
-  const html = renderMarkdown(md)
+  const html = await renderMarkdown(md)
   expect(html).toContain('id="hello-world"')
 })
 
-test('heading self link', () => {
+test('heading self link', async () => {
   const md = `# Hello World`
-  const html = renderMarkdown(md)
+  const html = await renderMarkdown(md)
   expect(html).toContain('href="#hello-world"')
 })
 
-test('wikilink', () => {
+test('wikilink', async () => {
   const md = `[[creative coding]]`
-  const html = renderMarkdown(md)
+  const html = await renderMarkdown(md)
   expect(html).toContain('href="/wiki/CreativeCoding"')
 })
 
-test('no <html>', () => {
+test('no <html>', async () => {
   const md = `# Hello World`
-  const html = renderMarkdown(md)
+  const html = await renderMarkdown(md)
   expect(html).not.toContain('<html>')
 })
 
 suite('directives', () => {
-  test('container', () => {
+  test('container', async () => {
     const md = [':::Component', 'children', ':::'].join('\n')
-    const html = renderMarkdown(md)
+    const html = await renderMarkdown(md)
     expect(html).toContain(
       '<markdown-directive type="containerDirective" name="Component">',
     )
@@ -36,9 +36,9 @@ suite('directives', () => {
   })
 })
 
-test('heading extraction', () => {
+test('heading extraction', async () => {
   const md = `# Hello!\n## MEOW\n### nyan\n\nYay\n===\n\n<h2>hello</h2>`
-  const { headings } = processMarkdown(md)
+  const { headings } = await processMarkdown(md)
   expect(headings).toEqual([
     { id: 'hello', label: 'Hello!', rank: 1 },
     { id: 'meow', label: 'MEOW', rank: 2 },
@@ -48,9 +48,9 @@ test('heading extraction', () => {
   ])
 })
 
-test('wikilink extraction', () => {
+test('wikilink extraction', async () => {
   const md = '[[foo]] [bar](/wiki/Baz#wtf) [[Special/AllPages]]'
-  const { wikiLinks } = processMarkdown(md)
+  const { wikiLinks } = await processMarkdown(md)
   expect(wikiLinks.map((link) => link.pageRef)).toEqual([
     'Foo',
     'Baz',

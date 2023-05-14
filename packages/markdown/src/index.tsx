@@ -71,8 +71,9 @@ function createCustomBlockHandler(name: string, defaultTitle: string) {
   })
 }
 
-export function renderMarkdown(text: string): string {
-  return processMarkdown(text).html
+export async function renderMarkdown(text: string): Promise<string> {
+  const result = await processMarkdown(text)
+  return result.html
 }
 
 export interface MarkdownProcessingResult {
@@ -90,7 +91,9 @@ export interface WikiLink {
   label: string
 }
 
-export function processMarkdown(text: string): MarkdownProcessingResult {
+export async function processMarkdown(
+  text: string,
+): Promise<MarkdownProcessingResult> {
   const result = micromark(text, {
     allowDangerousHtml: true,
     extensions: [
@@ -147,7 +150,7 @@ export function processMarkdown(text: string): MarkdownProcessingResult {
         }
       })
     })
-  const processed = processor.processSync(result)
+  const processed = await processor.process(result)
 
   return {
     html: processed.toString(),
