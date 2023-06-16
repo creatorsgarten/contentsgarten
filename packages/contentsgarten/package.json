@@ -29,7 +29,7 @@
     "depcheck": "^1.4.3",
     "lodash-es": "^4.17.21",
     "prettier": "^2.8.4",
-    "tsup": "^6.6.3",
+    "tsup": "^7.0.0",
     "typescript": "5"
   },
   "dependencies": {
