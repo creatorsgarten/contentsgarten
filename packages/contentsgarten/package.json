@@ -28,7 +28,7 @@
     "@types/node": "^18.15.3",
     "depcheck": "^1.4.3",
     "lodash-es": "^4.17.21",
-    "prettier": "^2.8.4",
+    "prettier": "^3.0.0",
     "tsup": "^7.0.0",
     "typescript": "5"
   },
