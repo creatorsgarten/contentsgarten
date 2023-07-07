@@ -28,7 +28,7 @@
     "typescript": "5"
   },
   "peerDependencies": {
-    "firebase": "^9.18.0"
+    "firebase": "^9.18.0 || ^10.0.0"
   },
   "repository": {
     "url": "git+https://github.com/creatorsgarten/contentsgarten"
