@@ -23,7 +23,7 @@
     "@tsconfig/node18": "^2.0.0",
     "@types/node": "^18.15.3",
     "contentsgarten": "workspace:*",
-    "firebase": "^9.18.0",
+    "firebase": "^10.0.0",
     "tsup": "^7.0.0",
     "typescript": "5"
   },
