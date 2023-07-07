@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@tsconfig/node18": "^2.0.0",
-    "@types/hast": "^2.3.4",
+    "@types/hast": "^3.0.0",
     "@types/node": "^18.15.3",
     "github-slugger": "^2.0.0",
     "hast-util-heading-rank": "^2.1.1",
