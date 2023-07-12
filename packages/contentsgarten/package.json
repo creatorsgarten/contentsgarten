@@ -45,7 +45,7 @@
     "keyv": "^4.5.2",
     "liquidjs": "^10.6.1",
     "mongodb": "^5.2.0",
-    "octokit": "^2.0.3",
+    "octokit": "^3.0.0",
     "openapi-trpc": "^0.1.2",
     "p-memoize": "^7.1.0",
     "zod": "^3.21.4",
