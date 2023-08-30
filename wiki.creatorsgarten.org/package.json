@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^6.0.0",
-    "@astrojs/react": "^2.1.0",
+    "@astrojs/react": "^3.0.0",
     "@astrojs/tailwind": "^4.0.0",
     "@babel/core": "^7.21.3",
     "@contentsgarten/client-utils": "workspace:*",
