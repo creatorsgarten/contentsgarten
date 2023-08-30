@@ -379,8 +379,8 @@ importers:
   wiki.creatorsgarten.org:
     dependencies:
       '@astrojs/node':
-        specifier: ^5.1.0
-        version: 5.1.1(astro@2.2.3)
+        specifier: ^6.0.0
+        version: 6.0.0(astro@2.2.3)
       '@astrojs/react':
         specifier: ^2.1.0
         version: 2.1.1(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)
@@ -622,12 +622,11 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/node@5.1.1(astro@2.2.3):
-    resolution: {integrity: sha512-wuuArAOIXSlTCy/82BwT2H1jgrB3ua6grgRTWmXZJ2/BeVwl27KAEuDIKjj6zDeszjLCgWjl/B+c2EkLaJjz5w==}
+  /@astrojs/node@6.0.0(astro@2.2.3):
+    resolution: {integrity: sha512-06x5UBt+g0EIUpOdtCdnTxRJhOTLxUnjzmGwIHp9RNBlIEpzd/dJs6pwvfiM2zuPolTLI53T8VOsdw3EMh2V+w==}
     peerDependencies:
-      astro: ^2.2.0
+      astro: ^3.0.0
     dependencies:
-      '@astrojs/webapi': 2.1.0
       astro: 2.2.3
       send: 0.18.0
       server-destroy: 1.0.1
@@ -8830,7 +8829,7 @@ packages:
       map-cache: 0.2.2
 
   /fresh@0.5.2:
-    resolution: {integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=}
+    resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
 
   /fs-constants@1.0.0:
