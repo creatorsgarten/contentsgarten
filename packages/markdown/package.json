@@ -33,7 +33,7 @@
     "micromark-extension-wiki-link": "^0.0.4",
     "rehype": "^12.0.1",
     "rehype-autolink-headings": "^6.1.1",
-    "rehype-slug": "^5.1.0",
+    "rehype-slug": "^6.0.0",
     "tsup": "^7.0.0",
     "typescript": "5",
     "unified": "^10.1.2",
