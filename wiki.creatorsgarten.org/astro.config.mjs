@@ -1,13 +1,9 @@
 import { defineConfig } from 'astro/config'
 
-// https://astro.build/config
+import sentry from '@sentry/astro'
 import node from '@astrojs/node'
-
-// https://astro.build/config
-import tailwind from '@astrojs/tailwind'
-
-// https://astro.build/config
 import react from '@astrojs/react'
+import tailwind from '@astrojs/tailwind'
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,7 +11,17 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
-  integrations: [tailwind(), react()],
+  integrations: [
+    tailwind(),
+    react(),
+    sentry({
+      dsn: 'https://2adf8e5d748fd0b91803700de355d8bf@o4506355720323072.ingest.sentry.io/4506405274058752',
+      sourceMapsUploadOptions: {
+        project: 'contentsgarten',
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+      },
+    }),
+  ],
 
   vite: {
     ssr: {
