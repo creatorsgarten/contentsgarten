@@ -1,5 +1,13 @@
 # creatorsgarten-wiki
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [beeacd2]
+  - contentsgarten@2.1.0
+  - @contentsgarten/client-utils@2.0.0
+
 ## 0.1.2
 
 ### Patch Changes

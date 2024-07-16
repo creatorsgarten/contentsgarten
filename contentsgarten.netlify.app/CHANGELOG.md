@@ -4,6 +4,13 @@
 
 ### Patch Changes
 
+- Updated dependencies [beeacd2]
+  - contentsgarten@2.1.0
+
+## null
+
+### Patch Changes
+
 - contentsgarten@2.0.1
 
 ## null
