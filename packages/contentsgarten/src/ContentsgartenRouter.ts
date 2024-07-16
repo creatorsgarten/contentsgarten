@@ -6,6 +6,7 @@ import { AuthState, User } from './ContentsgartenAuth'
 import type { ContentsgartenRequestContext } from './ContentsgartenContext'
 import { PageDatabaseSearch } from './ContentsgartenPageDatabase'
 import { LaxPageRefRegex, PageRefRegex } from './PageRefRegex'
+import { cache } from './cache'
 import {
   GetPageResult,
   getPage,
@@ -14,7 +15,6 @@ import {
   savePageToDatabase,
 } from './getPage'
 import { t } from './trpc'
-import { cache } from './cache'
 
 export { GetPageResult } from './getPage'
 export { PageRefRegex }
@@ -70,6 +70,37 @@ export const ContentsgartenRouter = t.router({
         return { ...result, perf: ctx.perf.toMessageArray() }
       },
     ),
+  getContributors: t.procedure
+    .meta({ summary: 'Returns the contributors of a page' })
+    .input(
+      z.object({
+        pageRef: LaxPageRef,
+      }),
+    )
+    .output(
+      z.object({
+        contributors: z.array(
+          z.object({
+            login: z.string(),
+            avatarUrl: z.string(),
+            contributions: z.number(),
+          }),
+        ),
+        perf: z.array(z.string()),
+      }),
+    )
+    .query(async ({ input: { pageRef }, ctx }) => {
+      const filePath = pageRefToFilePath(ctx, pageRef)
+      const result = await cache(
+        ctx,
+        `contributors:${filePath}`,
+        async () => {
+          return ctx.app.storage.listContributors(ctx, filePath)
+        },
+        300e3,
+      )
+      return { ...result, perf: ctx.perf.toMessageArray() }
+    }),
   getEditPermission: t.procedure
     .meta({
       summary:

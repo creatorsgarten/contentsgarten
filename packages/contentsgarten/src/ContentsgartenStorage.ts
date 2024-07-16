@@ -1,7 +1,7 @@
 import type { GitHubApp } from './GitHubApp'
 import type { RequestContext } from './RequestContext'
 import { resolveGitHubUsernameFromId } from './resolveGitHubUsernameFromId'
-import { resolveOctokit, ContentsgartenOctokit } from './resolveOctokit'
+import { ContentsgartenOctokit, resolveOctokit } from './resolveOctokit'
 
 export interface ContentsgartenStorage {
   getFile(ctx: RequestContext, path: string): Promise<GetFileResult | undefined>
@@ -10,8 +10,13 @@ export interface ContentsgartenStorage {
     path: string,
     options: PutFileOptions,
   ): Promise<PutFileResult>
+  listContributors(
+    ctx: RequestContext,
+    path: string,
+  ): Promise<ListContributorsResult>
   listFiles(ctx: RequestContext): Promise<string[]>
 }
+
 export interface GetFileResult {
   content: Buffer
   lastModified?: string
@@ -30,6 +35,16 @@ export interface PutFileResult {
   revision: string
   lastModified: string
   lastModifiedBy: string[]
+}
+
+export interface ListContributorsResult {
+  contributors: Contributor[]
+}
+
+export interface Contributor {
+  login: string
+  avatarUrl: string
+  contributions: number
 }
 
 export class GitHubStorage implements ContentsgartenStorage {
@@ -127,6 +142,63 @@ export class GitHubStorage implements ContentsgartenStorage {
     return data.tree
       .filter((item) => item.type === 'blob')
       .map((item) => item.path!)
+  }
+
+  async listContributors(
+    ctx: RequestContext,
+    path: string,
+  ): Promise<ListContributorsResult> {
+    const octokit = await resolveOctokit(ctx, this.config.app, this.config.repo)
+    const { owner, repo } = this
+    const { data } = await octokit.request('POST /graphql', {
+      query: `query($path: String!) {
+        repository(owner: "${owner}", name: "${repo}") {
+          object(expression: "${this.config.branch}") {
+            ... on Commit {
+              history(first: 100, path: $path) {
+                nodes {
+                  oid
+                  committedDate
+                  authors(first: 2) {
+                    nodes {
+                      user {
+                        avatarUrl(size: 64)
+                        login
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }`,
+      variables: {
+        path,
+      },
+    })
+    const commits = data.data.repository.object.history.nodes
+    const profileMap = new Map<string, Contributor>()
+    for (const commit of commits) {
+      for (const { user } of commit.authors.nodes) {
+        if (user.login.endsWith('[bot]')) continue
+        const profile = profileMap.get(user.login)
+        if (profile) {
+          profile.contributions++
+        } else {
+          profileMap.set(user.login, {
+            login: user.login,
+            avatarUrl: user.avatarUrl,
+            contributions: 1,
+          })
+        }
+      }
+    }
+    return {
+      contributors: Array.from(profileMap.values()).sort(
+        (a, b) => b.contributions - a.contributions,
+      ),
+    }
   }
 }
 
