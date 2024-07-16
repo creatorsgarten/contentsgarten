@@ -1,11 +1,11 @@
+import { createHash } from 'crypto'
 import fs from 'fs'
 import path from 'path'
-import { createHash } from 'crypto'
-import { ContentsgartenStorage } from './ContentsgartenStorage'
-import { ContentsgartenAuth } from './ContentsgartenAuth'
-import { ContentsgartenTeamResolver } from './ContentsgartenTeamResolver'
 import { Contentsgarten } from './Contentsgarten'
+import { ContentsgartenAuth } from './ContentsgartenAuth'
 import { ContentsgartenPageDatabase } from './ContentsgartenPageDatabase'
+import { ContentsgartenStorage } from './ContentsgartenStorage'
+import { ContentsgartenTeamResolver } from './ContentsgartenTeamResolver'
 
 export namespace testing {
   export function createFakeStorage(): ContentsgartenStorage {
@@ -36,6 +36,9 @@ export namespace testing {
           lastModified: new Date().toISOString(),
           lastModifiedBy: [],
         }
+      },
+      async listContributors(ctx, filePath) {
+        return { contributors: [] }
       },
     }
 
