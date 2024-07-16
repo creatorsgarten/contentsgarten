@@ -1,5 +1,11 @@
 # contentsgarten
 
+## 2.1.0
+
+### Minor Changes
+
+- beeacd2: Added `getContributors` API
+
 ## 2.0.1
 
 ### Patch Changes
