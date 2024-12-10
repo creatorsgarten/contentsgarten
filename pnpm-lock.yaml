@@ -237,7 +237,7 @@ importers:
         version: 4.0.9
       '@types/json-buffer':
         specifier: ^3.0.0
-        version: 3.0.0
+        version: 3.0.2
       '@types/lodash-es':
         specifier: ^4.17.7
         version: 4.17.7
@@ -7371,8 +7371,8 @@ packages:
     resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
     dev: true
 
-  /@types/json-buffer@3.0.0:
-    resolution: {integrity: sha512-3YP80IxxFJB4b5tYC2SUPwkg0XQLiu0nWvhRgEatgjf+29IcWO9X1k8xRv5DGssJ/lCrjYTjQPcobJr2yWIVuQ==}
+  /@types/json-buffer@3.0.2:
+    resolution: {integrity: sha512-JdDf/nA+fafue3dkRhEYyUx8j7dCXr3LT2DQadS6sfyg4+tUQlsSYwwpxYTml0sLEnzP1cVamcFTkUaMIzkbCQ==}
     dev: true
 
   /@types/json-schema@7.0.11:
