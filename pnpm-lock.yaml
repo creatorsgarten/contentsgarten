@@ -101,7 +101,7 @@ importers:
         version: 0.8.0(eslint@8.38.0)(typescript@5.0.4)
       '@tailwindcss/typography':
         specifier: ^0.5.3
-        version: 0.5.9(tailwindcss@3.3.1)
+        version: 0.5.15(tailwindcss@3.3.1)
       '@types/cookie':
         specifier: ^0.5.1
         version: 0.5.1
@@ -413,7 +413,7 @@ importers:
         version: 7.88.0(astro@3.0.3)
       '@tailwindcss/typography':
         specifier: ^0.5.3
-        version: 0.5.9(tailwindcss@3.3.1)
+        version: 0.5.15(tailwindcss@3.3.1)
       '@tanstack/react-query':
         specifier: ^4.26.1
         version: 4.29.1(react-dom@18.2.0)(react-native@0.71.19)(react@18.2.0)
@@ -498,7 +498,7 @@ importers:
         version: 5.0.0-beta.48(@emotion/react@11.10.6)(@emotion/styled@11.10.6)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)
       '@tailwindcss/typography':
         specifier: ^0.5.3
-        version: 0.5.9(tailwindcss@3.3.1)
+        version: 0.5.15(tailwindcss@3.3.1)
       '@tanstack/react-query':
         specifier: ^4.26.1
         version: 4.29.1(react-dom@18.2.0)(react-native@0.71.19)(react@18.2.0)
@@ -5475,7 +5475,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.17.9
+      '@types/node': 22.10.1
       jest-mock: 29.7.0
 
   /@jest/fake-timers@29.7.0:
@@ -5484,7 +5484,7 @@ packages:
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 20.17.9
+      '@types/node': 22.10.1
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -5501,7 +5501,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.17.9
+      '@types/node': 22.10.1
       '@types/yargs': 15.0.19
       chalk: 4.1.2
 
@@ -5522,7 +5522,7 @@ packages:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.17.9
+      '@types/node': 22.10.1
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
@@ -7240,10 +7240,10 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@tailwindcss/typography@0.5.9(tailwindcss@3.3.1):
-    resolution: {integrity: sha512-t8Sg3DyynFysV9f4JDOVISGsjazNb48AeIYQwcL+Bsq5uf4RYL75C1giZ43KISjeDGBaTN3Kxh7Xj/vRSMJUUg==}
+  /@tailwindcss/typography@0.5.15(tailwindcss@3.3.1):
+    resolution: {integrity: sha512-AqhlCXl+8grUz8uqExv5OTtgpjuVIwFTSXTrh8y9/pw6q2ek7fJ+Y8ZEVw7EB2DCcuCOtEjf9w3+J3rzts01uA==}
     peerDependencies:
-      tailwindcss: '>=3.0.0 || insiders'
+      tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20'
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
@@ -12198,7 +12198,7 @@ packages:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.17.9
+      '@types/node': 22.10.1
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
@@ -12225,7 +12225,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.17.9
+      '@types/node': 22.10.1
       jest-util: 29.7.0
 
   /jest-regex-util@27.5.1:
@@ -12255,7 +12255,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.17.9
+      '@types/node': 22.10.1
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -12276,7 +12276,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.17.9
+      '@types/node': 22.10.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -15078,7 +15078,7 @@ packages:
     dependencies:
       icss-utils: 5.1.0(postcss@8.4.21)
       postcss: 8.4.21
-      postcss-selector-parser: 6.0.11
+      postcss-selector-parser: 6.1.2
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -15089,7 +15089,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       postcss: 8.4.21
-      postcss-selector-parser: 6.0.11
+      postcss-selector-parser: 6.1.2
     dev: true
 
   /postcss-modules-values@4.0.0(postcss@8.4.21):
@@ -15140,6 +15140,14 @@ packages:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
+
+  /postcss-selector-parser@6.1.2:
+    resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
+    engines: {node: '>=4'}
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
+    dev: true
 
   /postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
