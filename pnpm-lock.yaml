@@ -380,7 +380,7 @@ importers:
     dependencies:
       '@astrojs/node':
         specifier: ^6.0.0
-        version: 6.0.0(astro@3.6.5)
+        version: 6.1.0(astro@3.6.5)
       '@astrojs/react':
         specifier: ^3.0.0
         version: 3.6.3(@types/react-dom@18.0.11)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)
@@ -615,8 +615,8 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/node@6.0.0(astro@3.6.5):
-    resolution: {integrity: sha512-06x5UBt+g0EIUpOdtCdnTxRJhOTLxUnjzmGwIHp9RNBlIEpzd/dJs6pwvfiM2zuPolTLI53T8VOsdw3EMh2V+w==}
+  /@astrojs/node@6.1.0(astro@3.6.5):
+    resolution: {integrity: sha512-rqhZuVDUHVynkBaI/a8Y/WjVeFvKaH4qyrTkC8ZFwYUVff2DPQHS5/wLlTtS3s1GglApYsvPB9DdTL7sqUe9Kg==}
     peerDependencies:
       astro: ^3.0.0
     dependencies:
