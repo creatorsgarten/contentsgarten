@@ -298,7 +298,7 @@ importers:
     dependencies:
       '@wooorm/starry-night':
         specifier: ^3.0.0
-        version: 3.0.0
+        version: 3.5.0
     devDependencies:
       '@tsconfig/node18':
         specifier: ^2.0.0
@@ -8042,13 +8042,13 @@ packages:
   /@web3-storage/multipart-parser@1.0.0:
     resolution: {integrity: sha512-BEO6al7BYqcnfX15W2cnGR+Q566ACXAT9UQykORCWW80lmkpWsnEob6zJS1ZVBKsSJC8+7vJkHwlp+lXG1UCdw==}
 
-  /@wooorm/starry-night@3.0.0:
-    resolution: {integrity: sha512-9bS69LSlh7btL0zP4nkgt2m+yfVCimBmCHfzhDuqC/gYK592n205YKNED/Ax9HwaqtjmZN0LzpAKJjppGFvzKw==}
+  /@wooorm/starry-night@3.5.0:
+    resolution: {integrity: sha512-nYnfdeWS0ApqIFqr4ezLjr6pyYuqiG5Ywc2aJ4u1EY3qzf2oCTfLv7sMjEQSuSzPWUIH+a39eVbGUiRrFKZElA==}
     dependencies:
       '@types/hast': 3.0.4
-      import-meta-resolve: 3.0.0
-      vscode-oniguruma: 2.0.0
-      vscode-textmate: 9.0.0
+      import-meta-resolve: 4.1.0
+      vscode-oniguruma: 2.0.1
+      vscode-textmate: 9.1.0
     dev: false
 
   /@zxing/text-encoding@0.9.0:
@@ -11796,12 +11796,12 @@ packages:
       parent-module: 1.0.1
       resolve-from: 4.0.0
 
-  /import-meta-resolve@3.0.0:
-    resolution: {integrity: sha512-4IwhLhNNA8yy445rPjD/lWh++7hMDOml2eHtd58eG7h+qK3EryMuuRbsHGPikCoAgIkkDnckKfWSk2iDla/ejg==}
-    dev: false
-
   /import-meta-resolve@3.1.1:
     resolution: {integrity: sha512-qeywsE/KC3w9Fd2ORrRDUw6nS/nLwZpXgfrOc2IILvZYnCaEMd+D56Vfg9k4G29gIeVi3XKql1RQatME8iYsiw==}
+    dev: false
+
+  /import-meta-resolve@4.1.0:
+    resolution: {integrity: sha512-I6fiaX09Xivtk+THaMfAwnA3MVA5Big1WHF1Dfx9hFuvNIWpXnorlkzhcQf6ehrqQiiZECRt1poOAkPmer3ruw==}
     dev: false
 
   /imurmurhash@0.1.4:
@@ -17890,12 +17890,12 @@ packages:
       acorn-walk: 8.3.4
     dev: true
 
-  /vscode-oniguruma@2.0.0:
-    resolution: {integrity: sha512-QWb6OZHNMxk1/nNOA6gjmbwA7gkKOYPAgteCOy8hX8/3FzoEb4pLHt2b2VHGy9gDdzGt3l5NqiQyo1HEQIanhw==}
+  /vscode-oniguruma@2.0.1:
+    resolution: {integrity: sha512-poJU8iHIWnC3vgphJnrLZyI3YdqRlR27xzqDmpPXYzA93R4Gk8z7T6oqDzDoHjoikA2aS82crdXFkjELCdJsjQ==}
     dev: false
 
-  /vscode-textmate@9.0.0:
-    resolution: {integrity: sha512-Cl65diFGxz7gpwbav10HqiY/eVYTO1sjQpmRmV991Bj7wAoOAjGQ97PpQcXorDE2Uc4hnGWLY17xme+5t6MlSg==}
+  /vscode-textmate@9.1.0:
+    resolution: {integrity: sha512-lxKSVp2DkFOx9RDAvpiYUrB9/KT1fAfi1aE8CBGstP8N7rLF+Seifj8kDA198X0mYj1CjQUC+81+nQf8CO0nVA==}
     dev: false
 
   /walker@1.0.8:
