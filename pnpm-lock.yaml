@@ -212,7 +212,7 @@ importers:
         version: 4.5.4
       liquidjs:
         specifier: ^10.6.1
-        version: 10.7.0
+        version: 10.19.0
       mongodb:
         specifier: ^6.0.0
         version: 6.0.0
@@ -6486,7 +6486,7 @@ packages:
       '@react-native-community/cli-tools': 10.1.1
       chalk: 4.1.2
       execa: 1.0.0
-      fast-xml-parser: 4.5.0
+      fast-xml-parser: 4.5.1
       glob: 7.2.3
       ora: 5.4.1
     transitivePeerDependencies:
@@ -9222,8 +9222,8 @@ packages:
   /command-exists@1.2.9:
     resolution: {integrity: sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==}
 
-  /commander@10.0.0:
-    resolution: {integrity: sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==}
+  /commander@10.0.1:
+    resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
     engines: {node: '>=14'}
     dev: false
 
@@ -10832,8 +10832,8 @@ packages:
   /fast-levenshtein@2.0.6:
     resolution: {integrity: sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==}
 
-  /fast-xml-parser@4.5.0:
-    resolution: {integrity: sha512-/PlTQCI96+fZMAOLMZK4CWG1ItCbfZ/0jx7UIJFChPNrx7tcEgerUgWbeieCM9MfHInUDyK8DWYZ+YrywDJuTg==}
+  /fast-xml-parser@4.5.1:
+    resolution: {integrity: sha512-y655CeyUQ+jj7KBbYMc4FG01V8ZQqjN+gDYGJ50RtfsUB8iG9AmwmwoAgeKLJdmueKKMrH1RJ7yXHTSoczdv5w==}
     hasBin: true
     dependencies:
       strnum: 1.0.5
@@ -12568,12 +12568,12 @@ packages:
       uc.micro: 1.0.6
     dev: false
 
-  /liquidjs@10.7.0:
-    resolution: {integrity: sha512-AEgEgbybxc17h2WBl5DTzj1tNy18ANpM/KJ2LigkNBwd/8sBc0uDaJH/MnvUbv1t2Md5RArTTZj5Wq1MGncIbg==}
+  /liquidjs@10.19.0:
+    resolution: {integrity: sha512-dNINmbNJ/bp3B8n25BtZQV/GbrmFf0o2InGdMdfQXa+LxfzTFXOkUnBsOLZUb82sLzxaiWv5Jc381Kn4zHjTsQ==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
-      commander: 10.0.0
+      commander: 10.0.1
     dev: false
 
   /load-tsconfig@0.2.5:
