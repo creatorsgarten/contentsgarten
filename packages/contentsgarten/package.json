@@ -46,7 +46,7 @@
     "liquidjs": "^10.6.1",
     "mongodb": "^6.0.0",
     "octokit": "^3.0.0",
-    "openapi-trpc": "^0.1.2",
+    "openapi-trpc": "^0.2.0",
     "p-memoize": "^7.1.0",
     "zod": "^3.21.4",
     "@contentsgarten/markdown": "workspace:*"
