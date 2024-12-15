@@ -220,8 +220,8 @@ importers:
         specifier: ^3.0.0
         version: 3.2.1
       openapi-trpc:
-        specifier: ^0.1.2
-        version: 0.1.2(@trpc/server@10.20.0)(zod@3.21.4)
+        specifier: ^0.2.0
+        version: 0.2.0(@trpc/server@10.20.0)(zod@3.21.4)
       p-memoize:
         specifier: ^7.1.0
         version: 7.1.1
@@ -451,8 +451,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1(zod@3.21.4)
       openapi-trpc:
-        specifier: ^0.1.2
-        version: 0.1.2(@trpc/server@10.20.0)(zod@3.21.4)
+        specifier: ^0.2.0
+        version: 0.2.0(@trpc/server@10.20.0)(zod@3.21.4)
       postcss:
         specifier: ^8.4.21
         version: 8.4.49
@@ -5409,7 +5409,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.10.2
+      '@types/node': 20.17.10
       jest-mock: 29.7.0
 
   /@jest/fake-timers@29.7.0:
@@ -5418,7 +5418,7 @@ packages:
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 22.10.2
+      '@types/node': 20.17.10
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -5435,7 +5435,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.10.2
+      '@types/node': 20.17.10
       '@types/yargs': 15.0.19
       chalk: 4.1.2
 
@@ -5456,7 +5456,7 @@ packages:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.10.2
+      '@types/node': 20.17.10
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
@@ -12268,7 +12268,7 @@ packages:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.10.2
+      '@types/node': 20.17.10
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
@@ -12295,7 +12295,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.10.2
+      '@types/node': 20.17.10
       jest-util: 29.7.0
 
   /jest-regex-util@27.5.1:
@@ -12325,7 +12325,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.10.2
+      '@types/node': 20.17.10
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -12346,7 +12346,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 22.10.2
+      '@types/node': 20.17.10
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -14619,8 +14619,8 @@ packages:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  /openapi-trpc@0.1.2(@trpc/server@10.20.0)(zod@3.21.4):
-    resolution: {integrity: sha512-VceDRPNd0gzDpmoWPn48glKucev4bKo7uo6NZIr/mQWlYz/B/VafdR1/6xxGbgVNl6++FMQZ0lsSdIEWBZLSQw==}
+  /openapi-trpc@0.2.0(@trpc/server@10.20.0)(zod@3.21.4):
+    resolution: {integrity: sha512-Wliv90CKXt+hRk7D28wl8H9VKaJkllMHUT/Ck0gaIwRkM88VxDhDEHmJAotnaRj6BkeXLslNUOk0XbO51j1G9Q==}
     peerDependencies:
       '@trpc/server': ^10.11.1
       zod: ^3.20.6
