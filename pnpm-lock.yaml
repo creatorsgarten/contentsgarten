@@ -61,7 +61,7 @@ importers:
         version: 4.2.10(react@18.2.0)
       lazy-strict-env:
         specifier: ^0.3.1
-        version: 0.3.1(zod@3.21.4)
+        version: 0.3.1(zod@3.24.1)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -85,7 +85,7 @@ importers:
         version: 5.28.4
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.24.1
     devDependencies:
       '@playwright/test':
         specifier: ~1.49.0
@@ -221,13 +221,13 @@ importers:
         version: 3.2.1
       openapi-trpc:
         specifier: ^0.2.0
-        version: 0.2.0(@trpc/server@10.20.0)(zod@3.21.4)
+        version: 0.2.0(@trpc/server@10.20.0)(zod@3.24.1)
       p-memoize:
         specifier: ^7.1.0
         version: 7.1.1
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.24.1
     devDependencies:
       '@tsconfig/node18':
         specifier: ^2.0.0
@@ -449,10 +449,10 @@ importers:
         version: 10.0.0(react-native@0.71.19)
       lazy-strict-env:
         specifier: ^0.3.1
-        version: 0.3.1(zod@3.21.4)
+        version: 0.3.1(zod@3.24.1)
       openapi-trpc:
         specifier: ^0.2.0
-        version: 0.2.0(@trpc/server@10.20.0)(zod@3.21.4)
+        version: 0.2.0(@trpc/server@10.20.0)(zod@3.24.1)
       postcss:
         specifier: ^8.4.21
         version: 8.4.49
@@ -470,7 +470,7 @@ importers:
         version: 3.4.16
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.24.1
     devDependencies:
       '@types/cookie':
         specifier: ^0.6.0
@@ -537,7 +537,7 @@ importers:
         version: 10.0.0(react-native@0.71.19)
       lazy-strict-env:
         specifier: ^0.3.1
-        version: 0.3.1(zod@3.21.4)
+        version: 0.3.1(zod@3.24.1)
       next:
         specifier: 13.4.5
         version: 13.4.5(@babel/core@7.26.0)(react-dom@18.2.0)(react@18.2.0)
@@ -555,7 +555,7 @@ importers:
         version: 5.0.4
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.24.1
     devDependencies:
       autoprefixer:
         specifier: ^10.4.14
@@ -12534,12 +12534,12 @@ packages:
     dependencies:
       language-subtag-registry: 0.3.22
 
-  /lazy-strict-env@0.3.1(zod@3.21.4):
+  /lazy-strict-env@0.3.1(zod@3.24.1):
     resolution: {integrity: sha512-8A//LSm8Enrz6iBgFk56dfJcHXCM3429zbnSpjBDEVStDEYtD0Chd6+5mQQS1QTjxoALgZ2I3ClRuymy4qw0SA==}
     peerDependencies:
       zod: '>=3.0.0'
     dependencies:
-      zod: 3.21.4
+      zod: 3.24.1
     dev: false
 
   /leven@3.1.0:
@@ -14596,7 +14596,7 @@ packages:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  /openapi-trpc@0.2.0(@trpc/server@10.20.0)(zod@3.21.4):
+  /openapi-trpc@0.2.0(@trpc/server@10.20.0)(zod@3.24.1):
     resolution: {integrity: sha512-Wliv90CKXt+hRk7D28wl8H9VKaJkllMHUT/Ck0gaIwRkM88VxDhDEHmJAotnaRj6BkeXLslNUOk0XbO51j1G9Q==}
     peerDependencies:
       '@trpc/server': ^10.11.1
@@ -14604,8 +14604,8 @@ packages:
     dependencies:
       '@trpc/server': 10.20.0
       openapi-types: 12.1.0
-      zod: 3.21.4
-      zod-to-json-schema: 3.20.4(zod@3.21.4)
+      zod: 3.24.1
+      zod-to-json-schema: 3.20.4(zod@3.24.1)
     dev: false
 
   /openapi-types@12.1.0:
@@ -18242,12 +18242,12 @@ packages:
     resolution: {integrity: sha512-b4JR1PFR10y1mKjhHY9LaGo6tmrgjit7hxVIeAmyMw3jegXR4dhYqLaQF5zMXZxY7tLpMyJeLjr1C4rLmkVe8g==}
     engines: {node: '>=12.20'}
 
-  /zod-to-json-schema@3.20.4(zod@3.21.4):
+  /zod-to-json-schema@3.20.4(zod@3.24.1):
     resolution: {integrity: sha512-Un9+kInJ2Zt63n6Z7mLqBifzzPcOyX+b+Exuzf7L1+xqck9Q2EPByyTRduV3kmSPaXaRer1JCsucubpgL1fipg==}
     peerDependencies:
       zod: ^3.20.0
     dependencies:
-      zod: 3.21.4
+      zod: 3.24.1
     dev: false
 
   /zod@3.21.4:
