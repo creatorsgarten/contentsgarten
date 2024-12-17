@@ -29,7 +29,7 @@ jobs:
       - name: Run Playwright tests
         run: pnpm exec playwright test
         working-directory: contentsgarten.netlify.app
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
