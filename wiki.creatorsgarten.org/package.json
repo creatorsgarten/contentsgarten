@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^6.0.0",
-    "@astrojs/react": "^3.0.0",
+    "@astrojs/react": "^4.0.0",
     "@astrojs/tailwind": "^5.0.0",
     "@babel/core": "^7.21.3",
     "@contentsgarten/client-utils": "workspace:*",
@@ -29,7 +29,7 @@
     "@trpc/server": "^10.16.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "astro": "^3.0.0",
+    "astro": "^5.0.0",
     "clsx": "^2.0.0",
     "contentsgarten": "workspace:*",
     "cookie": "^0.7.0",
