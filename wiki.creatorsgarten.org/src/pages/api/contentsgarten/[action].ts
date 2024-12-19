@@ -76,7 +76,7 @@ export function getInstance() {
   return contentsgarten
 }
 
-export const all: APIRoute = async ({ params, request }) => {
+export const ALL: APIRoute = async ({ params, request }) => {
   if (config.testing.BACKEND === 'production') {
     const requestUrl = new URL(request.url)
     const backendUrl = new URL(
