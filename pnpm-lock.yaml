@@ -101,7 +101,7 @@ importers:
         version: 0.9.2(eslint@8.57.1)(typescript@5.0.4)
       '@tailwindcss/typography':
         specifier: ^0.5.3
-        version: 0.5.15(tailwindcss@3.4.17)
+        version: 0.5.16(tailwindcss@3.4.17)
       '@types/cookie':
         specifier: ^0.6.0
         version: 0.6.0
@@ -413,7 +413,7 @@ importers:
         version: 8.47.0(astro@5.0.9(@types/node@22.13.7)(jiti@1.21.7)(rollup@4.34.8)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))
       '@tailwindcss/typography':
         specifier: ^0.5.3
-        version: 0.5.15(tailwindcss@3.4.17)
+        version: 0.5.16(tailwindcss@3.4.17)
       '@tanstack/react-query':
         specifier: ^4.26.1
         version: 4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.71.19(@babel/core@7.26.9)(@babel/preset-env@7.26.0(@babel/core@7.26.9))(react@18.3.1))(react@18.3.1)
@@ -498,7 +498,7 @@ importers:
         version: 5.0.0-beta.51(@emotion/react@11.14.0(@types/react@18.3.17)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.17)(react@18.3.1))(@types/react@18.3.17)(react@18.3.1))(@types/react@18.3.17)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tailwindcss/typography':
         specifier: ^0.5.3
-        version: 0.5.15(tailwindcss@3.4.17)
+        version: 0.5.16(tailwindcss@3.4.17)
       '@tanstack/react-query':
         specifier: ^4.26.1
         version: 4.36.1(react-dom@18.3.1(react@18.3.1))(react-native@0.71.19(@babel/core@7.26.9)(@babel/preset-env@7.26.0(@babel/core@7.26.9))(react@18.3.1))(react@18.3.1)
@@ -3734,10 +3734,10 @@ packages:
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
     engines: {node: '>=10'}
 
-  '@tailwindcss/typography@0.5.15':
-    resolution: {integrity: sha512-AqhlCXl+8grUz8uqExv5OTtgpjuVIwFTSXTrh8y9/pw6q2ek7fJ+Y8ZEVw7EB2DCcuCOtEjf9w3+J3rzts01uA==}
+  '@tailwindcss/typography@0.5.16':
+    resolution: {integrity: sha512-0wDLwCVF5V3x3b1SGXPCDcdsbDHMBe+lkFzBRaHeLvNi+nrrnZ1lA18u+OTWO8iSWU2GxUOCvlXtDuqftc1oiA==}
     peerDependencies:
-      tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20'
+      tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20 || >=4.0.0-beta.1'
 
   '@tanstack/query-core@4.36.1':
     resolution: {integrity: sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA==}
@@ -8098,8 +8098,8 @@ packages:
     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
     engines: {node: '>=4'}
 
-  postcss-selector-parser@7.0.0:
-    resolution: {integrity: sha512-9RbEr1Y7FFfptd/1eEdntyjMwLeghW1bHX9GWjXo19vx4ytPQhANltvVxDggzJl7mnWM+dX28kb6cyS/4iQjlQ==}
+  postcss-selector-parser@7.1.0:
+    resolution: {integrity: sha512-8sLjZwK0R+JlxlYcTuVnyT2v+htpdrjDOKuMcOVdYjt52Lh8hWRYpxBPoKx/Zg+bcjc3wx6fmQevMmUztS/ccA==}
     engines: {node: '>=4'}
 
   postcss-value-parser@4.2.0:
@@ -14451,7 +14451,7 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.17)':
+  '@tailwindcss/typography@0.5.16(tailwindcss@3.4.17)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
@@ -20352,13 +20352,13 @@ snapshots:
     dependencies:
       icss-utils: 5.1.0(postcss@8.4.49)
       postcss: 8.4.49
-      postcss-selector-parser: 7.0.0
+      postcss-selector-parser: 7.1.0
       postcss-value-parser: 4.2.0
 
   postcss-modules-scope@3.2.1(postcss@8.4.49):
     dependencies:
       postcss: 8.4.49
-      postcss-selector-parser: 7.0.0
+      postcss-selector-parser: 7.1.0
 
   postcss-modules-values@4.0.0(postcss@8.4.49):
     dependencies:
@@ -20392,7 +20392,7 @@ snapshots:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
 
-  postcss-selector-parser@7.0.0:
+  postcss-selector-parser@7.1.0:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
