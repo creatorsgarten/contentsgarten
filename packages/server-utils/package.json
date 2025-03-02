@@ -23,7 +23,7 @@
   "devDependencies": {
     "@trpc/client": "^10.16.0",
     "@trpc/server": "^10.16.0",
-    "@tsconfig/node18": "^2.0.0",
+    "@tsconfig/node18": "^18.0.0",
     "@types/node": "^20.0.0",
     "tsup": "^8.0.0",
     "typescript": "5"
