@@ -380,13 +380,13 @@ importers:
     dependencies:
       '@astrojs/node':
         specifier: ^9.0.0
-        version: 9.1.2(astro@5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))
+        version: 9.1.2(astro@5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))
       '@astrojs/react':
         specifier: ^4.0.0
         version: 4.2.1(@types/node@22.13.9)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(jiti@1.21.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.39.0)(yaml@2.6.1)
       '@astrojs/tailwind':
         specifier: ^5.0.0
-        version: 5.1.5(astro@5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))(tailwindcss@3.4.17)
+        version: 5.1.5(astro@5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))(tailwindcss@3.4.17)
       '@babel/core':
         specifier: ^7.21.3
         version: 7.26.9
@@ -410,7 +410,7 @@ importers:
         version: 5.0.0-beta.51(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@sentry/astro':
         specifier: ^8.0.0
-        version: 8.55.0(astro@5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))
+        version: 8.55.0(astro@5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))
       '@tailwindcss/typography':
         specifier: ^0.5.3
         version: 0.5.16(tailwindcss@3.4.17)
@@ -434,7 +434,7 @@ importers:
         version: 18.3.5(@types/react@18.3.18)
       astro:
         specifier: ^5.0.0
-        version: 5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1)
+        version: 5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1)
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -4321,8 +4321,8 @@ packages:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
 
-  astro@5.4.1:
-    resolution: {integrity: sha512-z9BiBz8pV7pZVn1evZv/9bJil3A9UZNyEjDFH3IjD87ioz95HHGLgbjRbbqF1EwSy8JOLKlMNyuQPqjrX8xqWw==}
+  astro@5.4.2:
+    resolution: {integrity: sha512-9Z3fAniIRJaK/o43OroZA1wHUIU+qHiOR9ovlVT/2XQaN25QRXScIsKWlFp0G/zrx5OuuoJ+QnaoHHW061u26A==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -9258,8 +9258,8 @@ packages:
     resolution: {integrity: sha512-FVNSzGQz9Th+/9R6Lvv7WIAkstylfHN2/JYxkyhhmKFYh9At2DST8t6L6Lref9eYO8PXFTfG9Sg1Agg0K3vq3Q==}
     engines: {node: '>=14.16'}
 
-  type-fest@4.36.0:
-    resolution: {integrity: sha512-3T/PUdKTCnkUmhQU6FFJEHsLwadsRegktX3TNHk+2JJB9HlA8gp1/VXblXVDI93kSnXF2rdPx0GMbHtJIV2LPg==}
+  type-fest@4.37.0:
+    resolution: {integrity: sha512-S/5/0kFftkq27FPNye0XM1e2NsnoD/3FS+pBmbjmmtLT6I+i344KoOf7pvXreaFsDamWeaJX55nczA1m5PsBDg==}
     engines: {node: '>=16'}
 
   type-is@1.6.18:
@@ -10019,10 +10019,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@9.1.2(astro@5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))':
+  '@astrojs/node@9.1.2(astro@5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))':
     dependencies:
       '@astrojs/internal-helpers': 0.6.0
-      astro: 5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1)
+      astro: 5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1)
       send: 1.1.0
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -10055,9 +10055,9 @@ snapshots:
       - tsx
       - yaml
 
-  '@astrojs/tailwind@5.1.5(astro@5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))(tailwindcss@3.4.17)':
+  '@astrojs/tailwind@5.1.5(astro@5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))(tailwindcss@3.4.17)':
     dependencies:
-      astro: 5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1)
+      astro: 5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1)
       autoprefixer: 10.4.20(postcss@8.5.3)
       postcss: 8.5.3
       postcss-load-config: 4.0.2(postcss@8.5.3)
@@ -14273,13 +14273,13 @@ snapshots:
       '@sentry-internal/browser-utils': 8.55.0
       '@sentry/core': 8.55.0
 
-  '@sentry/astro@8.55.0(astro@5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))':
+  '@sentry/astro@8.55.0(astro@5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1))':
     dependencies:
       '@sentry/browser': 8.55.0
       '@sentry/core': 8.55.0
       '@sentry/node': 8.55.0
       '@sentry/vite-plugin': 2.23.0
-      astro: 5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1)
+      astro: 5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -15302,7 +15302,7 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro@5.4.1(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1):
+  astro@5.4.2(@types/node@22.13.9)(jiti@1.21.7)(rollup@4.34.9)(terser@5.39.0)(typescript@5.0.4)(yaml@2.6.1):
     dependencies:
       '@astrojs/compiler': 2.10.4
       '@astrojs/internal-helpers': 0.6.0
@@ -15634,7 +15634,7 @@ snapshots:
       chalk: 5.4.1
       cli-boxes: 3.0.0
       string-width: 7.2.0
-      type-fest: 4.36.0
+      type-fest: 4.37.0
       widest-line: 5.0.0
       wrap-ansi: 9.0.0
 
@@ -16729,7 +16729,7 @@ snapshots:
       debug: 4.4.0
       enhanced-resolve: 5.12.0
       eslint: 8.57.1
-      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1)
+      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1)
       get-tsconfig: 4.5.0
       globby: 13.2.2
@@ -16769,7 +16769,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1):
+  eslint-module-utils@2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -16795,7 +16795,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.1
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1)
+      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
       has: 1.0.3
       is-core-module: 2.16.0
       is-glob: 4.0.3
@@ -22054,7 +22054,7 @@ snapshots:
 
   type-fest@3.8.0: {}
 
-  type-fest@4.36.0: {}
+  type-fest@4.37.0: {}
 
   type-is@1.6.18:
     dependencies:
