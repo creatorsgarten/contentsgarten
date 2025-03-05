@@ -157,8 +157,8 @@ importers:
   packages/client-utils:
     devDependencies:
       '@tsconfig/node18':
-        specifier: ^2.0.0
-        version: 2.0.1
+        specifier: ^18.0.0
+        version: 18.2.4
       '@types/node':
         specifier: ^20.0.0
         version: 20.17.23
@@ -230,8 +230,8 @@ importers:
         version: 3.24.2
     devDependencies:
       '@tsconfig/node18':
-        specifier: ^2.0.0
-        version: 2.0.1
+        specifier: ^18.0.0
+        version: 18.2.4
       '@types/js-yaml':
         specifier: ^4.0.5
         version: 4.0.9
@@ -267,8 +267,8 @@ importers:
         version: 4.2.10(react@18.3.1)
     devDependencies:
       '@tsconfig/node18':
-        specifier: ^2.0.0
-        version: 2.0.1
+        specifier: ^18.0.0
+        version: 18.2.4
       '@types/node':
         specifier: ^20.0.0
         version: 20.17.23
@@ -301,8 +301,8 @@ importers:
         version: 3.6.0
     devDependencies:
       '@tsconfig/node18':
-        specifier: ^2.0.0
-        version: 2.0.1
+        specifier: ^18.0.0
+        version: 18.2.4
       '@types/hast':
         specifier: ^3.0.0
         version: 3.0.4
@@ -364,8 +364,8 @@ importers:
         specifier: ^10.16.0
         version: 10.45.2
       '@tsconfig/node18':
-        specifier: ^2.0.0
-        version: 2.0.1
+        specifier: ^18.0.0
+        version: 18.2.4
       '@types/node':
         specifier: ^20.0.0
         version: 20.17.23
@@ -3704,8 +3704,8 @@ packages:
   '@trpc/server@10.45.2':
     resolution: {integrity: sha512-wOrSThNNE4HUnuhJG6PfDRp4L2009KDVxsd+2VYH8ro6o/7/jwYZ8Uu5j+VaW+mOmc8EHerHzGcdbGNQSAUPgg==}
 
-  '@tsconfig/node18@2.0.1':
-    resolution: {integrity: sha512-UqdfvuJK0SArA2CxhKWwwAWfnVSXiYe63bVpMutc27vpngCntGUZQETO24pEJ46zU6XM+7SpqYoMgcO3bM11Ew==}
+  '@tsconfig/node18@18.2.4':
+    resolution: {integrity: sha512-5xxU8vVs9/FNcvm3gE07fPbn9tl6tqGGWA9tSlwsUEkBxtRnTsNmwrV8gasZ9F/EobaSv9+nu8AxUKccw77JpQ==}
 
   '@types/acorn@4.0.6':
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
@@ -12837,14 +12837,14 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       jest-mock: 29.7.0
 
   '@jest/fake-timers@29.7.0':
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -12857,7 +12857,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       '@types/yargs': 15.0.19
       chalk: 4.1.2
 
@@ -12865,7 +12865,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       '@types/yargs': 16.0.9
       chalk: 4.1.2
 
@@ -12874,7 +12874,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
@@ -14530,7 +14530,7 @@ snapshots:
 
   '@trpc/server@10.45.2': {}
 
-  '@tsconfig/node18@2.0.1': {}
+  '@tsconfig/node18@18.2.4': {}
 
   '@types/acorn@4.0.6':
     dependencies:
@@ -18396,7 +18396,7 @@ snapshots:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
@@ -18417,20 +18417,20 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       jest-util: 29.7.0
 
   jest-regex-util@27.5.1: {}
 
   jest-serializer@27.5.1:
     dependencies:
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       graceful-fs: 4.2.11
 
   jest-util@27.5.1:
     dependencies:
       '@jest/types': 27.5.1
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -18439,7 +18439,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -18456,7 +18456,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 22.13.9
+      '@types/node': 20.17.23
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
