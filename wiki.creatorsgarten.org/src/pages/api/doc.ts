@@ -1,6 +1,6 @@
 import { generateOpenAPIDocumentFromTRPCRouter } from 'openapi-trpc'
 import { ContentsgartenRouter } from 'contentsgarten'
-export function get() {
+export function GET() {
   const doc = generateOpenAPIDocumentFromTRPCRouter(ContentsgartenRouter, {
     pathPrefix: '/api/contentsgarten',
     processOperation(op) {
