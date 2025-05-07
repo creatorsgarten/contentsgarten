@@ -103,8 +103,8 @@ importers:
         specifier: ^0.5.3
         version: 0.5.16(tailwindcss@3.4.17)
       '@types/cookie':
-        specifier: ^0.6.0
-        version: 0.6.0
+        specifier: ^1.0.0
+        version: 1.0.0
       '@types/js-cookie':
         specifier: ^3.0.3
         version: 3.0.6
@@ -130,8 +130,8 @@ importers:
         specifier: ^9.0.0
         version: 9.1.2
       cookie:
-        specifier: ^0.7.0
-        version: 0.7.2
+        specifier: ^1.0.0
+        version: 1.0.2
       depcheck:
         specifier: ^1.4.3
         version: 1.4.7
@@ -442,8 +442,8 @@ importers:
         specifier: workspace:*
         version: link:../packages/contentsgarten
       cookie:
-        specifier: ^0.7.0
-        version: 0.7.2
+        specifier: ^1.0.0
+        version: 1.0.2
       firebase:
         specifier: ^10.0.0
         version: 10.0.0(react-native@0.71.19(@babel/core@7.26.9)(@babel/preset-env@7.26.0(@babel/core@7.26.9))(react@18.3.1))
@@ -473,8 +473,8 @@ importers:
         version: 3.24.2
     devDependencies:
       '@types/cookie':
-        specifier: ^0.6.0
-        version: 0.6.0
+        specifier: ^1.0.0
+        version: 1.0.0
 
   wiki.wonderful.software:
     dependencies:
@@ -3993,6 +3993,10 @@ packages:
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
+  '@types/cookie@1.0.0':
+    resolution: {integrity: sha512-mGFXbkDQJ6kAXByHS7QAggRXgols0mAdP4MuXgloGY1tXokvzaFFM4SMqWvf7AH0oafI7zlFJwoGWzmhDqTZ9w==}
+    deprecated: This is a stub types definition. cookie provides its own type definitions, so you do not need this installed.
+
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
 
@@ -5109,6 +5113,10 @@ packages:
   cookie@0.7.2:
     resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
+
+  cookie@1.0.2:
+    resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
+    engines: {node: '>=18'}
 
   core-js-compat@3.39.0:
     resolution: {integrity: sha512-VgEUx3VwlExr5no0tXlBt+silBvhTryPwCXRI2Id1PN8WTKu7MreethvddqOubrYxkFdv/RnYrqlv1sFNAUelw==}
@@ -13554,14 +13562,14 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       jest-mock: 29.7.0
 
   '@jest/fake-timers@29.7.0':
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -13574,7 +13582,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       '@types/yargs': 15.0.19
       chalk: 4.1.2
 
@@ -13582,7 +13590,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       '@types/yargs': 16.0.9
       chalk: 4.1.2
 
@@ -13591,7 +13599,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
@@ -15295,6 +15303,10 @@ snapshots:
 
   '@types/cookie@0.6.0': {}
 
+  '@types/cookie@1.0.0':
+    dependencies:
+      cookie: 1.0.2
+
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 2.1.0
@@ -15408,6 +15420,7 @@ snapshots:
   '@types/node@22.15.12':
     dependencies:
       undici-types: 6.21.0
+    optional: true
 
   '@types/parse-json@4.0.2': {}
 
@@ -16788,6 +16801,8 @@ snapshots:
 
   cookie@0.7.2: {}
 
+  cookie@1.0.2: {}
+
   core-js-compat@3.39.0:
     dependencies:
       browserslist: 4.24.3
@@ -17490,7 +17505,7 @@ snapshots:
       debug: 4.4.0
       enhanced-resolve: 5.12.0
       eslint: 8.57.1
-      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1)
+      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1)
       get-tsconfig: 4.5.0
       globby: 13.2.2
@@ -17530,7 +17545,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1):
+  eslint-module-utils@2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -17556,7 +17571,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.1
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1)
+      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
       has: 1.0.3
       is-core-module: 2.16.0
       is-glob: 4.0.3
@@ -19171,7 +19186,7 @@ snapshots:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
@@ -19192,20 +19207,20 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       jest-util: 29.7.0
 
   jest-regex-util@27.5.1: {}
 
   jest-serializer@27.5.1:
     dependencies:
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       graceful-fs: 4.2.11
 
   jest-util@27.5.1:
     dependencies:
       '@jest/types': 27.5.1
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -19214,7 +19229,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -19231,7 +19246,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 22.15.12
+      '@types/node': 20.17.23
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -22883,7 +22898,8 @@ snapshots:
 
   undici-types@6.20.0: {}
 
-  undici-types@6.21.0: {}
+  undici-types@6.21.0:
+    optional: true
 
   undici@5.28.5:
     dependencies:
