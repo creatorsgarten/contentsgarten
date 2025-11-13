@@ -221,7 +221,7 @@ importers:
         version: 3.2.1
       openapi-trpc:
         specifier: ^0.2.0
-        version: 0.2.0(@trpc/server@10.45.2)(zod@3.24.2)
+        version: 0.2.1(@trpc/server@10.45.2)(zod@3.24.2)
       p-memoize:
         specifier: ^7.1.0
         version: 7.1.1
@@ -452,7 +452,7 @@ importers:
         version: 0.3.1(zod@3.24.2)
       openapi-trpc:
         specifier: ^0.2.0
-        version: 0.2.0(@trpc/server@10.45.2)(zod@3.24.2)
+        version: 0.2.1(@trpc/server@10.45.2)(zod@3.24.2)
       postcss:
         specifier: ^8.4.21
         version: 8.5.3
@@ -8068,14 +8068,14 @@ packages:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
 
-  openapi-trpc@0.2.0:
-    resolution: {integrity: sha512-Wliv90CKXt+hRk7D28wl8H9VKaJkllMHUT/Ck0gaIwRkM88VxDhDEHmJAotnaRj6BkeXLslNUOk0XbO51j1G9Q==}
+  openapi-trpc@0.2.1:
+    resolution: {integrity: sha512-P3iR5qt9+zbzehfvTl1+M8DWle/oirPRglt0JZJneRrG4CCD4EvN6+R3la3B1okub9PSYzinhtBPu1STpMSX8w==}
     peerDependencies:
       '@trpc/server': ^10.11.1
       zod: ^3.20.6
 
-  openapi-types@12.1.0:
-    resolution: {integrity: sha512-XpeCy01X6L5EpP+6Hc3jWN7rMZJ+/k1lwki/kTmWzbVhdPie3jd5O2ZtedEx8Yp58icJ0osVldLMrTB/zslQXA==}
+  openapi-types@12.1.3:
+    resolution: {integrity: sha512-N4YtSYJqghVu4iek2ZUvcN/0aqH1kRDuNqzcycDxhOUpg7GdvLa2F3DgS6yBNhInhv2r/6I0Flkn7CqL8+nIcw==}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -10335,13 +10335,13 @@ packages:
     resolution: {integrity: sha512-GQHQqAopRhwU8Kt1DDM8NjibDXHC8eoh1erhGAJPEyveY9qqVeXvVikNKrDz69sHowPMorbPUrH/mx8c50eiBQ==}
     engines: {node: '>=18'}
 
-  zod-to-json-schema@3.20.4:
-    resolution: {integrity: sha512-Un9+kInJ2Zt63n6Z7mLqBifzzPcOyX+b+Exuzf7L1+xqck9Q2EPByyTRduV3kmSPaXaRer1JCsucubpgL1fipg==}
-    peerDependencies:
-      zod: ^3.20.0
-
   zod-to-json-schema@3.24.3:
     resolution: {integrity: sha512-HIAfWdYIt1sssHfYZFCXp4rU1w2r8hVVXYIlmoa0r0gABLs5di3RCqPU5DDROogVz1pAdYBaz7HK5n9pSUNs3A==}
+    peerDependencies:
+      zod: ^3.24.1
+
+  zod-to-json-schema@3.24.6:
+    resolution: {integrity: sha512-h/z3PKvcTcTetyjl1fkj79MHNEjm+HpD6NXheWjzOekY7kV+lwDYnHw+ivHkijnCSMz1yJaWBD9vu/Fcmk+vEg==}
     peerDependencies:
       zod: ^3.24.1
 
@@ -17650,7 +17650,7 @@ snapshots:
       debug: 4.4.0
       enhanced-resolve: 5.12.0
       eslint: 8.57.1
-      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
+      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1)
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1)
       get-tsconfig: 4.5.0
       globby: 13.2.2
@@ -17690,7 +17690,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1):
+  eslint-module-utils@2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -17716,7 +17716,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.1
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5(eslint@8.57.1))(eslint@8.57.1))(eslint@8.57.1)
+      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.58.0(eslint@8.57.1)(typescript@5.0.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.57.1)
       has: 1.0.3
       is-core-module: 2.16.0
       is-glob: 4.0.3
@@ -21092,14 +21092,14 @@ snapshots:
       is-docker: 2.2.1
       is-wsl: 2.2.0
 
-  openapi-trpc@0.2.0(@trpc/server@10.45.2)(zod@3.24.2):
+  openapi-trpc@0.2.1(@trpc/server@10.45.2)(zod@3.24.2):
     dependencies:
       '@trpc/server': 10.45.2
-      openapi-types: 12.1.0
+      openapi-types: 12.1.3
       zod: 3.24.2
-      zod-to-json-schema: 3.20.4(zod@3.24.2)
+      zod-to-json-schema: 3.24.6(zod@3.24.2)
 
-  openapi-types@12.1.0: {}
+  openapi-types@12.1.3: {}
 
   optionator@0.9.4:
     dependencies:
@@ -23722,11 +23722,11 @@ snapshots:
 
   yoctocolors@2.1.1: {}
 
-  zod-to-json-schema@3.20.4(zod@3.24.2):
+  zod-to-json-schema@3.24.3(zod@3.24.2):
     dependencies:
       zod: 3.24.2
 
-  zod-to-json-schema@3.24.3(zod@3.24.2):
+  zod-to-json-schema@3.24.6(zod@3.24.2):
     dependencies:
       zod: 3.24.2
 
