@@ -182,7 +182,7 @@ importers:
         version: link:../markdown
       '@keyv/redis':
         specifier: ^4.0.0
-        version: 4.3.1
+        version: 4.6.0(keyv@4.5.4)
       '@tanstack/query-core':
         specifier: ^4.26.1
         version: 4.36.1
@@ -2888,12 +2888,11 @@ packages:
   '@jspm/core@2.0.1':
     resolution: {integrity: sha512-Lg3PnLp0QXpxwLIAuuJboLeRaIhrgJjeuh797QADg3xz8wGLugQOS5DpsE8A6i6Adgzf+bacllkKZG3J0tGfDw==}
 
-  '@keyv/redis@4.3.1':
-    resolution: {integrity: sha512-+UJU9eFBOFbvfg/Om8ajCPa5NxtctpQuE2ElE5Wf7xwbghmhlbLsJ2K4ZEmPnUF0YUolFBJFHd/ukDIvyTA5kw==}
+  '@keyv/redis@4.6.0':
+    resolution: {integrity: sha512-FP3FP42RiQ3j0UC6f4Maf7ISTLAIivm37/SdfG5xvhqceMMq3kabtC6T4a2h5byMnh4S8PjP51DY/9CpyrcfsQ==}
     engines: {node: '>= 18'}
-
-  '@keyv/serialize@1.0.3':
-    resolution: {integrity: sha512-qnEovoOp5Np2JDGonIDL6Ayihw0RhnRh6vxPuHo4RDn1UOzwEo4AeIfpL6UGIrsceWrCMiVPgwRjbHu4vYFc3g==}
+    peerDependencies:
+      keyv: ^5.3.4
 
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
@@ -3714,34 +3713,9 @@ packages:
   '@react-native/polyfills@2.0.0':
     resolution: {integrity: sha512-K0aGNn1TjalKj+65D7ycc1//H9roAQ51GJVk5ZJQFb2teECGmzd86bYDC0aYdbRf7gtovescq4Zt6FR0tgXiHQ==}
 
-  '@redis/bloom@1.2.0':
-    resolution: {integrity: sha512-HG2DFjYKbpNmVXsa0keLHp/3leGJz1mjh09f2RLGGLQZzSHpkmZWuwJbAvo3QcRY8p80m5+ZdXZdYOSBLlp7Cg==}
-    peerDependencies:
-      '@redis/client': ^1.0.0
-
-  '@redis/client@1.6.0':
-    resolution: {integrity: sha512-aR0uffYI700OEEH4gYnitAnv3vzVGXCFvYfdpu/CJKvk4pHfLPEy/JSZyrpQ+15WhXe1yJRXLtfQ84s4mEXnPg==}
+  '@redis/client@1.6.1':
+    resolution: {integrity: sha512-/KCsg3xSlR+nCK8/8ZYSknYxvXHwubJrU82F3Lm1Fp6789VQ0/3RJKfsmRXjqfaTA++23CvC3hqmqe/2GEt6Kw==}
     engines: {node: '>=14'}
-
-  '@redis/graph@1.1.1':
-    resolution: {integrity: sha512-FEMTcTHZozZciLRl6GiiIB4zGm5z5F3F6a6FZCyrfxdKOhFlGkiAqlexWMBzCi4DcRoyiOsuLfW+cjlGWyExOw==}
-    peerDependencies:
-      '@redis/client': ^1.0.0
-
-  '@redis/json@1.0.7':
-    resolution: {integrity: sha512-6UyXfjVaTBTJtKNG4/9Z8PSpKE6XgSyEb8iwaqDcy+uKrd/DGYHTWkUdnQDyzm727V7p21WUMhsqz5oy65kPcQ==}
-    peerDependencies:
-      '@redis/client': ^1.0.0
-
-  '@redis/search@1.2.0':
-    resolution: {integrity: sha512-tYoDBbtqOVigEDMAcTGsRlMycIIjwMCgD8eR2t0NANeQmgK/lvxNAvYyb6bZDD4frHRhIHkJu2TBRvB0ERkOmw==}
-    peerDependencies:
-      '@redis/client': ^1.0.0
-
-  '@redis/time-series@1.1.0':
-    resolution: {integrity: sha512-c1Q99M5ljsIuc4YdaCwfUEXsofakb9c8+Zse2qxTadu8TalLXuAESzLvFAvNVbkmSlvlzIQOLpBCmWI9wTOt+g==}
-    peerDependencies:
-      '@redis/client': ^1.0.0
 
   '@remix-run/dev@1.19.3':
     resolution: {integrity: sha512-Yh733OI0AxR7QbPaJbocujxSF1S5CToDmfZnmv5SlTTIXEw5KfnbCceHy9qhUp0nrkz2YT7pd1zbTEVYIi/Vug==}
@@ -5075,9 +5049,6 @@ packages:
 
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
-
-  buffer@6.0.3:
-    resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
 
   bundle-require@5.1.0:
     resolution: {integrity: sha512-3WrrOuZiyaaZPWiEt4G3+IffISVC9HYlWueJEBWED4ZH4aIAC2PnkdnuRrR94M+w6yGWn4AglWtJtBI8YqvgoA==}
@@ -6748,6 +6719,9 @@ packages:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
 
+  hookified@1.13.0:
+    resolution: {integrity: sha512-6sPYUY8olshgM/1LDNW4QZQN0IqgKhtl/1C8koNZBJrKLBk3AZl6chQtNwpNztvfiApHMEwMHek5rv993PRbWw==}
+
   html-dom-parser@5.0.3:
     resolution: {integrity: sha512-slsc6ipw88OUZjAayRs5NTmfOQCwcUa3hNyk6AdsbQxY09H5Lr1Y3CZ4ZlconMKql3Ga6sWg3HMoUzo7KSItaQ==}
 
@@ -7374,9 +7348,6 @@ packages:
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
-
-  keyv@5.3.1:
-    resolution: {integrity: sha512-13hQT2q2VIwOoaJdJa7nY3J8UVbYtMTJFHnwm9LI+SaQRfUiM6Em9KZeOVTCKbMnGcRIL3NSUFpAdjZCq24nLQ==}
 
   kind-of@6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
@@ -9021,9 +8992,6 @@ packages:
   recast@0.21.5:
     resolution: {integrity: sha512-hjMmLaUXAm1hIuTqOdeYObMslq/q+Xff6QE3Y2P+uoHAg2nmVlLBps2hzh1UJDdMtDTMXOFewK6ky51JQIeECg==}
     engines: {node: '>= 4'}
-
-  redis@4.7.0:
-    resolution: {integrity: sha512-zvmkHEAdGMn+hMRXuMBtu4Vo5P6rHQjLoHftu+lBqq8ZTA3RCVC/WzD790bkKKiNFp7d5/9PcSD19fJyyRvOdQ==}
 
   reflect.getprototypeof@1.0.8:
     resolution: {integrity: sha512-B5dj6usc5dkk8uFliwjwDHM8To5/QwdKz9JcBZ8Ic4G1f0YmeeJTtE/ZTdgRFPAfxZFiUaPhZ1Jcs4qeagItGQ==}
@@ -14125,15 +14093,12 @@ snapshots:
 
   '@jspm/core@2.0.1': {}
 
-  '@keyv/redis@4.3.1':
+  '@keyv/redis@4.6.0(keyv@4.5.4)':
     dependencies:
+      '@redis/client': 1.6.1
       cluster-key-slot: 1.1.2
-      keyv: 5.3.1
-      redis: 4.7.0
-
-  '@keyv/serialize@1.0.3':
-    dependencies:
-      buffer: 6.0.3
+      hookified: 1.13.0
+      keyv: 4.5.4
 
   '@manypkg/find-root@1.1.0':
     dependencies:
@@ -15187,31 +15152,11 @@ snapshots:
 
   '@react-native/polyfills@2.0.0': {}
 
-  '@redis/bloom@1.2.0(@redis/client@1.6.0)':
-    dependencies:
-      '@redis/client': 1.6.0
-
-  '@redis/client@1.6.0':
+  '@redis/client@1.6.1':
     dependencies:
       cluster-key-slot: 1.1.2
       generic-pool: 3.9.0
       yallist: 4.0.0
-
-  '@redis/graph@1.1.1(@redis/client@1.6.0)':
-    dependencies:
-      '@redis/client': 1.6.0
-
-  '@redis/json@1.0.7(@redis/client@1.6.0)':
-    dependencies:
-      '@redis/client': 1.6.0
-
-  '@redis/search@1.2.0(@redis/client@1.6.0)':
-    dependencies:
-      '@redis/client': 1.6.0
-
-  '@redis/time-series@1.1.0(@redis/client@1.6.0)':
-    dependencies:
-      '@redis/client': 1.6.0
 
   '@remix-run/dev@1.19.3(@remix-run/serve@1.19.3)(@types/node@24.10.1)(babel-plugin-macros@3.1.0)(terser@5.44.1)':
     dependencies:
@@ -17035,11 +16980,6 @@ snapshots:
   buffer-from@1.1.2: {}
 
   buffer@5.7.1:
-    dependencies:
-      base64-js: 1.5.1
-      ieee754: 1.2.1
-
-  buffer@6.0.3:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
@@ -19353,6 +19293,8 @@ snapshots:
     dependencies:
       parse-passwd: 1.0.0
 
+  hookified@1.13.0: {}
+
   html-dom-parser@5.0.3:
     dependencies:
       domhandler: 5.0.3
@@ -20046,10 +19988,6 @@ snapshots:
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
-
-  keyv@5.3.1:
-    dependencies:
-      '@keyv/serialize': 1.0.3
 
   kind-of@6.0.3: {}
 
@@ -22360,15 +22298,6 @@ snapshots:
       esprima: 4.0.1
       source-map: 0.6.1
       tslib: 2.8.1
-
-  redis@4.7.0:
-    dependencies:
-      '@redis/bloom': 1.2.0(@redis/client@1.6.0)
-      '@redis/client': 1.6.0
-      '@redis/graph': 1.1.1(@redis/client@1.6.0)
-      '@redis/json': 1.0.7(@redis/client@1.6.0)
-      '@redis/search': 1.2.0(@redis/client@1.6.0)
-      '@redis/time-series': 1.1.0(@redis/client@1.6.0)
 
   reflect.getprototypeof@1.0.8:
     dependencies:
