@@ -1,4 +1,4 @@
-import { test, expect, suite } from 'vitest'
+import { test, expect, suite } from 'vite-plus/test'
 import { Html, MarkdownCustomComponents } from '.'
 import { renderToStaticMarkup } from 'react-dom/server'
 

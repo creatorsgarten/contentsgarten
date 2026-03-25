@@ -11,8 +11,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
-    "dev": "pnpm run build --watch"
+    "build": "vp pack",
+    "dev": "vp pack --watch"
   },
   "keywords": [],
   "author": "Thai Pangsakulyanont <dtinth@spacet.me>",
@@ -29,8 +29,8 @@
     "depcheck": "^1.4.3",
     "lodash-es": "^4.17.21",
     "prettier": "^3.0.0",
-    "tsup": "^8.0.0",
-    "typescript": "5"
+    "typescript": "5",
+    "vite-plus": "^0.1.14"
   },
   "dependencies": {
     "@keyv/redis": "^4.0.0",

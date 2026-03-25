@@ -1,4 +1,4 @@
-import { test, expect, suite } from 'vitest'
+import { test, expect, suite } from 'vite-plus/test'
 import { processMarkdown, renderMarkdown } from '.'
 
 test('heading id', async () => {

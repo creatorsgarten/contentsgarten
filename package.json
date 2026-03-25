@@ -2,16 +2,19 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "start": "echo Please run a specific site && exit 1"
+    "build": "vp run -r build",
+    "check": "vp check",
+    "dev": "vp run -r dev",
+    "lint": "vp run -r lint",
+    "start": "echo Please run a specific site && exit 1",
+    "test": "vp test"
   },
   "engines": {
     "node": ">=16"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
-    "turbo": "^1.8.3"
+    "vite-plus": "^0.1.14"
   },
   "packageManager": "pnpm@9.15.9"
 }

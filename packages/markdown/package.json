@@ -11,8 +11,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm --dts",
-    "dev": "pnpm run build --watch"
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test"
   },
   "keywords": [],
   "author": "Thai Pangsakulyanont <dtinth@spacet.me>",
@@ -34,11 +35,10 @@
     "rehype": "^12.0.1",
     "rehype-autolink-headings": "^7.0.0",
     "rehype-slug": "^6.0.0",
-    "tsup": "^8.0.0",
     "typescript": "5",
     "unified": "^11.0.0",
     "unist-util-visit": "^5.0.0",
-    "vitest": "^2.0.0"
+    "vite-plus": "^0.1.14"
   },
   "dependencies": {
     "@wooorm/starry-night": "^3.0.0"

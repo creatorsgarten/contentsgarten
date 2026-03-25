@@ -11,8 +11,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
-    "dev": "pnpm run build --watch"
+    "build": "vp pack",
+    "dev": "vp pack --watch"
   },
   "keywords": [],
   "author": "Thai Pangsakulyanont <dtinth@spacet.me>",
@@ -25,8 +25,8 @@
     "@trpc/server": "^10.16.0",
     "@tsconfig/node18": "^2.0.0",
     "@types/node": "^20.0.0",
-    "tsup": "^8.0.0",
-    "typescript": "5"
+    "typescript": "5",
+    "vite-plus": "^0.1.14"
   },
   "peerDependencies": {
     "@trpc/client": "^10.11.1",
