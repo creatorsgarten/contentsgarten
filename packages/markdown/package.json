@@ -2,10 +2,10 @@
   "name": "@contentsgarten/markdown",
   "version": "2.0.0",
   "description": "Markdown component for contentsgarten",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
   "type": "module",
-  "types": "dist/index.d.ts",
+  "types": "dist/index.d.mts",
   "files": [
     "src",
     "dist"

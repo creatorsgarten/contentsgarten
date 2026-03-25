@@ -2,10 +2,10 @@
   "name": "contentsgarten",
   "version": "2.1.0",
   "description": "A cloud-native wiki engine",
-  "module": "dist/index.js",
-  "exports": "./dist/index.js",
+  "module": "dist/index.mjs",
+  "exports": "./dist/index.mjs",
   "type": "module",
-  "types": "dist/index.d.ts",
+  "types": "dist/index.d.mts",
   "files": [
     "src",
     "dist"
