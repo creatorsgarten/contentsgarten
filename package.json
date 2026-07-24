@@ -13,5 +13,10 @@
     "@changesets/cli": "^2.26.1",
     "turbo": "^2.0.0"
   },
-  "packageManager": "pnpm@9.15.9"
+  "packageManager": "pnpm@9.15.9",
+  "pnpm": {
+    "overrides": {
+      "@types/hast": "^3.0.5"
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import Slugger from 'github-slugger'
+import type { Root } from 'hast'
 import { headingRank } from 'hast-util-heading-rank'
 import { toString } from 'hast-util-to-string'
 import { micromark } from 'micromark'
@@ -125,7 +126,7 @@ export async function processMarkdown(
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
     // .use(rehypeStarryNight) // Cannot get this working on Netlify...
-    .use(() => (tree) => {
+    .use(() => (tree: Root) => {
       visit(tree, 'element', (node) => {
         const rank = headingRank(node)
         if (rank) {
