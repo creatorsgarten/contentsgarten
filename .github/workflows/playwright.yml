@@ -23,9 +23,13 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm run build
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
+      - name: Detect Playwright version
+        id: playwright-version
+        run: echo "version=$(node -e "console.log(require('@playwright/test/package.json').version)")" >> $GITHUB_OUTPUT
         working-directory: contentsgarten.netlify.app
+      - uses: dtinth/setup-playwright-test-docker@main
+        with:
+          version: ${{ steps.playwright-version.outputs.version }}
       - name: Run Playwright tests
         run: pnpm exec playwright test
         working-directory: contentsgarten.netlify.app
