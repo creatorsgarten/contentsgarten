@@ -2,4 +2,3 @@ packages:
   - 'packages/*'
   - 'contentsgarten.netlify.app'
   - 'wiki.creatorsgarten.org'
-  - 'wiki.wonderful.software'
