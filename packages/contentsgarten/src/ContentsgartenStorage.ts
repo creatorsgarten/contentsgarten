@@ -219,13 +219,14 @@ interface ApiError {
   }
 }
 
+type ListCommitsItem = Awaited<
+  ReturnType<ContentsgartenOctokit['rest']['repos']['listCommits']>
+>['data'][number]
+
 async function getUsernamesFromCommit(
   ctx: RequestContext,
   octokit: ContentsgartenOctokit,
-  item?: {
-    commit: { message: string }
-    author: { login: string } | null
-  },
+  item?: ListCommitsItem,
 ) {
   if (!item) {
     return undefined
