@@ -2,8 +2,12 @@ import Slugger from 'github-slugger'
 import { headingRank } from 'hast-util-heading-rank'
 import { toString } from 'hast-util-to-string'
 import { micromark } from 'micromark'
-import { Handle, directive, directiveHtml } from 'micromark-extension-directive'
-import { Directive } from 'micromark-extension-directive/lib/html'
+import {
+  Directive,
+  Handle,
+  directive,
+  directiveHtml,
+} from 'micromark-extension-directive'
 import { gfm, gfmHtml } from 'micromark-extension-gfm'
 import * as wikiLink from 'micromark-extension-wiki-link'
 import { rehype } from 'rehype'
@@ -47,6 +51,7 @@ export const directives: Record<string, Handle> = {
       this.raw(d.content)
     }
     this.tag('</markdown-directive>')
+    return undefined
   },
 }
 
@@ -59,6 +64,7 @@ function createBlockHandler(options: {
     this.tag(options.open(d))
     if (d.content) this.raw(d.content)
     this.tag(options.close())
+    return undefined
   }
 }
 

@@ -1,7 +1,9 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
+  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
     "lib": ["DOM"],
-    "noEmit": true
+    "noEmit": true,
+    "module": "esnext",
+    "moduleResolution": "bundler"
   }
 }

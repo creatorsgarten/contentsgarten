@@ -1,11 +1,11 @@
 FROM node:24 AS base
-RUN corepack enable && npm install --global turbo@^1.8.3
+RUN corepack enable && npm install --global turbo@^2.0.0
 WORKDIR /app
 
 # Generate a pruned workspace
 FROM base as pruned-workspace
 COPY ./ ./
-RUN turbo prune --scope=creatorsgarten-wiki --docker
+RUN turbo prune creatorsgarten-wiki --docker
 
 # Install dependencies
 FROM base as deps
