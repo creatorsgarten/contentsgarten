@@ -1,8 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "tasks": {
     "build": {
-      "outputs": ["build/**", "public/build/**", ".netlify/**", "dist/**"],
+      "outputs": [
+        "build/**",
+        "public/build/**",
+        ".netlify/**",
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**"
+      ],
       "dependsOn": ["^build"],
       "env": ["NETLIFY"]
     },
