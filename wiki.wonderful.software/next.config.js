@@ -9,6 +9,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  webpack: (config) => {
+    // firebase/auth pulls in undici, which uses syntax this webpack
+    // version's parser can't handle. undici isn't needed here — stub it out.
+    config.resolve.alias = { ...config.resolve.alias, undici: false }
+    return config
+  },
 }
 
 module.exports = nextConfig
