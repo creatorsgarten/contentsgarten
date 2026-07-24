@@ -119,7 +119,7 @@ importers:
         version: 13.0.9
       '@types/markdown-it-container':
         specifier: ^2.0.5
-        version: 2.0.10
+        version: 2.0.11
       '@types/react':
         specifier: ^18.0.28
         version: 18.3.26
@@ -4726,8 +4726,8 @@ packages:
   '@types/lodash@4.17.13':
     resolution: {integrity: sha512-lfx+dftrEZcdBPczf9d0Qv0x+j/rfNCMuC6OcfXmO8gkfeNAY88PgKUbvG56whcN23gc27yenwF6oJZXGFpYxg==}
 
-  '@types/markdown-it-container@2.0.10':
-    resolution: {integrity: sha512-zv+YxrlSYRq51e9kzm3orv4OvF4U79Ll1OyplNXr00o4ZC/8PukJk/jEWH7CnsMtrSWZlyv0czhz42jm9J4uLw==}
+  '@types/markdown-it-container@2.0.11':
+    resolution: {integrity: sha512-tiVQNp2zEHoW7EQa3nNjGRoVk1Uqw9FN7xD39k663lknKZFfByPT3oDyHiaGg+IYu0vSL37PGpDjjMOgtw2GUA==}
 
   '@types/markdown-it@13.0.9':
     resolution: {integrity: sha512-1XPwR0+MgXLWfTn9gCsZ55AHOKW1WN+P9vr0PaQh5aerR9LLQXUbjfEAFhjmEmyoYFWAyuN2Mqkn40MZ4ukjBw==}
@@ -17664,7 +17664,7 @@ snapshots:
 
   '@types/lodash@4.17.13': {}
 
-  '@types/markdown-it-container@2.0.10':
+  '@types/markdown-it-container@2.0.11':
     dependencies:
       '@types/markdown-it': 13.0.9
 
