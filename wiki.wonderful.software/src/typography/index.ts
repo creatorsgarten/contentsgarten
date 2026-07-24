@@ -1,7 +1,7 @@
-import { Source_Sans_Pro } from 'next/font/google'
+import { Source_Sans_3 } from 'next/font/google'
 import localFont from 'next/font/local'
 
-export const sourceSansPro = Source_Sans_Pro({
+export const sourceSansPro = Source_Sans_3({
   weight: ['400', '600', '700'],
   subsets: ['latin'],
   variable: '--font-latin',
