@@ -7,7 +7,7 @@
     "start": "echo Please run a specific site && exit 1"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=24"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
