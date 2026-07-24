@@ -8,7 +8,7 @@ import { ContentsgartenStorage } from './ContentsgartenStorage'
 import { ContentsgartenTeamResolver } from './ContentsgartenTeamResolver'
 
 export namespace testing {
-  export function createFakeStorage(): ContentsgartenStorage {
+  function createFakeStorage(): ContentsgartenStorage {
     return {
       async getFile(ctx, filePath) {
         const fsPath = getFsPath(filePath)
@@ -51,7 +51,7 @@ export namespace testing {
     }
   }
 
-  export function createFakePageDatabase(): ContentsgartenPageDatabase {
+  function createFakePageDatabase(): ContentsgartenPageDatabase {
     const docs = new Map<string, any>()
     return {
       async getCached(pageRef) {
@@ -90,7 +90,7 @@ export namespace testing {
     }
   }
 
-  export function createFakeAuth(): ContentsgartenAuth {
+  function createFakeAuth(): ContentsgartenAuth {
     return {
       async getAuthState(authToken) {
         if (authToken?.startsWith('fake:')) {
@@ -112,7 +112,7 @@ export namespace testing {
     }
   }
 
-  export function createFakeTeamResolver(): ContentsgartenTeamResolver {
+  function createFakeTeamResolver(): ContentsgartenTeamResolver {
     return {
       async checkMembership(ctx, userId, ownerAndTeamSlug) {
         return false

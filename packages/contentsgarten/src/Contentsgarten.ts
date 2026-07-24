@@ -33,7 +33,7 @@ export class Contentsgarten {
   }
 }
 
-export interface CreateContextInput {
+interface CreateContextInput {
   /** Bearer token */
   authToken?: string
 }
@@ -60,7 +60,7 @@ export async function handleContentsgartenRequest(
   })
 }
 
-export function createContextFromRequest(
+function createContextFromRequest(
   core: Contentsgarten,
   req: Request,
 ): ContentsgartenRequestContext {
