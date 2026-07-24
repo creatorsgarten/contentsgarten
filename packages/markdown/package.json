@@ -21,7 +21,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@tsconfig/node18": "^2.0.0",
+    "@tsconfig/node18": "^18.0.0",
     "@types/hast": "^3.0.0",
     "@types/node": "^20.0.0",
     "github-slugger": "^2.0.0",
