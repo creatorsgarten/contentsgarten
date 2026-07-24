@@ -51,6 +51,7 @@ export const directives: Record<string, Handle> = {
       this.raw(d.content)
     }
     this.tag('</markdown-directive>')
+    return undefined
   },
 }
 
@@ -63,6 +64,7 @@ function createBlockHandler(options: {
     this.tag(options.open(d))
     if (d.content) this.raw(d.content)
     this.tag(options.close())
+    return undefined
   }
 }
 
