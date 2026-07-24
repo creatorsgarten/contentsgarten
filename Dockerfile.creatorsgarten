@@ -1,5 +1,5 @@
-FROM node:hydrogen AS base
-RUN yarn global add pnpm turbo@^1.8.3
+FROM node:24 AS base
+RUN corepack enable && npm install --global turbo@^1.8.3
 WORKDIR /app
 
 # Generate a pruned workspace
