@@ -30,9 +30,10 @@
     "lodash-es": "^4.17.21",
     "prettier": "^3.0.0",
     "tsup": "^8.0.0",
-    "typescript": "5"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@contentsgarten/markdown": "workspace:*",
     "@keyv/redis": "^4.0.0",
     "@tanstack/query-core": "^4.26.1",
     "@trpc/server": "^10.16.0",
@@ -48,8 +49,7 @@
     "octokit": "^3.0.0",
     "openapi-trpc": "^0.2.0",
     "p-memoize": "^7.1.0",
-    "zod": "^3.21.4",
-    "@contentsgarten/markdown": "workspace:*"
+    "zod": "^3.21.4"
   },
   "repository": {
     "url": "git+https://github.com/creatorsgarten/contentsgarten"
