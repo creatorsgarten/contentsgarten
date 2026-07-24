@@ -1,16 +1,13 @@
 import parse, { HTMLReactParserOptions, domToReact } from 'html-react-parser'
 import { Children, FC, HTMLAttributes, useMemo } from 'react'
 
-export type DirectiveType =
-  | 'containerDirective'
-  | 'leafDirective'
-  | 'textDirective'
+type DirectiveType = 'containerDirective' | 'leafDirective' | 'textDirective'
 
 export type MarkdownCustomComponents = Partial<
   Record<DirectiveType, Record<string, FC<any>>>
 >
 
-export interface LinkProps {
+interface LinkProps {
   href: string
   children: React.ReactNode
   className?: string

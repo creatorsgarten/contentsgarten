@@ -11,35 +11,29 @@ export interface ContentsgartenUserConfig {
   authorizer: Authorizer
 }
 
-export interface GitHubUserConfig {
+interface GitHubUserConfig {
   auth: GitHubAppAuthUserConfig
   repo: string
   branch: string
 }
 
-export interface GitHubAppAuthUserConfig {
+interface GitHubAppAuthUserConfig {
   appId: number
   privateKey: string
 }
 
-export interface FirebaseUserConfig {
+interface FirebaseUserConfig {
   apiKey: string
   authDomain: string
   projectId: string
 }
 
-export interface CustomJwtAuthUserConfig {
+interface CustomJwtAuthUserConfig {
   /** JWT public keys */
   jwks: JSONWebKeySet
 }
 
-export interface MongoDBUserConfig {
+interface MongoDBUserConfig {
   uri: string
   database?: string
-}
-
-export function defineConfig(
-  config: ContentsgartenUserConfig,
-): ContentsgartenUserConfig {
-  return config
 }

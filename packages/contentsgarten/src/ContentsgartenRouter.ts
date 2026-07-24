@@ -17,9 +17,8 @@ import {
 import { t } from './trpc'
 
 export { GetPageResult } from './getPage'
-export { PageRefRegex }
-export const PageRef = z.string().regex(PageRefRegex)
-export const LaxPageRef = z.string().regex(LaxPageRefRegex)
+const PageRef = z.string().regex(PageRefRegex)
+const LaxPageRef = z.string().regex(LaxPageRefRegex)
 
 export const ContentsgartenRouter = t.router({
   about: t.procedure
