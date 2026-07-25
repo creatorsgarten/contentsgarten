@@ -200,19 +200,13 @@ export function createContentsgartenRestApp(core: Contentsgarten, prefix = '') {
     .get(
       '/pages',
       async ({ ctx, query }) => {
-        const input = PageDatabaseSearch.parse(
-          query.q ? JSON.parse(query.q) : {},
-        )
-        return ctx.app.pageDatabase.queryPages(input)
+        return ctx.app.pageDatabase.queryPages(query.q ?? {})
       },
       {
         query: z.object({
-          q: z
-            .string()
-            .optional()
-            .describe(
-              'JSON-encoded search query, matching the shape of PageDatabaseSearch',
-            ),
+          q: PageDatabaseSearch.optional().describe(
+            'JSON-encoded search query, matching the shape of PageDatabaseSearch',
+          ),
         }),
         response: { 200: SearchResult },
         detail: {

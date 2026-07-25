@@ -121,9 +121,22 @@ describe('ContentsgartenRestApi', () => {
     expect(await res.json()).toEqual({ granted: true })
   })
 
-  test('GET /pages — search', async () => {
+  test('GET /pages — search, no query', async () => {
     const app = createApp()
     const res = await req(app, 'GET', '/pages')
+    expect(res.status).toBe(200)
+    const body = await res.json()
+    expect(body).toEqual({ count: 0, results: [] })
+  })
+
+  test('GET /pages — search with a non-empty q param', async () => {
+    // Regression test: Elysia auto-parses query values that look like JSON
+    // into objects *before* schema validation runs, regardless of the
+    // declared query schema. `q`'s schema must accept the parsed object
+    // (PageDatabaseSearch), not a raw string — otherwise this 422s.
+    const app = createApp()
+    const q = JSON.stringify({ prefix: 'Events/', match: { event: true } })
+    const res = await req(app, 'GET', `/pages?q=${encodeURIComponent(q)}`)
     expect(res.status).toBe(200)
     const body = await res.json()
     expect(body).toEqual({ count: 0, results: [] })
