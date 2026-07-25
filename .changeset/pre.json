@@ -1,0 +1,14 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "contentsgarten-web": "0.0.0",
+    "@contentsgarten/client-utils": "2.0.0",
+    "contentsgarten": "2.1.0",
+    "@contentsgarten/html": "1.3.0",
+    "@contentsgarten/markdown": "2.0.0",
+    "@contentsgarten/server-utils": "10.0.0",
+    "creatorsgarten-wiki": "0.1.3"
+  },
+  "changesets": []
+}

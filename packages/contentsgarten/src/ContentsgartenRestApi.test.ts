@@ -49,25 +49,30 @@ describe('ContentsgartenRestApi', () => {
     })
   })
 
-  test('GET /pages/* — missing page', async () => {
+  test('GET /page — missing page', async () => {
     const app = createApp()
-    const res = await req(app, 'GET', '/pages/RestApiTest/DoesNotExist')
+    const res = await req(
+      app,
+      'GET',
+      '/page?pageRef=RestApiTest%2FDoesNotExist',
+    )
     expect(res.status).toBe(200)
     const body = await res.json()
     expect(body.status).toBe(404)
   })
 
-  test('GET /pages/* — invalid page ref is rejected', async () => {
+  test('GET /page — invalid page ref is rejected', async () => {
     const app = createApp()
-    const res = await req(app, 'GET', '/pages/not valid')
+    const res = await req(app, 'GET', '/page?pageRef=not%20valid')
     expect(res.status).toBe(422)
   })
 
   test('save then view a page', async () => {
     const app = createApp()
     const pageRef = 'RestApiTest/RoundTrip'
+    const q = `pageRef=${encodeURIComponent(pageRef)}`
 
-    const saveRes = await req(app, 'PUT', `/pages/${pageRef}`, {
+    const saveRes = await req(app, 'PUT', `/page?${q}`, {
       auth: 'fake:1',
       body: { newContent: '# Hello from the REST API' },
     })
@@ -75,16 +80,16 @@ describe('ContentsgartenRestApi', () => {
     const saved = await saveRes.json()
     expect(saved.revision).toBeTruthy()
 
-    const viewRes = await req(app, 'GET', `/pages/${pageRef}`)
+    const viewRes = await req(app, 'GET', `/page?${q}`)
     expect(viewRes.status).toBe(200)
     const viewed = await viewRes.json()
     expect(viewed.status).toBe(200)
     expect(viewed.file.content).toContain('Hello from the REST API')
   })
 
-  test('PUT /pages/* — unauthenticated is forbidden', async () => {
+  test('PUT /page — unauthenticated is forbidden', async () => {
     const app = createApp()
-    const res = await req(app, 'PUT', '/pages/RestApiTest/NoAuth', {
+    const res = await req(app, 'PUT', '/page?pageRef=RestApiTest%2FNoAuth', {
       body: { newContent: 'nope' },
     })
     expect(res.status).toBe(403)
@@ -92,19 +97,26 @@ describe('ContentsgartenRestApi', () => {
     expect(body.error).toContain('Not authenticated')
   })
 
-  test('GET /page-contributors/*', async () => {
+  test('GET /page-contributors', async () => {
     const app = createApp()
-    const res = await req(app, 'GET', '/page-contributors/RestApiTest/Foo')
+    const res = await req(
+      app,
+      'GET',
+      '/page-contributors?pageRef=RestApiTest%2FFoo',
+    )
     expect(res.status).toBe(200)
     const body = await res.json()
     expect(body.contributors).toEqual([])
   })
 
-  test('GET /page-permission/*', async () => {
+  test('GET /page-permission', async () => {
     const app = createApp()
-    const res = await req(app, 'GET', '/page-permission/RestApiTest/Foo', {
-      auth: 'fake:1',
-    })
+    const res = await req(
+      app,
+      'GET',
+      '/page-permission?pageRef=RestApiTest%2FFoo',
+      { auth: 'fake:1' },
+    )
     expect(res.status).toBe(200)
     expect(await res.json()).toEqual({ granted: true })
   })
