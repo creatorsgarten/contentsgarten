@@ -1,5 +1,14 @@
 # creatorsgarten-wiki
 
+## 0.1.4-next.0
+
+### Patch Changes
+
+- Updated dependencies [5030f1c]
+- Updated dependencies [2e7216c]
+  - contentsgarten@3.0.0-next.0
+  - @contentsgarten/client-utils@2.0.0
+
 ## 0.1.3
 
 ### Patch Changes

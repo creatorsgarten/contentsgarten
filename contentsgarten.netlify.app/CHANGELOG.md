@@ -1,5 +1,13 @@
 # contentsgarten-web
 
+## 0.0.1-next.0
+
+### Patch Changes
+
+- Updated dependencies [5030f1c]
+- Updated dependencies [2e7216c]
+  - contentsgarten@3.0.0-next.0
+
 ## null
 
 ### Patch Changes
