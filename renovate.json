@@ -3,5 +3,6 @@
   "extends": [
     "config:base",
     ":automergeAll"
-  ]
+  ],
+  "minimumReleaseAge": "3 days"
 }
