@@ -98,9 +98,9 @@ export function createContentsgartenRestApp(core: Contentsgarten, prefix = '') {
       },
     )
     .get(
-      '/pages/*',
-      async ({ ctx, params, query }) => {
-        const pageRef = params['*']
+      '/page',
+      async ({ ctx, query }) => {
+        const pageRef = query.pageRef
         const withFile = query.withFile !== 'false'
         const revalidate = query.revalidate === 'true'
         const render = query.render === 'true'
@@ -109,8 +109,8 @@ export function createContentsgartenRestApp(core: Contentsgarten, prefix = '') {
         return { ...result, perf: ctx.perf.toMessageArray() }
       },
       {
-        params: z.object({ '*': LaxPageRef }),
         query: z.object({
+          pageRef: LaxPageRef,
           withFile: z.string().optional(),
           revalidate: z.string().optional(),
           render: z.string().optional(),
@@ -120,9 +120,9 @@ export function createContentsgartenRestApp(core: Contentsgarten, prefix = '') {
       },
     )
     .get(
-      '/page-contributors/*',
-      async ({ ctx, params }) => {
-        const pageRef = params['*']
+      '/page-contributors',
+      async ({ ctx, query }) => {
+        const pageRef = query.pageRef
         const filePath = pageRefToFilePath(ctx, pageRef)
         const result = await cache(
           ctx,
@@ -135,20 +135,20 @@ export function createContentsgartenRestApp(core: Contentsgarten, prefix = '') {
         return { ...result, perf: ctx.perf.toMessageArray() }
       },
       {
-        params: z.object({ '*': LaxPageRef }),
+        query: z.object({ pageRef: LaxPageRef }),
         response: { 200: ContributorsResult },
         detail: { summary: 'Returns the contributors of a page' },
       },
     )
     .get(
-      '/page-permission/*',
-      async ({ ctx, params }) => {
-        const pageRef = params['*']
+      '/page-permission',
+      async ({ ctx, query }) => {
+        const pageRef = query.pageRef
         const authState = await resolveAuthState(ctx)
         return authorize(ctx, authState, pageRef)
       },
       {
-        params: z.object({ '*': PageRef }),
+        query: z.object({ pageRef: PageRef }),
         response: { 200: PermissionResult },
         detail: {
           summary:
@@ -157,9 +157,9 @@ export function createContentsgartenRestApp(core: Contentsgarten, prefix = '') {
       },
     )
     .put(
-      '/pages/*',
-      async ({ ctx, params, body, status }) => {
-        const pageRef = params['*']
+      '/page',
+      async ({ ctx, query, body, status }) => {
+        const pageRef = query.pageRef
         const filePath = pageRefToFilePath(ctx, pageRef)
         const authState = await resolveAuthState(ctx)
         const userId = authState.authenticated ? authState.user.id : undefined
@@ -185,7 +185,7 @@ export function createContentsgartenRestApp(core: Contentsgarten, prefix = '') {
         return { revision: result.revision }
       },
       {
-        params: z.object({ '*': PageRef }),
+        query: z.object({ pageRef: PageRef }),
         body: z.object({
           newContent: z.string(),
           oldRevision: z.string().optional(),
