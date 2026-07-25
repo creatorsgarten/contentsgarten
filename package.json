@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "test": "turbo test",
     "start": "echo Please run a specific site && exit 1"
   },
   "engines": {
@@ -16,7 +17,8 @@
   "packageManager": "pnpm@9.15.9",
   "pnpm": {
     "overrides": {
-      "@types/hast": "^3.0.5"
+      "@types/hast": "^3.0.5",
+      "@sinclair/typebox": "^0.34.0"
     }
   }
 }

@@ -1,4 +1,5 @@
 export * from './Contentsgarten'
+export * from './ContentsgartenRestApi'
 export * from './ContentsgartenRouter'
 export * from './ContentsgartenUserConfig'
 export * from './createContentsgarten'

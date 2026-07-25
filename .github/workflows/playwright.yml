@@ -23,6 +23,8 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm run build
+      - name: Run unit tests
+        run: pnpm run test
       - name: Detect Playwright version
         id: playwright-version
         run: echo "version=$(node -e "console.log(require('@playwright/test/package.json').version)")" >> $GITHUB_OUTPUT
