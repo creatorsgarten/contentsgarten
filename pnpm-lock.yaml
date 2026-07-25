@@ -231,7 +231,7 @@ importers:
         version: 4.5.4
       liquidjs:
         specifier: ^10.6.1
-        version: 10.21.1
+        version: 10.27.2
       mongodb:
         specifier: ^6.0.0
         version: 6.21.0(socks@2.8.3)
@@ -7483,9 +7483,9 @@ packages:
   linkify-it@4.0.1:
     resolution: {integrity: sha512-C7bfi1UZmoj8+PQx22XyeXCuBlokoyWQL5pWSP+EI6nzRylyThouddufc2c1NDIcP9k5agmN9fLpA7VNJfIiqw==}
 
-  liquidjs@10.21.1:
-    resolution: {integrity: sha512-NZXmCwv3RG5nire3fmIn9HsOyJX3vo+ptp0yaXUHAMzSNBhx74Hm+dAGJvscUA6lNqbLuYfXgNavRQ9UbUJhQQ==}
-    engines: {node: '>=14'}
+  liquidjs@10.27.2:
+    resolution: {integrity: sha512-kvknfAEtOHjHkAAv7GxLEJh8ghpMQm3Fc4uWVyF7hERSTsSRsdC7saWs0p5aDG7GDcWsu5o+T4232O+8KZO55w==}
+    engines: {node: '>=16'}
     hasBin: true
 
   load-tsconfig@0.2.5:
@@ -20266,7 +20266,7 @@ snapshots:
     dependencies:
       uc.micro: 1.0.6
 
-  liquidjs@10.21.1:
+  liquidjs@10.27.2:
     dependencies:
       commander: 10.0.1
 
