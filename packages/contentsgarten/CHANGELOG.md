@@ -1,5 +1,15 @@
 # contentsgarten
 
+## 3.0.0-next.0
+
+### Major Changes
+
+- 5030f1c: Replaced the tRPC-based API with a REST API powered by Elysia. An OpenAPI specification is available.
+
+### Patch Changes
+
+- 2e7216c: Fixed the REST API's `GET /pages` (search) endpoint always rejecting any non-empty `q` query parameter with a 422. Elysia parses query values that look like JSON into objects before schema validation runs, but the route declared `q` as a plain string — so any real query (only the empty/default case worked) failed validation.
+
 ## 2.1.0
 
 ### Minor Changes
