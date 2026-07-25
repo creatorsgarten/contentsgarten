@@ -1,18 +1,25 @@
 import type { LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Html } from '@contentsgarten/html'
 import { Editable } from '~/ui/Editable'
 import type { FC } from 'react'
 import { useState } from 'react'
-import { trpc } from '~/utils/trpc'
-import { createServerSideClient } from '~/utils/createServerSideClient.server'
+import { restClient } from '~/utils/restClient'
+import { createServerSideRestClient } from '~/utils/createServerSideRestClient.server'
 import type { GetPageResult } from 'contentsgarten'
 
 export async function loader(args: LoaderArgs) {
-  const client = createServerSideClient()
+  const client = createServerSideRestClient()
   const slug = args.params['*'] as string
-  return json(await client.view.query({ pageRef: slug, render: true }))
+  const { data, error } = await client.GET('/page', {
+    params: { query: { pageRef: slug, render: 'true' } },
+  })
+  if (error) {
+    throw new Response(JSON.stringify(error), { status: 500 })
+  }
+  return json(data)
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
@@ -22,12 +29,29 @@ export const meta: MetaFunction<typeof loader> = ({ data, params }) => {
   }
 }
 
+function pageQueryKey(pageRef: string) {
+  return ['contentsgarten', 'page', pageRef] as const
+}
+
 export default function WikiPage() {
   const serverData = useLoaderData<typeof loader>()
-  const freshDataQuery = trpc.view.useQuery(
-    { pageRef: serverData.pageRef, revalidate: true, render: true },
-    { refetchOnWindowFocus: false },
-  )
+  const freshDataQuery = useQuery({
+    queryKey: pageQueryKey(serverData.pageRef),
+    queryFn: async () => {
+      const { data, error } = await restClient.GET('/page', {
+        params: {
+          query: {
+            pageRef: serverData.pageRef,
+            revalidate: 'true',
+            render: 'true',
+          },
+        },
+      })
+      if (error) throw error
+      return data
+    },
+    refetchOnWindowFocus: false,
+  })
   const data = freshDataQuery.data ?? serverData
   const rendered = data.rendered
   if (!rendered) {
@@ -62,8 +86,24 @@ const FileEditor: FC<FileEditor> = (props) => {
   const { file } = props
   const [cachedContent, setCachedContent] = useState(file.content)
   const [content, setContent] = useState(file.content)
-  const save = trpc.save.useMutation()
-  const trpcContext = trpc.useContext()
+  const queryClient = useQueryClient()
+  const save = useMutation({
+    mutationFn: async (vars: {
+      pageRef: string
+      newContent: string
+      oldRevision?: string
+    }) => {
+      const { data, error } = await restClient.PUT('/page', {
+        params: { query: { pageRef: vars.pageRef } },
+        body: {
+          newContent: vars.newContent,
+          oldRevision: vars.oldRevision,
+        },
+      })
+      if (error) throw error
+      return data
+    },
+  })
 
   if (cachedContent !== file.content && content === cachedContent) {
     setCachedContent(file.content)
@@ -80,7 +120,9 @@ const FileEditor: FC<FileEditor> = (props) => {
             newContent: content,
             oldRevision: file.revision,
           })
-          trpcContext.view.invalidate({ pageRef: props.pageRef })
+          queryClient.invalidateQueries({
+            queryKey: pageQueryKey(props.pageRef),
+          })
           return true
         } catch (error) {
           console.error(error)
