@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro'
-import { handleContentsgartenRequest } from 'contentsgarten'
+import { handleContentsgartenRestRequest } from 'contentsgarten'
 import {
   config,
   getInstance,
@@ -11,9 +11,5 @@ export const ALL: APIRoute = async ({ request }) => {
     return proxyToProduction(request)
   }
 
-  return handleContentsgartenRequest(
-    getInstance(),
-    request,
-    '/api/contentsgarten',
-  )
+  return handleContentsgartenRestRequest(getInstance(), '/api/rest')(request)
 }
