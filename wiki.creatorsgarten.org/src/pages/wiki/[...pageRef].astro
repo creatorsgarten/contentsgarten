@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '$layouts/base.astro'
 import { localLink } from '@contentsgarten/server-utils'
-import { config, getInstance } from '../api/contentsgarten/[action]'
+import { config, getInstance } from '../../utils/contentsgarten'
 import { WikiPage } from '$components/WikiPage'
 import { createTRPCProxyClient, httpLink } from '@trpc/react-query'
 import { ContentsgartenRouter } from 'contentsgarten'

@@ -116,4 +116,15 @@ describe('ContentsgartenRestApi', () => {
     const body = await res.json()
     expect(body).toEqual({ count: 0, results: [] })
   })
+
+  test('mounted with a prefix', async () => {
+    const app = createContentsgartenRestApp(
+      testing.createFakeInstance(),
+      '/api/rest',
+    )
+    const prefixed = await req(app, 'GET', '/api/rest/about')
+    expect(prefixed.status).toBe(200)
+    const unprefixed = await req(app, 'GET', '/about')
+    expect(unprefixed.status).toBe(404)
+  })
 })

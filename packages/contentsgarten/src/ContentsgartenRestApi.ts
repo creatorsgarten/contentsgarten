@@ -63,8 +63,8 @@ const SearchResult = z.object({
  * WinterCG handler below) so a build script can call `.handle()` directly
  * to export a static OpenAPI spec without starting a server.
  */
-export function createContentsgartenRestApp(core: Contentsgarten) {
-  return new Elysia()
+export function createContentsgartenRestApp(core: Contentsgarten, prefix = '') {
+  return new Elysia({ prefix })
     .use(
       openapi({
         mapJsonSchema: { zod: zodToJsonSchema },
@@ -227,9 +227,14 @@ export function createContentsgartenRestApp(core: Contentsgarten) {
  * Creates a WinterCG-compliant request handler (`(request: Request) =>
  * Promise<Response>`) for the REST API, ready to be mounted on any
  * fetch-compatible server/runtime (Bun, Node, Astro, Next.js, Deno,
- * Cloudflare Workers, etc).
+ * Cloudflare Workers, etc). `prefix` should match the path the handler is
+ * mounted at (e.g. `/api/rest`), so incoming request URLs are matched
+ * correctly.
  */
-export function handleContentsgartenRestRequest(core: Contentsgarten) {
-  const app = createContentsgartenRestApp(core)
+export function handleContentsgartenRestRequest(
+  core: Contentsgarten,
+  prefix = '',
+) {
+  const app = createContentsgartenRestApp(core, prefix)
   return (request: Request) => app.handle(request)
 }
