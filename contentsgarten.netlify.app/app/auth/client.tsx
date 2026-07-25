@@ -1,9 +1,15 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
 import { once } from 'lodash-es'
 import type { FC } from 'react'
 import { useEffect } from 'react'
-import { trpc, trpcClient } from '~/utils/trpc'
+import { restClient } from '~/utils/restClient'
+
+/**
+ * Query key used for the authenticated-user REST call (`GET /user`), shared
+ * between the query and the invalidation triggered on sign-in/sign-out.
+ */
+const authStateQueryKey = ['contentsgarten', 'user'] as const
 
 export interface AuthProvider {
   children: React.ReactNode
@@ -74,14 +80,14 @@ interface AuthController {
 }
 
 export const AuthWorker: FC = () => {
-  const trpcContext = trpc.useContext()
+  const queryClient = useQueryClient()
   useEffect(() => {
     getAuthController().then((c) => {
       c.setInvalidateCallback(() => {
-        trpcContext.invalidate()
+        queryClient.invalidateQueries({ queryKey: authStateQueryKey })
       })
     })
-  }, [trpcContext])
+  }, [queryClient])
   return null
 }
 
@@ -114,7 +120,13 @@ function useAuthController() {
 }
 
 function useAuthState() {
-  return trpc.userInfo.useQuery(undefined, {
+  return useQuery({
+    queryKey: authStateQueryKey,
+    queryFn: async () => {
+      const { data, error } = await restClient.GET('/user')
+      if (error) throw error
+      return data
+    },
     refetchOnWindowFocus: false,
   }).data
 }

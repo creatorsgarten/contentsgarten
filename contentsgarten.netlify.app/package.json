@@ -3,9 +3,10 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
+    "build": "pnpm run generate-types && remix build",
     "dev": "remix dev",
-    "start": "remix-serve build"
+    "start": "remix-serve build",
+    "generate-types": "openapi-typescript ../packages/contentsgarten/dist/openapi.json -o app/utils/contentsgarten-openapi-schema.d.ts"
   },
   "dependencies": {
     "@contentsgarten/html": "workspace:*",
@@ -26,6 +27,7 @@
     "lodash-es": "^4.17.21",
     "markdown-it": "^13.0.1",
     "markdown-it-container": "^3.0.0",
+    "openapi-fetch": "^0.17.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-iconify-icon-wrapper": "^0.0.3",
@@ -52,6 +54,7 @@
     "eslint": "^8.36.0",
     "firebase": "^10.0.0",
     "js-cookie": "^3.0.1",
+    "openapi-typescript": "^7.13.0",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.2.7",
     "typescript": "5"
