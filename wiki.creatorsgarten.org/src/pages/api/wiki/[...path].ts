@@ -11,5 +11,5 @@ export const ALL: APIRoute = async ({ request }) => {
     return proxyToProduction(request)
   }
 
-  return handleContentsgartenRestRequest(getInstance(), '/api/rest')(request)
+  return handleContentsgartenRestRequest(getInstance(), '/api/wiki')(request)
 }
