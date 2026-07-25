@@ -1,10 +1,9 @@
 import { TRPCError } from '@trpc/server'
 import { omit } from 'lodash-es'
 import { z } from 'zod'
-import { AuthorizerResult, GitHubHelpers } from './Authorizer'
-import { AuthState, User } from './ContentsgartenAuth'
-import type { ContentsgartenRequestContext } from './ContentsgartenContext'
+import { User } from './ContentsgartenAuth'
 import { PageDatabaseSearch } from './ContentsgartenPageDatabase'
+import { authorize, resolveAuthState } from './ContentsgartenRequestHelpers'
 import { LaxPageRefRegex, PageRefRegex } from './PageRefRegex'
 import { cache } from './cache'
 import {
@@ -167,53 +166,3 @@ export const ContentsgartenRouter = t.router({
 })
 
 export type ContentsgartenRouter = typeof ContentsgartenRouter
-
-async function resolveAuthState(ctx: ContentsgartenRequestContext) {
-  return ctx.queryClient.fetchQuery({
-    queryKey: ['authState'],
-    queryFn: async () => {
-      return ctx.app.auth.getAuthState(ctx.authToken)
-    },
-  })
-}
-
-async function authorize(
-  ctx: ContentsgartenRequestContext,
-  authState: AuthState,
-  pageRef: string,
-): Promise<AuthorizerResult> {
-  if (!authState.authenticated) {
-    return {
-      granted: false,
-      reason: 'Not authenticated',
-    }
-  }
-  return ctx.app.authorizer({
-    action: {
-      type: 'edit',
-      pageRef,
-    },
-    user: authState.user,
-    gitHub: createGitHubHelpers(ctx),
-    claims: authState.claims,
-  })
-}
-
-function createGitHubHelpers(ctx: ContentsgartenRequestContext): GitHubHelpers {
-  return {
-    isUserInTeam: (user, owner, teamSlug) => {
-      return cache(
-        ctx,
-        `team:${owner}/${teamSlug}:member:${user.id}`,
-        async () => {
-          return ctx.app.teamResolver.checkMembership(
-            ctx,
-            user.id,
-            `${owner}/${teamSlug}`,
-          )
-        },
-        300e3,
-      )
-    },
-  }
-}
