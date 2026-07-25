@@ -4,6 +4,7 @@ import { omit } from 'lodash-es'
 import { z } from 'zod'
 import { zodToJsonSchema } from 'zod-to-json-schema'
 import { Contentsgarten } from './Contentsgarten'
+import { User } from './ContentsgartenAuth'
 import { PageDatabaseSearch } from './ContentsgartenPageDatabase'
 import { authorize, resolveAuthState } from './ContentsgartenRequestHelpers'
 import { LaxPageRefRegex, PageRefRegex } from './PageRefRegex'
@@ -18,6 +19,44 @@ import { cache } from './cache'
 
 const LaxPageRef = z.string().regex(LaxPageRefRegex)
 const PageRef = z.string().regex(PageRefRegex)
+
+const UserInfoResult = z.union([
+  z.object({ authenticated: z.literal(true), user: User }),
+  z.object({
+    authenticated: z.literal(false),
+    reason: z.string(),
+  }),
+])
+
+const ViewResult = GetPageResult.merge(z.object({ perf: z.array(z.string()) }))
+
+const ContributorsResult = z.object({
+  contributors: z.array(
+    z.object({
+      login: z.string(),
+      avatarUrl: z.string(),
+      contributions: z.number(),
+    }),
+  ),
+  perf: z.array(z.string()),
+})
+
+const PermissionResult = z.object({
+  granted: z.boolean(),
+  reason: z.string().optional(),
+})
+
+const SearchResult = z.object({
+  count: z.number(),
+  results: z.array(
+    z.object({
+      lastModified: z.date().nullable(),
+      pageRef: z.string(),
+      frontMatter: z.record(z.any()),
+    }),
+  ),
+  explain: z.any().optional(),
+})
 
 /**
  * Builds the Elysia app for the REST API. Exported (in addition to the
@@ -45,6 +84,7 @@ export function createContentsgartenRestApp(core: Contentsgarten) {
       }),
     }))
     .get('/about', () => ({ name: 'Contentsgarten' }), {
+      response: { 200: z.object({ name: z.string() }) },
       detail: { summary: 'Returns information about the instance' },
     })
     .get(
@@ -53,6 +93,7 @@ export function createContentsgartenRestApp(core: Contentsgarten) {
         return resolveAuthState(ctx)
       },
       {
+        response: { 200: UserInfoResult },
         detail: { summary: 'Returns the info of the authenticated user' },
       },
     )
@@ -74,6 +115,7 @@ export function createContentsgartenRestApp(core: Contentsgarten) {
           revalidate: z.string().optional(),
           render: z.string().optional(),
         }),
+        response: { 200: ViewResult },
         detail: { summary: 'Returns the page information' },
       },
     )
@@ -94,6 +136,7 @@ export function createContentsgartenRestApp(core: Contentsgarten) {
       },
       {
         params: z.object({ '*': LaxPageRef }),
+        response: { 200: ContributorsResult },
         detail: { summary: 'Returns the contributors of a page' },
       },
     )
@@ -106,6 +149,7 @@ export function createContentsgartenRestApp(core: Contentsgarten) {
       },
       {
         params: z.object({ '*': PageRef }),
+        response: { 200: PermissionResult },
         detail: {
           summary:
             'Checks whether the authenticated user is allowed to edit a page',
@@ -170,6 +214,7 @@ export function createContentsgartenRestApp(core: Contentsgarten) {
               'JSON-encoded search query, matching the shape of PageDatabaseSearch',
             ),
         }),
+        response: { 200: SearchResult },
         detail: {
           summary:
             'Runs a query against the pages in database. Most recently updated pages are returned first.',
