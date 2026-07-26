@@ -14,7 +14,7 @@
     "@astrojs/node": "^9.0.0",
     "@astrojs/react": "^4.0.0",
     "@astrojs/tailwind": "^5.0.0",
-    "@babel/core": "^7.21.3",
+    "@babel/core": "^8.0.0",
     "@contentsgarten/client-utils": "workspace:*",
     "@contentsgarten/html": "workspace:*",
     "@contentsgarten/server-utils": "workspace:*",
