@@ -35,7 +35,7 @@
     "prettier": "^3.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.9.3",
-    "vitest": "^2.0.0"
+    "vitest": "^4.0.0"
   },
   "dependencies": {
     "@contentsgarten/markdown": "workspace:*",
