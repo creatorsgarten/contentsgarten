@@ -58,7 +58,7 @@
     "openapi-trpc": "^0.2.0",
     "p-memoize": "^7.1.0",
     "zod": "^3.21.4",
-    "zod-to-json-schema": "3.24.6"
+    "zod-to-json-schema": "3.25.2"
   },
   "repository": {
     "url": "git+https://github.com/creatorsgarten/contentsgarten"
