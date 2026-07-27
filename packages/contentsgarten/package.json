@@ -51,7 +51,7 @@
     "jose": "^6.0.0",
     "js-yaml": "^5.0.0",
     "json-buffer": "^3.0.1",
-    "keyv": "^4.5.2",
+    "keyv": "^5.0.0",
     "liquidjs": "^10.6.1",
     "mongodb": "^6.0.0",
     "octokit": "^3.0.0",
