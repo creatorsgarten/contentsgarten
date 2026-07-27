@@ -48,7 +48,7 @@
     "elysia": "^1.1.0",
     "expiry-map": "^2.0.0",
     "gray-matter": "^4.0.3",
-    "jose": "^5.0.0",
+    "jose": "^6.0.0",
     "js-yaml": "^4.1.0",
     "json-buffer": "^3.0.1",
     "keyv": "^4.5.2",
