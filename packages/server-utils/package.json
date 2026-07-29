@@ -26,7 +26,7 @@
     "@tsconfig/node24": "^24.0.0",
     "@types/node": "^24.0.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.0"
   },
   "peerDependencies": {
     "@trpc/client": "^10.11.1",
