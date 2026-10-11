@@ -192,7 +192,7 @@ importers:
         version: link:../markdown
       '@elysiajs/openapi':
         specifier: ^1.0.0
-        version: 1.4.15(elysia@1.4.29(@sinclair/typebox@0.34.52)(exact-mirror@1.2.2)(file-type@22.0.1(supports-color@10.2.2))(openapi-types@12.1.3)(typescript@5.9.3))
+        version: 1.4.16(@sinclair/typebox@0.34.52)(elysia@1.4.29(@sinclair/typebox@0.34.52)(exact-mirror@1.2.2)(file-type@22.0.1(supports-color@10.2.2))(openapi-types@12.1.3)(typescript@5.9.3))(typescript@5.9.3)
       '@keyv/redis':
         specifier: ^5.0.0
         version: 5.1.6(@opentelemetry/api@1.9.1)(keyv@5.6.0)
@@ -1532,10 +1532,12 @@ packages:
   '@changesets/write@0.4.0':
     resolution: {integrity: sha512-CdTLvIOPiCNuH71pyDu3rA+Q0n65cmAbXnwWH84rKGiFumFzkmHNT8KHTMEchcxN+Kl8I54xGUhJ7l3E7X396Q==}
 
-  '@elysiajs/openapi@1.4.15':
-    resolution: {integrity: sha512-HDtGIrWfFJk6UJS7qbgRmjifbSqnnRGDM3CsU/GVJkxLbEVEkNuQDf+Quh9fGbytSrJ8g4+tX9eVjshYhCH29w==}
+  '@elysiajs/openapi@1.4.16':
+    resolution: {integrity: sha512-kj8RBffE4J6myjm7nPPj6Dw1ujWt45NkdGW5sG9u3T0OfUzKN71s630/LEjajGo5jRZqFF3VHyk40lwXH2AbmQ==}
     peerDependencies:
+      '@sinclair/typebox': ^0.34.0
       elysia: '>= 1.4.0'
+      typescript: '>= 5.0.0'
 
   '@emnapi/runtime@1.11.2':
     resolution: {integrity: sha512-kyOl3X0DuTiT1h2ft8r2fYO8JYtU9a9Xis/zBSiGArNaagCOWx90N1k2wxp18czFDH+OgcWGb5ZP/XMt3dcyPA==}
@@ -10447,7 +10449,7 @@ snapshots:
     dependencies:
       '@babel/compat-data': 7.29.7
       '@babel/helper-validator-option': 7.29.7
-      browserslist: 4.28.7
+      browserslist: 4.29.3
       lru-cache: 5.1.1
       semver: 6.3.1
 
@@ -13031,9 +13033,11 @@ snapshots:
       human-id: 4.2.0
       prettier: 2.8.8
 
-  '@elysiajs/openapi@1.4.15(elysia@1.4.29(@sinclair/typebox@0.34.52)(exact-mirror@1.2.2)(file-type@22.0.1(supports-color@10.2.2))(openapi-types@12.1.3)(typescript@5.9.3))':
+  '@elysiajs/openapi@1.4.16(@sinclair/typebox@0.34.52)(elysia@1.4.29(@sinclair/typebox@0.34.52)(exact-mirror@1.2.2)(file-type@22.0.1(supports-color@10.2.2))(openapi-types@12.1.3)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
+      '@sinclair/typebox': 0.34.52
       elysia: 1.4.29(@sinclair/typebox@0.34.52)(exact-mirror@1.2.2)(file-type@22.0.1(supports-color@10.2.2))(openapi-types@12.1.3)(typescript@5.9.3)
+      typescript: 5.9.3
 
   '@emnapi/runtime@1.11.2':
     dependencies:
@@ -14054,7 +14058,7 @@ snapshots:
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.5
+      '@jridgewell/sourcemap-codec': 1.6.0
       '@jridgewell/trace-mapping': 0.3.31
 
   '@jridgewell/gen-mapping@0.3.8':
@@ -14095,7 +14099,7 @@ snapshots:
   '@jridgewell/trace-mapping@0.3.31':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.5
+      '@jridgewell/sourcemap-codec': 1.6.0
 
   '@jspm/core@2.0.1': {}
 
@@ -17093,7 +17097,7 @@ snapshots:
 
   core-js-compat@3.49.0:
     dependencies:
-      browserslist: 4.28.7
+      browserslist: 4.29.3
 
   core-util-is@1.0.3: {}
 
