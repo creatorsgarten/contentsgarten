@@ -168,7 +168,7 @@ importers:
     devDependencies:
       '@tsconfig/node24':
         specifier: ^24.0.0
-        version: 24.0.4
+        version: 24.0.5
       '@types/node':
         specifier: ^24.0.0
         version: 24.13.3
@@ -253,7 +253,7 @@ importers:
     devDependencies:
       '@tsconfig/node24':
         specifier: ^24.0.0
-        version: 24.0.4
+        version: 24.0.5
       '@types/js-yaml':
         specifier: ^4.0.5
         version: 4.0.9
@@ -293,7 +293,7 @@ importers:
     devDependencies:
       '@tsconfig/node24':
         specifier: ^24.0.0
-        version: 24.0.4
+        version: 24.0.5
       '@types/node':
         specifier: ^24.0.0
         version: 24.13.3
@@ -327,7 +327,7 @@ importers:
     devDependencies:
       '@tsconfig/node24':
         specifier: ^24.0.0
-        version: 24.0.4
+        version: 24.0.5
       '@types/hast':
         specifier: ^3.0.5
         version: 3.0.5
@@ -390,7 +390,7 @@ importers:
         version: 10.45.4
       '@tsconfig/node24':
         specifier: ^24.0.0
-        version: 24.0.4
+        version: 24.0.5
       '@types/node':
         specifier: ^24.0.0
         version: 24.13.3
@@ -4099,8 +4099,8 @@ packages:
   '@trpc/server@10.45.4':
     resolution: {integrity: sha512-5MuyK5sDuFVGHOT9EMVHgRjP5I5j3RqGymcb5D47UOp8tzn6LH0g1lEgYrAsOZ12vmk1gpxMw/v/y4xHHK/Qdg==}
 
-  '@tsconfig/node24@24.0.4':
-    resolution: {integrity: sha512-2A933l5P5oCbv6qSxHs7ckKwobs8BDAe9SJ/Xr2Hy+nDlwmLE1GhFh/g/vXGRZWgxBg9nX/5piDtHR9Dkw/XuA==}
+  '@tsconfig/node24@24.0.5':
+    resolution: {integrity: sha512-DWC54fGPuhZgg3Ighg4Y/A/bA3ZdB5hnzAuv/MkQ/X85sVsBsMQxu8t7khutdYeiNksBbFdDyeqv1HSW2Zl8aA==}
 
   '@turbo/darwin-64@2.10.7':
     resolution: {integrity: sha512-/c9cSBRermWDv85oufLhoH6XRLOVbvzJLRd+WLyfJCP+i0HFLQj4PVNDrHcY17/ve5l8X0Oua4bJBqJUgJPnZA==}
@@ -15595,7 +15595,7 @@ snapshots:
 
   '@trpc/server@10.45.4': {}
 
-  '@tsconfig/node24@24.0.4': {}
+  '@tsconfig/node24@24.0.5': {}
 
   '@turbo/darwin-64@2.10.7':
     optional: true
