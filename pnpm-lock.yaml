@@ -171,7 +171,7 @@ importers:
         version: 24.0.5
       '@types/node':
         specifier: ^24.0.0
-        version: 24.13.3
+        version: 24.19.2
       contentsgarten:
         specifier: workspace:*
         version: link:../contentsgarten
@@ -265,7 +265,7 @@ importers:
         version: 4.17.12
       '@types/node':
         specifier: ^24.0.0
-        version: 24.13.3
+        version: 24.19.2
       depcheck:
         specifier: ^1.4.3
         version: 1.4.7(supports-color@10.2.2)
@@ -283,7 +283,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.0.0
-        version: 4.1.11(@opentelemetry/api@1.9.1)(@types/node@24.13.3)(vite@6.4.3(@types/node@24.13.3)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
+        version: 4.1.11(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
 
   packages/html:
     dependencies:
@@ -296,7 +296,7 @@ importers:
         version: 24.0.5
       '@types/node':
         specifier: ^24.0.0
-        version: 24.13.3
+        version: 24.19.2
       '@types/react':
         specifier: ^18.0.28
         version: 18.3.31
@@ -317,7 +317,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: ^4.0.0
-        version: 4.1.11(@opentelemetry/api@1.9.1)(@types/node@24.13.3)(vite@6.4.3(@types/node@24.13.3)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
+        version: 4.1.11(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
 
   packages/markdown:
     dependencies:
@@ -333,7 +333,7 @@ importers:
         version: 3.0.5
       '@types/node':
         specifier: ^24.0.0
-        version: 24.13.3
+        version: 24.19.2
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -378,7 +378,7 @@ importers:
         version: 5.1.0
       vitest:
         specifier: ^4.0.0
-        version: 4.1.11(@opentelemetry/api@1.9.1)(@types/node@24.13.3)(vite@6.4.3(@types/node@24.13.3)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
+        version: 4.1.11(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
 
   packages/server-utils:
     devDependencies:
@@ -393,7 +393,7 @@ importers:
         version: 24.0.5
       '@types/node':
         specifier: ^24.0.0
-        version: 24.13.3
+        version: 24.19.2
       tsup:
         specifier: ^8.0.0
         version: 8.5.1(jiti@1.21.7)(postcss@8.5.29)(supports-color@10.2.2)(typescript@5.9.3)(yaml@2.6.1)
@@ -4265,6 +4265,9 @@ packages:
 
   '@types/node@24.13.3':
     resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
+
+  '@types/node@24.19.2':
+    resolution: {integrity: sha512-93d49wCWJkCyN87MxLpNN6KXPCwFw7bVUg79mGUV1OS40JGWwVCr8n61DXCSqz7CV6/VfPkb7xec7uP2M+QHWQ==}
 
   '@types/node@26.1.1':
     resolution: {integrity: sha512-nxAkRSVkN1Y0JC1W8ky/fTfkGsMmcrRsbx+3XoZE+rMOX71kLYTV7fLXpqud1GpbpP5TuffXFqfX7fH2GgZREw==}
@@ -9531,6 +9534,9 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
+  undici-types@7.24.6:
+    resolution: {integrity: sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg==}
+
   undici-types@8.3.0:
     resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
 
@@ -13858,7 +13864,7 @@ snapshots:
   '@grpc/grpc-js@1.9.16':
     dependencies:
       '@grpc/proto-loader': 0.7.15
-      '@types/node': 26.1.1
+      '@types/node': 24.13.3
 
   '@grpc/proto-loader@0.7.15':
     dependencies:
@@ -15617,7 +15623,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 26.1.1
+      '@types/node': 24.13.3
       '@types/responselike': 1.0.3
 
   '@types/chai@5.2.3':
@@ -15662,7 +15668,7 @@ snapshots:
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 26.1.1
+      '@types/node': 24.13.3
 
   '@types/hast@3.0.5':
     dependencies:
@@ -15697,7 +15703,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 26.1.1
+      '@types/node': 24.13.3
 
   '@types/linkify-it@5.0.0': {}
 
@@ -15744,9 +15750,14 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
+  '@types/node@24.19.2':
+    dependencies:
+      undici-types: 7.24.6
+
   '@types/node@26.1.1':
     dependencies:
       undici-types: 8.3.0
+    optional: true
 
   '@types/parse-json@4.0.2': {}
 
@@ -15763,7 +15774,7 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 26.1.1
+      '@types/node': 24.13.3
 
   '@types/semver@7.5.8': {}
 
@@ -16016,13 +16027,13 @@ snapshots:
       chai: 6.3.0
       tinyrainbow: 3.2.0
 
-  '@vitest/mocker@4.1.11(vite@6.4.3(@types/node@24.13.3)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))':
+  '@vitest/mocker@4.1.11(vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))':
     dependencies:
       '@vitest/spy': 4.1.11
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 6.4.3(@types/node@24.13.3)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)
+      vite: 6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)
 
   '@vitest/pretty-format@4.1.11':
     dependencies:
@@ -18069,7 +18080,7 @@ snapshots:
 
   eval@0.1.8:
     dependencies:
-      '@types/node': 26.1.1
+      '@types/node': 24.13.3
       require-like: 0.1.2
 
   event-target-shim@5.0.1: {}
@@ -21515,7 +21526,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.2
-      '@types/node': 26.1.1
+      '@types/node': 24.13.3
       long: 5.3.2
 
   proxy-addr@2.0.7:
@@ -23030,7 +23041,10 @@ snapshots:
 
   undici-types@7.18.2: {}
 
-  undici-types@8.3.0: {}
+  undici-types@7.24.6: {}
+
+  undici-types@8.3.0:
+    optional: true
 
   undici@6.19.7: {}
 
@@ -23317,7 +23331,7 @@ snapshots:
       terser: 5.49.0
       yaml: 2.6.1
 
-  vite@6.4.3(@types/node@24.13.3)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1):
+  vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1):
     dependencies:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.7)
@@ -23326,7 +23340,7 @@ snapshots:
       rollup: 4.62.2
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 24.13.3
+      '@types/node': 24.19.2
       fsevents: 2.3.3
       jiti: 1.21.7
       terser: 5.49.0
@@ -23351,10 +23365,10 @@ snapshots:
     optionalDependencies:
       vite: 6.4.3(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)
 
-  vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@24.13.3)(vite@6.4.3(@types/node@24.13.3)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)):
+  vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)):
     dependencies:
       '@vitest/expect': 4.1.11
-      '@vitest/mocker': 4.1.11(vite@6.4.3(@types/node@24.13.3)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
+      '@vitest/mocker': 4.1.11(vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
       '@vitest/pretty-format': 4.1.11
       '@vitest/runner': 4.1.11
       '@vitest/snapshot': 4.1.11
@@ -23371,11 +23385,11 @@ snapshots:
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
       tinyrainbow: 3.2.0
-      vite: 6.4.3(@types/node@24.13.3)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)
+      vite: 6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@opentelemetry/api': 1.9.1
-      '@types/node': 24.13.3
+      '@types/node': 24.19.2
     transitivePeerDependencies:
       - msw
 
