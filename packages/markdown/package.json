@@ -35,7 +35,7 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.0",
     "unified": "^11.0.0",
     "unist-util-visit": "^5.1.0",
     "vitest": "^4.0.0"
