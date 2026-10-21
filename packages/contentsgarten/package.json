@@ -33,7 +33,7 @@
     "depcheck": "^1.4.3",
     "lodash-es": "^4.17.21",
     "prettier": "^3.0.0",
-    "tsup": "^8.0.0",
+    "tsup": "^9.0.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.0"
   },
