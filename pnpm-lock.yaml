@@ -257,7 +257,7 @@ importers:
         version: 1.64.1
       '@remix-run/dev':
         specifier: ^1.14.3
-        version: 1.19.3(@remix-run/serve@1.19.3(supports-color@10.2.2))(@types/node@26.1.1)(babel-plugin-macros@3.1.0)(supports-color@10.2.2)(terser@5.49.0)
+        version: 1.19.3(@remix-run/serve@1.19.3(supports-color@10.2.2))(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(supports-color@10.2.2)(terser@5.49.0)
       '@remix-run/eslint-config':
         specifier: ^1.14.3
         version: 1.19.3(eslint@10.13.0(jiti@1.21.7)(supports-color@10.2.2))(react@18.3.1)(supports-color@10.2.2)(typescript@5.9.3)
@@ -352,8 +352,8 @@ importers:
         specifier: ^1.0.0
         version: 1.4.16(@sinclair/typebox@0.34.52)(elysia@1.4.30(@sinclair/typebox@0.34.52)(exact-mirror@1.2.2)(file-type@22.0.1(supports-color@10.2.2))(openapi-types@12.1.3)(typescript@5.9.3))(typescript@5.9.3)
       '@keyv/redis':
-        specifier: ^5.0.0
-        version: 5.1.6(@opentelemetry/api@1.9.1)(keyv@5.6.0)
+        specifier: ^6.0.0
+        version: 6.1.0(@opentelemetry/api@1.9.1)(keyv@5.6.0)
       '@sinclair/typebox':
         specifier: ^0.34.0
         version: 0.34.52
@@ -563,13 +563,13 @@ importers:
     dependencies:
       '@astrojs/node':
         specifier: ^9.0.0
-        version: 9.5.5(astro@5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1))(supports-color@10.2.2)
+        version: 9.5.5(astro@5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1))(supports-color@10.2.2)
       '@astrojs/react':
         specifier: ^4.0.0
-        version: 4.4.2(@types/node@26.1.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(jiti@1.21.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@10.2.2)(terser@5.49.0)(yaml@2.6.1)
+        version: 4.4.2(@types/node@24.19.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(jiti@1.21.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@10.2.2)(terser@5.49.0)(yaml@2.9.1)
       '@astrojs/tailwind':
         specifier: ^5.0.0
-        version: 5.1.5(astro@5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1))(tailwindcss@3.4.19(yaml@2.9.1))
+        version: 5.1.5(astro@5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1))(tailwindcss@3.4.19(yaml@2.9.1))
       '@babel/core':
         specifier: ^8.0.0
         version: 8.0.7
@@ -593,7 +593,7 @@ importers:
         version: 5.0.0-beta.52(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1)(supports-color@10.2.2))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1)(supports-color@10.2.2))(@types/react@18.3.31)(react@18.3.1)(supports-color@10.2.2))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@sentry/astro':
         specifier: ^10.0.0
-        version: 10.76.2(@opentelemetry/core@2.12.0(@opentelemetry/api@1.9.1))(astro@5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1))(rollup@4.64.12)(supports-color@10.2.2)
+        version: 10.76.2(@opentelemetry/core@2.12.0(@opentelemetry/api@1.9.1))(astro@5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1))(rollup@4.64.12)(supports-color@10.2.2)
       '@tailwindcss/typography':
         specifier: ^0.5.3
         version: 0.5.20(tailwindcss@3.4.19(yaml@2.9.1))
@@ -617,7 +617,7 @@ importers:
         version: 18.3.7(@types/react@18.3.31)
       astro:
         specifier: ^5.0.0
-        version: 5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1)
+        version: 5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1)
       clsx:
         specifier: ^2.0.0
         version: 2.1.1
@@ -2934,11 +2934,11 @@ packages:
     peerDependencies:
       keyv: ^5.6.0
 
-  '@keyv/redis@5.1.6':
-    resolution: {integrity: sha512-eKvW6pspvVaU5dxigaIDZr635/Uw6urTXL3gNbY9WTR8d3QigZQT+r8gxYSEOsw4+1cCBsC4s7T2ptR0WC9LfQ==}
-    engines: {node: '>= 18'}
+  '@keyv/redis@6.1.0':
+    resolution: {integrity: sha512-H1nYM70uS+LtYWLJOqnaFJrFAm3MpEgjOEeFfHd7VaE3RKfEJKr8pnKOfmftBx5KfWuNnKzP1VBViuVHAJR+MA==}
+    engines: {node: '>= 22.19.0'}
     peerDependencies:
-      keyv: ^5.6.0
+      keyv: ^6.1.0
 
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
@@ -3447,9 +3447,9 @@ packages:
       '@types/react':
         optional: true
 
-  '@redis/client@5.12.1':
-    resolution: {integrity: sha512-7aPGWeqA3uFm43o19umzdl16CEjK/JQGtSXVPevplTaOU3VJA/rseBC1QvYUz9lLDIMBimc4SW/zrW4S89BaCA==}
-    engines: {node: '>= 18.19.0'}
+  '@redis/client@6.3.0':
+    resolution: {integrity: sha512-fHrjwGCBvAANGi+TuRuwKi83sIOzgHr8eh+Uf48w3fSX7Hhrz174NrWqfJhAC2vnN0d/tfaZpdr6+o6JC3QHwg==}
+    engines: {node: '>= 20.0.0'}
     peerDependencies:
       '@node-rs/xxhash': ^1.1.0
       '@opentelemetry/api': '>=1 <2'
@@ -4469,9 +4469,6 @@ packages:
 
   '@types/node@24.19.2':
     resolution: {integrity: sha512-93d49wCWJkCyN87MxLpNN6KXPCwFw7bVUg79mGUV1OS40JGWwVCr8n61DXCSqz7CV6/VfPkb7xec7uP2M+QHWQ==}
-
-  '@types/node@26.1.1':
-    resolution: {integrity: sha512-nxAkRSVkN1Y0JC1W8ky/fTfkGsMmcrRsbx+3XoZE+rMOX71kLYTV7fLXpqud1GpbpP5TuffXFqfX7fH2GgZREw==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -6380,14 +6377,15 @@ packages:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
 
-  hookified@1.13.0:
-    resolution: {integrity: sha512-6sPYUY8olshgM/1LDNW4QZQN0IqgKhtl/1C8koNZBJrKLBk3AZl6chQtNwpNztvfiApHMEwMHek5rv993PRbWw==}
-
   hookified@1.15.1:
     resolution: {integrity: sha512-MvG/clsADq1GPM2KGo2nyfaWVyn9naPiXrqIe4jYjXNZQt238kWyOGrsyc/DmRAQ+Re6yeo6yX/yoNCG5KAEVg==}
 
   hookified@2.2.0:
     resolution: {integrity: sha512-p/LgFzRN5FeoD3DLS6bkUapeye6E4SI6yJs6KetENd18S+FBthqYq2amJUWpt5z0EQwwHemidjY5OqJGEKm5uA==}
+
+  hookified@3.0.4:
+    resolution: {integrity: sha512-Uos6DSO6BKv4DeR1C22UosRpeUaaoQgEQ+eDCyoJRll2OGzGpZc708vL7orIvqrYLo6zhVV+pkwO9zKVCsq3PQ==}
+    engines: {node: '>=22.18.0'}
 
   html-dom-parser@5.0.3:
     resolution: {integrity: sha512-slsc6ipw88OUZjAayRs5NTmfOQCwcUa3hNyk6AdsbQxY09H5Lr1Y3CZ4ZlconMKql3Ga6sWg3HMoUzo7KSItaQ==}
@@ -9006,9 +9004,6 @@ packages:
   undici-types@7.24.6:
     resolution: {integrity: sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg==}
 
-  undici-types@8.3.0:
-    resolution: {integrity: sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ==}
-
   undici@6.19.7:
     resolution: {integrity: sha512-HR3W/bMGPSr90i8AAp2C4DM3wChFdJPLrWYpIS++LxS8K+W535qftjt+4MyjNYHeWabMj1nvtmLIi7l++iq91A==}
     engines: {node: '>=18.17'}
@@ -9674,10 +9669,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@9.5.5(astro@5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1))(supports-color@10.2.2)':
+  '@astrojs/node@9.5.5(astro@5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1))(supports-color@10.2.2)':
     dependencies:
       '@astrojs/internal-helpers': 0.7.6
-      astro: 5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1)
+      astro: 5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1)
       send: 1.2.1(supports-color@10.2.2)
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -9687,15 +9682,15 @@ snapshots:
     dependencies:
       prismjs: 1.30.0
 
-  '@astrojs/react@4.4.2(@types/node@26.1.1)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(jiti@1.21.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@10.2.2)(terser@5.49.0)(yaml@2.6.1)':
+  '@astrojs/react@4.4.2(@types/node@24.19.2)(@types/react-dom@18.3.7(@types/react@18.3.31))(@types/react@18.3.31)(jiti@1.21.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(supports-color@10.2.2)(terser@5.49.0)(yaml@2.9.1)':
     dependencies:
       '@types/react': 18.3.31
       '@types/react-dom': 18.3.7(@types/react@18.3.31)
-      '@vitejs/plugin-react': 4.7.0(supports-color@10.2.2)(vite@6.4.1(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
+      '@vitejs/plugin-react': 4.7.0(supports-color@10.2.2)(vite@6.4.1(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1))
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       ultrahtml: 1.6.0
-      vite: 6.4.1(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)
+      vite: 6.4.1(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -9710,9 +9705,9 @@ snapshots:
       - tsx
       - yaml
 
-  '@astrojs/tailwind@5.1.5(astro@5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1))(tailwindcss@3.4.19(yaml@2.9.1))':
+  '@astrojs/tailwind@5.1.5(astro@5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1))(tailwindcss@3.4.19(yaml@2.9.1))':
     dependencies:
-      astro: 5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1)
+      astro: 5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1)
       autoprefixer: 10.5.4(postcss@8.5.31)
       postcss: 8.5.31
       postcss-load-config: 4.0.2(postcss@8.5.31)
@@ -11944,11 +11939,11 @@ snapshots:
       hookified: 1.15.1
       keyv: 5.6.0
 
-  '@keyv/redis@5.1.6(@opentelemetry/api@1.9.1)(keyv@5.6.0)':
+  '@keyv/redis@6.1.0(@opentelemetry/api@1.9.1)(keyv@5.6.0)':
     dependencies:
-      '@redis/client': 5.12.1(@opentelemetry/api@1.9.1)
+      '@redis/client': 6.3.0(@opentelemetry/api@1.9.1)
       cluster-key-slot: 1.1.2
-      hookified: 1.13.0
+      hookified: 3.0.4
       keyv: 5.6.0
     transitivePeerDependencies:
       - '@node-rs/xxhash'
@@ -12460,9 +12455,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.31
 
-  '@redis/client@5.12.1(@opentelemetry/api@1.9.1)':
-    dependencies:
-      cluster-key-slot: 1.1.2
+  '@redis/client@6.3.0(@opentelemetry/api@1.9.1)':
     optionalDependencies:
       '@opentelemetry/api': 1.9.1
 
@@ -12489,7 +12482,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@remix-run/dev@1.19.3(@remix-run/serve@1.19.3(supports-color@10.2.2))(@types/node@26.1.1)(babel-plugin-macros@3.1.0)(supports-color@10.2.2)(terser@5.49.0)':
+  '@remix-run/dev@1.19.3(@remix-run/serve@1.19.3(supports-color@10.2.2))(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(supports-color@10.2.2)(terser@5.49.0)':
     dependencies:
       '@babel/core': 7.26.0(supports-color@10.2.2)
       '@babel/generator': 7.26.3
@@ -12502,7 +12495,7 @@ snapshots:
       '@babel/types': 7.26.3
       '@npmcli/package-json': 2.0.0
       '@remix-run/server-runtime': 1.19.3
-      '@vanilla-extract/integration': 6.5.0(@types/node@26.1.1)(babel-plugin-macros@3.1.0)(supports-color@10.2.2)(terser@5.49.0)
+      '@vanilla-extract/integration': 6.5.0(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(supports-color@10.2.2)(terser@5.49.0)
       arg: 5.0.2
       cacache: 15.3.0
       chalk: 4.1.2
@@ -12974,14 +12967,14 @@ snapshots:
 
   '@rushstack/tree-pattern@0.4.1': {}
 
-  '@sentry/astro@10.76.2(@opentelemetry/core@2.12.0(@opentelemetry/api@1.9.1))(astro@5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1))(rollup@4.64.12)(supports-color@10.2.2)':
+  '@sentry/astro@10.76.2(@opentelemetry/core@2.12.0(@opentelemetry/api@1.9.1))(astro@5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1))(rollup@4.64.12)(supports-color@10.2.2)':
     dependencies:
       '@sentry/browser': 10.76.2
       '@sentry/conventions': 0.16.0
       '@sentry/core': 10.76.2
       '@sentry/node': 10.76.2(@opentelemetry/core@2.12.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
       '@sentry/vite-plugin': 5.4.1(rollup@4.64.12)(supports-color@10.2.2)
-      astro: 5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1)
+      astro: 5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1)
     transitivePeerDependencies:
       - '@opentelemetry/core'
       - '@opentelemetry/exporter-trace-otlp-http'
@@ -13399,11 +13392,6 @@ snapshots:
     dependencies:
       undici-types: 7.24.6
 
-  '@types/node@26.1.1':
-    dependencies:
-      undici-types: 8.3.0
-    optional: true
-
   '@types/parse-json@4.0.2': {}
 
   '@types/prop-types@15.7.15': {}
@@ -13601,7 +13589,7 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
 
-  '@vanilla-extract/integration@6.5.0(@types/node@26.1.1)(babel-plugin-macros@3.1.0)(supports-color@10.2.2)(terser@5.49.0)':
+  '@vanilla-extract/integration@6.5.0(@types/node@24.19.2)(babel-plugin-macros@3.1.0)(supports-color@10.2.2)(terser@5.49.0)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@10.2.2)
       '@babel/plugin-syntax-typescript': 7.25.9(@babel/core@7.29.7(supports-color@10.2.2))
@@ -13614,8 +13602,8 @@ snapshots:
       lodash: 4.17.21
       mlly: 1.7.3
       outdent: 0.8.0
-      vite: 5.4.11(@types/node@26.1.1)(terser@5.49.0)
-      vite-node: 1.6.0(@types/node@26.1.1)(supports-color@10.2.2)(terser@5.49.0)
+      vite: 5.4.11(@types/node@24.19.2)(terser@5.49.0)
+      vite-node: 1.6.0(@types/node@24.19.2)(supports-color@10.2.2)(terser@5.49.0)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -13630,7 +13618,7 @@ snapshots:
 
   '@vanilla-extract/private@1.0.6': {}
 
-  '@vitejs/plugin-react@4.7.0(supports-color@10.2.2)(vite@6.4.1(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))':
+  '@vitejs/plugin-react@4.7.0(supports-color@10.2.2)(vite@6.4.1(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@10.2.2)
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.29.7(supports-color@10.2.2))
@@ -13638,7 +13626,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 6.4.1(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)
+      vite: 6.4.1(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -13875,7 +13863,7 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro@5.18.2(@types/node@26.1.1)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.6.1):
+  astro@5.18.2(@types/node@24.19.2)(jiti@1.21.7)(rollup@4.64.12)(supports-color@10.2.2)(terser@5.49.0)(typescript@5.9.3)(yaml@2.9.1):
     dependencies:
       '@astrojs/compiler': 2.13.1
       '@astrojs/internal-helpers': 0.7.6
@@ -13932,8 +13920,8 @@ snapshots:
       unist-util-visit: 5.1.0
       unstorage: 1.17.5
       vfile: 6.0.3
-      vite: 6.4.3(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)
-      vitefu: 1.1.3(vite@6.4.3(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1))
+      vite: 6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1)
+      vitefu: 1.1.3(vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.3
@@ -16007,11 +15995,11 @@ snapshots:
     dependencies:
       parse-passwd: 1.0.0
 
-  hookified@1.13.0: {}
-
   hookified@1.15.1: {}
 
   hookified@2.2.0: {}
+
+  hookified@3.0.4: {}
 
   html-dom-parser@5.0.3:
     dependencies:
@@ -19334,9 +19322,6 @@ snapshots:
 
   undici-types@7.24.6: {}
 
-  undici-types@8.3.0:
-    optional: true
-
   undici@6.19.7: {}
 
   undici@8.12.2: {}
@@ -19571,13 +19556,13 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite-node@1.6.0(@types/node@26.1.1)(supports-color@10.2.2)(terser@5.49.0):
+  vite-node@1.6.0(@types/node@24.19.2)(supports-color@10.2.2)(terser@5.49.0):
     dependencies:
       cac: 6.7.14
       debug: 4.4.3(supports-color@10.2.2)
       pathe: 1.1.2
       picocolors: 1.1.1
-      vite: 5.4.11(@types/node@26.1.1)(terser@5.49.0)
+      vite: 5.4.11(@types/node@24.19.2)(terser@5.49.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -19589,17 +19574,17 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.11(@types/node@26.1.1)(terser@5.49.0):
+  vite@5.4.11(@types/node@24.19.2)(terser@5.49.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.31
       rollup: 4.34.9
     optionalDependencies:
-      '@types/node': 26.1.1
+      '@types/node': 24.19.2
       fsevents: 2.3.3
       terser: 5.49.0
 
-  vite@6.4.1(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1):
+  vite@6.4.1(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1):
     dependencies:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.7)
@@ -19608,11 +19593,11 @@ snapshots:
       rollup: 4.53.2
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 26.1.1
+      '@types/node': 24.19.2
       fsevents: 2.3.3
       jiti: 1.21.7
       terser: 5.49.0
-      yaml: 2.6.1
+      yaml: 2.9.1
 
   vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1):
     dependencies:
@@ -19629,24 +19614,9 @@ snapshots:
       terser: 5.49.0
       yaml: 2.9.1
 
-  vite@6.4.3(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1):
-    dependencies:
-      esbuild: 0.25.12
-      fdir: 6.5.0(picomatch@4.0.7)
-      picomatch: 4.0.7
-      postcss: 8.5.31
-      rollup: 4.62.2
-      tinyglobby: 0.2.17
+  vitefu@1.1.3(vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1)):
     optionalDependencies:
-      '@types/node': 26.1.1
-      fsevents: 2.3.3
-      jiti: 1.21.7
-      terser: 5.49.0
-      yaml: 2.6.1
-
-  vitefu@1.1.3(vite@6.4.3(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)):
-    optionalDependencies:
-      vite: 6.4.3(@types/node@26.1.1)(jiti@1.21.7)(terser@5.49.0)(yaml@2.6.1)
+      vite: 6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1)
 
   vitest@5.0.5(@opentelemetry/api@1.9.1)(@types/node@24.19.2)(vite@6.4.3(@types/node@24.19.2)(jiti@1.21.7)(terser@5.49.0)(yaml@2.9.1)):
     dependencies:
