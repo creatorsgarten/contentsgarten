@@ -400,8 +400,8 @@ importers:
         specifier: ^0.2.0
         version: 0.2.1(@trpc/server@10.45.4)(zod@4.6.7)
       p-memoize:
-        specifier: ^8.0.0
-        version: 8.0.0
+        specifier: ^9.0.0
+        version: 9.0.0
       zod:
         specifier: ^4.0.0
         version: 4.6.7
@@ -7781,9 +7781,9 @@ packages:
     resolution: {integrity: sha512-/bjOqmgETBYB5BoEeGVea8dmvHb2m9GLy1E9W43yeyfP6QQCZGFNa+XRceJEuDB6zqr+gKpIAmlLebMpykw/MQ==}
     engines: {node: '>=10'}
 
-  p-memoize@8.0.0:
-    resolution: {integrity: sha512-jdZ10MCxavHoIHwJ5oweOtYy6ElPixEHaMkz0AuaEMovR1MRpVvYFzIEHRxgMEpXYzNpRVByFAniAzwmd1/uug==}
-    engines: {node: '>=20'}
+  p-memoize@9.0.0:
+    resolution: {integrity: sha512-CrDWMfDzkLVDM9qmPibiClRWbWbbLnQ7gfrvpY0F83az9zpZxtegV4SZvkYj0EeutirIK61YXLsIldlkGHORwA==}
+    engines: {node: '>=22'}
 
   p-queue@8.1.1:
     resolution: {integrity: sha512-aNZ+VfjobsWryoiPnEApGGmf5WmNsCo9xu8dfaYamG5qaLP7ClhLN6NgsFe6SwJ2UbLEBK5dv9x8Mn5+RVhMWQ==}
@@ -17742,10 +17742,9 @@ snapshots:
     dependencies:
       aggregate-error: 3.1.0
 
-  p-memoize@8.0.0:
+  p-memoize@9.0.0:
     dependencies:
       mimic-function: 5.0.1
-      type-fest: 4.41.0
 
   p-queue@8.1.1:
     dependencies:
