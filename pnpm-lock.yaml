@@ -207,14 +207,14 @@ importers:
         specifier: ^4.26.1
         version: 4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/client':
-        specifier: ^10.16.0
-        version: 10.45.4(@trpc/server@10.45.4)
+        specifier: ^11.0.0
+        version: 11.19.0(@trpc/server@11.19.0(typescript@5.9.3))(typescript@5.9.3)
       '@trpc/react-query':
-        specifier: ^10.16.0
-        version: 10.45.4(@tanstack/react-query@4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.4(@trpc/server@10.45.4))(@trpc/server@10.45.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.0.0
+        version: 11.19.0(@tanstack/react-query@4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@trpc/client@11.19.0(@trpc/server@11.19.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.19.0(typescript@5.9.3))(react@18.3.1)(typescript@5.9.3)
       '@trpc/server':
-        specifier: ^10.16.0
-        version: 10.45.4
+        specifier: ^11.0.0
+        version: 11.19.0(typescript@5.9.3)
       contentsgarten:
         specifier: workspace:*
         version: link:../packages/contentsgarten
@@ -361,8 +361,8 @@ importers:
         specifier: ^4.26.1
         version: 4.44.0
       '@trpc/server':
-        specifier: ^10.16.0
-        version: 10.45.4
+        specifier: ^11.0.0
+        version: 11.19.0(typescript@5.9.3)
       axios:
         specifier: ^1.3.4
         version: 1.20.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
@@ -398,7 +398,7 @@ importers:
         version: 5.0.5
       openapi-trpc:
         specifier: ^0.2.0
-        version: 0.2.1(@trpc/server@10.45.4)(zod@4.6.7)
+        version: 0.2.1(@trpc/server@11.19.0(typescript@5.9.3))(zod@4.6.7)
       p-memoize:
         specifier: ^9.0.0
         version: 9.0.0
@@ -541,11 +541,11 @@ importers:
   packages/server-utils:
     devDependencies:
       '@trpc/client':
-        specifier: ^10.16.0
-        version: 10.45.4(@trpc/server@10.45.4)
+        specifier: ^11.0.0
+        version: 11.19.0(@trpc/server@11.19.0(typescript@5.9.3))(typescript@5.9.3)
       '@trpc/server':
-        specifier: ^10.16.0
-        version: 10.45.4
+        specifier: ^11.0.0
+        version: 11.19.0(typescript@5.9.3)
       '@tsconfig/node24':
         specifier: ^24.0.0
         version: 24.0.5
@@ -601,14 +601,14 @@ importers:
         specifier: ^4.26.1
         version: 4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/client':
-        specifier: ^10.16.0
-        version: 10.45.4(@trpc/server@10.45.4)
+        specifier: ^11.0.0
+        version: 11.19.0(@trpc/server@11.19.0(typescript@5.9.3))(typescript@5.9.3)
       '@trpc/react-query':
-        specifier: ^10.16.0
-        version: 10.45.4(@tanstack/react-query@4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.4(@trpc/server@10.45.4))(@trpc/server@10.45.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.0.0
+        version: 11.19.0(@tanstack/react-query@4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@trpc/client@11.19.0(@trpc/server@11.19.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.19.0(typescript@5.9.3))(react@18.3.1)(typescript@5.9.3)
       '@trpc/server':
-        specifier: ^10.16.0
-        version: 10.45.4
+        specifier: ^11.0.0
+        version: 11.19.0(typescript@5.9.3)
       '@types/react':
         specifier: ^18.0.28
         version: 18.3.31
@@ -635,7 +635,7 @@ importers:
         version: 0.3.1(zod@4.6.7)
       openapi-trpc:
         specifier: ^0.2.0
-        version: 0.2.1(@trpc/server@10.45.4)(zod@4.6.7)
+        version: 0.2.1(@trpc/server@11.19.0(typescript@5.9.3))(zod@4.6.7)
       postcss:
         specifier: ^8.4.21
         version: 8.5.31
@@ -4295,22 +4295,27 @@ packages:
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
 
-  '@trpc/client@10.45.4':
-    resolution: {integrity: sha512-ItpH5FMIJFt862kbAgC8hf5NJnDLo0FwEvMEX6zSLCenzWD0UH6H/fvAX1suFo1e0wcAmMhiEU1Tl6xKk/Pd1g==}
+  '@trpc/client@11.19.0':
+    resolution: {integrity: sha512-0MKkPq6MejsKB5Opca1Rl22KVIaqo2+A1EiXyZ8EGUsl9TLrPdpGn+Usux20TZKFwnSC2+wI/WilqNJaP4ODfw==}
+    hasBin: true
     peerDependencies:
-      '@trpc/server': 10.45.4
+      '@trpc/server': 11.19.0
+      typescript: '>=5.7.2'
 
-  '@trpc/react-query@10.45.4':
-    resolution: {integrity: sha512-/JfbkFMztsYbpl94P9TWritMjbHqWxeHz4uwjHM3W2zUcIKT88FiFXVmD/jLitPLrKhi4yAONoaRks5SUm12fQ==}
+  '@trpc/react-query@11.19.0':
+    resolution: {integrity: sha512-TrqZBa/6weXX27mf0P2dMCI65duqO3B/wf9BkP1MezUWSUg7SRGJrIv6K8vjgjeHdafFBI1mmcqPEYXHF4AlVQ==}
     peerDependencies:
-      '@tanstack/react-query': ^4.18.0
-      '@trpc/client': 10.45.4
-      '@trpc/server': 10.45.4
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
+      '@tanstack/react-query': ^5.80.3
+      '@trpc/client': 11.19.0
+      '@trpc/server': 11.19.0
+      react: '>=18.2.0'
+      typescript: '>=5.7.2'
 
-  '@trpc/server@10.45.4':
-    resolution: {integrity: sha512-5MuyK5sDuFVGHOT9EMVHgRjP5I5j3RqGymcb5D47UOp8tzn6LH0g1lEgYrAsOZ12vmk1gpxMw/v/y4xHHK/Qdg==}
+  '@trpc/server@11.19.0':
+    resolution: {integrity: sha512-7C1goiDurz82yFKtZUbEzjXd0Rg/jyisaIZQhdvus+1l7E6mwcEYZXjZ1US/HF8kOyz1LERL8UN3bcboJtjcyQ==}
+    hasBin: true
+    peerDependencies:
+      typescript: '>=5.7.2'
 
   '@tsconfig/node24@24.0.5':
     resolution: {integrity: sha512-DWC54fGPuhZgg3Ighg4Y/A/bA3ZdB5hnzAuv/MkQ/X85sVsBsMQxu8t7khutdYeiNksBbFdDyeqv1HSW2Zl8aA==}
@@ -13182,19 +13187,22 @@ snapshots:
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
-  '@trpc/client@10.45.4(@trpc/server@10.45.4)':
+  '@trpc/client@11.19.0(@trpc/server@11.19.0(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
-      '@trpc/server': 10.45.4
+      '@trpc/server': 11.19.0(typescript@5.9.3)
+      typescript: 5.9.3
 
-  '@trpc/react-query@10.45.4(@tanstack/react-query@4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@trpc/client@10.45.4(@trpc/server@10.45.4))(@trpc/server@10.45.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@trpc/react-query@11.19.0(@tanstack/react-query@4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@trpc/client@11.19.0(@trpc/server@11.19.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.19.0(typescript@5.9.3))(react@18.3.1)(typescript@5.9.3)':
     dependencies:
       '@tanstack/react-query': 4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@trpc/client': 10.45.4(@trpc/server@10.45.4)
-      '@trpc/server': 10.45.4
+      '@trpc/client': 11.19.0(@trpc/server@11.19.0(typescript@5.9.3))(typescript@5.9.3)
+      '@trpc/server': 11.19.0(typescript@5.9.3)
       react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      typescript: 5.9.3
 
-  '@trpc/server@10.45.4': {}
+  '@trpc/server@11.19.0(typescript@5.9.3)':
+    dependencies:
+      typescript: 5.9.3
 
   '@tsconfig/node24@24.0.5': {}
 
@@ -17652,9 +17660,9 @@ snapshots:
     dependencies:
       openapi-typescript-helpers: 0.1.0
 
-  openapi-trpc@0.2.1(@trpc/server@10.45.4)(zod@4.6.7):
+  openapi-trpc@0.2.1(@trpc/server@11.19.0(typescript@5.9.3))(zod@4.6.7):
     dependencies:
-      '@trpc/server': 10.45.4
+      '@trpc/server': 11.19.0(typescript@5.9.3)
       openapi-types: 12.1.3
       zod: 4.6.7
       zod-to-json-schema: 3.25.2(zod@4.6.7)
