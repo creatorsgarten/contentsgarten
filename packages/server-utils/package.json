@@ -21,16 +21,16 @@
     "access": "public"
   },
   "devDependencies": {
-    "@trpc/client": "^10.16.0",
-    "@trpc/server": "^10.16.0",
+    "@trpc/client": "^11.0.0",
+    "@trpc/server": "^11.0.0",
     "@tsconfig/node24": "^24.0.0",
     "@types/node": "^24.0.0",
     "tsup": "^9.0.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@trpc/client": "^10.11.1",
-    "@trpc/server": "^10.11.1"
+    "@trpc/client": "^10.11.1 || ^11.0.0",
+    "@trpc/server": "^10.11.1 || ^11.0.0"
   },
   "repository": {
     "url": "git+https://github.com/creatorsgarten/contentsgarten"
